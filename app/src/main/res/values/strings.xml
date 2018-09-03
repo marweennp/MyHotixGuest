@@ -42,6 +42,11 @@
     <string name="sign_up">SignUp</string>
     <string name="button_send">Send</string>
     <string name="forgot_password_help_text">You will receive an email with a link to reset your password. </string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_history">History</string>
+    <string name="title_activities">Activities</string>
 
 </resources>
 
