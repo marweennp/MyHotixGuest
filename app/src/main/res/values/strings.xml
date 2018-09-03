@@ -1,0 +1,47 @@
+<resources>
+
+    <!-- App Name -->
+    <string name="app_name">My Hotix Guest</string>
+
+    <!-- EditText Hints -->
+    <string name="hint_login_email">E-mail</string>
+    <string name="hint_login_password">Password</string>
+
+    <!-- Buttons Texts -->
+    <string name="text_login_button">Login</string>
+
+    <!-- Errors Messages  -->
+    <string name="error_message_email_is_empty">Enter your E-mail Address</string>
+    <string name="error_message_email_invalid">Enter a valid E-mail Address</string>
+    <string name="error_message_password_empty">Enter Your Password</string>
+    <string name="error_message_password_too_short">Password Is Too Short</string>
+
+    <!-- Success Messages  -->
+    <string name="success_login_message">Login Successful</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- BottomNavigationView Menu  -->
+    <string name="title_profile">Profile</string>
+    <string name="title_bill">My Bill</string>
+    <string name="title_complaint">Complaints</string>
+    <string name="title_orders">Orders</string>
+    <string name="title_review">Review</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="splash_screen_footer_text">www.MyHotixGuest.com</string>
+    <string name="complaints_text">Complaints</string>
+    <string name="complaint_menu_add_text">Add</string>
+    <string name="complaint_menu_refresh_text">Refresh</string>
+    <string name="no_internet">No Internet Connection!</string>
+    <string name="unreachable_server">Login server is unreachable!</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="no_account_yet">No account yet? </string>
+    <string name="sign_up">SignUp</string>
+    <string name="button_send">Send</string>
+    <string name="forgot_password_help_text">You will receive an email with a link to reset your password. </string>
+
+</resources>
+
