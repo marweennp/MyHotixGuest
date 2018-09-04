@@ -1,13 +1,15 @@
-package com.hotix.myhotixguest;
+package com.hotix.myhotixguest.activitys;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashScreenActivity extends AppCompatActivity {
+import com.hotix.myhotixguest.R;
+
+public class ForgotPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.activity_forgot_password);
     }
 }
