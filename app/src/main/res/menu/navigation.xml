@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_Profile"
+        android:id="@+id/navigation_home"
         android:icon="@drawable/baseline_home_black_24"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_bill"
+        android:id="@+id/navigation_orders"
         android:icon="@drawable/baseline_store_mall_directory_black_24"
         android:title="@string/title_orders" />
 
@@ -17,7 +17,7 @@
         android:title="@string/title_complaint" />
 
     <item
-        android:id="@+id/navigation_orders"
+        android:id="@+id/navigation_activities"
         android:icon="@drawable/baseline_directions_run_24"
         android:title="@string/title_activities" />
 

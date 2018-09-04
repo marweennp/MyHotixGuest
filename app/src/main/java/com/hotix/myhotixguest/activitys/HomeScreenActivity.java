@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.ActivitiesFragment;
@@ -57,16 +58,16 @@ public class HomeScreenActivity extends AppCompatActivity implements
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_Profile:
+                    case R.id.navigation_home:
                         loadFragment(homeFragment);
                         return true;
-                    case R.id.navigation_bill:
+                    case R.id.navigation_orders:
                         loadFragment(ordersFragment);
                         return true;
                     case R.id.navigation_complaints:
                         loadFragment(complaintsFragment);
                         return true;
-                    case R.id.navigation_orders:
+                    case R.id.navigation_activities:
                         loadFragment(activitesFragment);
                         return true;
                     case R.id.navigation_review:
@@ -85,6 +86,14 @@ public class HomeScreenActivity extends AppCompatActivity implements
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        navigation.setSelectedItemId(R.id.navigation_home);
+        //Toast.makeText(getApplicationContext(), ""+navigation.getSelectedItemId()+"=="+R.id.navigation_Profile, Toast.LENGTH_LONG).show();
+        //super.onBackPressed();
+
     }
 
     @Override

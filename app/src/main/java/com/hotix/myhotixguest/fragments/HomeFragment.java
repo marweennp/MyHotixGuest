@@ -1,10 +1,12 @@
 package com.hotix.myhotixguest.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
+import com.hotix.myhotixguest.activitys.BillDetailsActivity;
+import com.hotix.myhotixguest.activitys.HistoryActivity;
+import com.hotix.myhotixguest.activitys.NewReservationActivity;
+import com.hotix.myhotixguest.activitys.ReservationDetailsActivity;
+import com.hotix.myhotixguest.activitys.SignupActivity;
+import com.squareup.picasso.Picasso;
 
 public class HomeFragment extends Fragment {
 
@@ -22,6 +30,11 @@ public class HomeFragment extends Fragment {
     private RelativeLayout _bill;
     private RelativeLayout _history;
     private RelativeLayout _newReservation;
+
+    private AppCompatImageView _reservationDetailsBG;
+    private AppCompatImageView _billBG;
+    private AppCompatImageView _historyBG;
+    private AppCompatImageView _newReservationBG;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -48,13 +61,29 @@ public class HomeFragment extends Fragment {
         _history = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_history_layout);
         _newReservation = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_new_reservation_layout);
 
+
+        _reservationDetailsBG = (AppCompatImageView) getActivity().findViewById(R.id.home_reservation_details_imageView);
+        _billBG = (AppCompatImageView) getActivity().findViewById(R.id.home_bill_imageView);
+        _historyBG = (AppCompatImageView) getActivity().findViewById(R.id.home_history_imageView);
+        _newReservationBG = (AppCompatImageView) getActivity().findViewById(R.id.home_new_reservation_imageView);
+
+        //Picasso.get().load(R.drawable.room).into(_reservationDetailsBG);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_1.jpg").fit().placeholder(R.drawable.room).into(_reservationDetailsBG);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_2.jpg").fit().placeholder(R.drawable.bill).into(_billBG);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_3.jpg").fit().placeholder(R.drawable.history).into(_historyBG);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_4.jpg").fit().placeholder(R.drawable.reservation).into(_newReservationBG);
+
+
+
         //Reservation Details OnClickListener
         _reservationDetails.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "Reservation Details", Toast.LENGTH_LONG).show();
+                //Start the ReservationDetailsActivity
+                Intent i = new Intent(getActivity(), ReservationDetailsActivity.class);
+                startActivity(i);
 
             }
         });
@@ -65,7 +94,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "Bill", Toast.LENGTH_LONG).show();
+                //Start the BillDetailsActivity
+                Intent i = new Intent(getActivity(), BillDetailsActivity.class);
+                startActivity(i);
 
             }
         });
@@ -76,7 +107,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "History", Toast.LENGTH_LONG).show();
+                //Start the HistoryActivity
+                Intent i = new Intent(getActivity(), HistoryActivity.class);
+                startActivity(i);
 
             }
         });
@@ -87,7 +120,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "New Reservation", Toast.LENGTH_LONG).show();
+                //Start the NewReservationActivity
+                Intent i = new Intent(getActivity(), NewReservationActivity.class);
+                startActivity(i);
 
             }
         });

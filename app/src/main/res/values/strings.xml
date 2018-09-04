@@ -47,6 +47,14 @@
     <string name="title_home">Home</string>
     <string name="title_history">History</string>
     <string name="title_activities">Activities</string>
+    <string name="error_message_title_is_empty">The Title  is Empty</string>
+    <string name="error_message_complaint_text_is_empty">The Complaint text  is Empty</string>
+    <string name="reservation_details">Reservation Details</string>
+    <string name="bill_details">Bill Details</string>
+    <string name="home_reservation_text">Reservation</string>
+    <string name="home_my_bill">My Bill</string>
+    <string name="home_history">History</string>
+    <string name="home_new_reservation">New Reservation</string>
 
 </resources>
 
