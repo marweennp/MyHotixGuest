@@ -90,9 +90,8 @@ public class HomeScreenActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        navigation.setSelectedItemId(R.id.navigation_home);
-        //Toast.makeText(getApplicationContext(), ""+navigation.getSelectedItemId()+"=="+R.id.navigation_Profile, Toast.LENGTH_LONG).show();
-        //super.onBackPressed();
+
+       if(navigation.getSelectedItemId() == R.id.navigation_home){finish();} else{navigation.setSelectedItemId(R.id.navigation_home);}
 
     }
 

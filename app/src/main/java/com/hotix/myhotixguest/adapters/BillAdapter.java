@@ -11,12 +11,13 @@ import android.widget.TextView;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.models.Bill;
+import com.hotix.myhotixguest.models.FactureData;
 
 import java.util.ArrayList;
 
-public class BillAdapter extends ArrayAdapter<Bill> {
+public class BillAdapter extends ArrayAdapter<FactureData> {
 
-    private ArrayList<Bill> dataSet;
+    private ArrayList<FactureData> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -27,7 +28,7 @@ public class BillAdapter extends ArrayAdapter<Bill> {
         TextView bill_transaction_tva;
     }
 
-    public BillAdapter(ArrayList<Bill> data, Context context) {
+    public BillAdapter(ArrayList<FactureData> data, Context context) {
         super(context, R.layout.bill_row_item, data);
         this.dataSet = data;
         this.mContext = context;
@@ -37,7 +38,7 @@ public class BillAdapter extends ArrayAdapter<Bill> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Bill dataModel = getItem(position);
+        FactureData dataModel = getItem(position);
 
         ViewHolder viewHolder;
 
@@ -61,10 +62,10 @@ public class BillAdapter extends ArrayAdapter<Bill> {
             result = convertView;
         }
 
-        viewHolder.bill_transaction_title.setText(dataModel.getBill_transaction_title());
-        viewHolder.bill_transaction_sum.setText(dataModel.getBill_transaction_sum());
-        viewHolder.bill_transaction_date.setText(dataModel.getBill_transaction_date());
-        viewHolder.bill_transaction_tva.setText(dataModel.getBill_transaction_tva());
+        viewHolder.bill_transaction_title.setText(dataModel.getDesignation());
+        viewHolder.bill_transaction_sum.setText(dataModel.getMontant().toString());
+        viewHolder.bill_transaction_date.setText(dataModel.getDateFacturation());
+        viewHolder.bill_transaction_tva.setText(dataModel.getMontant().toString());
 
         // Return the completed view to render on screen
         return convertView;

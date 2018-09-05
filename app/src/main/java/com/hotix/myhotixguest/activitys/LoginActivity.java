@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Picasso.get().load("http://196.203.219.164/android/pics_guest/logo.png").fit().placeholder(R.drawable.ic_launcher_foreground).into(imagelogin);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
 
 
 /********************************( Signup TextView HTML Format )***********************************/
