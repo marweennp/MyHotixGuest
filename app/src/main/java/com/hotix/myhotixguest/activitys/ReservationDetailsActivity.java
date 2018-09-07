@@ -1,8 +1,13 @@
 package com.hotix.myhotixguest.activitys;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
@@ -12,15 +17,62 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
+import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.models.DetailsPax;
+import com.hotix.myhotixguest.models.Guest;
+import com.hotix.myhotixguest.models.Sejour;
+import com.hotix.myhotixguest.retrofit2.RetrofitClient;
+import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ReservationDetailsActivity extends AppCompatActivity {
 
     // Butter Knife BindView Toolbar
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    // Butter Knife BindView RelativeLayout
+    @BindView(R.id.reservation_details_main_Layout)
+    RelativeLayout rLayout;
+
+    // Butter Knife BindView AppCompatTextView
+    @BindView(R.id.profile_user_name)
+    AppCompatTextView profileUserName;
+    @BindView(R.id.profile_user_res_type)
+    AppCompatTextView profileUserResType;
+    @BindView(R.id.profile_user_agency)
+    AppCompatTextView profileUserAgency;
+    @BindView(R.id.profile_arrival_date)
+    AppCompatTextView profileArrivalDate;
+    @BindView(R.id.profile_departure_date)
+    AppCompatTextView profileDepartureDate;
+    @BindView(R.id.profile_nights)
+    AppCompatTextView profileNights;
+    @BindView(R.id.profile_rooms_count)
+    AppCompatTextView profileRoomsCount;
+    @BindView(R.id.profile_room_type)
+    AppCompatTextView profileRoomType;
+    @BindView(R.id.profile_rate)
+    AppCompatTextView profileRate;
+    @BindView(R.id.profile_arrangement)
+    AppCompatTextView profileArrangement;
+    @BindView(R.id.profile_adults)
+    AppCompatTextView profileAdults;
+    @BindView(R.id.profile_kids)
+    AppCompatTextView profileKids;
+    @BindView(R.id.profile_babies)
+    AppCompatTextView profileBabies;
+
+    // Session Manager Class
+    Session session;
 
     // Butter Knife BindView LinearLayout
     @BindView(R.id.guests_details_container)
@@ -31,15 +83,75 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_details);
         ButterKnife.bind(this);
+        // Session Manager
+        session = new Session(getApplicationContext());
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.reservation_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        addGuestDetales();
-        addGuestDetales();
-        addGuestDetales();
+        loadData();
+    }
+
+    private void loadData() {
+
+        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        Call<Sejour> userCall = service.getStayQuery(session.getClientId().toString());
+
+        final ProgressDialog progressDialog = new ProgressDialog(ReservationDetailsActivity.this, R.style.AppThemeDialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading Sejour...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        userCall.enqueue(new Callback<Sejour>() {
+            @Override
+            public void onResponse(Call<Sejour> call, Response<Sejour> response) {
+
+                progressDialog.dismiss();
+
+                if (response.raw().code() == 200) {
+                    Sejour sejour = response.body();
+
+                    profileUserName.setText(session.getNom()+" "+session.getPrenom());
+                    profileUserResType.setText(session.getChambre());
+                    profileUserAgency.setText(sejour.getSociete());
+                    profileArrivalDate.setText(dateFormater(sejour.getDateArrivee()));
+                    profileDepartureDate.setText(dateFormater(sejour.getDateDepart()));
+                   // profileNights.setText(dateFormater(dateFormater(sejour.getDateDepart())));
+                    profileRoomsCount.setText(sejour.getChambre());
+                    profileRoomType.setText(sejour.getTypeChambre());
+                    profileRate.setText(sejour.getTarif());
+                    profileArrangement.setText(sejour.getArrangement());
+                    profileAdults.setText(sejour.getNbreA().toString());
+                    profileKids.setText(sejour.getNbreE().toString());
+                    profileBabies.setText(sejour.getNbreB().toString());
+
+                    for (DetailsPax obj : sejour.getDetailsPax()) {
+                        addGuestDetales(
+                                obj.getIsMatser(),
+                                "Mr",
+                                obj.getClientNom()+" "+obj.getClientPrenom(),
+                                obj.getClientNationalite(),
+                                obj.getClientDateNaissance(),
+                                obj.getClientAdresse(),
+                                obj.getClientPhone(),
+                                obj.getClientEmail());
+                    }
+
+                }else {
+                    showSnackbar(findViewById(android.R.id.content), response.message());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Sejour> call, Throwable t) {
+                progressDialog.dismiss();
+                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+            }
+        });
 
     }
 
@@ -54,7 +166,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public void addGuestDetales() {
+    public void addGuestDetales(boolean master, String cv, String name, String nat, String bd, String adr, String phone, String mail) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View guestView = inflater.inflate(R.layout.guest_details_row, null);
         AppCompatTextView guestIsMaster = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_is_master);
@@ -69,8 +181,29 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         AppCompatTextView guestPhone = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_phone);
         AppCompatImageView guestMailIcon = (AppCompatImageView) guestView.findViewById(R.id.profile_guest_details_mail_icon);
         AppCompatTextView guestMail = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_mail);
-//        fieldTitle.setText(title);
-//        fieldText.setText(text);
+
+        if (!master) {
+            guestIsMaster.setVisibility(View.GONE);
+        }
+        guestNameOp.setText(cv);
+        guestName.setText(name);
+        guestNationality.setText(nat);
+        if (bd.trim().isEmpty()) {
+            guestBirthDateIcon.setVisibility(View.GONE);
+            guestBirthDate.setVisibility(View.GONE);
+        }else {guestBirthDate.setText(bd);}
+        if (adr.trim().isEmpty()) {
+            guestAddressIcon.setVisibility(View.GONE);
+            guestAddress.setVisibility(View.GONE);
+        }else {guestAddress.setText(adr);}
+        if (phone.trim().isEmpty()) {
+            guestPhoneIcon.setVisibility(View.GONE);
+            guestPhone.setVisibility(View.GONE);
+        }else {guestPhone.setText(phone);}
+        if (mail.trim().isEmpty()) {
+            guestMailIcon.setVisibility(View.GONE);
+            guestMail.setVisibility(View.GONE);
+        }else {guestMail.setText(mail);}
 
         guestsContainer.addView(guestView);
     }

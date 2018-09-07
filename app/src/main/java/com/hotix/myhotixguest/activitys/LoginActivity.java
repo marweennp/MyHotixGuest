@@ -16,48 +16,49 @@ import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.InputValidation;
+import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.models.Guest;
+import com.hotix.myhotixguest.retrofit2.RetrofitClient;
+import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConnectionChecher.checkNetwork;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class LoginActivity extends AppCompatActivity {
 
     // Butter Knife BindView RelativeLayout
     @BindView(R.id.login_main_Layout)
     RelativeLayout rLayout;
-
     // Butter Knife BindView AppCompatImageView
     @BindView(R.id.login_logo_imageView)
     AppCompatImageView imagelogin;
-
     // Butter Knife BindView AppCompatEditText
     @BindView(R.id.input_login_email)
     AppCompatEditText _loginEmailText;
     @BindView(R.id.input_login_password)
     AppCompatEditText _loginPasswordText;
-
     // Butter Knife BindView AppCompatButton
     @BindView(R.id.login_button)
     AppCompatButton _loginButton;
-
     // Butter Knife BindView AppCompatTextView
     @BindView(R.id.login_forgot_password_text_view)
     AppCompatTextView _loginForgotPasswordTextView;
     @BindView(R.id.login_signup_text_view)
     AppCompatTextView _loginSignupTextView;
-
     // Butter Knife BindView TextInputLayout
     @BindView(R.id.text_input_layout_login_email)
     TextInputLayout _loginEmailTextInput;
     @BindView(R.id.text_input_layout_login_password)
     TextInputLayout _loginPasswordTextInput;
-
-    // Timer for tests
-    private static int LOGIN_TIME_OUT = 3000;
-
+    // Session Manager Class
+    Session session;
     // For input text Validation
     private InputValidation inputValidation;
 
@@ -66,9 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        // Session Manager
+        session = new Session(getApplicationContext());
 
         Picasso.get().load("http://196.203.219.164/android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
-
 
 /********************************( Signup TextView HTML Format )***********************************/
         String color1 = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)).substring(2, 8);
@@ -88,10 +90,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                if (inputTextValidation()) {
-//                    login();
-//                }
-                login();
+                if (inputTextValidation()) {
+                    login();
+                }
+                //login();
 
             }
         });
@@ -132,30 +134,63 @@ public class LoginActivity extends AppCompatActivity {
     /**********************************(  Login Logic  )*************************************/
     public void login() {
 
-        // TODO: Login....
-        checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
+        String uname = _loginEmailText.getText().toString();
+        String pwd = _loginPasswordText.getText().toString();
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppThemeDialog);
+        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        Call<Guest> userCall = service.getGuestQuery(uname, pwd);
+
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppThemeDialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Login...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        progressDialog.dismiss();
+        userCall.enqueue(new Callback<Guest>() {
+            @Override
+            public void onResponse(Call<Guest> call, Response<Guest> response) {
 
+                progressDialog.dismiss();
+
+                if (response.raw().code() == 200) {
+                    Guest guest = response.body();
+                    if (!(guest.getError() == -1)) {
+                        showSnackbar(findViewById(android.R.id.content), "Something went wrong. please verify your login or password");
+                    } else {
+
+                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                        session.clearSessionDetails();
+                        session.createNewGuestSession(
+                                response.body().getISResident(),
+                                response.body().getHasHistory(),
+                                response.body().getDateArrivee(),
+                                response.body().getDateDepart(),
+                                response.body().getChambre(),
+                                response.body().getEmail(),
+                                response.body().getNom(),
+                                response.body().getPrenom(),
+                                response.body().getResaId(),
+                                response.body().getClientId(),
+                                response.body().getFactureId(),
+                                response.body().getFactureAnnee());
                         //Start the HomeScreenActivity
                         Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
                         startActivity(i);
-
-                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-
                         finish();
                     }
-                }, LOGIN_TIME_OUT);
+
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), response.message());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Guest> call, Throwable t) {
+                progressDialog.dismiss();
+                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+            }
+        });
 
     }
 
@@ -166,13 +201,10 @@ public class LoginActivity extends AppCompatActivity {
         if (!inputValidation.isInputEditTextFilled(_loginEmailText, _loginEmailTextInput, getString(R.string.error_message_email_is_empty))) {
             return false;
         }
-        if (!inputValidation.isInputEditTextEmail(_loginEmailText, _loginEmailTextInput, getString(R.string.error_message_email_invalid))) {
-            return false;
-        }
         if (!inputValidation.isInputEditTextFilled(_loginPasswordText, _loginPasswordTextInput, getString(R.string.error_message_password_empty))) {
             return false;
         }
-        if (!inputValidation.isInputEditTextShort(_loginPasswordText, _loginPasswordTextInput, getString(R.string.error_message_password_too_short), 6)) {
+        if (!inputValidation.isInputEditTextShort(_loginPasswordText, _loginPasswordTextInput, getString(R.string.error_message_password_too_short), 4)) {
             return false;
         }
 

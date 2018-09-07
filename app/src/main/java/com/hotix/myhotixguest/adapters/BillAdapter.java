@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+
 public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
     Context mContext;
@@ -75,20 +77,6 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
         TextView bill_transaction_sum;
         TextView bill_transaction_currency;
         TextView bill_transaction_date;
-    }
-
-
-    public static String dateFormater(String date){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-        Date result;
-        try {
-            result = df.parse(date);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-            //sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-            return sdf.format(result);
-        }catch (Exception e){}
-
-        return "dd MMM yyyy";
     }
 
 }

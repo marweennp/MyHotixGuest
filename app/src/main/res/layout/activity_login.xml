@@ -26,7 +26,7 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <!-- Login E-mail Label -->
+        <!-- Login Username Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/text_input_layout_login_email"
             android:layout_width="match_parent"

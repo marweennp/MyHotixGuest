@@ -7,34 +7,45 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.BillDetailsActivity;
 import com.hotix.myhotixguest.activitys.HistoryActivity;
 import com.hotix.myhotixguest.activitys.NewReservationActivity;
 import com.hotix.myhotixguest.activitys.ReservationDetailsActivity;
-import com.hotix.myhotixguest.activitys.SignupActivity;
+import com.hotix.myhotixguest.helpers.Session;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static com.hotix.myhotixguest.helpers.Utils.newDateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HomeFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    // Session Manager Class
+    Session session;
 
+    private OnFragmentInteractionListener mListener;
     private RelativeLayout _guestDetails;
     private RelativeLayout _reservationDetails;
     private RelativeLayout _bill;
     private RelativeLayout _history;
     private RelativeLayout _newReservation;
-
     private AppCompatImageView _reservationDetailsBG;
     private AppCompatImageView _billBG;
     private AppCompatImageView _historyBG;
     private AppCompatImageView _newReservationBG;
+    private AppCompatTextView homeGuestName;
+    private AppCompatTextView homeGuestResType;
+    private AppCompatTextView homeGuestDate;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -54,6 +65,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        // Session Manager
+        session = new Session(getActivity());
 
         _guestDetails = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_guest_details_layout);
         _reservationDetails = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_reservation_details_layout);
@@ -61,18 +74,30 @@ public class HomeFragment extends Fragment {
         _history = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_history_layout);
         _newReservation = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_new_reservation_layout);
 
-
         _reservationDetailsBG = (AppCompatImageView) getActivity().findViewById(R.id.home_reservation_details_imageView);
         _billBG = (AppCompatImageView) getActivity().findViewById(R.id.home_bill_imageView);
         _historyBG = (AppCompatImageView) getActivity().findViewById(R.id.home_history_imageView);
         _newReservationBG = (AppCompatImageView) getActivity().findViewById(R.id.home_new_reservation_imageView);
 
-        //Picasso.get().load(R.drawable.room).into(_reservationDetailsBG);
-        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_1.jpg").fit().placeholder(R.drawable.room).into(_reservationDetailsBG);
-        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_2.jpg").fit().placeholder(R.drawable.bill).into(_billBG);
-        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_3.jpg").fit().placeholder(R.drawable.history).into(_historyBG);
-        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_4.jpg").fit().placeholder(R.drawable.reservation).into(_newReservationBG);
+        homeGuestName = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_name);
+        homeGuestResType = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_res_type);
+        homeGuestDate = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_date);
 
+        homeGuestName.setText(session.getNom() + " " + session.getPrenom());
+        if (session.getISResident()) {
+            homeGuestResType.setText(session.getChambre());
+            homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
+        } else {
+            homeGuestResType.setText(session.getEmail());
+            homeGuestDate.setText("No Reservations");
+        }
+
+
+        //Picasso.get().load(R.drawable.room).into(_reservationDetailsBG);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_1.jpg").fit().into(_reservationDetailsBG);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_2.jpg").fit().into(_billBG);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_3.jpg").fit().into(_historyBG);
+        Picasso.get().load("http://196.203.219.164/android/pics_guest/pic_4.jpg").fit().into(_newReservationBG);
 
 
         //Reservation Details OnClickListener
@@ -80,11 +105,13 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-
-                //Start the ReservationDetailsActivity
-                Intent i = new Intent(getActivity(), ReservationDetailsActivity.class);
-                startActivity(i);
-
+                if (session.getISResident()) {
+                    //Start the ReservationDetailsActivity
+                    Intent i = new Intent(getActivity(), ReservationDetailsActivity.class);
+                    startActivity(i);
+                } else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), "You must be a resident to use this feature");
+                }
             }
         });
 
@@ -94,9 +121,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //Start the BillDetailsActivity
-                Intent i = new Intent(getActivity(), BillDetailsActivity.class);
-                startActivity(i);
+                if (session.getISResident()) {
+                    //Start the BillDetailsActivity
+                    Intent i = new Intent(getActivity(), BillDetailsActivity.class);
+                    startActivity(i);
+                } else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), "You must be a resident to use this feature");
+                }
 
             }
         });
@@ -107,9 +138,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //Start the HistoryActivity
-                Intent i = new Intent(getActivity(), HistoryActivity.class);
-                startActivity(i);
+                if (session.getHasHistory()) {
+                    //Start the HistoryActivity
+                    Intent i = new Intent(getActivity(), HistoryActivity.class);
+                    startActivity(i);
+                } else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), "You have no history to check");
+                }
 
             }
         });
@@ -150,4 +185,5 @@ public class HomeFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

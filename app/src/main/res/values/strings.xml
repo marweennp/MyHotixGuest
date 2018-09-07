@@ -4,7 +4,7 @@
     <string name="app_name">My Hotix Guest</string>
 
     <!-- EditText Hints -->
-    <string name="hint_login_email">E-mail</string>
+    <string name="hint_login_email">Username</string>
     <string name="hint_login_password">Password</string>
 
     <!-- Buttons Texts -->
