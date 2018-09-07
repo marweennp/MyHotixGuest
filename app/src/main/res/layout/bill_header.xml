@@ -25,7 +25,7 @@
             android:layout_below="@+id/bill_title_text"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="16dp"
-            android:text="0001-2018"
+            android:text="0000-0000"
             android:textColor="@color/white"
             android:textSize="32dp"
             android:textStyle="bold" />
@@ -37,7 +37,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
-            android:text="01/01/2018 - 05/01/2018" />
+            android:text="00/00/0000 - 00/00/0000" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/bill_owner_text"

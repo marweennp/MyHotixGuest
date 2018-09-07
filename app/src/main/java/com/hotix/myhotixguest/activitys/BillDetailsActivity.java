@@ -6,19 +6,17 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.BillAdapter;
-import com.hotix.myhotixguest.models.Bill;
 import com.hotix.myhotixguest.models.Facture;
-import com.hotix.myhotixguest.models.FactureData;
+import com.hotix.myhotixguest.models.FactureModel;
+import com.hotix.myhotixguest.models.LignesFacture;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,10 +34,12 @@ public class BillDetailsActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private AppCompatTextView billTotalHt;
+    private AppCompatTextView billTotalTTC;
+    private AppCompatTextView billDate;
+    private AppCompatTextView billOwner;
+    private AppCompatTextView billNumber;
 
-    ArrayList<FactureData> factures;
-    ArrayList<Bill> dataModels;
+    ArrayList<LignesFacture> l_factures;
     private static BillAdapter adapter;
 
     @Override
@@ -48,6 +48,7 @@ public class BillDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bill_details);
         ButterKnife.bind(this);
 
+        l_factures = new ArrayList<>();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.bill_details);
@@ -56,28 +57,14 @@ public class BillDetailsActivity extends AppCompatActivity {
 
         View header = (View)getLayoutInflater().inflate(R.layout.bill_header,null);
         View footer = (View)getLayoutInflater().inflate(R.layout.bill_footer,null);
-        billTotalHt = (AppCompatTextView) footer.findViewById(R.id.bill_total_ht_text);
+        billNumber = (AppCompatTextView) header.findViewById(R.id.bill_number_text);
+        billOwner = (AppCompatTextView) header.findViewById(R.id.bill_owner_text);
+        billDate = (AppCompatTextView) header.findViewById(R.id.bill_date_text);
+        billTotalTTC = (AppCompatTextView) footer.findViewById(R.id.bill_total_ttc_text);
         listView.addHeaderView(header);
         listView.addFooterView(footer);
 
-        factures = new ArrayList<>();
-
         loadeBills();
-
-//        dataModels= new ArrayList<>();
-//
-//        dataModels.add(new Bill("Frais de service", "01/01/2018", "60.0 DT","TVA 0.0%"));
-//        dataModels.add(new Bill("Frais de service", "01/01/2018", "60.0 DT","TVA 0.0%"));
-//        dataModels.add(new Bill("Frais de service", "01/01/2018", "60.0 DT","TVA 0.0%"));
-//        dataModels.add(new Bill("Frais de service", "01/01/2018", "60.0 DT","TVA 0.0%"));
-//        dataModels.add(new Bill("Frais de service", "01/01/2018", "60.0 DT","TVA 0.0%"));
-//        dataModels.add(new Bill("Frais de service", "01/01/2018", "100.0 DT","TVA 0.0%"));
-//        dataModels.add(new Bill("Frais de service", "01/01/2018", "100.0 DT","TVA 0.0%"));
-//
-//        adapter= new BillAdapter(dataModels,getApplicationContext());
-//
-//        listView.setAdapter(adapter);
-
 
     }
 
@@ -90,31 +77,26 @@ public class BillDetailsActivity extends AppCompatActivity {
     private void loadeBills() {
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
-        Call<Facture> userCall = service.getFactureQuery("7201");
+        Call<FactureModel> billCall = service.getFactureModelQuery("4371","2018");
 
-        userCall.enqueue(new Callback<Facture>() {
+        billCall.enqueue(new Callback<FactureModel>() {
             @Override
-            public void onResponse(Call<Facture> call, Response<Facture> response) {
+            public void onResponse(Call<FactureModel> call, Response<FactureModel> response) {
 
-                Double sum = 0.00;
+                FactureModel factureM = response.body();
+                l_factures = factureM.getFacture().getLignesFacture();
 
-                Facture facture = response.body();
-
-                factures = facture.getData();
-                for (FactureData obj : factures) {
-                    if(obj.getComment().equals("Fact. Auto")||obj.getComment().equals("Taxe de Séjour")){sum +=obj.getMontant();}
-
-                }
-
-                adapter= new BillAdapter(factures,getApplicationContext());
+                adapter= new BillAdapter(l_factures,getApplicationContext());
 
                 listView.setAdapter(adapter);
 
-                billTotalHt.setText(""+sum);
+                billNumber.setText(factureM.getFacture().getId()+"-"+factureM.getFacture().getAnnee());
+                billTotalTTC.setText(""+factureM.getFacture().getTotalTTC()+" "+factureM.getFacture().getDevise());
+
             }
 
             @Override
-            public void onFailure(Call<Facture> call, Throwable t) {
+            public void onFailure(Call<FactureModel> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

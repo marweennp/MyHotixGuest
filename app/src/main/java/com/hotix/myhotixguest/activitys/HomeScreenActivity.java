@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.ActivitiesFragment;
@@ -90,9 +89,11 @@ public class HomeScreenActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-
-       if(navigation.getSelectedItemId() == R.id.navigation_home){finish();} else{navigation.setSelectedItemId(R.id.navigation_home);}
-
+        if (navigation.getSelectedItemId() == R.id.navigation_home) {
+            finish();
+        } else {
+            navigation.setSelectedItemId(R.id.navigation_home);
+        }
     }
 
     @Override

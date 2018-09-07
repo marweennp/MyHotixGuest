@@ -41,7 +41,7 @@
     <string name="no_account_yet">No account yet? </string>
     <string name="sign_up">SignUp</string>
     <string name="button_send">Send</string>
-    <string name="forgot_password_help_text">You will receive an email with a link to reset your password. </string>
+    <string name="forgot_password_help_text">You should receive an email containing your new password shortly. </string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_home">Home</string>
@@ -51,7 +51,7 @@
     <string name="error_message_complaint_text_is_empty">The Complaint text  is Empty</string>
     <string name="reservation_details">Reservation Details</string>
     <string name="bill_details">Bill Details</string>
-    <string name="home_reservation_text">Reservation</string>
+    <string name="home_reservation_text">Current Stay</string>
     <string name="home_my_bill">My Bill</string>
     <string name="home_history">History</string>
     <string name="home_new_reservation">New Reservation</string>

@@ -29,9 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.login_main_Layout)
     RelativeLayout rLayout;
 
+    // Butter Knife BindView AppCompatImageView
     @BindView(R.id.login_logo_imageView)
     AppCompatImageView imagelogin;
-
 
     // Butter Knife BindView AppCompatEditText
     @BindView(R.id.input_login_email)
@@ -58,13 +58,13 @@ public class LoginActivity extends AppCompatActivity {
     // Timer for tests
     private static int LOGIN_TIME_OUT = 3000;
 
+    // For input text Validation
     private InputValidation inputValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         ButterKnife.bind(this);
 
         Picasso.get().load("http://196.203.219.164/android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);

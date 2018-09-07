@@ -205,7 +205,7 @@
                             android:id="@+id/profile_rooms_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rooms"
+                            android:text="Room N°"
                             android:textColor="@color/light_bg_dark_secondary_text"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -404,7 +404,7 @@
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary" />
 
-            <!-- Profile Reservation Details -->
+            <!-- Profile Guest Details -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -422,8 +422,9 @@
                     android:textColor="@color/colorBackground"
                     android:textSize="16dp"
                     android:textStyle="bold" />
-
+                <!-- Guests Details Container -->
                 <LinearLayout
+                    android:id="@+id/guests_details_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_guest_details_text"
@@ -431,100 +432,7 @@
                     android:layout_marginTop="16dp"
                     android:orientation="vertical"
                     android:paddingBottom="24dp">
-
-                    <!-- Name -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_guest_details_name_op"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mr."
-                            android:textColor="@color/light_bg_dark_secondary_text"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_guest_details_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Foulan Foulani"
-                            android:textColor="@color/light_bg_dark_primary_text"
-                            android:textSize="16dp" />
-
-                    </LinearLayout>
-
-                    <!-- Nationality -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_guest_details_nationality"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tunisian"
-                            android:textColor="@color/light_bg_dark_primary_text"
-                            android:textSize="16dp" />
-
-                    </LinearLayout>
-
-                    <!-- Phone -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/profile_guest_details_phone_icon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:tint="@color/light_bg_dark_secondary_text"
-                            app:srcCompat="@drawable/baseline_smartphone_24" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_guest_details_phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:text="+000 00 000 000"
-                            android:textColor="@color/light_bg_dark_primary_text"
-                            android:textSize="16dp" />
-
-                    </LinearLayout>
-
-                    <!-- Mail -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/profile_guest_details_mail_icon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:tint="@color/light_bg_dark_secondary_text"
-                            app:srcCompat="@drawable/baseline_email_24" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_guest_details_mail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:text="foulan.foulani@mail.com"
-                            android:textColor="@color/light_bg_dark_primary_text"
-                            android:textSize="16dp" />
-
-                    </LinearLayout>
-
-
+                    <!-- Guests Details -->
                 </LinearLayout>
 
             </RelativeLayout>
