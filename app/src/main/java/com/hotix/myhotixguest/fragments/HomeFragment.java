@@ -21,10 +21,7 @@ import com.hotix.myhotixguest.activitys.ReservationDetailsActivity;
 import com.hotix.myhotixguest.helpers.Session;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import static com.hotix.myhotixguest.helpers.Utils.newCalculateDaysBetween;
 import static com.hotix.myhotixguest.helpers.Utils.newDateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
@@ -43,9 +40,13 @@ public class HomeFragment extends Fragment {
     private AppCompatImageView _billBG;
     private AppCompatImageView _historyBG;
     private AppCompatImageView _newReservationBG;
+    private AppCompatImageView homeGuestNightsIcon;
     private AppCompatTextView homeGuestName;
     private AppCompatTextView homeGuestResType;
     private AppCompatTextView homeGuestDate;
+    private AppCompatTextView homeGuestNights;
+    private AppCompatTextView homeResaDetailsTitle;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -78,18 +79,29 @@ public class HomeFragment extends Fragment {
         _billBG = (AppCompatImageView) getActivity().findViewById(R.id.home_bill_imageView);
         _historyBG = (AppCompatImageView) getActivity().findViewById(R.id.home_history_imageView);
         _newReservationBG = (AppCompatImageView) getActivity().findViewById(R.id.home_new_reservation_imageView);
+        homeGuestNightsIcon = (AppCompatImageView) getActivity().findViewById(R.id.home_guest_nights_icon);
 
         homeGuestName = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_name);
         homeGuestResType = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_res_type);
         homeGuestDate = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_date);
+        homeGuestNights = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_nights);
+        homeResaDetailsTitle = (AppCompatTextView) getActivity().findViewById(R.id.home_reservation_details_title);
 
         homeGuestName.setText(session.getNom() + " " + session.getPrenom());
         if (session.getISResident()) {
             homeGuestResType.setText(session.getChambre());
             homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
+            homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
+        } else if (session.getResaId() != 0) {
+            homeGuestResType.setText(session.getEmail());
+            homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
+            homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
+            homeResaDetailsTitle.setText("My Reservation");
         } else {
             homeGuestResType.setText(session.getEmail());
-            homeGuestDate.setText("No Reservations");
+            homeGuestDate.setText(R.string.no_reservations);
+            homeGuestNights.setVisibility(View.GONE);
+            homeGuestNightsIcon.setVisibility(View.GONE);
         }
 
 
@@ -105,9 +117,14 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
+
+                Intent i = new Intent(getActivity(), ReservationDetailsActivity.class);
+                i.putExtra("resaId", session.getResaId().toString());
+                i.putExtra("histo","");
+
                 if (session.getISResident()) {
-                    //Start the ReservationDetailsActivity
-                    Intent i = new Intent(getActivity(), ReservationDetailsActivity.class);
+                    startActivity(i);
+                } else if (session.getResaId() != 0) {
                     startActivity(i);
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), "You must be a resident to use this feature");
@@ -124,6 +141,8 @@ public class HomeFragment extends Fragment {
                 if (session.getISResident()) {
                     //Start the BillDetailsActivity
                     Intent i = new Intent(getActivity(), BillDetailsActivity.class);
+                    i.putExtra("billId", session.getFactureId().toString());
+                    i.putExtra("billAn", session.getFactureAnnee().toString());
                     startActivity(i);
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), "You must be a resident to use this feature");

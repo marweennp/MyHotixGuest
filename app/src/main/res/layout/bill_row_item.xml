@@ -6,14 +6,12 @@
 
     <!-- Color Layout Left -->
     <RelativeLayout
-        android:id="@+id/complaint_color_layout_Left"
         android:layout_width="4dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:background="@color/colorBackground" />
     <!-- Color Layout Right -->
     <RelativeLayout
-        android:id="@+id/complaint_color_layout_Right"
         android:layout_width="4dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"

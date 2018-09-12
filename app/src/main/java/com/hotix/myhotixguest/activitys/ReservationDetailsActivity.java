@@ -3,11 +3,8 @@ package com.hotix.myhotixguest.activitys;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +16,6 @@ import android.widget.RelativeLayout;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.DetailsPax;
-import com.hotix.myhotixguest.models.Guest;
 import com.hotix.myhotixguest.models.Sejour;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
@@ -30,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hotix.myhotixguest.helpers.Utils.calculateDaysBetween;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
@@ -38,11 +35,9 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     // Butter Knife BindView Toolbar
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
     // Butter Knife BindView RelativeLayout
     @BindView(R.id.reservation_details_main_Layout)
     RelativeLayout rLayout;
-
     // Butter Knife BindView AppCompatTextView
     @BindView(R.id.profile_user_name)
     AppCompatTextView profileUserName;
@@ -70,14 +65,19 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     AppCompatTextView profileKids;
     @BindView(R.id.profile_babies)
     AppCompatTextView profileBabies;
-
+    @BindView(R.id.profile_bill_icon)
+    AppCompatImageView billIcon;
     // Session Manager Class
     Session session;
-
     // Butter Knife BindView LinearLayout
     @BindView(R.id.guests_details_container)
     LinearLayout guestsContainer;
-    
+
+    private String resaId;
+    private String  billId;
+    private String  billAn;
+    private String histo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,13 +91,34 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            resaId = extras.getString("resaId");
+            histo = extras.getString("histo");
+        }
+
+        if(!histo.equals("histo")){billIcon.setVisibility(View.GONE);}
+
+        billIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (session.getISResident()) {
+                    //Start the BillDetailsActivity
+                    Intent i = new Intent(getApplicationContext(), BillDetailsActivity.class);
+                    i.putExtra("billId", billId);
+                    i.putExtra("billAn", billAn);
+                    startActivity(i);
+                }
+            }
+        });
+
         loadData();
     }
 
     private void loadData() {
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
-        Call<Sejour> userCall = service.getStayQuery(session.getClientId().toString());
+        Call<Sejour> userCall = service.getStayQuery(resaId);
 
         final ProgressDialog progressDialog = new ProgressDialog(ReservationDetailsActivity.this, R.style.AppThemeDialog);
         progressDialog.setIndeterminate(true);
@@ -114,12 +135,12 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 if (response.raw().code() == 200) {
                     Sejour sejour = response.body();
 
-                    profileUserName.setText(session.getNom()+" "+session.getPrenom());
+                    profileUserName.setText(session.getNom() + " " + session.getPrenom());
                     profileUserResType.setText(session.getChambre());
                     profileUserAgency.setText(sejour.getSociete());
                     profileArrivalDate.setText(dateFormater(sejour.getDateArrivee()));
                     profileDepartureDate.setText(dateFormater(sejour.getDateDepart()));
-                   // profileNights.setText(dateFormater(dateFormater(sejour.getDateDepart())));
+                    profileNights.setText(calculateDaysBetween(sejour.getDateArrivee(), sejour.getDateDepart()));
                     profileRoomsCount.setText(sejour.getChambre());
                     profileRoomType.setText(sejour.getTypeChambre());
                     profileRate.setText(sejour.getTarif());
@@ -127,12 +148,14 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                     profileAdults.setText(sejour.getNbreA().toString());
                     profileKids.setText(sejour.getNbreE().toString());
                     profileBabies.setText(sejour.getNbreB().toString());
+                    billId = sejour.getFactureId().toString();
+                    billAn = sejour.getFactureAnnee().toString();
 
                     for (DetailsPax obj : sejour.getDetailsPax()) {
                         addGuestDetales(
                                 obj.getIsMatser(),
                                 "Mr",
-                                obj.getClientNom()+" "+obj.getClientPrenom(),
+                                obj.getClientNom() + " " + obj.getClientPrenom(),
                                 obj.getClientNationalite(),
                                 obj.getClientDateNaissance(),
                                 obj.getClientAdresse(),
@@ -140,7 +163,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                                 obj.getClientEmail());
                     }
 
-                }else {
+                } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
 
@@ -191,19 +214,27 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         if (bd.trim().isEmpty()) {
             guestBirthDateIcon.setVisibility(View.GONE);
             guestBirthDate.setVisibility(View.GONE);
-        }else {guestBirthDate.setText(bd);}
+        } else {
+            guestBirthDate.setText(bd);
+        }
         if (adr.trim().isEmpty()) {
             guestAddressIcon.setVisibility(View.GONE);
             guestAddress.setVisibility(View.GONE);
-        }else {guestAddress.setText(adr);}
+        } else {
+            guestAddress.setText(adr);
+        }
         if (phone.trim().isEmpty()) {
             guestPhoneIcon.setVisibility(View.GONE);
             guestPhone.setVisibility(View.GONE);
-        }else {guestPhone.setText(phone);}
+        } else {
+            guestPhone.setText(phone);
+        }
         if (mail.trim().isEmpty()) {
             guestMailIcon.setVisibility(View.GONE);
             guestMail.setVisibility(View.GONE);
-        }else {guestMail.setText(mail);}
+        } else {
+            guestMail.setText(mail);
+        }
 
         guestsContainer.addView(guestView);
     }

@@ -11,6 +11,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -169,6 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                                 response.body().getEmail(),
                                 response.body().getNom(),
                                 response.body().getPrenom(),
+                                response.body().getEtatResa(),
                                 response.body().getResaId(),
                                 response.body().getClientId(),
                                 response.body().getFactureId(),
@@ -181,6 +183,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
+                    Log.i("TEST",response.toString());
                 }
 
             }

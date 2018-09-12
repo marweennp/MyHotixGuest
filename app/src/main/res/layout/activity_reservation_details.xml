@@ -66,6 +66,18 @@
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/profile_bill_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/baseline_receipt_black_36"
+                    android:tint="@color/white" />
+
             </RelativeLayout>
 
             <!-- Divider -->
@@ -164,15 +176,14 @@
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_nights_text"
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/profile_nights_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Nights"
-                        android:textColor="@color/light_bg_dark_secondary_text"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:tint="@color/light_bg_dark_secondary_text"
+                        app:srcCompat="@drawable/baseline_moon_24" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/profile_nights"

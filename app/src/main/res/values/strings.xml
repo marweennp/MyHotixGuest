@@ -55,6 +55,13 @@
     <string name="home_my_bill">My Bill</string>
     <string name="home_history">History</string>
     <string name="home_new_reservation">New Reservation</string>
+    <string name="no_reservations">No Reservations</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="hint_adress">Adress</string>
 
 </resources>
 

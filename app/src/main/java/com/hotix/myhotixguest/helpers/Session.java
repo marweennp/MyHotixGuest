@@ -14,6 +14,7 @@ public class Session {
     public static final String KEY_Email = "Email";
     public static final String KEY_Nom = "Nom";
     public static final String KEY_Prenom = "Prenom";
+    public static final String KEY_EtatResa = "EtatResa";
     public static final String KEY_ResaId = "ResaId";
     public static final String KEY_ClientId = "ClientId";
     public static final String KEY_FactureId = "FactureId";
@@ -40,7 +41,7 @@ public class Session {
 
     //Create new guest session
 
-    public void createNewGuestSession(boolean iSResident, boolean HasHistory, String DateArrivee, String DateDepart, String Chambre, String Email, String Nom, String Prenom, Integer ResaId, Integer ClientId, Integer FactureId, Integer FactureAnnee) {
+    public void createNewGuestSession(boolean iSResident, boolean HasHistory, String DateArrivee, String DateDepart, String Chambre, String Email, String Nom, String Prenom, Integer EtatResa, Integer ResaId, Integer ClientId, Integer FactureId, Integer FactureAnnee) {
 
         // Booleans
         editor.putBoolean(KEY_iSResident, iSResident);
@@ -55,6 +56,7 @@ public class Session {
         editor.putString(KEY_Prenom, Prenom);
 
         // Integers
+        editor.putInt(KEY_EtatResa, EtatResa);
         editor.putInt(KEY_ResaId, ResaId);
         editor.putInt(KEY_ClientId, ClientId);
         editor.putInt(KEY_FactureId, FactureId);
@@ -97,6 +99,10 @@ public class Session {
         return pref.getString(KEY_Prenom, null);
     }
 
+
+    public Integer getEtatResa() {
+        return pref.getInt(KEY_EtatResa, 0);
+    }
 
     public Integer getResaId() {
         return pref.getInt(KEY_ResaId, 0);

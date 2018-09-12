@@ -31,7 +31,7 @@ public class Utils {
 
     //Date formatter from "dd/mm/yyyy" to "dd MMM yyyy"
     public static String newDateFormater(String date){
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date result;
         try {
             result = df.parse(date);
@@ -41,6 +41,36 @@ public class Utils {
         }catch (Exception e){}
 
         return "dd MMM yyyy";
+    }
+
+    //Calculate the number of days between two dates "yyyy-MM-dd'T'hh:mm:ss"
+    public static String calculateDaysBetween(String startDate, String endDate ){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+        Date start;
+        Date end;
+        try {
+            start = df.parse(startDate);
+            end = df.parse(endDate);
+
+            return Long.toString((end.getTime() - start.getTime())/ (24 * 60 * 60 * 1000));
+        }catch (Exception e){}
+
+        return "0";
+    }
+
+    //Calculate the number of days between two dates "dd/MM/yyyy"
+    public static String newCalculateDaysBetween(String startDate, String endDate ){
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date start;
+        Date end;
+        try {
+            start = df.parse(startDate);
+            end = df.parse(endDate);
+
+            return Long.toString((end.getTime() - start.getTime())/ (24 * 60 * 60 * 1000));
+        }catch (Exception e){}
+
+        return "0";
     }
 
     /*Show a SnackBar with msg*/

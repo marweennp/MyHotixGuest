@@ -42,10 +42,12 @@ public class BillDetailsActivity extends AppCompatActivity {
     Session session;
     ArrayList<LignesFacture> l_factures;
     private AppCompatTextView billTotalTTC;
+    private AppCompatTextView billHeadTotalTTC;
     private AppCompatTextView billDate;
     private AppCompatTextView billOwner;
     private AppCompatTextView billNumber;
-
+    private String  billId;
+    private String  billAn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,13 @@ public class BillDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            billId = extras.getString("billId");
+            billAn = extras.getString("billAn");
+        }
+
 
         l_factures = new ArrayList<>();
 
@@ -66,6 +75,7 @@ public class BillDetailsActivity extends AppCompatActivity {
         billNumber = (AppCompatTextView) header.findViewById(R.id.bill_number_text);
         billOwner = (AppCompatTextView) header.findViewById(R.id.bill_owner_text);
         billDate = (AppCompatTextView) header.findViewById(R.id.bill_date_text);
+        billHeadTotalTTC = (AppCompatTextView) header.findViewById(R.id.bill_header_total_ttc_text);
         billTotalTTC = (AppCompatTextView) footer.findViewById(R.id.bill_total_ttc_text);
         listView.addHeaderView(header);
         listView.addFooterView(footer);
@@ -86,7 +96,7 @@ public class BillDetailsActivity extends AppCompatActivity {
     private void loadeBills() {
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
-        Call<Facture> billCall = service.getFactureQuery(session.getFactureId().toString(), session.getFactureAnnee().toString());
+        Call<Facture> billCall = service.getFactureQuery(billId, billAn);
 
         final ProgressDialog progressDialog = new ProgressDialog(BillDetailsActivity.this, R.style.AppThemeDialog);
         progressDialog.setIndeterminate(true);
@@ -107,6 +117,7 @@ public class BillDetailsActivity extends AppCompatActivity {
                     listView.setAdapter(adapter);
 
                     billNumber.setText(facture.getId() + "-" + facture.getAnnee());
+                    billHeadTotalTTC.setText("" + facture.getTotalTTC() + " " + facture.getDevise());
                     billTotalTTC.setText("" + facture.getTotalTTC() + " " + facture.getDevise());
                 }else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
