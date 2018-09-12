@@ -1,5 +1,6 @@
 package com.hotix.myhotixguest.retrofit2;
 
+import com.hotix.myhotixguest.models.Event;
 import com.hotix.myhotixguest.models.Facture;
 import com.hotix.myhotixguest.models.Guest;
 import com.hotix.myhotixguest.models.Sejour;
@@ -28,6 +29,9 @@ public interface RetrofitInterface {
     @GET("myhotixguest/getdetailsfacture?")
     Call<Facture> getFactureQuery(@Query("id") String id, @Query("annee") String annee);
 
+    //Get Bill Details service call
+    @GET("myhotixguest/getactivites")
+    Call<ArrayList<Event>> getActivitesQuery();
 
 
 }

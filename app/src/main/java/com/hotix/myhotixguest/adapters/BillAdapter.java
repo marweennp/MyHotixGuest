@@ -47,7 +47,6 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
             convertView = inflater.inflate(R.layout.bill_row_item, parent, false);
             viewHolder.bill_transaction_title = (TextView) convertView.findViewById(R.id.bill_transaction_title);
             viewHolder.bill_transaction_sum = (TextView) convertView.findViewById(R.id.bill_transaction_sum);
-            viewHolder.bill_transaction_currency = (TextView) convertView.findViewById(R.id.bill_transaction_currency);
             viewHolder.bill_transaction_date = (TextView) convertView.findViewById(R.id.bill_transaction_date);
 
             result = convertView;
@@ -60,7 +59,6 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
         viewHolder.bill_transaction_title.setText(dataModel.getDescription());
         viewHolder.bill_transaction_sum.setText(""+dataModel.getMontant().toString());
-        viewHolder.bill_transaction_currency.setText(dataModel.getDevise());
         viewHolder.bill_transaction_date.setText(dateFormater(dataModel.getDate()));
 
         if (!(dataModel.getModePaiement() == 0)) {
@@ -75,7 +73,6 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
     private static class ViewHolder {
         TextView bill_transaction_title;
         TextView bill_transaction_sum;
-        TextView bill_transaction_currency;
         TextView bill_transaction_date;
     }
 

@@ -62,6 +62,7 @@
     <string name="last_name">Last Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="hint_adress">Adress</string>
+    <string name="events_text">Events</string>
 
 </resources>
 
