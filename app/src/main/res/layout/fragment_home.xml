@@ -109,7 +109,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:text="@string/home_reservation_text"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -157,7 +158,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:text="@string/home_my_bill"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -205,7 +207,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:text="@string/home_history"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -254,7 +257,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:text="@string/home_new_reservation"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

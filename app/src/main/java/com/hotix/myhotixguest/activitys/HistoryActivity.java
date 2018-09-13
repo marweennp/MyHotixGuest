@@ -50,7 +50,7 @@ public class HistoryActivity extends AppCompatActivity {
         l_sejours = new ArrayList<>();
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(R.string.my_history);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

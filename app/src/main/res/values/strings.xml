@@ -12,6 +12,7 @@
 
     <!-- Errors Messages  -->
     <string name="error_message_email_is_empty">Enter your E-mail Address</string>
+    <string name="error_message_username_is_empty">Enter your Username</string>
     <string name="error_message_email_invalid">Enter a valid E-mail Address</string>
     <string name="error_message_password_empty">Enter Your Password</string>
     <string name="error_message_password_too_short">Password Is Too Short</string>
@@ -50,6 +51,7 @@
     <string name="error_message_title_is_empty">The Title  is Empty</string>
     <string name="error_message_complaint_text_is_empty">The Complaint text  is Empty</string>
     <string name="reservation_details">Reservation Details</string>
+    <string name="my_history">My History</string>
     <string name="bill_details">Bill Details</string>
     <string name="home_reservation_text">Current Stay</string>
     <string name="home_my_bill">My Bill</string>
@@ -63,6 +65,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="hint_adress">Adress</string>
     <string name="events_text">Events</string>
+    <string name="day_till_check_in">Day till check-in</string>
 
 </resources>
 

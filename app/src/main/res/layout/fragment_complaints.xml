@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".fragments.ComplaintsFragment">
 
@@ -19,18 +19,50 @@
 
     <ListView
         android:id="@+id/complaint_list"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
         android:layout_marginBottom="56dp"
-        android:drawSelectorOnTop="true"
         android:divider="@color/colorBackground"
+        android:background="@color/red_500"
         android:dividerHeight="1px"
-        />
+        android:drawSelectorOnTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/empty"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- Empty List Icon -->
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/empty_list_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/cloud_ico"
+            android:tint="@color/light_bg_dark_disabled_text"/>
+
+        <!-- Empty List TextView -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/empty_list_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/empty_list_icon"
+            android:layout_marginTop="10dp"
+            android:text="No item to show."
+            android:textColor="@color/light_bg_dark_disabled_text"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+
+
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton_add"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

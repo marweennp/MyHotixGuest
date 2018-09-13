@@ -13,6 +13,8 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     // Splash screen timer
@@ -30,8 +32,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
 
-        Picasso.get().load("http://196.203.219.164/android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(splashScreen);
-
+        Picasso.get().load(BASE_URL+"/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(splashScreen);
 
         new Handler().postDelayed(new Runnable() {
 

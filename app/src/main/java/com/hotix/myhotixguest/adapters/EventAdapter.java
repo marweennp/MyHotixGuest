@@ -1,6 +1,7 @@
 package com.hotix.myhotixguest.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
+import static com.hotix.myhotixguest.helpers.Utils.timeFormater;
 
 public class EventAdapter extends ArrayAdapter<Event> {
 
@@ -60,14 +64,18 @@ public class EventAdapter extends ArrayAdapter<Event> {
             result = convertView;
         }
 
-        viewHolder.event_row_head_date.setText(dateFormater(dataModel.getDateDebut())+"->"+dateFormater(dataModel.getDateFin()));
-        viewHolder.event_row_head_time.setText("00:00");
+        viewHolder.event_row_head_date.setText(Html.fromHtml(dateTowColors(dateFormater(dataModel.getDateDebut()),getContext())));
+        viewHolder.event_row_head_time.setText(timeFormater("19:06:00"));
         viewHolder.event_row_head_title.setText(dataModel.getNom());
         viewHolder.event_row_head_desc.setText(dataModel.getDescription());
         viewHolder.event_row_price.setText(dataModel.getPrix()+" DT");
         viewHolder.event_row_cat.setText(dataModel.getCategorie());
 
-        Picasso.get().load(R.drawable.activites).fit().placeholder(R.drawable.activites).into(viewHolder.event_row_image);
+        if (dataModel.getImage().equals("")) {
+            Picasso.get().load(BASE_URL+"/Android/pics_guest/Events/0.png").fit().placeholder(R.drawable.activites).into(viewHolder.event_row_image);
+        }else{
+            Picasso.get().load(BASE_URL+"/Android/pics_guest/Events/"+dataModel.getImage()).fit().placeholder(R.drawable.activites).into(viewHolder.event_row_image);
+        }
 
         // Return the completed view to render on screen
         return convertView;
@@ -81,7 +89,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
         TextView event_row_head_desc;
         TextView event_row_price;
         TextView event_row_cat;
-
         ImageView event_row_image;
     }
 

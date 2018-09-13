@@ -30,7 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConnectionChecher.checkNetwork;
+import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
+import static com.hotix.myhotixguest.helpers.Utils.signeUpTextTowColors;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -71,18 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
 
-        Picasso.get().load("http://196.203.219.164/android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
+        Picasso.get().load(BASE_URL+"/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
 
-/********************************( Signup TextView HTML Format )***********************************/
-        String color1 = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.white)).substring(2, 8);
-        String color2 = "#" + Integer.toHexString(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary)).substring(2, 8);
-
-        String text1 = getString(R.string.no_account_yet);
-        String text2 = getString(R.string.sign_up);
-
-        String text = "<font color=" + color1 + ">" + text1 + "</font> <font color=" + color2 + "><b>" + text2 + "</b></color>";
-        _loginSignupTextView.setText(Html.fromHtml(text));
-/**************************************************************************************************/
+        _loginSignupTextView.setText(Html.fromHtml(signeUpTextTowColors(getString(R.string.no_account_yet), getString(R.string.sign_up), getApplicationContext())));
 
         inputValidation = new InputValidation(getApplicationContext());
 
@@ -201,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
     //This method is to validate the EditText valus.
     public boolean inputTextValidation() {
 
-        if (!inputValidation.isInputEditTextFilled(_loginEmailText, _loginEmailTextInput, getString(R.string.error_message_email_is_empty))) {
+        if (!inputValidation.isInputEditTextFilled(_loginEmailText, _loginEmailTextInput, getString(R.string.error_message_username_is_empty))) {
             return false;
         }
         if (!inputValidation.isInputEditTextFilled(_loginPasswordText, _loginPasswordTextInput, getString(R.string.error_message_password_empty))) {

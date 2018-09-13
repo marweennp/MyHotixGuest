@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     // Butter Knife BindView LinearLayout
     @BindView(R.id.guests_details_container)
     LinearLayout guestsContainer;
+    @BindView(R.id.profile_bill_icon_layou)
+    LinearLayoutCompat profileBillLayou;
 
     private String resaId;
     private String  billId;
@@ -97,7 +100,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             histo = extras.getString("histo");
         }
 
-        if(!histo.equals("histo")){billIcon.setVisibility(View.GONE);}
+        if(!histo.equals("histo")){profileBillLayou.setVisibility(View.GONE);}
 
         billIcon.setOnClickListener(new View.OnClickListener() {
             @Override
