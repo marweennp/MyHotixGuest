@@ -23,40 +23,37 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
         android:layout_marginBottom="56dp"
-        android:divider="@color/colorBackground"
-        android:background="@color/red_500"
+        android:divider="@color/colorPrimaryDark"
         android:dividerHeight="1px"
         android:drawSelectorOnTop="true" />
 
     <RelativeLayout
         android:id="@+id/empty"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
 
         <!-- Empty List Icon -->
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/empty_list_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/cloud_ico"
-            android:tint="@color/light_bg_dark_disabled_text"/>
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/empty_list_text_view"
+            app:srcCompat="@drawable/baseline_cloud_queue_24"
+            android:tint="@color/colorPrimary" />
 
         <!-- Empty List TextView -->
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/empty_list_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/empty_list_icon"
-            android:layout_marginTop="10dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
             android:text="No item to show."
-            android:textColor="@color/light_bg_dark_disabled_text"
+            android:textColor="@color/grey_400"
             android:textSize="24sp"
-            android:textStyle="bold"/>
-
-
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

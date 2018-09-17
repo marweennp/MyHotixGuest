@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".fragments.ActivitiesFragment">
 
@@ -24,6 +25,36 @@
         android:layout_marginBottom="56dp"
         android:drawSelectorOnTop="true"
         android:divider="@color/colorBackground"/>
+
+    <RelativeLayout
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+
+        <!-- Empty List Icon -->
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/empty_list_icon"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/empty_list_text_view"
+            app:srcCompat="@drawable/baseline_cloud_queue_24"
+            android:tint="@color/colorPrimary" />
+
+        <!-- Empty List TextView -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/empty_list_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            android:text="No item to show."
+            android:textColor="@color/grey_400"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

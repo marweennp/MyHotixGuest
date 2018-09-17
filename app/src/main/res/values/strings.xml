@@ -66,6 +66,10 @@
     <string name="hint_adress">Adress</string>
     <string name="events_text">Events</string>
     <string name="day_till_check_in">Day till check-in</string>
+    <string name="compaint_treated">treated</string>
+    <string name="compaint_waiting">waiting</string>
+    <string name="no_activitie_to_show">No activitie to show</string>
+    <string name="no_complaint_to_show">No complaint to show</string>
 
 </resources>
 

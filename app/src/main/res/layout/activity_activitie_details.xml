@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".activitys.ActivitieDetailsActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/participate_button">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Event Details Header -->
+            <RelativeLayout
+                android:id="@+id/event_details_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/event_details_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:src="@drawable/activites" />
+
+            </RelativeLayout>
+
+            <!-- Event Details Date & Time -->
+            <RelativeLayout
+                android:id="@+id/event_details_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_alignParentTop="true"
+                android:background="#B3000000">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/event_details_date_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/baseline_calendar_today_24" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/event_details_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_toRightOf="@+id/event_details_date_icon"
+                    android:text="01 Jan 2018"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/event_details_time_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toLeftOf="@+id/event_details_time"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/baseline_schedule_24" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/event_details_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    android:text="00:00 PM"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <!-- Event Details Location & Price -->
+            <RelativeLayout
+                android:id="@+id/event_details_location"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_alignParentTop="true"
+                android:background="#B3000000">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/event_details_location_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/baseline_location_on_24" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/event_details_location_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_toRightOf="@+id/event_details_location_icon"
+                    android:text="Plage"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/event_details_price_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text="0.000 DT"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <!-- Event Details Type & Title -->
+            <RelativeLayout
+                android:id="@+id/event_details_type_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/event_details_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="type"
+                    android:textAllCaps="true"
+                    android:textColor="@color/light_bg_dark_disabled_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/event_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/event_details_type"
+                    android:layout_marginLeft="16dp"
+                    android:text="colorBackground"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <!-- Event Details Description -->
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/event_details_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Le Lorem Ipsum est simplement du faux texte Le Lorem Ipsum est simplement du faux texte employé dans"
+                android:textColor="@color/light_bg_dark_secondary_text"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <!-- Event Details Participate Button -->
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/participate_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="12dp"
+        android:text="Participate"
+        android:textSize="24sp" />
+
+</RelativeLayout>

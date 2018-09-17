@@ -29,14 +29,12 @@ public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
 
         RelativeLayout complaint_color_text_layout;
         RelativeLayout complaint_color_layout;
-
     }
 
     public ComplaintsAdapter(ArrayList<Complaint> data, Context context) {
         super(context, R.layout.complaint_row_item, data);
         this.dataSet = data;
         this.mContext = context;
-
     }
 
     @Override
@@ -68,19 +66,19 @@ public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
             result = convertView;
         }
 
-        viewHolder.complaint_title.setText(dataModel.getComplaint_title());
-        viewHolder.complaint_text.setText(dataModel.getComplaint_text());
-        viewHolder.complaint_date.setText(dataModel.getComplaint_date());
-        viewHolder.complaint_state.setText(dataModel.getComplaint_state());
+        viewHolder.complaint_title.setText(dataModel.getObject());
+        viewHolder.complaint_text.setText(dataModel.getDescription());
+        viewHolder.complaint_date.setText(dataModel.getDateCreation());
 
-        if (dataModel.getComplaint_state().equals("treated")) {
+        if (dataModel.getTraite()) {
+            viewHolder.complaint_state.setText(R.string.compaint_treated);
             viewHolder.complaint_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.green_500));
             viewHolder.complaint_color_text_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.green_500));
         } else {
+            viewHolder.complaint_state.setText(R.string.compaint_waiting);
             viewHolder.complaint_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey_500));
             viewHolder.complaint_color_text_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey_500));
         }
-
 
         // Return the completed view to render on screen
         return convertView;

@@ -2,11 +2,13 @@ package com.hotix.myhotixguest.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +17,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.HistoryActivity;
+import com.hotix.myhotixguest.activitys.ActivitieDetailsActivity;
 import com.hotix.myhotixguest.adapters.EventAdapter;
-import com.hotix.myhotixguest.adapters.StayAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.Event;
-import com.hotix.myhotixguest.models.Sejour;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -31,14 +31,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
+import static com.hotix.myhotixguest.helpers.Utils.GLOBAL_EVENT;
 
 public class ActivitiesFragment extends Fragment {
 
     private static EventAdapter adapter;
-    ArrayList<Event> dataModels;
-    ListView listView;
+    private AppCompatTextView emptyListText;
+    private ArrayList<Event> dataModels;
+    private ListView listView;
     // Session Manager Class
-    Session session;
+    private Session session;
     private Toolbar toolbar;
     private OnFragmentInteractionListener mListener;
 
@@ -65,6 +67,9 @@ public class ActivitiesFragment extends Fragment {
         // Session Manager
         session = new Session(getActivity());
 
+        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.empty_list_text_view);
+        emptyListText.setText(R.string.no_activitie_to_show);
+
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.events_text);
@@ -73,13 +78,19 @@ public class ActivitiesFragment extends Fragment {
 
         dataModels = new ArrayList<>();
 
+        listView.setEmptyView(getActivity().findViewById(R.id.empty));
+
         loadeEvents();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
 
-                showSnackbar(getActivity().findViewById(android.R.id.content), dataModels.get(position).getPrix().toString());
+                //showSnackbar(getActivity().findViewById(android.R.id.content), dataModels.get(position).getPrix().toString());
+                GLOBAL_EVENT = dataModels.get(position);
+                Intent i = new Intent(getActivity(), ActivitieDetailsActivity.class);
+                startActivity(i);
+
 
             }
         });
@@ -101,11 +112,6 @@ public class ActivitiesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     private void loadeEvents() {
@@ -142,6 +148,11 @@ public class ActivitiesFragment extends Fragment {
                 //Toast.makeText(getApplicationContext(), "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 
 }

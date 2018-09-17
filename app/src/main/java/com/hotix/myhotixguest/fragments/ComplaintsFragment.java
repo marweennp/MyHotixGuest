@@ -2,7 +2,6 @@ package com.hotix.myhotixguest.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +14,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,18 +23,16 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.HomeScreenActivity;
-import com.hotix.myhotixguest.activitys.LoginActivity;
 import com.hotix.myhotixguest.adapters.ComplaintsAdapter;
 import com.hotix.myhotixguest.helpers.InputValidation;
+import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.Complaint;
-import com.hotix.myhotixguest.models.Guest;
-import com.hotix.myhotixguest.models.ResponseMSG;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,18 +42,20 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 public class ComplaintsFragment extends Fragment {
 
     private static ComplaintsAdapter adapter;
-    AppCompatEditText complaintTitle;
-    AppCompatEditText complaintText;
+    private AppCompatEditText complaintTitle;
+    private AppCompatEditText complaintText;
 
-    AppCompatTextView text;
+    private AppCompatTextView emptyListText;
 
-    TextInputLayout complaintTitleInput;
-    TextInputLayout complaintTextInput;
-    ArrayList<Complaint> dataModels;
-    ListView listView;
+    private TextInputLayout complaintTitleInput;
+    private TextInputLayout complaintTextInput;
+    private ArrayList<Complaint> dataModels;
+    private ListView listView;
     private OnFragmentInteractionListener mListener;
     private FloatingActionButton _floatingActionButton;
     private Toolbar toolbar;
+    // Session Manager Class
+    private Session session;
     private InputValidation inputValidation;
 
     public ComplaintsFragment() {
@@ -80,11 +78,13 @@ public class ComplaintsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        // Session Manager
+        session = new Session(getActivity());
 
         _floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.floatingActionButton_add);
 
-        text = (AppCompatTextView) getActivity().findViewById(R.id.empty_list_text_view);
+        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.empty_list_text_view);
+        emptyListText.setText(R.string.no_complaint_to_show);
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -94,28 +94,14 @@ public class ComplaintsFragment extends Fragment {
 
         dataModels = new ArrayList<>();
 
-//        dataModels.add(new Complaint("test", "test", "This is a  complaint", "Le Lorem Ipsum est simplement du faux texte employé dans", "waiting", "01/01/2018"));
-//        dataModels.add(new Complaint("test", "test", "This is a  complaint", "Le Lorem Ipsum est simplement du faux texte employé dans", "waiting", "01/01/2018"));
-//        dataModels.add(new Complaint("test", "test", "This is a  complaint", "Le Lorem Ipsum est simplement du faux texte employé dans", "treated", "01/01/2018"));
-//        dataModels.add(new Complaint("test", "test", "This is a  complaint", "Le Lorem Ipsum est simplement du faux texte employé dans", "treated", "01/01/2018"));
-//        dataModels.add(new Complaint("test", "test", "This is a  complaint", "Le Lorem Ipsum est simplement du faux texte employé dans", "waiting", "01/01/2018"));
-
-        adapter = new ComplaintsAdapter(dataModels, getActivity());
-
-        //View empty = (View) getLayoutInflater().inflate(R.layout.empty_list_view, null);
-        listView.setAdapter(adapter);
         listView.setEmptyView(getActivity().findViewById(R.id.empty));
-
-
-        //listView.setVisibility(View.GONE);
 
         _floatingActionButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                //startComplaintDialog();
-                addComplaint();
+                startComplaintDialog();
 
             }
         });
@@ -139,7 +125,6 @@ public class ComplaintsFragment extends Fragment {
             case R.id.action_refresh:
                 refreshList();
                 return true;
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -154,6 +139,12 @@ public class ComplaintsFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadeComplaints();
     }
 
     @Override
@@ -185,38 +176,18 @@ public class ComplaintsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                dataModels.add(new Complaint("test", "test", complaintTitle.getText().toString(), complaintText.getText().toString(), "waiting", "01/01/2018"));
-                adapter = new ComplaintsAdapter(dataModels, getActivity());
-                listView.setAdapter(adapter);
-
-                dialog.dismiss();
-
+                complaintTitleInput.setErrorEnabled(false);
+                complaintTextInput.setErrorEnabled(false);
+                if (complaintTitle.getText().toString().trim().isEmpty()) {
+                    complaintTitleInput.setError(getString(R.string.error_message_title_is_empty));
+                }else if (complaintText.getText().toString().trim().isEmpty()) {
+                    complaintTextInput.setError(getString(R.string.error_message_complaint_text_is_empty));
+                }else{
+                    addComplaint();
+                    dialog.dismiss();
+                }
             }
         });
-
-    }
-
-    /**********************************(  Rrefresh ListView )*************************************/
-    //This method is to refresh the listview.
-    private void refreshList() {
-        adapter = new ComplaintsAdapter(dataModels, getActivity());
-        listView.setAdapter(adapter);
-    }
-
-    /**********************************(  Input Validation  )*************************************/
-    //This method is to validate the EditText valus.
-    public boolean inputTextValidation() {
-
-        if (!inputValidation.isInputEditTextFilled(complaintTitle, complaintTitleInput, getString(R.string.error_message_title_is_empty))) {
-            return false;
-        }
-        if (!inputValidation.isInputEditTextFilled(complaintText, complaintTextInput, getString(R.string.error_message_complaint_text_is_empty))) {
-            return false;
-        }
-
-        //Return true if all the inputs are valid
-        return true;
-
     }
 
     public interface OnFragmentInteractionListener {
@@ -224,40 +195,78 @@ public class ComplaintsFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void addComplaint() {
+    /**********************************(  __________________ )*************************************/
+    //This method is to refresh the listview.
+    private void refreshList() {
+        loadeComplaints();
+    }
+
+    private void addComplaint() {
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
-        Call<ResponseMSG> userCall = service.sendReclamationQuery("1", "207", "test", "test", "11992");
+        Call<ResponseBody> userCall = service.sendReclamationQuery("1", session.getChambre(), complaintTitle.getText().toString(), complaintText.getText().toString(), session.getResaId().toString());
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("ResponseMSG...");
+        progressDialog.setMessage("Response...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        userCall.enqueue(new Callback<ResponseMSG>() {
+        userCall.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseMSG> call, Response<ResponseMSG> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 progressDialog.dismiss();
 
                 if (response.raw().code() == 200) {
-
-
+                    loadeComplaints();
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.toString());
-                    text.setText(response.toString());
                 }
 
             }
 
             @Override
-            public void onFailure(Call<ResponseMSG> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 progressDialog.dismiss();
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
             }
         });
 
+    }
+
+    private void loadeComplaints() {
+
+        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        Call<ArrayList<Complaint>> billCall = service.getReclamationsQuery(session.getResaId().toString());
+
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        billCall.enqueue(new Callback<ArrayList<Complaint>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Complaint>> call, Response<ArrayList<Complaint>> response) {
+                progressDialog.dismiss();
+                if (response.raw().code() == 200) {
+
+                    dataModels = response.body();
+                    adapter = new ComplaintsAdapter(dataModels, getActivity());
+                    listView.setAdapter(adapter);
+
+                }else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Complaint>> call, Throwable t) {
+                progressDialog.dismiss();
+                showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
+            }
+        });
     }
 
 }

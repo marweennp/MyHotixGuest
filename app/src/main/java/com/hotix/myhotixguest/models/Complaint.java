@@ -1,85 +1,64 @@
 package com.hotix.myhotixguest.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Complaint {
 
-    private String complaint_id;
-    private String complaint_owner;
-    private String complaint_title;
-    private String complaint_text;
-    private String complaint_state;
-    private String complaint_date;
+    @SerializedName("DateCreation")
+    @Expose
+    private String dateCreation;
+    @SerializedName("Chambre")
+    @Expose
+    private String chambre;
+    @SerializedName("Object")
+    @Expose
+    private String object;
+    @SerializedName("Description")
+    @Expose
+    private String description;
+    @SerializedName("Traite")
+    @Expose
+    private Boolean traite;
 
-    public Complaint() {
+    public String getDateCreation() {
+        return dateCreation;
     }
 
-    public Complaint(String complaint_id, String complaint_owner, String complaint_title, String complaint_text, String complaint_state, String complaint_date) {
-        this.complaint_id = complaint_id;
-        this.complaint_owner = complaint_owner;
-        this.complaint_title = complaint_title;
-        this.complaint_text = complaint_text;
-        this.complaint_state = complaint_state;
-        this.complaint_date = complaint_date;
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
-    public String getComplaint_id() {
-        return complaint_id;
+    public String getChambre() {
+        return chambre;
     }
 
-    public void setComplaint_id(String complaint_id) {
-        this.complaint_id = complaint_id;
+    public void setChambre(String chambre) {
+        this.chambre = chambre;
     }
 
-    public String getComplaint_owner() {
-        return complaint_owner;
+    public String getObject() {
+        return object;
     }
 
-    public void setComplaint_owner(String complaint_owner) {
-        this.complaint_owner = complaint_owner;
+    public void setObject(String object) {
+        this.object = object;
     }
 
-    public String getComplaint_title() {
-        return complaint_title;
+    public String getDescription() {
+        return description;
     }
 
-    public void setComplaint_title(String complaint_title) {
-        this.complaint_title = complaint_title;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getComplaint_text() {
-        return complaint_text;
+    public Boolean getTraite() {
+        return traite;
     }
 
-    public void setComplaint_text(String complaint_text) {
-        this.complaint_text = complaint_text;
+    public void setTraite(Boolean traite) {
+        this.traite = traite;
     }
-
-    public String getComplaint_state() {
-        return complaint_state;
-    }
-
-    public void setComplaint_state(String complaint_state) {
-        this.complaint_state = complaint_state;
-    }
-
-    public String getComplaint_date() {
-        return complaint_date;
-    }
-
-    public void setComplaint_date(String complaint_date) {
-        this.complaint_date = complaint_date;
-    }
-
-    @Override
-    public String toString() {
-        return "Complaint{" +
-                "complaint_id='" + complaint_id + '\'' +
-                ", complaint_owner='" + complaint_owner + '\'' +
-                ", complaint_title='" + complaint_title + '\'' +
-                ", complaint_text='" + complaint_text + '\'' +
-                ", complaint_state='" + complaint_state + '\'' +
-                ", complaint_date='" + complaint_date + '\'' +
-                '}';
-    }
-
 
 }

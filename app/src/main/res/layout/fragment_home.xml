@@ -119,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 
@@ -168,7 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 
@@ -217,7 +217,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 
@@ -227,7 +227,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorBackground">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/home_new_reservation_imageView"
@@ -267,7 +267,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 

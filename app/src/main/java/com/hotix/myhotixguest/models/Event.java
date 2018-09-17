@@ -28,15 +28,15 @@ public class Event {
     private String dateFin;
     @SerializedName("Image")
     @Expose
-    private Object image;
+    private String image;
+    @SerializedName("Location")
+    @Expose
+    private String location;
+    @SerializedName("Heure")
+    @Expose
+    private String heure;
 
-    public Event(Double prix, String nom, String categorie, String description, String dateDebut, String dateFin) {
-        this.prix = prix;
-        this.nom = nom;
-        this.categorie = categorie;
-        this.description = description;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+    public Event() {
     }
 
     public Integer getId() {
@@ -95,15 +95,30 @@ public class Event {
         this.dateFin = dateFin;
     }
 
-    public Object getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Object image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-}
+    public String getLocation() {
+        return location;
+    }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getHeure() {
+        return heure;
+    }
+
+    public void setHeure(String heure) {
+        this.heure = heure;
+    }
+
+}
 
 

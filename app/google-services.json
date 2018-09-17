@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "859471454331",
+    "firebase_url": "https://my-hotix-guest.firebaseio.com",
+    "project_id": "my-hotix-guest",
+    "storage_bucket": "my-hotix-guest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859471454331:android:5d581a7a5145b73d",
+        "android_client_info": {
+          "package_name": "com.hotix.myhotixguest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859471454331-11ln8jn0n7hd0oq1f8c7nj334fc3d82v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPQt9dHCeyNVdIqfsZLAcKVfWhyYvgt0w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
