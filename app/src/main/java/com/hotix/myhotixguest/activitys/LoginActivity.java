@@ -3,8 +3,8 @@ package com.hotix.myhotixguest.activitys;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -15,6 +15,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.helpers.Session;
@@ -36,6 +40,7 @@ import static com.hotix.myhotixguest.helpers.Utils.signeUpTextTowColors;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "FIREBASE_ID";
     // Butter Knife BindView RelativeLayout
     @BindView(R.id.login_main_Layout)
     RelativeLayout rLayout;
@@ -72,8 +77,9 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+        getFirebaseInstanceId();
 
-        Picasso.get().load(BASE_URL+"/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
 
         _loginSignupTextView.setText(Html.fromHtml(signeUpTextTowColors(getString(R.string.no_account_yet), getString(R.string.sign_up), getApplicationContext())));
 
@@ -87,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (inputTextValidation()) {
                     login();
                 }
-                //login();
 
             }
         });
@@ -176,7 +181,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
-                    Log.i("TEST",response.toString());
                 }
 
             }
@@ -207,6 +211,28 @@ public class LoginActivity extends AppCompatActivity {
         //Return true if all the inputs are valid
         return true;
 
+    }
+
+    // Get Firebase InstanceId
+    public void getFirebaseInstanceId() {
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.e(TAG, msg);
+                    }
+                });
     }
 
 

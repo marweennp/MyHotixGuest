@@ -1,10 +1,17 @@
 package com.hotix.myhotixguest.helpers;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.models.Event;
 
@@ -150,6 +157,5 @@ public class Utils {
 
         return text;
     }
-
 
 }

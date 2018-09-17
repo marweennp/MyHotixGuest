@@ -71,5 +71,10 @@
     <string name="no_activitie_to_show">No activitie to show</string>
     <string name="no_complaint_to_show">No complaint to show</string>
 
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">FCM Message</string>
+
+
 </resources>
 
