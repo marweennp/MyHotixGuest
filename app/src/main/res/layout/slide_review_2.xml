@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <!--  Slide Review 2 Title Label -->
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="24dp"
+        android:text="Which service you've experienced?"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/review2_form_linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <RadioGroup
+            android:id="@+id/review1_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checkedButton="@+id/review1_radio_room_acc">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/review1_radio_room_acc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Room accommodation"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/review1_radio_spa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="SPA Treatment"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/review1_radio_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Restaurant"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/review1_radio_meetings_events"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Meetings and Events"
+                android:textAppearance="?android:attr/textAppearanceMedium"  />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/review1_radio_wedding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Wedding"
+                android:textAppearance="?android:attr/textAppearanceMedium"  />
+
+        </RadioGroup>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</RelativeLayout>

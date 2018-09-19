@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/baseline_home_black_24"
+        android:icon="@drawable/baseline_home_24"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_orders"
-        android:icon="@drawable/baseline_store_mall_directory_black_24"
+        android:icon="@drawable/baseline_store_mall_directory_24"
         android:title="@string/title_orders" />
 
     <item
         android:id="@+id/navigation_complaints"
-        android:icon="@drawable/baseline_priority_high_black_24"
-        android:title="@string/title_complaint" />
+        android:icon="@drawable/baseline_forum_24"
+        android:title="@string/title_meseges" />
 
     <item
         android:id="@+id/navigation_activities"
@@ -23,7 +23,7 @@
 
     <item
         android:id="@+id/navigation_review"
-        android:icon="@drawable/baseline_favorite_black_24"
+        android:icon="@drawable/baseline_favorite_24"
         android:title="@string/title_review" />
 
 </menu>

@@ -58,6 +58,15 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
+        <!-- Login Remember Me CheckBox -->
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/remember_me"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/remember_me"
+            android:checked="true"
+            android:layout_marginTop="8dp"/>
+
         <!-- Login Button -->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/login_button"

@@ -23,6 +23,13 @@
 
     <color name="colorBackground">#123456</color>
 
+    <!-- dots inactive colors -->
+    <color name="dot_dark">#FFFFFFFF</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light">@color/light_blue_700</color>
+
+
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>
     <color name="red_200">#EF9A9A</color>

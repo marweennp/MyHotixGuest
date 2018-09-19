@@ -74,6 +74,18 @@
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">FCM Message</string>
+    <string name="next">NEXT</string>
+    <string name="back">BACK</string>
+    <string name="hello">Hello!</string>
+    <string name="your_feedback">Your feedback is important to us to improve our services</string>
+    <string name="thanks_for_your_time">Thanks for your time!</string>
+    <string name="done">DONE</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="hint_phone">Phone</string>
+    <string name="visit_date">Visit Date</string>
+    <string name="country">Country</string>
+    <string name="title_meseges">Meseges</string>
+    <string name="remember_me">Remember me</string>
 
 
 </resources>

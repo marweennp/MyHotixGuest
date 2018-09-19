@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -65,6 +66,11 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout _loginEmailTextInput;
     @BindView(R.id.text_input_layout_login_password)
     TextInputLayout _loginPasswordTextInput;
+    // Butter Knife BindView TextInputLayout
+    @BindView(R.id.remember_me)
+    AppCompatCheckBox _rememberMe;
+    boolean is_logged_in = false;
+    boolean remember_me = false;
     // Session Manager Class
     Session session;
     // For input text Validation
@@ -78,6 +84,14 @@ public class LoginActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
         getFirebaseInstanceId();
+
+        if (session.getIsLoggedIn()) {
+            //Start the HomeScreenActivity
+            Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
+            startActivity(i);
+            finish();
+        }
+
 
         Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
 
@@ -157,11 +171,15 @@ public class LoginActivity extends AppCompatActivity {
                         showSnackbar(findViewById(android.R.id.content), "Something went wrong. please verify your login or password");
                     } else {
 
+                        remember_me = _rememberMe.isChecked();
+                        is_logged_in = _rememberMe.isChecked();
                         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                         session.clearSessionDetails();
                         session.createNewGuestSession(
                                 response.body().getISResident(),
                                 response.body().getHasHistory(),
+                                is_logged_in,
+                                remember_me,
                                 response.body().getDateArrivee(),
                                 response.body().getDateDepart(),
                                 response.body().getChambre(),

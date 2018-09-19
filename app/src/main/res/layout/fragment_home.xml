@@ -23,10 +23,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:text="Foulan Foulani"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <android.support.v7.widget.AppCompatTextView
@@ -35,19 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/home_guest_name"
             android:layout_marginLeft="8dp"
-            android:text="individual" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/home_guest_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="16dp"
-            android:text="01 Jan 2018 -> 03 Jan 2018"
-            android:textColor="@color/white"
-            android:textSize="16dp" />
+            android:text="individual"
+            android:textColor="@color/white" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/home_guest_nights"
@@ -71,6 +60,31 @@
             android:tint="@color/colorPrimaryDark"
             app:srcCompat="@drawable/baseline_moon_24" />
 
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/home_guest_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toRightOf="@+id/home_guest_nights_icon"
+            android:text="01 Jan 2018"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/home_guest_edit_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/baseline_settings_24" />
+
 
     </RelativeLayout>
 
@@ -79,7 +93,8 @@
         android:id="@+id/home_fragment_reservation_details_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/home_reservation_details_imageView"
@@ -128,7 +143,8 @@
         android:id="@+id/home_fragment_bill_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/home_bill_imageView"
@@ -177,7 +193,8 @@
         android:id="@+id/home_fragment_history_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/home_history_imageView"
@@ -227,7 +244,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorBackground">
+        android:background="@color/colorBackground"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/home_new_reservation_imageView"

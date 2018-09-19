@@ -142,7 +142,7 @@ public class Utils {
         String st2 = date.substring(3, 6);
         String st3 = date.substring(7, 11);
 
-        String text = "<font color=" + color1 + ">" + st1 + "</font> <font color=" + color2 + "><b>" + st2 + "</b></font>" + "<font color=" + color1 + "> " + st3;
+        String text = "<font color=" + color1 + ">" + st1 + "</font> <font color=" + color2 + "><b>" + st2 + "</b></font>" + "<font color=" + color1 + "> ";
 
         return text;
     }

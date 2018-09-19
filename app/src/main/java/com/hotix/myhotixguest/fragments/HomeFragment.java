@@ -23,7 +23,6 @@ import com.hotix.myhotixguest.helpers.Session;
 import com.squareup.picasso.Picasso;
 
 import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
 import static com.hotix.myhotixguest.helpers.Utils.fromTodayToDate;
 import static com.hotix.myhotixguest.helpers.Utils.newCalculateDaysBetween;
@@ -95,12 +94,14 @@ public class HomeFragment extends Fragment {
         homeGuestName.setText(session.getNom() + " " + session.getPrenom());
         if (session.getISResident()) {
             homeGuestResType.setText(session.getChambre());
-            homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
+            //homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
+            homeGuestDate.setText(Html.fromHtml(dateTowColors(newDateFormater(session.getDateArrivee()), getContext()) + " - " + dateTowColors(newDateFormater(session.getDateDepart()), getContext())));
+            //homeGuestDate.setText(newDateFormater(session.getDateArrivee()).substring(0,2) + " - " + newDateFormater(session.getDateDepart()));
             homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
         } else if (session.getResaId() != 0) {
             homeGuestResType.setText(fromTodayToDate(session.getDateArrivee()) + " " + getString(R.string.day_till_check_in));
-            homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
-            //homeGuestDate.setText(Html.fromHtml(dateTowColors(newDateFormater(session.getDateArrivee()),getContext()) + " -> " +dateTowColors(newDateFormater(session.getDateDepart()),getContext())));
+            //homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
+            homeGuestDate.setText(Html.fromHtml(dateTowColors(newDateFormater(session.getDateArrivee()), getContext()) + " - " + dateTowColors(newDateFormater(session.getDateDepart()), getContext())));
             //homeGuestDate.setText(newDateFormater(session.getDateArrivee()).substring(0,2) + " - " + newDateFormater(session.getDateDepart()));
             homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
             homeResaDetailsTitle.setText("My Reservation");
