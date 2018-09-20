@@ -1,7 +1,6 @@
 package com.hotix.myhotixguest.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +27,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
     private ArrayList<Event> dataSet;
 
     public EventAdapter(ArrayList<Event> data, Context context) {
-        super(context, R.layout.event_row_item, data);
+        super(context, R.layout.list_event_row_item, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -47,7 +46,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
             viewHolder = new EventAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.event_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.list_event_row_item, parent, false);
 
             viewHolder.event_row_head_date = (TextView) convertView.findViewById(R.id.event_row_head_date);
             viewHolder.event_row_head_time = (TextView) convertView.findViewById(R.id.event_row_head_time);

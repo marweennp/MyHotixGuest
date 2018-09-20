@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.hotix.myhotixguest.R;
@@ -45,22 +47,20 @@ public class ComplaintsFragment extends Fragment {
     private AppCompatEditText complaintTitle;
     private AppCompatEditText complaintText;
 
+
     private AppCompatTextView emptyListText;
+    private AppCompatImageView emptyListIcon;
 
     private TextInputLayout complaintTitleInput;
     private TextInputLayout complaintTextInput;
     private ArrayList<Complaint> dataModels;
     private ListView listView;
-    private OnFragmentInteractionListener mListener;
     private FloatingActionButton _floatingActionButton;
-    private Toolbar toolbar;
     // Session Manager Class
     private Session session;
-    private InputValidation inputValidation;
+    private LinearLayout progressView;
 
-    public ComplaintsFragment() {
-        // Required empty public constructor
-    }
+    public ComplaintsFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,6 @@ public class ComplaintsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_complaints, container, false);
     }
 
@@ -80,20 +79,15 @@ public class ComplaintsFragment extends Fragment {
         // Session Manager
         session = new Session(getActivity());
 
-        _floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.floatingActionButton_add);
+        _floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.complaints_floatingActionButton_add);
 
-        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.empty_list_text_view);
-        emptyListText.setText(R.string.no_complaint_to_show);
+        progressView = (LinearLayout) getActivity().findViewById(R.id.complaints_progress_view);
+        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.complaints_empty_list_text_view);
+        emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.complaints_empty_list_icon);
 
-        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.complaints_text);
-
-        listView = (ListView) getActivity().findViewById(R.id.complaint_list);
+        listView = (ListView) getActivity().findViewById(R.id.complaints_list);
 
         dataModels = new ArrayList<>();
-
-        listView.setEmptyView(getActivity().findViewById(R.id.empty));
 
         _floatingActionButton.setOnClickListener(new View.OnClickListener() {
 
@@ -107,50 +101,11 @@ public class ComplaintsFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.complaint_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_add:
-                startComplaintDialog();
-                return true;
-
-            case R.id.action_refresh:
-                refreshList();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         loadeComplaints();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     /**********************************(  Start Complaint Dialog  )*************************************/
     //This method is to start a dialog window .
@@ -187,11 +142,6 @@ public class ComplaintsFragment extends Fragment {
                 }
             }
         });
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     /**********************************(  __________________ )*************************************/
@@ -239,21 +189,19 @@ public class ComplaintsFragment extends Fragment {
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<ArrayList<Complaint>> billCall = service.getReclamationsQuery(session.getResaId().toString());
 
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        progressView.setVisibility(View.VISIBLE);
 
         billCall.enqueue(new Callback<ArrayList<Complaint>>() {
             @Override
             public void onResponse(Call<ArrayList<Complaint>> call, Response<ArrayList<Complaint>> response) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
                 if (response.raw().code() == 200) {
 
                     dataModels = response.body();
                     adapter = new ComplaintsAdapter(dataModels, getActivity());
                     listView.setAdapter(adapter);
+                    emptyListText.setText(R.string.no_complaint_to_show);
+                    listView.setEmptyView(getActivity().findViewById(R.id.complaints_empty));
 
                 }else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
@@ -262,7 +210,10 @@ public class ComplaintsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<Complaint>> call, Throwable t) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
+                emptyListText.setText(R.string.server_unreachable);
+                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                listView.setEmptyView(getActivity().findViewById(R.id.complaints_empty));
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
             }
         });

@@ -142,6 +142,21 @@ public class Utils {
         String st2 = date.substring(3, 6);
         String st3 = date.substring(7, 11);
 
+        String text = "<font color=" + color1 + ">" + st1 + "</font> <font color=" + color2 + "><b>" + st2 + "</b></font>" + "<font color=" + color1 + "> "+st3;
+
+        return text;
+    }
+
+    //Date tow colors "dd MMM" white & colorPrimary
+    public static String newDateTowColors(String date, Context context) {
+
+        String color1 = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.white)).substring(2, 8);
+        String color2 = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorPrimary)).substring(2, 8);
+
+        String st1 = date.substring(0, 2);
+        String st2 = date.substring(3, 6);
+        String st3 = date.substring(7, 11);
+
         String text = "<font color=" + color1 + ">" + st1 + "</font> <font color=" + color2 + "><b>" + st2 + "</b></font>" + "<font color=" + color1 + "> ";
 
         return text;

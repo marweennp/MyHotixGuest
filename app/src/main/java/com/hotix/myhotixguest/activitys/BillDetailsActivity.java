@@ -7,7 +7,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.BillAdapter;
@@ -25,7 +24,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.newDateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
@@ -70,8 +68,8 @@ public class BillDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        View header = (View) getLayoutInflater().inflate(R.layout.bill_header, null);
-        View footer = (View) getLayoutInflater().inflate(R.layout.bill_footer, null);
+        View header = (View) getLayoutInflater().inflate(R.layout.list_bill_header, null);
+        View footer = (View) getLayoutInflater().inflate(R.layout.list_bill_footer, null);
         billNumber = (AppCompatTextView) header.findViewById(R.id.bill_number_text);
         billOwner = (AppCompatTextView) header.findViewById(R.id.bill_owner_text);
         billDate = (AppCompatTextView) header.findViewById(R.id.bill_date_text);

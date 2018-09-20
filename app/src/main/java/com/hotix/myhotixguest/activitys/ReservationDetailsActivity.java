@@ -1,10 +1,11 @@
 package com.hotix.myhotixguest.activitys;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -76,9 +77,28 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     @BindView(R.id.profile_bill_icon_layou)
     LinearLayoutCompat profileBillLayou;
 
+    // Butter Knife BindView LinearLayout
+    @BindView(R.id.reservation_details_progress_view)
+    LinearLayout progressView;
+    // Butter Knife BindView RelativeLayout
+    @BindView(R.id.reservation_details_empty)
+    RelativeLayout reservationDetailsEmpty;
+    // Butter Knife BindView NestedScrollView
+    @BindView(R.id.reservation_details_main_container)
+    NestedScrollView reservationDetailsContainer;
+    // Butter Knife BindView AppCompatTextView
+    @BindView(R.id.reservation_details_empty_list_text_view)
+    AppCompatTextView emptyListText;
+    // Butter Knife BindView AppCompatImageView
+    @BindView(R.id.reservation_details_empty_list_icon)
+    AppCompatImageView emptyListIcon;
+    // Butter Knife BindView AppCompatImageButton
+    @BindView(R.id.reservation_details_refresh)
+    AppCompatImageButton reservationDetailsRefresh;
+
     private String resaId;
-    private String  billId;
-    private String  billAn;
+    private String billId;
+    private String billAn;
     private String histo;
 
     @Override
@@ -95,12 +115,14 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             resaId = extras.getString("resaId");
             histo = extras.getString("histo");
         }
 
-        if(!histo.equals("histo")){profileBillLayou.setVisibility(View.GONE);}
+        if (!histo.equals("histo")) {
+            profileBillLayou.setVisibility(View.GONE);
+        }
 
         billIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +137,13 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             }
         });
 
+        reservationDetailsRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadData();
+            }
+        });
+
         loadData();
     }
 
@@ -123,17 +152,17 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<Sejour> userCall = service.getStayQuery(resaId);
 
-        final ProgressDialog progressDialog = new ProgressDialog(ReservationDetailsActivity.this, R.style.AppThemeDialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading Sejour...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        progressView.setVisibility(View.VISIBLE);
+        reservationDetailsContainer.setVisibility(View.GONE);
+        reservationDetailsEmpty.setVisibility(View.GONE);
 
         userCall.enqueue(new Callback<Sejour>() {
             @Override
             public void onResponse(Call<Sejour> call, Response<Sejour> response) {
 
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
+                reservationDetailsContainer.setVisibility(View.VISIBLE);
+                reservationDetailsEmpty.setVisibility(View.GONE);
 
                 if (response.raw().code() == 200) {
                     Sejour sejour = response.body();
@@ -174,7 +203,10 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Sejour> call, Throwable t) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
+                reservationDetailsEmpty.setVisibility(View.VISIBLE);
+                emptyListText.setText(R.string.server_unreachable);
+                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
                 showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
             }
         });
@@ -194,7 +226,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
     public void addGuestDetales(boolean master, String cv, String name, String nat, String bd, String adr, String phone, String mail) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View guestView = inflater.inflate(R.layout.guest_details_row, null);
+        final View guestView = inflater.inflate(R.layout.list_guest_details_row, null);
         AppCompatTextView guestIsMaster = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_is_master);
         AppCompatTextView guestNameOp = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_name_op);
         AppCompatTextView guestName = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_name);

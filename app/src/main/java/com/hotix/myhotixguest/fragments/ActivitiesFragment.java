@@ -1,19 +1,18 @@
 package com.hotix.myhotixguest.fragments;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.hotix.myhotixguest.R;
@@ -30,19 +29,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 import static com.hotix.myhotixguest.helpers.Utils.GLOBAL_EVENT;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ActivitiesFragment extends Fragment {
 
     private static EventAdapter adapter;
     private AppCompatTextView emptyListText;
+    private AppCompatImageView emptyListIcon;
     private ArrayList<Event> dataModels;
     private ListView listView;
     // Session Manager Class
     private Session session;
     private Toolbar toolbar;
-    private OnFragmentInteractionListener mListener;
+    private LinearLayout progressView;
 
     public ActivitiesFragment() {
         // Required empty public constructor
@@ -55,9 +55,7 @@ public class ActivitiesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_activities, container, false);
     }
 
@@ -67,18 +65,17 @@ public class ActivitiesFragment extends Fragment {
         // Session Manager
         session = new Session(getActivity());
 
-        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.empty_list_text_view);
-        emptyListText.setText(R.string.no_activitie_to_show);
+        progressView = (LinearLayout) getActivity().findViewById(R.id.event_progress_view);
+        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.event_empty_list_text_view);
+        emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.event_empty_list_icon);
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.events_text);
 
         listView = (ListView) getActivity().findViewById(R.id.event_list);
-
         dataModels = new ArrayList<>();
 
-        listView.setEmptyView(getActivity().findViewById(R.id.empty));
 
         loadeEvents();
 
@@ -86,32 +83,13 @@ public class ActivitiesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
 
-                //showSnackbar(getActivity().findViewById(android.R.id.content), dataModels.get(position).getPrix().toString());
                 GLOBAL_EVENT = dataModels.get(position);
                 Intent i = new Intent(getActivity(), ActivitieDetailsActivity.class);
                 startActivity(i);
 
-
             }
         });
 
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     private void loadeEvents() {
@@ -119,22 +97,19 @@ public class ActivitiesFragment extends Fragment {
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<ArrayList<Event>> billCall = service.getActivitesQuery();
 
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        progressView.setVisibility(View.VISIBLE);
 
         billCall.enqueue(new Callback<ArrayList<Event>>() {
             @Override
             public void onResponse(Call<ArrayList<Event>> call, Response<ArrayList<Event>> response) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
                 if (response.raw().code() == 200) {
+
                     dataModels = response.body();
-
                     adapter = new EventAdapter(dataModels, getActivity());
-
                     listView.setAdapter(adapter);
+                    emptyListText.setText(R.string.no_activitie_to_show);
+                    listView.setEmptyView(getActivity().findViewById(R.id.event_empty));
 
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
@@ -143,16 +118,14 @@ public class ActivitiesFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<Event>> call, Throwable t) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
+                emptyListText.setText(R.string.server_unreachable);
+                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                listView.setEmptyView(getActivity().findViewById(R.id.event_empty));
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
-                //Toast.makeText(getApplicationContext(), "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
 }

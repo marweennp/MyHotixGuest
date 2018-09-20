@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
+import android.view.View;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
@@ -61,6 +62,10 @@ public class ActivitieDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+
+        if (!session.getISResident()) {
+            participateButton.setVisibility(View.GONE);
+        }
 
         Picasso.get().load(BASE_URL+"/Android/pics_guest/Events/"+GLOBAL_EVENT.getImage()).fit().placeholder(R.drawable.activites).into(eventImg);
 

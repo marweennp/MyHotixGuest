@@ -1,7 +1,6 @@
 package com.hotix.myhotixguest.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.helpers.Utils;
 import com.hotix.myhotixguest.models.LignesFacture;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
@@ -26,7 +21,7 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
     private ArrayList<LignesFacture> dataSet;
 
     public BillAdapter(ArrayList<LignesFacture> data, Context context) {
-        super(context, R.layout.bill_row_item, data);
+        super(context, R.layout.list_bill_row_item, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -45,7 +40,7 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.bill_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.list_bill_row_item, parent, false);
             viewHolder.bill_transaction_title = (TextView) convertView.findViewById(R.id.bill_transaction_title);
             viewHolder.bill_transaction_sum = (TextView) convertView.findViewById(R.id.bill_transaction_sum);
             viewHolder.bill_transaction_date = (TextView) convertView.findViewById(R.id.bill_transaction_date);

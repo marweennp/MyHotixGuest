@@ -1,292 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="56dp"
-    android:orientation="vertical"
-    android:weightSum="5"
     tools:context=".fragments.HomeFragment">
 
-    <!-- Guest Details -->
-    <RelativeLayout
-        android:id="@+id/home_fragment_guest_details_layout"
+    <!-- Main Container -->
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorBackground">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/home_guest_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="6dp"
-            android:text="Foulan Foulani"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/home_guest_res_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/home_guest_name"
-            android:layout_marginLeft="8dp"
-            android:text="individual"
-            android:textColor="@color/white" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/home_guest_nights"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:text="3"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/home_guest_nights_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="12dp"
-            android:layout_toRightOf="@+id/home_guest_nights"
-            android:tint="@color/colorPrimaryDark"
-            app:srcCompat="@drawable/baseline_moon_24" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/home_guest_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_toRightOf="@+id/home_guest_nights_icon"
-            android:text="01 Jan 2018"
-            android:textColor="@color/white"
-            android:textSize="16dp" />
-
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/home_guest_edit_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/circle"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/colorPrimaryDark"
-            app:srcCompat="@drawable/baseline_settings_24" />
-
-
-    </RelativeLayout>
-
-    <!-- Reservation Details -->
-    <RelativeLayout
-        android:id="@+id/home_fragment_reservation_details_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:foreground="?attr/selectableItemBackgroundBorderless">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/home_reservation_details_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/room" />
-
+        <!-- Guest Details -->
         <RelativeLayout
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="#80000000">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/home_reservation_details_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/baseline_group_black_36"
-                android:tint="@color/white" />
+            android:id="@+id/home_fragment_guest_details_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorBackground">
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/home_reservation_details_title"
+                android:id="@+id/home_guest_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="6dp"
+                android:text="Foulan Foulani"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/home_guest_res_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/home_guest_name"
+                android:layout_marginLeft="8dp"
+                android:text="individual"
+                android:textColor="@color/white" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/home_guest_nights"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentStart="true"
                 android:layout_marginBottom="8dp"
-                android:text="@string/home_reservation_text"
+                android:layout_marginStart="8dp"
+                android:text="3"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark" />
-
-    </RelativeLayout>
-
-    <!-- Bill -->
-    <RelativeLayout
-        android:id="@+id/home_fragment_bill_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:foreground="?attr/selectableItemBackgroundBorderless">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/home_bill_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/bill" />
-
-        <RelativeLayout
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="#80000000">
+                android:textSize="16sp" />
 
             <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/home_bill_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/baseline_receipt_black_36"
-                android:tint="@color/white" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/home_bill_title"
+                android:id="@+id/home_guest_nights_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
-                android:text="@string/home_my_bill"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark" />
-
-    </RelativeLayout>
-
-    <!-- History -->
-    <RelativeLayout
-        android:id="@+id/home_fragment_history_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:foreground="?attr/selectableItemBackgroundBorderless">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/home_history_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/history" />
-
-        <RelativeLayout
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="#80000000">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/home_history_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/baseline_history_black_36"
-                android:tint="@color/white" />
+                android:layout_marginBottom="12dp"
+                android:layout_toRightOf="@+id/home_guest_nights"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/baseline_moon_24" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/home_history_title"
+                android:id="@+id/home_guest_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
-                android:text="@string/home_history"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/home_guest_nights_icon"
+                android:text="01 Jan 2018"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textSize="16dp" />
 
-        </RelativeLayout>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark" />
-
-    </RelativeLayout>
-
-    <!-- New Reservation -->
-    <RelativeLayout
-        android:id="@+id/home_fragment_new_reservation_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorBackground"
-        android:foreground="?attr/selectableItemBackgroundBorderless">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/home_new_reservation_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/reservation" />
-
-        <RelativeLayout
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="#80000000">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/home_new_reservation_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/baseline_group_black_36"
-                android:tint="@color/white" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/home_new_reservation_title"
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/home_guest_edit_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginBottom="8dp"
-                android:text="@string/home_new_reservation"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/circle"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/baseline_settings_24" />
+
 
         </RelativeLayout>
 
-        <!-- Divider -->
-        <View
+        <!-- Reservation Details -->
+        <RelativeLayout
+            android:id="@+id/home_fragment_reservation_details_layout"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
 
-    </RelativeLayout>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/home_reservation_details_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/room" />
 
-</android.support.v7.widget.LinearLayoutCompat>
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="#80000000">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/home_reservation_details_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/baseline_group_black_36"
+                    android:tint="@color/white" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/home_reservation_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/home_reservation_text"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
+
+        <!-- Bill -->
+        <RelativeLayout
+            android:id="@+id/home_fragment_bill_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/home_bill_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bill" />
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="#80000000">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/home_bill_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/baseline_receipt_black_36"
+                    android:tint="@color/white" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/home_bill_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/home_my_bill"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
+
+        <!-- History -->
+        <RelativeLayout
+            android:id="@+id/home_fragment_history_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/home_history_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/history" />
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="#80000000">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/home_history_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/baseline_history_black_36"
+                    android:tint="@color/white" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/home_history_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/home_history"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
+
+        <!-- New Reservation -->
+        <RelativeLayout
+            android:id="@+id/home_fragment_new_reservation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/home_new_reservation_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/reservation" />
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="#80000000">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/home_new_reservation_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/baseline_group_black_36"
+                    android:tint="@color/white" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/home_new_reservation_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/home_new_reservation"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</RelativeLayout>

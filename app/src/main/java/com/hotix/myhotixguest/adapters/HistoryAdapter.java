@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import static com.hotix.myhotixguest.helpers.Utils.calculateDaysBetween;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 
-public class StayAdapter extends ArrayAdapter<Sejour> {
+public class HistoryAdapter extends ArrayAdapter<Sejour> {
 
     Context mContext;
     private ArrayList<Sejour> dataSet;
 
-    public StayAdapter(ArrayList<Sejour> data, Context context) {
-        super(context, R.layout.stay_row_item, data);
+    public HistoryAdapter(ArrayList<Sejour> data, Context context) {
+        super(context, R.layout.list_stay_row_item, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -32,15 +32,15 @@ public class StayAdapter extends ArrayAdapter<Sejour> {
 
         Sejour dataModel = getItem(position);
 
-        StayAdapter.ViewHolder viewHolder;
+        HistoryAdapter.ViewHolder viewHolder;
 
         final View result;
 
         if (convertView == null) {
 
-            viewHolder = new StayAdapter.ViewHolder();
+            viewHolder = new HistoryAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.stay_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.list_stay_row_item, parent, false);
 
             viewHolder.stay_title = (TextView) convertView.findViewById(R.id.stay_title);
             viewHolder.stay_sub_title = (TextView) convertView.findViewById(R.id.stay_sub_title);
@@ -51,12 +51,13 @@ public class StayAdapter extends ArrayAdapter<Sejour> {
 
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (StayAdapter.ViewHolder) convertView.getTag();
+            viewHolder = (HistoryAdapter.ViewHolder) convertView.getTag();
             result = convertView;
         }
 
         viewHolder.stay_title.setText(dataModel.getArrangement());
         viewHolder.stay_sub_title.setText("" + dataModel.getTypeChambre());
+        // viewHolder.stay_date.setText(Html.fromHtml(newDateTowColors(dateFormater(dataModel.getDateArrivee()), getContext()) + " - " + dateTowColors(dateFormater(dataModel.getDateDepart()), getContext())));
         viewHolder.stay_date.setText(dateFormater(dataModel.getDateArrivee()) + "->" + dateFormater(dataModel.getDateDepart()));
         viewHolder.stay_nights.setText(calculateDaysBetween(dataModel.getDateArrivee(), dataModel.getDateDepart()));
 

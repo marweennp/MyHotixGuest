@@ -13,18 +13,14 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.ActivitiesFragment;
 import com.hotix.myhotixguest.fragments.ComplaintsFragment;
 import com.hotix.myhotixguest.fragments.HomeFragment;
+import com.hotix.myhotixguest.fragments.NotificationsFragment;
 import com.hotix.myhotixguest.fragments.OrdersFragment;
 import com.hotix.myhotixguest.fragments.ReviewFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeScreenActivity extends AppCompatActivity implements
-        HomeFragment.OnFragmentInteractionListener,
-        OrdersFragment.OnFragmentInteractionListener,
-        ComplaintsFragment.OnFragmentInteractionListener,
-        ActivitiesFragment.OnFragmentInteractionListener,
-        ReviewFragment.OnFragmentInteractionListener {
+public class HomeScreenActivity extends AppCompatActivity {
 
     // Butter Knife BindViews
     @BindView(R.id.navigation)
@@ -33,7 +29,7 @@ public class HomeScreenActivity extends AppCompatActivity implements
     // Fragments
     Fragment homeFragment;
     Fragment ordersFragment;
-    Fragment complaintsFragment;
+    Fragment notificationsFragment;
     Fragment activitesFragment;
     Fragment reviewFragment;
 
@@ -46,7 +42,7 @@ public class HomeScreenActivity extends AppCompatActivity implements
 
         homeFragment = new HomeFragment();
         ordersFragment = new OrdersFragment();
-        complaintsFragment = new ComplaintsFragment();
+        notificationsFragment = new NotificationsFragment();
         activitesFragment = new ActivitiesFragment();
         reviewFragment = new ReviewFragment();
 
@@ -64,7 +60,7 @@ public class HomeScreenActivity extends AppCompatActivity implements
                         loadFragment(ordersFragment);
                         return true;
                     case R.id.navigation_complaints:
-                        loadFragment(complaintsFragment);
+                        loadFragment(notificationsFragment);
                         return true;
                     case R.id.navigation_activities:
                         loadFragment(activitesFragment);
@@ -94,10 +90,5 @@ public class HomeScreenActivity extends AppCompatActivity implements
         } else {
             navigation.setSelectedItemId(R.id.navigation_home);
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

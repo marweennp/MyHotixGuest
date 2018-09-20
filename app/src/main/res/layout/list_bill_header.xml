@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- Bill Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@color/colorBackground">
+
+        <!-- Bill Header Owner -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/bill_owner_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:text="Foulan Foulani"
+            android:textColor="@color/white"
+            android:textSize="24dp" />
+
+        <!-- Bill Header Date -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/bill_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bill_owner_text"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="00/00/0000 - 00/00/0000" />
+
+        <!-- Bill Header Bill Number -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/bill_number_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bill_date_text"
+            android:layout_centerHorizontal="true"
+            android:text="0000-0000"
+            android:textColor="@color/white"
+            android:textSize="32dp"
+            android:textStyle="bold" />
+
+        <!-- Bill Header Total TTC -->
+        <LinearLayout
+            android:id="@+id/linear_layout_bill_header_total_ttc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="6dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/bill_header_total_ttc_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Total TTC :  "
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/bill_header_total_ttc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="000.00 DT"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,11 +1,10 @@
 package com.hotix.myhotixguest.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
@@ -16,6 +15,7 @@ import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.BillDetailsActivity;
+import com.hotix.myhotixguest.activitys.GuestProfileActivity;
 import com.hotix.myhotixguest.activitys.HistoryActivity;
 import com.hotix.myhotixguest.activitys.NewReservationActivity;
 import com.hotix.myhotixguest.activitys.ReservationDetailsActivity;
@@ -27,6 +27,7 @@ import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
 import static com.hotix.myhotixguest.helpers.Utils.fromTodayToDate;
 import static com.hotix.myhotixguest.helpers.Utils.newCalculateDaysBetween;
 import static com.hotix.myhotixguest.helpers.Utils.newDateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.newDateTowColors;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HomeFragment extends Fragment {
@@ -34,7 +35,6 @@ public class HomeFragment extends Fragment {
     // Session Manager Class
     Session session;
 
-    private OnFragmentInteractionListener mListener;
     private RelativeLayout _guestDetails;
     private RelativeLayout _reservationDetails;
     private RelativeLayout _bill;
@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     private AppCompatTextView homeGuestDate;
     private AppCompatTextView homeGuestNights;
     private AppCompatTextView homeResaDetailsTitle;
-
+    private AppCompatImageButton guestEditProfile;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -91,17 +91,19 @@ public class HomeFragment extends Fragment {
         homeGuestNights = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_nights);
         homeResaDetailsTitle = (AppCompatTextView) getActivity().findViewById(R.id.home_reservation_details_title);
 
+        guestEditProfile = (AppCompatImageButton) getActivity().findViewById(R.id.home_guest_edit_icon);
+
         homeGuestName.setText(session.getNom() + " " + session.getPrenom());
         if (session.getISResident()) {
             homeGuestResType.setText(session.getChambre());
             //homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
-            homeGuestDate.setText(Html.fromHtml(dateTowColors(newDateFormater(session.getDateArrivee()), getContext()) + " - " + dateTowColors(newDateFormater(session.getDateDepart()), getContext())));
+            homeGuestDate.setText(Html.fromHtml(newDateTowColors(newDateFormater(session.getDateArrivee()), getContext()) + " - " + dateTowColors(newDateFormater(session.getDateDepart()), getContext())));
             //homeGuestDate.setText(newDateFormater(session.getDateArrivee()).substring(0,2) + " - " + newDateFormater(session.getDateDepart()));
             homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
         } else if (session.getResaId() != 0) {
             homeGuestResType.setText(fromTodayToDate(session.getDateArrivee()) + " " + getString(R.string.day_till_check_in));
             //homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
-            homeGuestDate.setText(Html.fromHtml(dateTowColors(newDateFormater(session.getDateArrivee()), getContext()) + " - " + dateTowColors(newDateFormater(session.getDateDepart()), getContext())));
+            homeGuestDate.setText(Html.fromHtml(newDateTowColors(newDateFormater(session.getDateArrivee()), getContext()) + " - " + dateTowColors(newDateFormater(session.getDateDepart()), getContext())));
             //homeGuestDate.setText(newDateFormater(session.getDateArrivee()).substring(0,2) + " - " + newDateFormater(session.getDateDepart()));
             homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
             homeResaDetailsTitle.setText("My Reservation");
@@ -187,28 +189,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
-    }
+        //Edit Profile OnClickListener
+        guestEditProfile.setOnClickListener(new View.OnClickListener() {
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+            @Override
+            public void onClick(View v) {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+                //Start the NewReservationActivity
+                Intent i = new Intent(getActivity(), GuestProfileActivity.class);
+                startActivity(i);
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+            }
+        });
+
+
+
     }
 
 }

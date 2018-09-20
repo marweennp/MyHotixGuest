@@ -1,63 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".activitys.HistoryActivity">
+    tools:context=".fragments.ComplaintsFragment">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <include layout="@layout/include_toolbar" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <!-- Stays Progress View -->
+    <!-- Messages Progress View -->
     <LinearLayout
-        android:id="@+id/stays_progress_view"
+        android:id="@+id/messages_progress_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
-        <!-- Stays Progress ProgressBar -->
+        <!-- Messages Progress ProgressBar -->
         <ProgressBar
-            android:id="@+id/stays_progress_bar"
+            android:id="@+id/messages_progress_bar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></ProgressBar>
+            android:layout_height="wrap_content" />
 
-        <!-- Stays Progress TextView -->
+        <!-- Messages Progress TextView -->
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/stays_progress_text_view"
+            android:id="@+id/messages_progress_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Loading..."
+            android:text="@string/loading"
             android:textColor="@color/grey_400"
             android:textSize="14sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-    <!-- Stays ListView -->
+    <!-- Messages ListView -->
     <ListView
-        android:id="@+id/stays_list"
+        android:id="@+id/messages_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:drawSelectorOnTop="true"
-        android:layout_below="@+id/appbar"
-        android:divider="@color/colorBackground"
-        android:dividerHeight="1px" />
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="1px"
+        android:drawSelectorOnTop="true" />
 
-    <!-- Stays Empty View -->
+    <!-- Messages Empty View -->
     <RelativeLayout
-        android:id="@+id/Stays_empty"
+        android:id="@+id/messages_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
@@ -65,27 +54,26 @@
 
         <!-- Empty List Icon -->
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/stays_empty_list_icon"
+            android:id="@+id/messages_empty_list_icon"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_centerInParent="true"
             android:tint="@color/colorPrimary"
             app:srcCompat="@drawable/baseline_cloud_queue_24" />
 
-        <!-- Stays List TextView -->
+        <!-- Empty List TextView -->
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/stays_empty_list_text_view"
+            android:id="@+id/messages_empty_list_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/stays_empty_list_icon"
+            android:layout_below="@+id/messages_empty_list_icon"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
-            android:text="No item to show."
+            android:text="@string/no_item_to_show"
             android:textColor="@color/grey_400"
             android:textSize="24sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
-
 
 </RelativeLayout>

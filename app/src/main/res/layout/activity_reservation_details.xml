@@ -14,11 +14,42 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <include layout="@layout/toolbar" />
+        <include layout="@layout/include_toolbar" />
 
     </android.support.design.widget.AppBarLayout>
 
+    <!-- Reservation Details Progress View -->
+    <LinearLayout
+        android:id="@+id/reservation_details_progress_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- Reservation Details  Progress ProgressBar -->
+        <ProgressBar
+            android:id="@+id/reservation_details_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Reservation Details Progress TextView -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/reservation_details_progress_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/loading"
+            android:textColor="@color/grey_400"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <!-- Main Container -->
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/reservation_details_main_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appbar">
@@ -467,5 +498,47 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <!-- Reservation Details Empty View -->
+    <RelativeLayout
+        android:id="@+id/reservation_details_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <!-- Reservation Details List Icon -->
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/reservation_details_empty_list_icon"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerInParent="true"
+            android:tint="@color/colorPrimary"
+            app:srcCompat="@drawable/baseline_cloud_queue_24" />
+
+        <!-- Reservation Details List TextView -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/reservation_details_empty_list_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reservation_details_empty_list_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:text="No item to show."
+            android:textColor="@color/grey_400"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/reservation_details_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reservation_details_empty_list_text_view"
+            android:layout_centerHorizontal="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/colorPrimary"
+            app:srcCompat="@drawable/baseline_refresh_black_48" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

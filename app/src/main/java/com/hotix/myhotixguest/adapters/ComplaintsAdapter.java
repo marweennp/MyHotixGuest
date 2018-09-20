@@ -32,7 +32,7 @@ public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
     }
 
     public ComplaintsAdapter(ArrayList<Complaint> data, Context context) {
-        super(context, R.layout.complaint_row_item, data);
+        super(context, R.layout.list_complaint_row_item, data);
         this.dataSet = data;
         this.mContext = context;
     }
@@ -50,7 +50,7 @@ public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.complaint_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.list_complaint_row_item, parent, false);
             viewHolder.complaint_title = (TextView) convertView.findViewById(R.id.complaint_title);
             viewHolder.complaint_text = (TextView) convertView.findViewById(R.id.complaint_text);
             viewHolder.complaint_date = (TextView) convertView.findViewById(R.id.complaint_date);

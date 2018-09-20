@@ -1,16 +1,18 @@
 package com.hotix.myhotixguest.activitys;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.adapters.StayAdapter;
+import com.hotix.myhotixguest.adapters.HistoryAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.Sejour;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
@@ -28,7 +30,7 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private static StayAdapter adapter;
+    private static HistoryAdapter adapter;
     // Butter Knife BindView ListView
     @BindView(R.id.stays_list)
     ListView listView;
@@ -38,6 +40,16 @@ public class HistoryActivity extends AppCompatActivity {
     // Session Manager Class
     Session session;
     ArrayList<Sejour> l_sejours;
+
+    // Butter Knife BindView LinearLayout
+    @BindView(R.id.stays_progress_view)
+    LinearLayout progressView;
+    // Butter Knife BindView AppCompatTextView
+    @BindView(R.id.stays_empty_list_text_view)
+    AppCompatTextView emptyListText;
+    // Butter Knife BindView AppCompatImageView
+    @BindView(R.id.stays_empty_list_icon)
+    AppCompatImageView emptyListIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +73,7 @@ public class HistoryActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
                 Intent i = new Intent(getApplicationContext(), ReservationDetailsActivity.class);
                 i.putExtra("resaId", l_sejours.get(position).getResaId().toString());
-                i.putExtra("histo","histo");
+                i.putExtra("histo", "histo");
 
                 startActivity(i);
 
@@ -81,22 +93,19 @@ public class HistoryActivity extends AppCompatActivity {
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<ArrayList<Sejour>> billCall = service.getStayHistoryQuery(session.getClientId().toString());
 
-        final ProgressDialog progressDialog = new ProgressDialog(HistoryActivity.this, R.style.AppThemeDialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        progressView.setVisibility(View.VISIBLE);
 
         billCall.enqueue(new Callback<ArrayList<Sejour>>() {
             @Override
             public void onResponse(Call<ArrayList<Sejour>> call, Response<ArrayList<Sejour>> response) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
                 if (response.raw().code() == 200) {
                     l_sejours = response.body();
 
-                    adapter = new StayAdapter(l_sejours, getApplicationContext());
-
+                    adapter = new HistoryAdapter(l_sejours, getApplicationContext());
                     listView.setAdapter(adapter);
+                    emptyListText.setText(R.string.no_history_to_show);
+                    listView.setEmptyView(findViewById(R.id.Stays_empty));
 
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
@@ -105,9 +114,11 @@ public class HistoryActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ArrayList<Sejour>> call, Throwable t) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
+                emptyListText.setText(R.string.server_unreachable);
+                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                listView.setEmptyView(findViewById(R.id.Stays_empty));
                 showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
-                //Toast.makeText(getApplicationContext(), "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

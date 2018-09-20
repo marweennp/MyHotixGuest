@@ -76,6 +76,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".activitys.GuestProfileActivity"></activity>
     </application>
 
 </manifest>
