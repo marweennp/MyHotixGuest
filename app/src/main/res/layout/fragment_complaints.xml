@@ -7,48 +7,68 @@
     android:background="@color/white"
     tools:context=".fragments.ComplaintsFragment">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <!-- Complaints Progress View -->
+    <LinearLayout
+        android:id="@+id/complaints_progress_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <include layout="@layout/toolbar" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <ListView
-        android:id="@+id/complaint_list"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/appbar"
-        android:layout_marginBottom="56dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- complaints Progress ProgressBar -->
+        <ProgressBar
+            android:id="@+id/complaints_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Complaints Progress TextView -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/complaints_progress_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/loading"
+            android:textColor="@color/grey_400"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <!-- Complaints ListView -->
+    <ListView
+        android:id="@+id/complaints_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="@color/colorPrimaryDark"
         android:dividerHeight="1px"
         android:drawSelectorOnTop="true" />
 
+    <!-- Complaints Empty View -->
     <RelativeLayout
-        android:id="@+id/empty"
+        android:id="@+id/complaints_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:visibility="gone">
 
         <!-- Empty List Icon -->
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/empty_list_icon"
+            android:id="@+id/complaints_empty_list_icon"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_centerHorizontal="true"
-            android:layout_above="@+id/empty_list_text_view"
+            android:layout_centerInParent="true"
             app:srcCompat="@drawable/baseline_cloud_queue_24"
             android:tint="@color/colorPrimary" />
 
         <!-- Empty List TextView -->
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/empty_list_text_view"
+            android:id="@+id/complaints_empty_list_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/complaints_empty_list_icon"
             android:layout_margin="10dp"
             android:text="No item to show."
             android:textColor="@color/grey_400"
@@ -57,14 +77,14 @@
 
     </RelativeLayout>
 
+    <!-- Complaints Add FAB-->
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton_add"
+        android:id="@+id/complaints_floatingActionButton_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="62dp"
-        android:layout_marginEnd="6dp"
+        android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="@color/colorBackground"
         android:clickable="true"
         android:focusable="true"
