@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".activitys.HistoryActivity">
 
@@ -18,74 +17,20 @@
     </android.support.design.widget.AppBarLayout>
 
     <!-- Stays Progress View -->
-    <LinearLayout
-        android:id="@+id/stays_progress_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <!-- Stays Progress ProgressBar -->
-        <ProgressBar
-            android:id="@+id/stays_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></ProgressBar>
-
-        <!-- Stays Progress TextView -->
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/stays_progress_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Loading..."
-            android:textColor="@color/grey_400"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+    <include layout="@layout/include_loading_view" />
 
     <!-- Stays ListView -->
     <ListView
         android:id="@+id/stays_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:drawSelectorOnTop="true"
         android:layout_below="@+id/appbar"
         android:divider="@color/colorBackground"
-        android:dividerHeight="1px" />
+        android:dividerHeight="1px"
+        android:drawSelectorOnTop="true" />
 
     <!-- Stays Empty View -->
-    <RelativeLayout
-        android:id="@+id/Stays_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:visibility="gone">
-
-        <!-- Empty List Icon -->
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/stays_empty_list_icon"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_centerInParent="true"
-            android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/baseline_cloud_queue_24" />
-
-        <!-- Stays List TextView -->
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/stays_empty_list_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/stays_empty_list_icon"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:text="No item to show."
-            android:textColor="@color/grey_400"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
+    <include layout="@layout/include_empty_list_view" />
 
 
 </RelativeLayout>

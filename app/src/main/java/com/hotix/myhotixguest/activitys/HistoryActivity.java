@@ -3,6 +3,7 @@ package com.hotix.myhotixguest.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.HistoryAdapter;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,22 +37,26 @@ public class HistoryActivity extends AppCompatActivity {
     // Butter Knife BindView ListView
     @BindView(R.id.stays_list)
     ListView listView;
+
     // Butter Knife BindView Toolbar
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
     // Session Manager Class
     Session session;
     ArrayList<Sejour> l_sejours;
 
-    // Butter Knife BindView LinearLayout
-    @BindView(R.id.stays_progress_view)
+    // Loading View & Empty ListView
+    @BindView(R.id.loading_view)
     LinearLayout progressView;
-    // Butter Knife BindView AppCompatTextView
-    @BindView(R.id.stays_empty_list_text_view)
+    @BindView(R.id.empty_list_view)
+    RelativeLayout emptyListView;
+    @BindView(R.id.list_tv_msg)
     AppCompatTextView emptyListText;
-    // Butter Knife BindView AppCompatImageView
-    @BindView(R.id.stays_empty_list_icon)
+    @BindView(R.id.empty_list_iv_icon)
     AppCompatImageView emptyListIcon;
+    @BindView(R.id.empty_list_ibt_refresh)
+    AppCompatImageButton emptyListRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +78,20 @@ public class HistoryActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+
                 Intent i = new Intent(getApplicationContext(), ReservationDetailsActivity.class);
                 i.putExtra("resaId", l_sejours.get(position).getResaId().toString());
                 i.putExtra("histo", "histo");
-
                 startActivity(i);
 
             }
         });
 
+    }
+
+    @OnClick(R.id.empty_list_ibt_refresh)
+    public void refresh() {
+        loadeStays();
     }
 
     @Override
@@ -94,6 +106,7 @@ public class HistoryActivity extends AppCompatActivity {
         Call<ArrayList<Sejour>> billCall = service.getStayHistoryQuery(session.getClientId().toString());
 
         progressView.setVisibility(View.VISIBLE);
+        emptyListView.setVisibility(View.GONE);
 
         billCall.enqueue(new Callback<ArrayList<Sejour>>() {
             @Override
@@ -105,7 +118,7 @@ public class HistoryActivity extends AppCompatActivity {
                     adapter = new HistoryAdapter(l_sejours, getApplicationContext());
                     listView.setAdapter(adapter);
                     emptyListText.setText(R.string.no_history_to_show);
-                    listView.setEmptyView(findViewById(R.id.Stays_empty));
+                    listView.setEmptyView(findViewById(R.id.empty_list_view));
 
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
@@ -117,7 +130,7 @@ public class HistoryActivity extends AppCompatActivity {
                 progressView.setVisibility(View.GONE);
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
-                listView.setEmptyView(findViewById(R.id.Stays_empty));
+                listView.setEmptyView(findViewById(R.id.empty_list_view));
                 showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
             }
         });

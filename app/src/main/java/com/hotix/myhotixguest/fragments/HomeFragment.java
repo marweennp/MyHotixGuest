@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,19 @@ import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.BillDetailsActivity;
-import com.hotix.myhotixguest.activitys.GuestProfileActivity;
 import com.hotix.myhotixguest.activitys.HistoryActivity;
+import com.hotix.myhotixguest.activitys.LoginActivity;
 import com.hotix.myhotixguest.activitys.NewReservationActivity;
 import com.hotix.myhotixguest.activitys.ReservationDetailsActivity;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.retrofit2.RetrofitClient;
+import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 import com.squareup.picasso.Picasso;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
@@ -31,6 +39,8 @@ import static com.hotix.myhotixguest.helpers.Utils.newDateTowColors;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HomeFragment extends Fragment {
+
+    private static final String TAG = "FIREBASE_ID";
 
     // Session Manager Class
     Session session;
@@ -72,6 +82,7 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Session Manager
         session = new Session(getActivity());
+        if (session.getNewToken()) updateFireBaseToken();
 
         _guestDetails = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_guest_details_layout);
         _reservationDetails = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_reservation_details_layout);
@@ -196,14 +207,41 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
                 //Start the NewReservationActivity
-                Intent i = new Intent(getActivity(), GuestProfileActivity.class);
+//                Intent i = new Intent(getActivity(), GuestProfileActivity.class);
+////                startActivity(i);
+                session.clearSessionDetails();
+                Intent i = new Intent(getActivity(), LoginActivity.class);
                 startActivity(i);
+                getActivity().finish();
 
             }
         });
 
+    }
 
 
+    public void updateFireBaseToken() {
+
+        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        Call<ResponseBody> userCall = service.updateSerialKeyQuery(session.getClientId().toString(), session.getFCMToken());
+
+        userCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.raw().code() == 200) {
+                    Log.e(TAG, "Refreshed token: " + response.raw().toString());
+                    session.setNewToken(true);
+                } else {
+                    Log.e(TAG, "Refreshed token: " + response.raw().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(TAG, "Refreshed token: " + t.toString());
+            }
+        });
     }
 
 }

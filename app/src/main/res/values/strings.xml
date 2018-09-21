@@ -90,6 +90,11 @@
     <string name="server_unreachable">The server is unreachable.</string>
     <string name="loading">Loading...</string>
     <string name="no_history_to_show">No hestory to show</string>
+    <string name="new_complaint_title">Title</string>
+    <string name="new_complaint_subject">Subject</string>
+    <string name="new_complaint_confirm">Confirm</string>
+    <string name="new_complaint_alert_title">New Complaint</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.ComplaintsAdapter;
@@ -48,9 +50,6 @@ public class ComplaintsFragment extends Fragment {
     private AppCompatEditText complaintText;
 
 
-    private AppCompatTextView emptyListText;
-    private AppCompatImageView emptyListIcon;
-
     private TextInputLayout complaintTitleInput;
     private TextInputLayout complaintTextInput;
     private ArrayList<Complaint> dataModels;
@@ -58,7 +57,14 @@ public class ComplaintsFragment extends Fragment {
     private FloatingActionButton _floatingActionButton;
     // Session Manager Class
     private Session session;
+
+    // Loading View & Empty ListView
     private LinearLayout progressView;
+    private RelativeLayout emptyListView;
+    private AppCompatTextView emptyListText;
+    private AppCompatImageView emptyListIcon;
+    private AppCompatImageButton emptyListRefresh;
+
 
     public ComplaintsFragment() { }
 
@@ -81,9 +87,11 @@ public class ComplaintsFragment extends Fragment {
 
         _floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.complaints_floatingActionButton_add);
 
-        progressView = (LinearLayout) getActivity().findViewById(R.id.complaints_progress_view);
-        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.complaints_empty_list_text_view);
-        emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.complaints_empty_list_icon);
+        progressView = (LinearLayout) getActivity().findViewById(R.id.loading_view);
+        emptyListView = (RelativeLayout) getActivity().findViewById(R.id.empty_list_view);
+        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.list_tv_msg);
+        emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.empty_list_iv_icon);
+        emptyListRefresh = (AppCompatImageButton) getActivity().findViewById(R.id.empty_list_ibt_refresh);
 
         listView = (ListView) getActivity().findViewById(R.id.complaints_list);
 
@@ -93,11 +101,18 @@ public class ComplaintsFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-
                 startComplaintDialog();
-
             }
         });
+
+        emptyListRefresh.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                loadeComplaints();
+            }
+        });
+
     }
 
     @Override
@@ -119,9 +134,11 @@ public class ComplaintsFragment extends Fragment {
         complaintTitleInput = (TextInputLayout) mView.findViewById(R.id.add_complaint_dialog_input_layout_title);
         complaintTextInput = (TextInputLayout) mView.findViewById(R.id.add_complaint_dialog_input_layout_text);
         AppCompatButton addComplaint = (AppCompatButton) mView.findViewById(R.id.btn_Add);
+        AppCompatButton cancelBt = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
 
 
         mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
         final AlertDialog dialog = mBuilder.create();
         dialog.show();
 
@@ -142,6 +159,14 @@ public class ComplaintsFragment extends Fragment {
                 }
             }
         });
+
+        cancelBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    dialog.dismiss();
+            }
+        });
+
     }
 
     /**********************************(  __________________ )*************************************/
@@ -190,6 +215,7 @@ public class ComplaintsFragment extends Fragment {
         Call<ArrayList<Complaint>> billCall = service.getReclamationsQuery(session.getResaId().toString());
 
         progressView.setVisibility(View.VISIBLE);
+        emptyListView.setVisibility(View.GONE);
 
         billCall.enqueue(new Callback<ArrayList<Complaint>>() {
             @Override
@@ -201,7 +227,7 @@ public class ComplaintsFragment extends Fragment {
                     adapter = new ComplaintsAdapter(dataModels, getActivity());
                     listView.setAdapter(adapter);
                     emptyListText.setText(R.string.no_complaint_to_show);
-                    listView.setEmptyView(getActivity().findViewById(R.id.complaints_empty));
+                    listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
 
                 }else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
@@ -213,7 +239,7 @@ public class ComplaintsFragment extends Fragment {
                 progressView.setVisibility(View.GONE);
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
-                listView.setEmptyView(getActivity().findViewById(R.id.complaints_empty));
+                listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
             }
         });

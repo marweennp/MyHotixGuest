@@ -42,6 +42,7 @@ import static com.hotix.myhotixguest.helpers.Utils.signeUpTextTowColors;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "FIREBASE_ID";
+
     // Butter Knife BindView RelativeLayout
     @BindView(R.id.login_main_Layout)
     RelativeLayout rLayout;
@@ -69,10 +70,10 @@ public class LoginActivity extends AppCompatActivity {
     // Butter Knife BindView TextInputLayout
     @BindView(R.id.remember_me)
     AppCompatCheckBox _rememberMe;
-    boolean is_logged_in = false;
-    boolean remember_me = false;
     // Session Manager Class
     Session session;
+    private boolean is_logged_in = false;
+    private boolean remember_me = false;
     // For input text Validation
     private InputValidation inputValidation;
 
@@ -84,16 +85,12 @@ public class LoginActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
         getFirebaseInstanceId();
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
 
         if (session.getIsLoggedIn()) {
-            //Start the HomeScreenActivity
-            Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
-            startActivity(i);
-            finish();
+            _loginEmailText.setText(session.getUserName());
+            _loginPasswordText.setText(session.getUserPassword());
         }
-
-
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
 
         _loginSignupTextView.setText(Html.fromHtml(signeUpTextTowColors(getString(R.string.no_account_yet), getString(R.string.sign_up), getApplicationContext())));
 
@@ -147,8 +144,8 @@ public class LoginActivity extends AppCompatActivity {
     /**********************************(  Login Logic  )*************************************/
     public void login() {
 
-        String uname = _loginEmailText.getText().toString();
-        String pwd = _loginPasswordText.getText().toString();
+        final String uname = _loginEmailText.getText().toString();
+        final String pwd = _loginPasswordText.getText().toString();
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<Guest> userCall = service.getGuestQuery(uname, pwd);
@@ -174,12 +171,14 @@ public class LoginActivity extends AppCompatActivity {
                         remember_me = _rememberMe.isChecked();
                         is_logged_in = _rememberMe.isChecked();
                         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                        session.clearSessionDetails();
+                        session.setNewToken(true);
                         session.createNewGuestSession(
                                 response.body().getISResident(),
                                 response.body().getHasHistory(),
                                 is_logged_in,
                                 remember_me,
+                                uname,
+                                pwd,
                                 response.body().getDateArrivee(),
                                 response.body().getDateDepart(),
                                 response.body().getChambre(),
@@ -242,16 +241,14 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e(TAG, "getInstanceId failed", task.getException());
                             return;
                         }
-
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-
+                        session.setFCMToken(task.getResult().getToken());
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
                         Log.e(TAG, msg);
                     }
                 });
     }
-
 
 }

@@ -77,24 +77,20 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     @BindView(R.id.profile_bill_icon_layou)
     LinearLayoutCompat profileBillLayou;
 
-    // Butter Knife BindView LinearLayout
-    @BindView(R.id.reservation_details_progress_view)
+
+    // Loading View & Empty ListView
+    @BindView(R.id.loading_view)
     LinearLayout progressView;
-    // Butter Knife BindView RelativeLayout
-    @BindView(R.id.reservation_details_empty)
-    RelativeLayout reservationDetailsEmpty;
-    // Butter Knife BindView NestedScrollView
+    @BindView(R.id.empty_list_view)
+    RelativeLayout emptyListView;
+    @BindView(R.id.list_tv_msg)
+    AppCompatTextView emptyListText;
+    @BindView(R.id.empty_list_iv_icon)
+    AppCompatImageView emptyListIcon;
+    @BindView(R.id.empty_list_ibt_refresh)
+    AppCompatImageButton emptyListRefresh;
     @BindView(R.id.reservation_details_main_container)
     NestedScrollView reservationDetailsContainer;
-    // Butter Knife BindView AppCompatTextView
-    @BindView(R.id.reservation_details_empty_list_text_view)
-    AppCompatTextView emptyListText;
-    // Butter Knife BindView AppCompatImageView
-    @BindView(R.id.reservation_details_empty_list_icon)
-    AppCompatImageView emptyListIcon;
-    // Butter Knife BindView AppCompatImageButton
-    @BindView(R.id.reservation_details_refresh)
-    AppCompatImageButton reservationDetailsRefresh;
 
     private String resaId;
     private String billId;
@@ -127,17 +123,15 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         billIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (session.getISResident()) {
-                    //Start the BillDetailsActivity
-                    Intent i = new Intent(getApplicationContext(), BillDetailsActivity.class);
-                    i.putExtra("billId", billId);
-                    i.putExtra("billAn", billAn);
-                    startActivity(i);
-                }
+                //Start the BillDetailsActivity
+                Intent i = new Intent(getApplicationContext(), BillDetailsActivity.class);
+                i.putExtra("billId", billId);
+                i.putExtra("billAn", billAn);
+                startActivity(i);
             }
         });
 
-        reservationDetailsRefresh.setOnClickListener(new View.OnClickListener() {
+        emptyListRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadData();
@@ -154,7 +148,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
         progressView.setVisibility(View.VISIBLE);
         reservationDetailsContainer.setVisibility(View.GONE);
-        reservationDetailsEmpty.setVisibility(View.GONE);
+        emptyListView.setVisibility(View.GONE);
 
         userCall.enqueue(new Callback<Sejour>() {
             @Override
@@ -162,7 +156,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
                 progressView.setVisibility(View.GONE);
                 reservationDetailsContainer.setVisibility(View.VISIBLE);
-                reservationDetailsEmpty.setVisibility(View.GONE);
+                emptyListView.setVisibility(View.GONE);
 
                 if (response.raw().code() == 200) {
                     Sejour sejour = response.body();
@@ -204,7 +198,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Sejour> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
-                reservationDetailsEmpty.setVisibility(View.VISIBLE);
+                emptyListView.setVisibility(View.VISIBLE);
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
                 showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
@@ -239,6 +233,10 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         AppCompatTextView guestPhone = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_phone);
         AppCompatImageView guestMailIcon = (AppCompatImageView) guestView.findViewById(R.id.profile_guest_details_mail_icon);
         AppCompatTextView guestMail = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_mail);
+        LinearLayout bdLayout = (LinearLayout) guestView.findViewById(R.id.bd_layout);
+        LinearLayout adrLayout = (LinearLayout) guestView.findViewById(R.id.adr_layout);
+        LinearLayout phoneLayout = (LinearLayout) guestView.findViewById(R.id.phone_layout);
+        LinearLayout mailLayout = (LinearLayout) guestView.findViewById(R.id.mail_layout);
 
         if (!master) {
             guestIsMaster.setVisibility(View.GONE);
@@ -249,24 +247,28 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         if (bd.trim().isEmpty()) {
             guestBirthDateIcon.setVisibility(View.GONE);
             guestBirthDate.setVisibility(View.GONE);
+            bdLayout.setVisibility(View.GONE);
         } else {
             guestBirthDate.setText(bd);
         }
         if (adr.trim().isEmpty()) {
             guestAddressIcon.setVisibility(View.GONE);
             guestAddress.setVisibility(View.GONE);
+            adrLayout.setVisibility(View.GONE);
         } else {
             guestAddress.setText(adr);
         }
         if (phone.trim().isEmpty()) {
             guestPhoneIcon.setVisibility(View.GONE);
             guestPhone.setVisibility(View.GONE);
+            phoneLayout.setVisibility(View.GONE);
         } else {
             guestPhone.setText(phone);
         }
         if (mail.trim().isEmpty()) {
             guestMailIcon.setVisibility(View.GONE);
             guestMail.setVisibility(View.GONE);
+            mailLayout.setVisibility(View.GONE);
         } else {
             guestMail.setText(mail);
         }

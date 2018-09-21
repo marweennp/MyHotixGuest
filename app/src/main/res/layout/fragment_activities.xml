@@ -19,33 +19,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <!-- Event Progress View -->
-    <LinearLayout
-        android:id="@+id/event_progress_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <!-- Event Progress ProgressBar -->
-        <ProgressBar
-            android:id="@+id/event_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <!-- Event Progress TextView -->
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/event_progress_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Loading..."
-            android:textColor="@color/grey_400"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-
-    </LinearLayout>
+    <include layout="@layout/include_loading_view" />
 
     <!-- Event ListView -->
     <ListView
@@ -58,36 +32,7 @@
         android:drawSelectorOnTop="true" />
 
     <!-- Event Empty View -->
-    <RelativeLayout
-        android:id="@+id/event_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:visibility="gone">
-
-        <!-- Empty List Icon -->
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/event_empty_list_icon"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_centerInParent="true"
-            android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/baseline_cloud_queue_24" />
-
-        <!-- Empty List TextView -->
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/event_empty_list_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/event_empty_list_icon"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:text="No item to show."
-            android:textColor="@color/grey_400"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
+    <include layout="@layout/include_empty_list_view" />
 
 
 </RelativeLayout>

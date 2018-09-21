@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.ActivitieDetailsActivity;
@@ -35,14 +37,18 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 public class ActivitiesFragment extends Fragment {
 
     private static EventAdapter adapter;
-    private AppCompatTextView emptyListText;
-    private AppCompatImageView emptyListIcon;
     private ArrayList<Event> dataModels;
     private ListView listView;
     // Session Manager Class
     private Session session;
     private Toolbar toolbar;
+
+    // Loading View & Empty ListView
     private LinearLayout progressView;
+    private RelativeLayout emptyListView;
+    private AppCompatTextView emptyListText;
+    private AppCompatImageView emptyListIcon;
+    private AppCompatImageButton emptyListRefresh;
 
     public ActivitiesFragment() {
         // Required empty public constructor
@@ -65,9 +71,11 @@ public class ActivitiesFragment extends Fragment {
         // Session Manager
         session = new Session(getActivity());
 
-        progressView = (LinearLayout) getActivity().findViewById(R.id.event_progress_view);
-        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.event_empty_list_text_view);
-        emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.event_empty_list_icon);
+        progressView = (LinearLayout) getActivity().findViewById(R.id.loading_view);
+        emptyListView = (RelativeLayout) getActivity().findViewById(R.id.empty_list_view);
+        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.list_tv_msg);
+        emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.empty_list_iv_icon);
+        emptyListRefresh = (AppCompatImageButton) getActivity().findViewById(R.id.empty_list_ibt_refresh);
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -76,6 +84,13 @@ public class ActivitiesFragment extends Fragment {
         listView = (ListView) getActivity().findViewById(R.id.event_list);
         dataModels = new ArrayList<>();
 
+        emptyListRefresh.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                loadeEvents();
+            }
+        });
 
         loadeEvents();
 
@@ -98,6 +113,7 @@ public class ActivitiesFragment extends Fragment {
         Call<ArrayList<Event>> billCall = service.getActivitesQuery();
 
         progressView.setVisibility(View.VISIBLE);
+        emptyListView.setVisibility(View.GONE);
 
         billCall.enqueue(new Callback<ArrayList<Event>>() {
             @Override
@@ -109,7 +125,7 @@ public class ActivitiesFragment extends Fragment {
                     adapter = new EventAdapter(dataModels, getActivity());
                     listView.setAdapter(adapter);
                     emptyListText.setText(R.string.no_activitie_to_show);
-                    listView.setEmptyView(getActivity().findViewById(R.id.event_empty));
+                    listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
 
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
@@ -121,7 +137,7 @@ public class ActivitiesFragment extends Fragment {
                 progressView.setVisibility(View.GONE);
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
-                listView.setEmptyView(getActivity().findViewById(R.id.event_empty));
+                listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
             }
         });

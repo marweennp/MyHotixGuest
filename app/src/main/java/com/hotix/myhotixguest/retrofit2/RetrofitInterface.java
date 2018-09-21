@@ -18,7 +18,8 @@ public interface RetrofitInterface {
 
     //Login service call
     @GET("/HNGAPI/api/myhotixguest/authentifier?")
-    Call<Guest> getGuestQuery(@Query("_user") String _user, @Query("_pass") String _pass);
+    Call<Guest> getGuestQuery(@Query("_user") String _user,
+                              @Query("_pass") String _pass);
 
     //Get Stay Details service call
     @GET("/HNGAPI/api/myhotixguest/getdetailsresa?")
@@ -30,7 +31,8 @@ public interface RetrofitInterface {
 
     //Get Bill Details service call
     @GET("/HNGAPI/api/myhotixguest/getdetailsfacture?")
-    Call<Facture> getFactureQuery(@Query("id") String id, @Query("annee") String annee);
+    Call<Facture> getFactureQuery(@Query("id") String id,
+                                  @Query("annee") String annee);
 
     //Get Activites service call
     @GET("/HNGAPI/api/myhotixguest/getactivites")
@@ -47,6 +49,11 @@ public interface RetrofitInterface {
                                             @Query("objectRec") String objectRec,
                                             @Query("detail") String detail,
                                             @Query("ResaId") String ResaId);
+
+    //Post UpdateSerialKey service call
+    @POST("/HNGAPI/api/myhotixguest/UpdateSerialKey?")
+    Call<ResponseBody> updateSerialKeyQuery(@Query("clientId") String clientId,
+                                            @Query("serialKey") String serialKey);
 
 
 }

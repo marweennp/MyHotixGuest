@@ -27,7 +27,7 @@
         android:layout_height="1dp"
         android:layout_above="@id/layoutDots"
         android:alpha=".5"
-        android:background="@android:color/white" />
+        android:background="@color/white" />
 
     <Button
         android:id="@+id/btn_next"
@@ -37,7 +37,7 @@
         android:layout_alignParentEnd="true"
         android:background="@null"
         android:text="@string/next"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btn_back"
@@ -47,6 +47,6 @@
         android:layout_alignParentStart="true"
         android:background="@null"
         android:text="@string/back"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

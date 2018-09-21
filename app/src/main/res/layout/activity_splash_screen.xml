@@ -9,8 +9,8 @@
     <!-- Splash Screen Logo -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/splash_screen_imageView"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_centerInParent="true"
         app:srcCompat="@mipmap/ic_launcher_round" />
 

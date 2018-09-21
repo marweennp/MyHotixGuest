@@ -85,9 +85,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/circle"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/colorPrimaryDark"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/colorPrimary"
                 app:srcCompat="@drawable/baseline_settings_24" />
 
 

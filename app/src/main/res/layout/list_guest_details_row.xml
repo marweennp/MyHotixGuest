@@ -66,6 +66,7 @@
 
     <!-- Birth Date -->
     <LinearLayout
+        android:id="@+id/bd_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -91,6 +92,7 @@
 
     <!-- Address -->
     <LinearLayout
+        android:id="@+id/adr_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -116,6 +118,7 @@
 
     <!-- Phone -->
     <LinearLayout
+        android:id="@+id/phone_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -141,6 +144,7 @@
 
     <!-- Mail -->
     <LinearLayout
+        android:id="@+id/mail_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
