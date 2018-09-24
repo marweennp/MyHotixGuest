@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.BillDetailsActivity;
+import com.hotix.myhotixguest.activitys.GuestProfileActivity;
 import com.hotix.myhotixguest.activitys.HistoryActivity;
 import com.hotix.myhotixguest.activitys.LoginActivity;
 import com.hotix.myhotixguest.activitys.NewReservationActivity;
@@ -207,12 +208,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
                 //Start the NewReservationActivity
-//                Intent i = new Intent(getActivity(), GuestProfileActivity.class);
-////                startActivity(i);
-                session.clearSessionDetails();
-                Intent i = new Intent(getActivity(), LoginActivity.class);
+                Intent i = new Intent(getActivity(), GuestProfileActivity.class);
                 startActivity(i);
-                getActivity().finish();
 
             }
         });

@@ -14,21 +14,17 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
 import com.squareup.picasso.Picasso;
 
-import javax.microedition.khronos.opengles.GL;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.support.v4.content.ContextCompat.getColor;
 import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
-import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 import static com.hotix.myhotixguest.helpers.Utils.timeFormater;
 
-public class ActivitieDetailsActivity extends AppCompatActivity {
+public class EventDetailsActivity extends AppCompatActivity {
 
     // Butter Knife BindView AppCompatImageView
     @BindView(R.id.event_details_img)
@@ -58,7 +54,7 @@ public class ActivitieDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activitie_details);
+        setContentView(R.layout.activity_event_details);
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());

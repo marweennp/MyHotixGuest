@@ -1,6 +1,5 @@
 package com.hotix.myhotixguest.activitys;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,8 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.fragments.ActivitiesFragment;
-import com.hotix.myhotixguest.fragments.ComplaintsFragment;
+import com.hotix.myhotixguest.fragments.EventsFragment;
 import com.hotix.myhotixguest.fragments.HomeFragment;
 import com.hotix.myhotixguest.fragments.NotificationsFragment;
 import com.hotix.myhotixguest.fragments.OrdersFragment;
@@ -43,7 +41,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         ordersFragment = new OrdersFragment();
         notificationsFragment = new NotificationsFragment();
-        activitesFragment = new ActivitiesFragment();
+        activitesFragment = new EventsFragment();
         reviewFragment = new ReviewFragment();
 
         loadFragment(homeFragment);

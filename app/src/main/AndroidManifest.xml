@@ -56,9 +56,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.ActivitieDetailsActivity"
+            android:name=".activitys.EventDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
+
+        <activity
+            android:name=".activitys.GuestProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar" />
+
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
@@ -76,7 +82,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activitys.GuestProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!-- Complaint Details Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/colorBackground">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/add_complaint_dialog_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/coomplaint_details"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <!-- Complaint Details State & Title -->
+    <RelativeLayout
+        android:id="@+id/complaint_details_state_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/complaint_details_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:textAllCaps="true"
+            android:textColor="@color/light_bg_dark_disabled_text"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/complaint_details_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/complaint_details_state"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/colorBackground"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <!-- Complaint Details Date -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/complaint_details_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/light_bg_dark_disabled_text"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Complaint Details Description -->
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/complaint_details_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/light_bg_dark_secondary_text"
+                android:textSize="14dp" />
+
+            <!-- Complaint Details Answer -->
+            <RelativeLayout
+                android:id="@+id/complaint_details_answer_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_alignParentTop="true"
+                    android:alpha=".5"
+                    android:background="@color/colorBackground" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/complaint_details_answer_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:textAllCaps="true"
+                    android:text="@string/answer"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/complaint_details_answer_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/complaint_details_answer_title"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Le Lorem Ipsum est simplement du faux texte Le Lorem Ipsum est simplement du faux texte employé dans Le Lorem Ipsum est simplement du "
+                    android:textColor="@color/light_bg_dark_secondary_text"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <!-- Ok Button -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="30dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:alpha=".5"
+            android:background="@color/colorBackground" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/complaint_details_btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/ok"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </RelativeLayout>
+
+</LinearLayout>

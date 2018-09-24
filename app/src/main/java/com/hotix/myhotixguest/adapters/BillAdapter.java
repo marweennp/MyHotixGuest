@@ -10,6 +10,9 @@ import android.widget.TextView;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.models.LignesFacture;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import static android.support.v4.content.ContextCompat.getColor;
@@ -19,6 +22,9 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
     Context mContext;
     private ArrayList<LignesFacture> dataSet;
+    //___________(Currency Number format)_____________\\
+    private NumberFormat formatter;
+    private DecimalFormatSymbols decimalFormatSymbols;
 
     public BillAdapter(ArrayList<LignesFacture> data, Context context) {
         super(context, R.layout.list_bill_row_item, data);
@@ -29,6 +35,12 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        formatter = NumberFormat.getCurrencyInstance();
+        decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
+        formatter.setMinimumFractionDigits(3);
 
         LignesFacture dataModel = getItem(position);
 
@@ -54,7 +66,7 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
         }
 
         viewHolder.bill_transaction_title.setText(dataModel.getDescription());
-        viewHolder.bill_transaction_sum.setText(""+dataModel.getMontant().toString());
+        viewHolder.bill_transaction_sum.setText(formatter.format(dataModel.getMontant()));
         viewHolder.bill_transaction_date.setText(dateFormater(dataModel.getDate()));
 
         if (!(dataModel.getModePaiement() == 0)) {

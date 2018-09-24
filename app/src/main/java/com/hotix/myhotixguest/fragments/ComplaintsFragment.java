@@ -1,34 +1,30 @@
 package com.hotix.myhotixguest.fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
+import com.hotix.myhotixguest.activitys.EventDetailsActivity;
 import com.hotix.myhotixguest.adapters.ComplaintsAdapter;
-import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.Complaint;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
@@ -41,6 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hotix.myhotixguest.helpers.Utils.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ComplaintsFragment extends Fragment {
@@ -48,12 +45,20 @@ public class ComplaintsFragment extends Fragment {
     private static ComplaintsAdapter adapter;
     private AppCompatEditText complaintTitle;
     private AppCompatEditText complaintText;
-
-
     private TextInputLayout complaintTitleInput;
     private TextInputLayout complaintTextInput;
+    private AppCompatButton addComplaint;
+    private AppCompatButton cancelBt;
+    private AppCompatTextView complaintDetailsState;
+    private AppCompatTextView complaintDetailsTitle;
+    private AppCompatTextView complaintDetailsDate;
+    private AppCompatTextView complaintDetailsDesc;
+    private AppCompatTextView complaintDetailsAnswerMsg;
+    private RelativeLayout complaintDetailsAnswerView;
+    private AppCompatButton complaintDetailsOkBt;
     private ArrayList<Complaint> dataModels;
     private ListView listView;
+    private Complaint complaint;
     private FloatingActionButton _floatingActionButton;
     // Session Manager Class
     private Session session;
@@ -66,7 +71,8 @@ public class ComplaintsFragment extends Fragment {
     private AppCompatImageButton emptyListRefresh;
 
 
-    public ComplaintsFragment() { }
+    public ComplaintsFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +119,17 @@ public class ComplaintsFragment extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+
+                complaint = dataModels.get(position);
+                startComplaintDetailsDialog(complaint);
+
+            }
+        });
+
+
     }
 
     @Override
@@ -120,7 +137,6 @@ public class ComplaintsFragment extends Fragment {
         super.onResume();
         loadeComplaints();
     }
-
 
     /**********************************(  Start Complaint Dialog  )*************************************/
     //This method is to start a dialog window .
@@ -133,8 +149,8 @@ public class ComplaintsFragment extends Fragment {
         complaintText = (AppCompatEditText) mView.findViewById(R.id.add_complaint_dialog_text);
         complaintTitleInput = (TextInputLayout) mView.findViewById(R.id.add_complaint_dialog_input_layout_title);
         complaintTextInput = (TextInputLayout) mView.findViewById(R.id.add_complaint_dialog_input_layout_text);
-        AppCompatButton addComplaint = (AppCompatButton) mView.findViewById(R.id.btn_Add);
-        AppCompatButton cancelBt = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
+        addComplaint = (AppCompatButton) mView.findViewById(R.id.btn_Add);
+        cancelBt = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
 
 
         mBuilder.setView(mView);
@@ -151,9 +167,9 @@ public class ComplaintsFragment extends Fragment {
                 complaintTextInput.setErrorEnabled(false);
                 if (complaintTitle.getText().toString().trim().isEmpty()) {
                     complaintTitleInput.setError(getString(R.string.error_message_title_is_empty));
-                }else if (complaintText.getText().toString().trim().isEmpty()) {
+                } else if (complaintText.getText().toString().trim().isEmpty()) {
                     complaintTextInput.setError(getString(R.string.error_message_complaint_text_is_empty));
-                }else{
+                } else {
                     addComplaint();
                     dialog.dismiss();
                 }
@@ -163,7 +179,47 @@ public class ComplaintsFragment extends Fragment {
         cancelBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    dialog.dismiss();
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void startComplaintDetailsDialog(Complaint complaint) {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_complaint_details, null);
+        complaintDetailsState = (AppCompatTextView) mView.findViewById(R.id.complaint_details_state);
+        complaintDetailsTitle = (AppCompatTextView) mView.findViewById(R.id.complaint_details_title);
+        complaintDetailsDate = (AppCompatTextView) mView.findViewById(R.id.complaint_details_date);
+        complaintDetailsDesc = (AppCompatTextView) mView.findViewById(R.id.complaint_details_desc);
+        complaintDetailsAnswerMsg = (AppCompatTextView) mView.findViewById(R.id.complaint_details_answer_msg);
+        complaintDetailsAnswerView = (RelativeLayout) mView.findViewById(R.id.complaint_details_answer_view);
+        complaintDetailsOkBt = (AppCompatButton) mView.findViewById(R.id.complaint_details_btn_ok);
+
+        if (complaint.getTraite()) {
+            complaintDetailsState.setText(R.string.compaint_treated);
+            complaintDetailsState.setTextColor(ContextCompat.getColor(getActivity(), R.color.green_500));
+        } else {
+            complaintDetailsState.setText(R.string.compaint_waiting);
+        }
+        complaintDetailsTitle.setText(complaint.getObject());
+        complaintDetailsDate.setText(complaint.getDateCreation());
+        complaintDetailsDesc.setText(complaint.getDescription());
+
+
+
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        complaintDetailsOkBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
 
@@ -229,7 +285,7 @@ public class ComplaintsFragment extends Fragment {
                     emptyListText.setText(R.string.no_complaint_to_show);
                     listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
 
-                }else {
+                } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
                 }
             }

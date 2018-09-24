@@ -28,8 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:textColorHint="@color/grey_400">
 
@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/new_complaint_title"
             android:inputType="text"
+            android:textColor="@color/colorBackground"
             android:theme="@style/MyEditTextStyle" />
     </android.support.design.widget.TextInputLayout>
 
@@ -48,8 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
         android:textColorHint="@color/grey_400">
 
         <android.support.v7.widget.AppCompatEditText
@@ -60,6 +61,7 @@
             android:inputType="textMultiLine"
             android:lines="5"
             android:minLines="3"
+            android:textColor="@color/colorBackground"
             android:theme="@style/MyEditTextStyle" />
     </android.support.design.widget.TextInputLayout>
 
@@ -83,20 +85,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:background="@null"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/new_complaint_confirm"
-            android:textColor="@color/colorBackground" />
+            android:textColor="@color/colorPrimary" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/btn_Add"
             android:layout_marginLeft="24dp"
-            android:background="@null"
+            android:layout_toLeftOf="@+id/btn_Add"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/cancel"
-            android:textColor="@color/colorBackground" />
+            android:textColor="@color/colorPrimary" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -58,12 +58,12 @@
     <string name="home_history">History</string>
     <string name="home_new_reservation">New Reservation</string>
     <string name="no_reservations">No Reservations</string>
-    <string name="hint_email">Email</string>
+    <string name="hint_email">E-mail</string>
     <string name="hint_password">Password</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="phone_number">Phone Number</string>
-    <string name="hint_adress">Adress</string>
+    <string name="hint_adress">Address</string>
     <string name="events_text">Events</string>
     <string name="day_till_check_in">Day till check-in</string>
     <string name="compaint_treated">treated</string>
@@ -95,6 +95,19 @@
     <string name="new_complaint_confirm">Confirm</string>
     <string name="new_complaint_alert_title">New Complaint</string>
     <string name="cancel">Cancel</string>
+    <string name="ok">ok</string>
+    <string name="coomplaint_details">Coomplaint Details</string>
+    <string name="answer">Answer</string>
+    <string name="nationality">Nationality</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="save">Save</string>
+    <string name="logout_item_menu">Logout</string>
+    <string name="edit_item_menu">Edit</string>
+    <string name="logout">Logout</string>
+    <string name="logout_msg">Are you sure you want to log out?</string>
+    <string name="login_information">Login Information</string>
+    <string name="username">Username</string>
 
 
 </resources>

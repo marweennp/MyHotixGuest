@@ -16,7 +16,11 @@ import com.hotix.myhotixguest.models.LignesFacture;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,8 +48,13 @@ public class BillDetailsActivity extends AppCompatActivity {
     private AppCompatTextView billDate;
     private AppCompatTextView billOwner;
     private AppCompatTextView billNumber;
-    private String  billId;
-    private String  billAn;
+    private String billId;
+    private String billAn;
+    //___________(Currency Number format)_____________\\
+    private NumberFormat formatter;
+    private DecimalFormatSymbols decimalFormatSymbols;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +64,16 @@ public class BillDetailsActivity extends AppCompatActivity {
         session = new Session(getApplicationContext());
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             billId = extras.getString("billId");
             billAn = extras.getString("billAn");
         }
 
+        formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
+        formatter.setMinimumFractionDigits(3);
 
         l_factures = new ArrayList<>();
 
@@ -78,7 +92,7 @@ public class BillDetailsActivity extends AppCompatActivity {
         listView.addHeaderView(header);
         listView.addFooterView(footer);
 
-        billOwner.setText(session.getNom()+" "+session.getPrenom());
+        billOwner.setText(session.getNom() + " " + session.getPrenom());
         billDate.setText(newDateFormater(session.getDateArrivee()) + " - " + newDateFormater(session.getDateDepart()));
 
         loadeBills();
@@ -115,9 +129,10 @@ public class BillDetailsActivity extends AppCompatActivity {
                     listView.setAdapter(adapter);
 
                     billNumber.setText(facture.getId() + "-" + facture.getAnnee());
-                    billHeadTotalTTC.setText("" + facture.getTotalTTC() + " " + facture.getDevise());
-                    billTotalTTC.setText("" + facture.getTotalTTC() + " " + facture.getDevise());
-                }else {
+                    billHeadTotalTTC.setText(formatter.format(facture.getTotalTTC()) + " " + facture.getDevise());
+                    billTotalTTC.setText(formatter.format(facture.getTotalTTC()) + " " + facture.getDevise());
+                    //billTotalTTC.setText(String.format("%.3f",facture.getTotalTTC()) + " " + facture.getDevise());
+                } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
             }

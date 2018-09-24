@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.ActivitieDetailsActivity;
+import com.hotix.myhotixguest.activitys.EventDetailsActivity;
 import com.hotix.myhotixguest.adapters.EventAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.Event;
@@ -34,7 +34,7 @@ import retrofit2.Response;
 import static com.hotix.myhotixguest.helpers.Utils.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
-public class ActivitiesFragment extends Fragment {
+public class EventsFragment extends Fragment {
 
     private static EventAdapter adapter;
     private ArrayList<Event> dataModels;
@@ -50,7 +50,7 @@ public class ActivitiesFragment extends Fragment {
     private AppCompatImageView emptyListIcon;
     private AppCompatImageButton emptyListRefresh;
 
-    public ActivitiesFragment() {
+    public EventsFragment() {
         // Required empty public constructor
     }
 
@@ -62,7 +62,7 @@ public class ActivitiesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_activities, container, false);
+        return inflater.inflate(R.layout.fragment_events, container, false);
     }
 
     @Override
@@ -79,7 +79,9 @@ public class ActivitiesFragment extends Fragment {
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.events_text);
+        toolbar.setTitle("");
+        AppCompatTextView toolbarTitle = (AppCompatTextView) toolbar.findViewById(R.id.toolbar_center_title);
+        toolbarTitle.setText(R.string.events_text);
 
         listView = (ListView) getActivity().findViewById(R.id.event_list);
         dataModels = new ArrayList<>();
@@ -99,7 +101,7 @@ public class ActivitiesFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
 
                 GLOBAL_EVENT = dataModels.get(position);
-                Intent i = new Intent(getActivity(), ActivitieDetailsActivity.class);
+                Intent i = new Intent(getActivity(), EventDetailsActivity.class);
                 startActivity(i);
 
             }
