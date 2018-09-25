@@ -6,23 +6,35 @@ import android.content.SharedPreferences;
 public class Session {
 
     // All Shared Preferences Keys
+    // Resa
     public static final String KEY_iSResident = "iSResident";
     public static final String KEY_HasHistory = "HasHistory";
+    public static final String KEY_EtatResa = "EtatResa";
+    public static final String KEY_ResaId = "ResaId";
     public static final String KEY_DateArrivee = "DateArrivee";
     public static final String KEY_DateDepart = "DateDepart";
     public static final String KEY_Chambre = "Chambre";
-    public static final String KEY_Email = "Email";
-    public static final String KEY_Nom = "Nom";
-    public static final String KEY_Prenom = "Prenom";
-    public static final String KEY_EtatResa = "EtatResa";
-    public static final String KEY_ResaId = "ResaId";
-    public static final String KEY_ClientId = "ClientId";
     public static final String KEY_FactureId = "FactureId";
     public static final String KEY_FactureAnnee = "FactureAnnee";
-    public static final String KEY_IsLoggedIn = "IsLoggedIn";
-    public static final String KEY_RememberMe = "RememberMe";
+
+    //Profile
+    public static final String KEY_ClientId = "ClientId";
     public static final String KEY_UserName = "UserName";
     public static final String KEY_UserPassword = "UserPassword ";
+    public static final String KEY_Nom = "Nom";
+    public static final String KEY_Prenom = "Prenom";
+    public static final String KEY_Email = "Email";
+    public static final String KEY_Phone = "Phone";
+    public static final String KEY_BirthDay = "BirthDay";
+    public static final String KEY_Address = "Address";
+    public static final String KEY_NationaliteId = "NationaliteId";
+    public static final String KEY_NationaliteName = "NationaliteName";
+
+    //Session
+    public static final String KEY_IsLoggedIn = "IsLoggedIn";
+    public static final String KEY_RememberMe = "RememberMe";
+
+    //FireBase
     public static final String KEY_NewToken = "NewToken";
     public static final String KEY_FCMToken = "FCMToken ";
 
@@ -48,7 +60,28 @@ public class Session {
 
     //Create new guest session
 
-    public void createNewGuestSession(boolean iSResident, boolean HasHistory, boolean IsLoggedIn, boolean RememberMe, String UserName, String UserPassword, String DateArrivee, String DateDepart, String Chambre, String Email, String Nom, String Prenom, Integer EtatResa, Integer ResaId, Integer ClientId, Integer FactureId, Integer FactureAnnee) {
+    public void createNewGuestSession(boolean iSResident,
+                                      boolean HasHistory,
+                                      boolean IsLoggedIn,
+                                      boolean RememberMe,
+                                      String UserName,
+                                      String UserPassword,
+                                      String DateArrivee,
+                                      String DateDepart,
+                                      String Chambre,
+                                      String Email,
+                                      String Nom,
+                                      String Prenom,
+                                      String Phone,
+                                      String BirthDay,
+                                      String Address,
+                                      String NationaliteName,
+                                      Integer EtatResa,
+                                      Integer ResaId,
+                                      Integer ClientId,
+                                      Integer FactureId,
+                                      Integer FactureAnnee,
+                                      Integer NationaliteId) {
 
         // Booleans
         editor.putBoolean(KEY_iSResident, iSResident);
@@ -65,6 +98,10 @@ public class Session {
         editor.putString(KEY_Email, Email);
         editor.putString(KEY_Nom, Nom);
         editor.putString(KEY_Prenom, Prenom);
+        editor.putString(KEY_Phone, Phone);
+        editor.putString(KEY_BirthDay, BirthDay);
+        editor.putString(KEY_Address, Address);
+        editor.putString(KEY_NationaliteName, NationaliteName);
 
         // Integers
         editor.putInt(KEY_EtatResa, EtatResa);
@@ -72,12 +109,13 @@ public class Session {
         editor.putInt(KEY_ClientId, ClientId);
         editor.putInt(KEY_FactureId, FactureId);
         editor.putInt(KEY_FactureAnnee, FactureAnnee);
+        editor.putInt(KEY_NationaliteId, NationaliteId);
 
         // commit changes
         editor.commit();
     }
 
-    /**********************************(  Getters )*************************************/
+    /**********************************(  Getters & Setters )*************************************/
     // Booleans
     public boolean getISResident() {
         return pref.getBoolean(KEY_iSResident, false);
@@ -99,6 +137,10 @@ public class Session {
         return pref.getBoolean(KEY_NewToken, false);
     }
 
+    public void setNewToken(boolean newToken) {
+        editor.putBoolean(KEY_NewToken, newToken);
+        editor.commit();
+    }
 
     // Strings
     public String getUserName() {
@@ -133,10 +175,30 @@ public class Session {
         return pref.getString(KEY_Prenom, null);
     }
 
+    public String getPhone() {
+        return pref.getString(KEY_Phone, null);
+    }
+
+    public String getBirthDay() {
+        return pref.getString(KEY_BirthDay, null);
+    }
+
+    public String getAddress() {
+        return pref.getString(KEY_Address, null);
+    }
+
+    public String getNationaliteName() {
+        return pref.getString(KEY_NationaliteName, null);
+    }
+
     public String getFCMToken() {
         return pref.getString(KEY_FCMToken, null);
     }
 
+    public void setFCMToken(String token) {
+        editor.putString(KEY_FCMToken, token);
+        editor.commit();
+    }
 
     // Integers
     public Integer getEtatResa() {
@@ -159,16 +221,8 @@ public class Session {
         return pref.getInt(KEY_FactureAnnee, 0);
     }
 
-    /**********************************(  Setters )*************************************/
-
-    public void setNewToken(boolean newToken) {
-        editor.putBoolean(KEY_NewToken, newToken);
-        editor.commit();
-    }
-
-    public void setFCMToken(String token) {
-        editor.putString(KEY_FCMToken, token);
-        editor.commit();
+    public Integer getNationaliteId() {
+        return pref.getInt(KEY_NationaliteId, 0);
     }
 
     /**********************************(  _______  )*************************************/

@@ -18,7 +18,6 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.BillDetailsActivity;
 import com.hotix.myhotixguest.activitys.GuestProfileActivity;
 import com.hotix.myhotixguest.activitys.HistoryActivity;
-import com.hotix.myhotixguest.activitys.LoginActivity;
 import com.hotix.myhotixguest.activitys.NewReservationActivity;
 import com.hotix.myhotixguest.activitys.ReservationDetailsActivity;
 import com.hotix.myhotixguest.helpers.Session;
@@ -31,11 +30,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
 import static com.hotix.myhotixguest.helpers.Utils.fromTodayToDate;
 import static com.hotix.myhotixguest.helpers.Utils.newCalculateDaysBetween;
-import static com.hotix.myhotixguest.helpers.Utils.newDateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater2;
 import static com.hotix.myhotixguest.helpers.Utils.newDateTowColors;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
@@ -108,15 +107,15 @@ public class HomeFragment extends Fragment {
         homeGuestName.setText(session.getNom() + " " + session.getPrenom());
         if (session.getISResident()) {
             homeGuestResType.setText(session.getChambre());
-            //homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
-            homeGuestDate.setText(Html.fromHtml(newDateTowColors(newDateFormater(session.getDateArrivee()), getContext()) + " - " + dateTowColors(newDateFormater(session.getDateDepart()), getContext())));
-            //homeGuestDate.setText(newDateFormater(session.getDateArrivee()).substring(0,2) + " - " + newDateFormater(session.getDateDepart()));
+            //homeGuestDate.setText(dateFormater2(session.getDateArrivee()) + " -> " + dateFormater2(session.getDateDepart()));
+            homeGuestDate.setText(Html.fromHtml(newDateTowColors(dateFormater2(session.getDateArrivee()), getContext()) + " - " + dateTowColors(dateFormater2(session.getDateDepart()), getContext())));
+            //homeGuestDate.setText(dateFormater2(session.getDateArrivee()).substring(0,2) + " - " + dateFormater2(session.getDateDepart()));
             homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
         } else if (session.getResaId() != 0) {
             homeGuestResType.setText(fromTodayToDate(session.getDateArrivee()) + " " + getString(R.string.day_till_check_in));
-            //homeGuestDate.setText(newDateFormater(session.getDateArrivee()) + " -> " + newDateFormater(session.getDateDepart()));
-            homeGuestDate.setText(Html.fromHtml(newDateTowColors(newDateFormater(session.getDateArrivee()), getContext()) + " - " + dateTowColors(newDateFormater(session.getDateDepart()), getContext())));
-            //homeGuestDate.setText(newDateFormater(session.getDateArrivee()).substring(0,2) + " - " + newDateFormater(session.getDateDepart()));
+            //homeGuestDate.setText(dateFormater2(session.getDateArrivee()) + " -> " + dateFormater2(session.getDateDepart()));
+            homeGuestDate.setText(Html.fromHtml(newDateTowColors(dateFormater2(session.getDateArrivee()), getContext()) + " - " + dateTowColors(dateFormater2(session.getDateDepart()), getContext())));
+            //homeGuestDate.setText(dateFormater2(session.getDateArrivee()).substring(0,2) + " - " + dateFormater2(session.getDateDepart()));
             homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
             homeResaDetailsTitle.setText("My Reservation");
         } else {
@@ -210,6 +209,11 @@ public class HomeFragment extends Fragment {
                 //Start the NewReservationActivity
                 Intent i = new Intent(getActivity(), GuestProfileActivity.class);
                 startActivity(i);
+
+//                session.clearSessionDetails();
+//                Intent i = new Intent(getActivity(), LoginActivity.class);
+//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(i);
 
             }
         });

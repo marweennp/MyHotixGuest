@@ -1,7 +1,6 @@
 package com.hotix.myhotixguest.fragments;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -23,7 +22,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.EventDetailsActivity;
 import com.hotix.myhotixguest.adapters.ComplaintsAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.Complaint;
@@ -37,7 +35,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ComplaintsFragment extends Fragment {
@@ -207,8 +204,6 @@ public class ComplaintsFragment extends Fragment {
         complaintDetailsTitle.setText(complaint.getObject());
         complaintDetailsDate.setText(complaint.getDateCreation());
         complaintDetailsDesc.setText(complaint.getDescription());
-
-
 
 
         mBuilder.setView(mView);

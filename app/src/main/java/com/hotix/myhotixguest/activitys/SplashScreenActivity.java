@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -92,18 +92,22 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 true,
                                 true,
                                 uName,
-                                uPwd,
-                                response.body().getDateArrivee(),
+                                uPwd,response.body().getDateArrivee(),
                                 response.body().getDateDepart(),
                                 response.body().getChambre(),
                                 response.body().getEmail(),
                                 response.body().getNom(),
                                 response.body().getPrenom(),
+                                response.body().getPhone(),
+                                response.body().getDateNaissance(),
+                                response.body().getAdresse(),
+                                response.body().getNationaliteName(),
                                 response.body().getEtatResa(),
                                 response.body().getResaId(),
                                 response.body().getClientId(),
                                 response.body().getFactureId(),
-                                response.body().getFactureAnnee());
+                                response.body().getFactureAnnee(),
+                                response.body().getNationaliteId());
                         startActivity(i);
                         finish();
                     }

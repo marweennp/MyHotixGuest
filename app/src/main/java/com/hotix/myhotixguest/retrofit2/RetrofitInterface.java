@@ -5,6 +5,7 @@ import com.hotix.myhotixguest.models.Event;
 import com.hotix.myhotixguest.models.Facture;
 import com.hotix.myhotixguest.models.Guest;
 import com.hotix.myhotixguest.models.Sejour;
+import com.hotix.myhotixguest.models.SignupMsg;
 
 import java.util.ArrayList;
 
@@ -54,6 +55,18 @@ public interface RetrofitInterface {
     @POST("/HNGAPI/api/myhotixguest/UpdateSerialKey?")
     Call<ResponseBody> updateSerialKeyQuery(@Query("clientId") String clientId,
                                             @Query("serialKey") String serialKey);
+
+    //Post Inscription service call
+    @POST("/HNGAPI/api/myhotixguest/Inscription?")
+    Call<SignupMsg> inscriptionQuery(@Query("hotelId") String hotelId,
+                                     @Query("login") String login,
+                                     @Query("pwd") String pwd,
+                                     @Query("email") String email,
+                                     @Query("phone") String phone,
+                                     @Query("nom") String nom,
+                                     @Query("prenom") String prenom,
+                                     @Query("datenaissance") String datenaissance,
+                                     @Query("adresse") String adresse);
 
 
 }

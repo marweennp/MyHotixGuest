@@ -5,17 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".activitys.BillDetailsActivity">
 
+    <!-- Toolbar -->
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
         <include layout="@layout/include_toolbar" />
-
     </android.support.design.widget.AppBarLayout>
 
+    <!-- Bill Progress View -->
+    <include layout="@layout/include_loading_view" />
 
+    <!-- Bill ListView -->
     <ListView
         android:id="@+id/bill_list"
         android:layout_width="match_parent"
@@ -25,5 +27,7 @@
         android:divider="@color/colorBackground"
         android:dividerHeight="1px" />
 
+    <!-- Bill Empty View -->
+    <include layout="@layout/include_empty_list_view" />
 
 </RelativeLayout>

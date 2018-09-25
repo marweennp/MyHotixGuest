@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.Utils.calculateDaysBetween;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ReservationDetailsActivity extends AppCompatActivity {
@@ -164,8 +164,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                     profileUserName.setText(session.getNom() + " " + session.getPrenom());
                     profileUserResType.setText(session.getChambre());
                     profileUserAgency.setText(sejour.getSociete());
-                    profileArrivalDate.setText(dateFormater(sejour.getDateArrivee()));
-                    profileDepartureDate.setText(dateFormater(sejour.getDateDepart()));
+                    profileArrivalDate.setText(dateFormater1(sejour.getDateArrivee()));
+                    profileDepartureDate.setText(dateFormater1(sejour.getDateDepart()));
                     profileNights.setText(calculateDaysBetween(sejour.getDateArrivee(), sejour.getDateDepart()));
                     profileRoomsCount.setText(sejour.getChambre());
                     profileRoomType.setText(sejour.getTypeChambre());

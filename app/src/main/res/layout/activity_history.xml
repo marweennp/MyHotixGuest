@@ -6,14 +6,13 @@
     android:background="@color/white"
     tools:context=".activitys.HistoryActivity">
 
+    <!-- Toolbar -->
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
         <include layout="@layout/include_toolbar" />
-
     </android.support.design.widget.AppBarLayout>
 
     <!-- Stays Progress View -->

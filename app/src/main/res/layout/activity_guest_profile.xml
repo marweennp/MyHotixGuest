@@ -591,6 +591,87 @@
                     android:orientation="vertical"
                     android:paddingBottom="24dp">
                     <!-- Login Details -->
+
+                    <!-- Change Password Buttons -->
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/profile_login_details_change_pwd_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:text="@string/change_password"
+                        android:textColor="@color/colorPrimary" />
+
+                    <!-- New Password -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/profile_login_details_new_pwd_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginStart="24dp"
+                        android:textColorHint="@color/grey_400"
+                        android:visibility="gone">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/profile_login_details_new_pwd_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_new_password"
+                            android:inputType="textPassword"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Confirm Password -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/profile_login_details_confirm_pwd_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginStart="24dp"
+                        android:textColorHint="@color/grey_400"
+                        android:visibility="gone">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/profile_login_details_confirm_pwd_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_confirm_password"
+                            android:inputType="textPassword"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Change Password Save/Cancel Buttons -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/profile_login_details_save_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:text="@string/save"
+                            android:textColor="@color/colorPrimary"
+                            android:visibility="gone" />
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/profile_login_details_cancel_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:layout_toLeftOf="@+id/profile_login_details_save_btn"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:text="@string/cancel"
+                            android:textColor="@color/colorPrimary"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
             </RelativeLayout>

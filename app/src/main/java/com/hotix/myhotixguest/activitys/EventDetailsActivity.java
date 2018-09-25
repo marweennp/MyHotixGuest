@@ -18,9 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Utils.GLOBAL_EVENT;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_EVENT;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
 import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
 import static com.hotix.myhotixguest.helpers.Utils.timeFormater;
 
@@ -65,7 +65,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         Picasso.get().load(BASE_URL+"/Android/pics_guest/Events/"+GLOBAL_EVENT.getImage()).fit().placeholder(R.drawable.activites).into(eventImg);
 
-        eventDetailsDate.setText(Html.fromHtml(dateTowColors(dateFormater(GLOBAL_EVENT.getDateDebut()), getApplicationContext())));
+        eventDetailsDate.setText(Html.fromHtml(dateTowColors(dateFormater1(GLOBAL_EVENT.getDateDebut()), getApplicationContext())));
         eventDetailsTime.setText(timeFormater(GLOBAL_EVENT.getHeure()));
         eventDetailsLocationText.setText(GLOBAL_EVENT.getLocation());
 
@@ -90,7 +90,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "marweennandroid@gmail.com" });
         intent.putExtra(Intent.EXTRA_SUBJECT, "Event Participation");
-        intent.putExtra(Intent.EXTRA_TEXT, "I confirm my participation in the event "+GLOBAL_EVENT.getNom()+". \n Date : "+dateFormater(GLOBAL_EVENT.getDateDebut())+". \n Location : "+GLOBAL_EVENT.getLocation()+".");
+        intent.putExtra(Intent.EXTRA_TEXT, "I confirm my participation in the event "+GLOBAL_EVENT.getNom()+". \n Date : "+ dateFormater1(GLOBAL_EVENT.getDateDebut())+". \n Location : "+GLOBAL_EVENT.getLocation()+".");
 
         startActivity(Intent.createChooser(intent, "Send Email"));
     }

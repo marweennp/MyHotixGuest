@@ -3,10 +3,14 @@ package com.hotix.myhotixguest.activitys;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.BillAdapter;
@@ -24,22 +28,36 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.newDateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater2;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class BillDetailsActivity extends AppCompatActivity {
 
     private static BillAdapter adapter;
-    // Butter Knife BindView ListView
+    // Butter Knife BindView
+    // ListView
     @BindView(R.id.bill_list)
     ListView listView;
-    // Butter Knife BindView Toolbar
+    // Toolbar
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    // Loading View & Empty ListView
+    @BindView(R.id.loading_view)
+    LinearLayout progressView;
+    @BindView(R.id.empty_list_view)
+    RelativeLayout emptyListView;
+    @BindView(R.id.list_tv_msg)
+    AppCompatTextView emptyListText;
+    @BindView(R.id.empty_list_iv_icon)
+    AppCompatImageView emptyListIcon;
+    @BindView(R.id.empty_list_ibt_refresh)
+    AppCompatImageButton emptyListRefresh;
+
     // Session Manager Class
     Session session;
     ArrayList<LignesFacture> l_factures;
@@ -48,12 +66,14 @@ public class BillDetailsActivity extends AppCompatActivity {
     private AppCompatTextView billDate;
     private AppCompatTextView billOwner;
     private AppCompatTextView billNumber;
+    private View header;
+    private View footer;
     private String billId;
     private String billAn;
+
     //___________(Currency Number format)_____________\\
     private NumberFormat formatter;
     private DecimalFormatSymbols decimalFormatSymbols;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,25 +98,31 @@ public class BillDetailsActivity extends AppCompatActivity {
         l_factures = new ArrayList<>();
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.bill_details);
+        getSupportActionBar().setTitle("");
+        AppCompatTextView toolbarTitle = (AppCompatTextView) toolbar.findViewById(R.id.toolbar_center_title);
+        toolbarTitle.setText(R.string.bill_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        View header = (View) getLayoutInflater().inflate(R.layout.list_bill_header, null);
-        View footer = (View) getLayoutInflater().inflate(R.layout.list_bill_footer, null);
+        header = (View) getLayoutInflater().inflate(R.layout.list_bill_header, null);
+        footer = (View) getLayoutInflater().inflate(R.layout.list_bill_footer, null);
         billNumber = (AppCompatTextView) header.findViewById(R.id.bill_number_text);
         billOwner = (AppCompatTextView) header.findViewById(R.id.bill_owner_text);
         billDate = (AppCompatTextView) header.findViewById(R.id.bill_date_text);
         billHeadTotalTTC = (AppCompatTextView) header.findViewById(R.id.bill_header_total_ttc_text);
         billTotalTTC = (AppCompatTextView) footer.findViewById(R.id.bill_total_ttc_text);
-        listView.addHeaderView(header);
-        listView.addFooterView(footer);
 
-        billOwner.setText(session.getNom() + " " + session.getPrenom());
-        billDate.setText(newDateFormater(session.getDateArrivee()) + " - " + newDateFormater(session.getDateDepart()));
+    }
 
+    @OnClick(R.id.empty_list_ibt_refresh)
+    public void refresh() {
         loadeBills();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadeBills();
     }
 
     @Override
@@ -110,16 +136,13 @@ public class BillDetailsActivity extends AppCompatActivity {
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<Facture> billCall = service.getFactureQuery(billId, billAn);
 
-        final ProgressDialog progressDialog = new ProgressDialog(BillDetailsActivity.this, R.style.AppThemeDialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        progressView.setVisibility(View.VISIBLE);
+        emptyListView.setVisibility(View.GONE);
 
         billCall.enqueue(new Callback<Facture>() {
             @Override
             public void onResponse(Call<Facture> call, Response<Facture> response) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
                 if (response.raw().code() == 200) {
                     Facture facture = response.body();
                     l_factures = facture.getLignesFacture();
@@ -127,11 +150,18 @@ public class BillDetailsActivity extends AppCompatActivity {
                     adapter = new BillAdapter(l_factures, getApplicationContext());
 
                     listView.setAdapter(adapter);
+                    emptyListText.setText(R.string.no_bills_to_show);
+                    listView.setEmptyView(findViewById(R.id.empty_list_view));
+
+                    listView.addHeaderView(header);
+                    listView.addFooterView(footer);
+
+                    billOwner.setText(session.getNom() + " " + session.getPrenom());
+                    billDate.setText(dateFormater2(session.getDateArrivee()) + " - " + dateFormater2(session.getDateDepart()));
 
                     billNumber.setText(facture.getId() + "-" + facture.getAnnee());
                     billHeadTotalTTC.setText(formatter.format(facture.getTotalTTC()) + " " + facture.getDevise());
                     billTotalTTC.setText(formatter.format(facture.getTotalTTC()) + " " + facture.getDevise());
-                    //billTotalTTC.setText(String.format("%.3f",facture.getTotalTTC()) + " " + facture.getDevise());
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
@@ -139,9 +169,11 @@ public class BillDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Facture> call, Throwable t) {
-                progressDialog.dismiss();
+                progressView.setVisibility(View.GONE);
+                emptyListText.setText(R.string.server_unreachable);
+                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                listView.setEmptyView(findViewById(R.id.empty_list_view));
                 showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
-                //Toast.makeText(getApplicationContext(), "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

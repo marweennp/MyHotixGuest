@@ -1,17 +1,14 @@
 package com.hotix.myhotixguest.fragments;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatButton;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,11 +22,11 @@ public class ReviewFragment extends Fragment {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnNext, btnBack;
+    private AppCompatButton btnNext, btnBack;
+
 
     public ReviewFragment() {
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,8 +45,8 @@ public class ReviewFragment extends Fragment {
 
         viewPager = (ViewPager) getActivity().findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) getActivity().findViewById(R.id.layoutDots);
-        btnBack = (Button) getActivity().findViewById(R.id.btn_back);
-        btnNext = (Button) getActivity().findViewById(R.id.btn_next);
+        btnBack = (AppCompatButton) getActivity().findViewById(R.id.btn_back);
+        btnNext = (AppCompatButton) getActivity().findViewById(R.id.btn_next);
 
         // add sliders layouts
         layouts = new int[]{
@@ -94,6 +91,22 @@ public class ReviewFragment extends Fragment {
 
     }
 
+    private void addBottomDots(int currentPage) {
+        dots = new TextView[layouts.length];
+
+        dotsLayout.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new TextView(getActivity());
+            dots[i].setText(Html.fromHtml("&#8226;"));
+            dots[i].setTextSize(35);
+            dots[i].setTextColor(getResources().getColor(R.color.dot_dark));
+            dotsLayout.addView(dots[i]);
+        }
+
+        if (dots.length > 0)
+            dots[currentPage].setTextColor(getResources().getColor(R.color.dot_light));
+    }
+
     //  ViewPager Page Change Listener
     ViewPager.OnPageChangeListener myViewPagerListener = new ViewPager.OnPageChangeListener() {
 
@@ -123,21 +136,5 @@ public class ReviewFragment extends Fragment {
 
         }
     };
-
-    private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
-
-        dotsLayout.removeAllViews();
-        for (int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(getActivity());
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            dots[i].setTextColor(getResources().getColor(R.color.dot_dark));
-            dotsLayout.addView(dots[i]);
-        }
-
-        if (dots.length > 0)
-            dots[currentPage].setTextColor(getResources().getColor(R.color.dot_light));
-    }
 
 }

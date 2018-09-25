@@ -6,12 +6,12 @@
     tools:context=".activitys.SignupActivity">
 
     <com.hotix.myhotixguest.helpers.NonSwipeableViewPager
-        android:id="@+id/view_pager"
+        android:id="@+id/signup_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:id="@+id/layoutDots"
+        android:id="@+id/signup_dots_layout"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
@@ -28,8 +28,8 @@
         android:alpha=".5"
         android:background="@color/white" />
 
-    <Button
-        android:id="@+id/btn_next"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/signup_next_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -38,8 +38,8 @@
         android:text="@string/next"
         android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/btn_back"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/signup_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

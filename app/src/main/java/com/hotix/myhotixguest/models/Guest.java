@@ -1,5 +1,4 @@
 package com.hotix.myhotixguest.models;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -65,6 +64,15 @@ public class Guest {
     @SerializedName("Error")
     @Expose
     private Integer error;
+    @SerializedName("NationaliteId")
+    @Expose
+    private Integer nationaliteId;
+    @SerializedName("NationaliteName")
+    @Expose
+    private String nationaliteName;
+    @SerializedName("Phone")
+    @Expose
+    private String phone;
 
     public Integer getClientId() {
         return clientId;
@@ -224,6 +232,30 @@ public class Guest {
 
     public void setError(Integer error) {
         this.error = error;
+    }
+
+    public Integer getNationaliteId() {
+        return nationaliteId;
+    }
+
+    public void setNationaliteId(Integer nationaliteId) {
+        this.nationaliteId = nationaliteId;
+    }
+
+    public String getNationaliteName() {
+        return nationaliteName;
+    }
+
+    public void setNationaliteName(String nationaliteName) {
+        this.nationaliteName = nationaliteName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 }

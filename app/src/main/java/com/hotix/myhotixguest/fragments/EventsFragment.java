@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.GLOBAL_EVENT;
+import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class EventsFragment extends Fragment {

@@ -22,15 +22,8 @@ import java.util.Date;
 
 public class Utils {
 
-    //public static final String BASE_URL = "http://196.203.219.164/";
-    public static final String BASE_URL = "http://192.168.0.109/";
-    //public static final String BASE_URL = "http://192.168.0.110/";
-
-    //event global
-    public static Event GLOBAL_EVENT = new Event();
-
     //Date formatter from "yyyy-MM-dd'T'hh:mm:ss" to "dd MMM yyyy"
-    public static String dateFormater(String date) {
+    public static String dateFormater1(String date) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
         Date result;
         try {
@@ -44,8 +37,8 @@ public class Utils {
         return "dd MMM yyyy";
     }
 
-    //Date formatter from "dd/mm/yyyy" to "dd MMM yyyy"
-    public static String newDateFormater(String date) {
+    //Date formatter from "dd/MM/yyyy" to "dd MMM yyyy"
+    public static String dateFormater2(String date) {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date result;
         try {
@@ -57,6 +50,21 @@ public class Utils {
         }
 
         return "dd MMM yyyy";
+    }
+
+    //Date formatter from "dd/MM/yyyy" to "yyyyMMdd"
+    public static String dateFormater3(String date) {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date result;
+        try {
+            result = df.parse(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            //sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+            return sdf.format(result).toString();
+        } catch (Exception e) {
+        }
+
+        return "19990101";
     }
 
     //Date formatter from "yyyy-MM-dd'T'hh:mm:ss" to "dd MMM yyyy"

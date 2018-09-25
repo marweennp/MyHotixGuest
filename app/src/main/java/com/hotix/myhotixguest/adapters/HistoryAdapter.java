@@ -13,7 +13,7 @@ import com.hotix.myhotixguest.models.Sejour;
 import java.util.ArrayList;
 
 import static com.hotix.myhotixguest.helpers.Utils.calculateDaysBetween;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
 
 public class HistoryAdapter extends ArrayAdapter<Sejour> {
 
@@ -57,8 +57,8 @@ public class HistoryAdapter extends ArrayAdapter<Sejour> {
 
         viewHolder.stay_title.setText(dataModel.getArrangement());
         viewHolder.stay_sub_title.setText("" + dataModel.getTypeChambre());
-        // viewHolder.stay_date.setText(Html.fromHtml(newDateTowColors(dateFormater(dataModel.getDateArrivee()), getContext()) + " - " + dateTowColors(dateFormater(dataModel.getDateDepart()), getContext())));
-        viewHolder.stay_date.setText(dateFormater(dataModel.getDateArrivee()) + "->" + dateFormater(dataModel.getDateDepart()));
+        // viewHolder.stay_date.setText(Html.fromHtml(newDateTowColors(dateFormater1(dataModel.getDateArrivee()), getContext()) + " - " + dateTowColors(dateFormater1(dataModel.getDateDepart()), getContext())));
+        viewHolder.stay_date.setText(dateFormater1(dataModel.getDateArrivee()) + "->" + dateFormater1(dataModel.getDateDepart()));
         viewHolder.stay_nights.setText(calculateDaysBetween(dataModel.getDateArrivee(), dataModel.getDateDepart()));
 
         // Return the completed view to render on screen

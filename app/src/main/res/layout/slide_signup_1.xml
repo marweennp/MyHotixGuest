@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/username"
-                android:inputType="textCapWords" />
+                android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
         <!--  Slide Signup 1 Password Label -->
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_password"
-                android:inputType="textCapWords" />
+                android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Slide Signup 1 Email Label -->
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone"
-                android:inputType="text" />
+                android:inputType="phone" />
         </android.support.design.widget.TextInputLayout>
 
     </android.support.v7.widget.LinearLayoutCompat>

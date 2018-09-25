@@ -1,43 +1,26 @@
 package com.hotix.myhotixguest.activitys;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatImageButton;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
-import com.hotix.myhotixguest.models.DetailsPax;
-import com.hotix.myhotixguest.models.Sejour;
-import com.hotix.myhotixguest.retrofit2.RetrofitClient;
-import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
 
 public class GuestProfileActivity extends AppCompatActivity {
 
@@ -54,6 +37,12 @@ public class GuestProfileActivity extends AppCompatActivity {
     AppCompatButton editProfileDetailsSaveBtn;
     @BindView(R.id.edit_profile_details_cancel_btn)
     AppCompatButton editProfileDetailsCancelBtn;
+    @BindView(R.id.profile_login_details_change_pwd_btn)
+    AppCompatButton profileLoginDetailsChange;
+    @BindView(R.id.profile_login_details_save_btn)
+    AppCompatButton profileLoginDetailsSave;
+    @BindView(R.id.profile_login_details_cancel_btn)
+    AppCompatButton profileLoginDetailsCancel;
 
     //AppCompatTextView
     @BindView(R.id.profile_details_first_name)
@@ -86,6 +75,10 @@ public class GuestProfileActivity extends AppCompatActivity {
     TextInputLayout editProfileDetailsPhoneIl;
     @BindView(R.id.edit_profile_details_mail_il)
     TextInputLayout editProfileDetailsMailIl;
+    @BindView(R.id.profile_login_details_new_pwd_il)
+    TextInputLayout profileLoginDetailsNewPssIl;
+    @BindView(R.id.profile_login_details_confirm_pwd_il)
+    TextInputLayout profileLoginDetailsConfirmPassIl;
 
     //AppCompatEditText
     @BindView(R.id.edit_profile_details_first_name_et)
@@ -102,25 +95,11 @@ public class GuestProfileActivity extends AppCompatActivity {
     AppCompatEditText editProfileDetailsPhoneEt;
     @BindView(R.id.edit_profile_details_mail_et)
     AppCompatEditText editProfileDetailsMailEt;
+    @BindView(R.id.profile_login_details_new_pwd_et)
+    AppCompatEditText profileLoginDetailsNewPssEt;
+    @BindView(R.id.profile_login_details_confirm_pwd_et)
+    AppCompatEditText profileLoginDetailsConfirmPassEt;
 
-    // Loading View & Empty ListView
-    @BindView(R.id.loading_view)
-    LinearLayout progressView;
-    @BindView(R.id.empty_list_view)
-    RelativeLayout emptyListView;
-    @BindView(R.id.list_tv_msg)
-    AppCompatTextView emptyListText;
-    @BindView(R.id.empty_list_iv_icon)
-    AppCompatImageView emptyListIcon;
-    @BindView(R.id.empty_list_ibt_refresh)
-    AppCompatImageButton emptyListRefresh;
-    @BindView(R.id.guest_profile_main_container)
-    NestedScrollView guestProfileMainContainer;
-
-    AppCompatButton logoutDialogYesBtn;
-    AppCompatButton logoutDialogCancelBtn;
-
-    private DetailsPax pax;
     // Session Manager Class
     Session session;
 
@@ -135,17 +114,9 @@ public class GuestProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         AppCompatTextView toolbarTitle = (AppCompatTextView) toolbar.findViewById(R.id.toolbar_center_title);
-        toolbarTitle.setText("Profile");
+        toolbarTitle.setText(R.string.profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-        emptyListRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadData();
-            }
-        });
 
         loadData();
     }
@@ -159,6 +130,30 @@ public class GuestProfileActivity extends AppCompatActivity {
     public void cancelEdit() {
         profileDetailsContainer.setVisibility(View.VISIBLE);
         editProfileDetailsContainer.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.profile_login_details_change_pwd_btn)
+    public void changePassword() {
+        profileLoginDetailsNewPssIl.setVisibility(View.VISIBLE);
+        profileLoginDetailsConfirmPassIl.setVisibility(View.VISIBLE);
+        profileLoginDetailsSave.setVisibility(View.VISIBLE);
+        profileLoginDetailsCancel.setVisibility(View.VISIBLE);
+        profileLoginDetailsChange.setVisibility(View.GONE);
+
+    }
+
+    @OnClick(R.id.profile_login_details_save_btn)
+    public void saveNewPassword() {
+
+    }
+
+    @OnClick(R.id.profile_login_details_cancel_btn)
+    public void cancelNewPassword() {
+        profileLoginDetailsNewPssIl.setVisibility(View.GONE);
+        profileLoginDetailsConfirmPassIl.setVisibility(View.GONE);
+        profileLoginDetailsSave.setVisibility(View.GONE);
+        profileLoginDetailsCancel.setVisibility(View.GONE);
+        profileLoginDetailsChange.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -195,101 +190,29 @@ public class GuestProfileActivity extends AppCompatActivity {
 
     }
 
-    //This method is to start a dialog window .
-    private void startLogoutDialog() {
-
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getApplicationContext());
-
-        View mView = getLayoutInflater().inflate(R.layout.dialog_logout, null);
-        logoutDialogYesBtn = (AppCompatButton) mView.findViewById(R.id.logout_dialog_yes_btn);
-        logoutDialogCancelBtn = (AppCompatButton) mView.findViewById(R.id.logout_dialog_cancel_btn);
-
-
-        mBuilder.setView(mView);
-        final AlertDialog dialog = mBuilder.create();
-        dialog.show();
-
-
-        logoutDialogYesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                session.clearSessionDetails();
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-                dialog.dismiss();
-
-            }
-        });
-
-        logoutDialogCancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-    }
-
     //___________________________Load data _______________________
 
     private void loadData() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
-        Call<Sejour> userCall = service.getStayQuery(session.getResaId().toString());
-
-        progressView.setVisibility(View.VISIBLE);
-        guestProfileMainContainer.setVisibility(View.GONE);
-        emptyListView.setVisibility(View.GONE);
-
-        userCall.enqueue(new Callback<Sejour>() {
-            @Override
-            public void onResponse(Call<Sejour> call, Response<Sejour> response) {
-
-                progressView.setVisibility(View.GONE);
-                guestProfileMainContainer.setVisibility(View.VISIBLE);
-                emptyListView.setVisibility(View.GONE);
-
-                if (response.raw().code() == 200) {
-                    Sejour sejour = response.body();
-
-                    pax = sejour.getDetailsPax().get(0);
-
-                    profileDetailsFirstName.setText(sejour.getDetailsPax().get(0).getClientPrenom());
-                    profileDetailsLastName.setText(sejour.getDetailsPax().get(0).getClientNom());
-                    profileDetailsNationality.setText(sejour.getDetailsPax().get(0).getClientNationalite());
-                    profileDetailsBirthDate.setText(sejour.getDetailsPax().get(0).getClientDateNaissance());
-                    profileDetailsAddress.setText(sejour.getDetailsPax().get(0).getClientAdresse());
-                    profileDetailsPhone.setText(sejour.getDetailsPax().get(0).getClientPhone());
-                    profileDetailsMail.setText(sejour.getDetailsPax().get(0).getClientEmail());
-
-                } else {
-                    showSnackbar(findViewById(android.R.id.content), response.message());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Sejour> call, Throwable t) {
-                progressView.setVisibility(View.GONE);
-                emptyListView.setVisibility(View.VISIBLE);
-                emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
-                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
-            }
-        });
+        profileDetailsFirstName.setText(session.getPrenom());
+        profileDetailsLastName.setText(session.getNom());
+        profileDetailsNationality.setText(session.getNationaliteName());
+        profileDetailsBirthDate.setText(dateFormater1(session.getBirthDay()));
+        profileDetailsAddress.setText(session.getAddress());
+        profileDetailsPhone.setText(session.getPhone());
+        profileDetailsMail.setText(session.getEmail());
 
     }
 
     private void loadEt() {
 
-        editProfileDetailsFirstNameEt.setText(pax.getClientPrenom());
-        editProfileDetailsLastNameEt.setText(pax.getClientNom());
-        editProfileDetailsNationalityEt.setText(pax.getClientNationalite());
-        editProfileDetailsBirthDateEt.setText(pax.getClientDateNaissance());
-        editProfileDetailsAddressEt.setText(pax.getClientAdresse());
-        editProfileDetailsPhoneEt.setText(pax.getClientPhone());
-        editProfileDetailsMailEt.setText(pax.getClientEmail());
+        editProfileDetailsFirstNameEt.setText(session.getPrenom());
+        editProfileDetailsLastNameEt.setText(session.getNom());
+        editProfileDetailsNationalityEt.setText(session.getNationaliteName());
+        editProfileDetailsBirthDateEt.setText(dateFormater1(session.getBirthDay()));
+        editProfileDetailsAddressEt.setText(session.getAddress());
+        editProfileDetailsPhoneEt.setText(session.getPhone());
+        editProfileDetailsMailEt.setText(session.getEmail());
 
     }
 

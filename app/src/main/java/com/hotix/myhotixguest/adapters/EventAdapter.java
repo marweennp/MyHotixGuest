@@ -16,8 +16,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import static android.support.v4.content.ContextCompat.getColor;
-import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
 import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
 import static com.hotix.myhotixguest.helpers.Utils.timeFormater;
 
@@ -65,7 +65,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
             result = convertView;
         }
 
-        viewHolder.event_row_head_date.setText(Html.fromHtml(dateTowColors(dateFormater(dataModel.getDateDebut()), getContext())));
+        viewHolder.event_row_head_date.setText(Html.fromHtml(dateTowColors(dateFormater1(dataModel.getDateDebut()), getContext())));
         viewHolder.event_row_head_time.setText(timeFormater("19:06:00"));
         viewHolder.event_row_head_title.setText(dataModel.getNom());
         viewHolder.event_row_head_desc.setText(dataModel.getDescription());

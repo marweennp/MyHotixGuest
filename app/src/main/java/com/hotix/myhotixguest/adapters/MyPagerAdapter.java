@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 public class MyPagerAdapter extends PagerAdapter {
 
     private Context context;
-    private LayoutInflater inflater;
     private int[] layouts;
 
     public MyPagerAdapter(int[] layouts, Context context) {
@@ -19,7 +18,7 @@ public class MyPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layouts[position], container, false);
         container.addView(view);
         return view;

@@ -33,19 +33,13 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private static HistoryAdapter adapter;
-    // Butter Knife BindView ListView
+    // Butter Knife BindView
+    // ListView
     @BindView(R.id.stays_list)
     ListView listView;
-
-    // Butter Knife BindView Toolbar
+    // Toolbar
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-    // Session Manager Class
-    Session session;
-    ArrayList<Sejour> l_sejours;
-
     // Loading View & Empty ListView
     @BindView(R.id.loading_view)
     LinearLayout progressView;
@@ -58,6 +52,11 @@ public class HistoryActivity extends AppCompatActivity {
     @BindView(R.id.empty_list_ibt_refresh)
     AppCompatImageButton emptyListRefresh;
 
+    // Session Manager Class
+    Session session;
+    ArrayList<Sejour> l_sejours;
+    private static HistoryAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +68,9 @@ public class HistoryActivity extends AppCompatActivity {
         l_sejours = new ArrayList<>();
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.my_history);
+        getSupportActionBar().setTitle("");
+        AppCompatTextView toolbarTitle = (AppCompatTextView) toolbar.findViewById(R.id.toolbar_center_title);
+        toolbarTitle.setText(R.string.my_history);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConnectionChecher.checkNetwork;
-import static com.hotix.myhotixguest.helpers.Utils.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 import static com.hotix.myhotixguest.helpers.Utils.signeUpTextTowColors;
 
@@ -100,11 +100,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
-                if (inputTextValidation()) {
-                    login();
-                }
-
+                if (inputTextValidation()) { login(); }
             }
         });
 
@@ -185,11 +181,16 @@ public class LoginActivity extends AppCompatActivity {
                                 response.body().getEmail(),
                                 response.body().getNom(),
                                 response.body().getPrenom(),
+                                response.body().getPhone(),
+                                response.body().getDateNaissance(),
+                                response.body().getAdresse(),
+                                response.body().getNationaliteName(),
                                 response.body().getEtatResa(),
                                 response.body().getResaId(),
                                 response.body().getClientId(),
                                 response.body().getFactureId(),
-                                response.body().getFactureAnnee());
+                                response.body().getFactureAnnee(),
+                                response.body().getNationaliteId());
                         //Start the HomeScreenActivity
                         Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
                         startActivity(i);
@@ -211,7 +212,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    /**********************************(  Input Validation  )*************************************/
     //This method is to validate the EditText valus.
     public boolean inputTextValidation() {
 
