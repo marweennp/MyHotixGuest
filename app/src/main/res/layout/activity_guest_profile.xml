@@ -426,26 +426,6 @@
                             android:theme="@style/MyEditTextStyle" />
                     </android.support.design.widget.TextInputLayout>
 
-                    <!-- Nationality -->
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/edit_profile_details_nationality_il"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginStart="24dp"
-                        android:textColorHint="@color/grey_400">
-
-                        <android.support.v7.widget.AppCompatEditText
-                            android:id="@+id/edit_profile_details_nationality_et"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/nationality"
-                            android:inputType="text"
-                            android:textColor="@color/colorBackground"
-                            android:theme="@style/MyEditTextStyle" />
-                    </android.support.design.widget.TextInputLayout>
-
                     <!-- Birth Date -->
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/edit_profile_details_birth_date_il"
@@ -461,6 +441,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/birth_date"
+                            android:focusable="false"
+                            android:clickable="true"
                             android:inputType="text"
                             android:textColor="@color/colorBackground"
                             android:theme="@style/MyEditTextStyle" />

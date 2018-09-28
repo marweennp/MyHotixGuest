@@ -4,8 +4,9 @@ import com.hotix.myhotixguest.models.Complaint;
 import com.hotix.myhotixguest.models.Event;
 import com.hotix.myhotixguest.models.Facture;
 import com.hotix.myhotixguest.models.Guest;
+import com.hotix.myhotixguest.models.Message;
 import com.hotix.myhotixguest.models.Sejour;
-import com.hotix.myhotixguest.models.SignupMsg;
+import com.hotix.myhotixguest.models.ResponseMsg;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,11 @@ public interface RetrofitInterface {
     @GET("/HNGAPI/api/myhotixguest/getreclamations?")
     Call<ArrayList<Complaint>> getReclamationsQuery(@Query("resaid") String resaid);
 
+    //Get GetMessages service call
+    @GET("/HNGAPI/api/myhotixguest/GetMessages?")
+    Call<ArrayList<Message>> getMessagesQuery(@Query("ResaId") String ResaId,
+                                              @Query("PaxId") String PaxId);
+
     //Post SendReclamation service call
     @POST("/HNGAPI/api/myhotixguest/SendReclamation?")
     Call<ResponseBody> sendReclamationQuery(@Query("hotelId") String hotelId,
@@ -58,15 +64,35 @@ public interface RetrofitInterface {
 
     //Post Inscription service call
     @POST("/HNGAPI/api/myhotixguest/Inscription?")
-    Call<SignupMsg> inscriptionQuery(@Query("hotelId") String hotelId,
-                                     @Query("login") String login,
-                                     @Query("pwd") String pwd,
-                                     @Query("email") String email,
-                                     @Query("phone") String phone,
-                                     @Query("nom") String nom,
-                                     @Query("prenom") String prenom,
-                                     @Query("datenaissance") String datenaissance,
-                                     @Query("adresse") String adresse);
+    Call<ResponseMsg> inscriptionQuery(@Query("hotelId") String hotelId,
+                                       @Query("login") String login,
+                                       @Query("pwd") String pwd,
+                                       @Query("email") String email,
+                                       @Query("phone") String phone,
+                                       @Query("nom") String nom,
+                                       @Query("prenom") String prenom,
+                                       @Query("datenaissance") String datenaissance,
+                                       @Query("adresse") String adresse);
+
+    //Post UpdatePass service call
+    @POST("/HNGAPI/api/myhotixguest/UpdatePass?")
+    Call<ResponseMsg> updatePassQuery(@Query("clientId") String clientId,
+                                      @Query("pass") String pass);
+
+    //Post UpdateProfile service call
+    @POST("/HNGAPI/api/myhotixguest/UpdateProfile?")
+    Call<ResponseMsg> updateProfileQuery(@Query("hotelId") String hotelId,
+                                         @Query("clientId") String clientId,
+                                         @Query("email") String email,
+                                         @Query("phone") String phone,
+                                         @Query("nom") String nom,
+                                         @Query("prenom") String prenom,
+                                         @Query("datenaissance") String datenaissance,
+                                         @Query("adresse") String adresse);
+
+    //Post ResetPassword service call
+    @POST("/HNGAPI/api/myhotixguest/ResetPassword?")
+    Call<ResponseMsg> resetPasswordQuery(@Query("email") String email);
 
 
 }

@@ -7,7 +7,7 @@
     android:layout_centerInParent="true"
     android:visibility="gone">
 
-    <!-- Reservation Details List Icon -->
+    <!-- Empty List Icon -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/empty_list_iv_icon"
         android:layout_width="120dp"
@@ -15,10 +15,10 @@
         android:layout_centerInParent="true"
         android:layout_above="@+id/list_tv_msg"
         android:layout_centerHorizontal="true"
-        android:tint="@color/colorPrimary"
+        android:tint="@color/grey_400"
         app:srcCompat="@drawable/baseline_cloud_queue_24" />
 
-    <!-- Reservation Details List TextView -->
+    <!-- Empty List TextView -->
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/list_tv_msg"
         android:layout_width="wrap_content"
@@ -30,6 +30,7 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <!-- Empty List ImageButton -->
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/empty_list_ibt_refresh"
         android:layout_width="wrap_content"

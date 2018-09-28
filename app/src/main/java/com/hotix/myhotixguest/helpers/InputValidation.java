@@ -63,7 +63,7 @@ public class InputValidation {
 
     //------------------------
 
-    public boolean isInputEditTextMatches(AppCompatEditText textInputEditText1, TextInputEditText textInputEditText2, TextInputLayout textInputLayout, String message) {
+    public boolean isInputEditTextMatches(AppCompatEditText textInputEditText1, AppCompatEditText textInputEditText2, TextInputLayout textInputLayout, String message) {
         String value1 = textInputEditText1.getText().toString().trim();
         String value2 = textInputEditText2.getText().toString().trim();
         if (!value1.contentEquals(value2)) {

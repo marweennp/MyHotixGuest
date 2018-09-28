@@ -19,8 +19,30 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 public class Utils {
+
+    // Different dictionaries used for random password
+    private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
+    private static final String NUMERIC = "0123456789";
+    private static final String SPECIAL_CHARS = "!@#$%^&*_=+-/";
+    private static final String DICTIO = ALPHA_CAPS + ALPHA + NUMERIC + SPECIAL_CHARS ;
+
+    /** Method will generate random string
+     * @param len //the length of the random string
+     * @return the random password
+     */
+    public static String generatePassword(int len) {
+        Random random = new Random();
+        String result = "";
+        for (int i = 0; i < len; i++) {
+            int index = random.nextInt(DICTIO.length());
+            result += DICTIO.charAt(index);
+        }
+        return result;
+    }
 
     //Date formatter from "yyyy-MM-dd'T'hh:mm:ss" to "dd MMM yyyy"
     public static String dateFormater1(String date) {
@@ -30,7 +52,7 @@ public class Utils {
             result = df.parse(date);
             SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
             //sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-            return sdf.format(result).toString();
+            return sdf.format(result);
         } catch (Exception e) {
         }
 
@@ -45,7 +67,7 @@ public class Utils {
             result = df.parse(date);
             SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
             //sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-            return sdf.format(result).toString();
+            return sdf.format(result);
         } catch (Exception e) {
         }
 
@@ -60,21 +82,62 @@ public class Utils {
             result = df.parse(date);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             //sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-            return sdf.format(result).toString();
+            return sdf.format(result);
         } catch (Exception e) {
         }
 
         return "19990101";
     }
 
-    //Date formatter from "yyyy-MM-dd'T'hh:mm:ss" to "dd MMM yyyy"
-    public static String timeFormater(String date) {
+    //Date formatter from "yyyy-MM-dd'T'hh:mm:ss" to "dd/MM/yyyy"
+    public static String dateFormater4(String date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+        Date result;
+        try {
+            result = df.parse(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            return sdf.format(result);
+        } catch (Exception e) {
+        }
+
+        return "dd MMM yyyy";
+    }
+
+    //Date formatter from "yyyyMMdd" to "yyyy-MM-dd'T'hh:mm:ss"
+    public static String dateFormater5(String date) {
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        Date result;
+        try {
+            result = df.parse(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+            return sdf.format(result);
+        } catch (Exception e) {
+        }
+
+        return "dd MMM yyyy";
+    }
+
+    //Time formatter from "hh:mm:ss" to "hh:mm"
+    public static String timeFormater1(String date) {
         DateFormat df = new SimpleDateFormat("hh:mm:ss");
         Date result;
         try {
             result = df.parse(date);
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-            return sdf.format(result).toString();
+            return sdf.format(result);
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
+    //Time formatter from "yyyy-MM-dd'T'hh:mm:ss" to "hh:mm"
+    public static String timeFormater2(String date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+        Date result;
+        try {
+            result = df.parse(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+            return sdf.format(result);
         } catch (Exception e) {
             return e.toString();
         }
@@ -148,7 +211,7 @@ public class Utils {
 
         String st1 = date.substring(0, 2);
         String st2 = date.substring(3, 6);
-        String st3 = date.substring(7, 11);
+        String st3 = date.substring(7, date.length());
 
         String text = "<font color=" + color1 + ">" + st1 + "</font> <font color=" + color2 + "><b>" + st2 + "</b></font>" + "<font color=" + color1 + "> "+st3;
 
@@ -163,7 +226,7 @@ public class Utils {
 
         String st1 = date.substring(0, 2);
         String st2 = date.substring(3, 6);
-        String st3 = date.substring(7, 11);
+        String st3 = date.substring(7, date.length());
 
         String text = "<font color=" + color1 + ">" + st1 + "</font> <font color=" + color2 + "><b>" + st2 + "</b></font>" + "<font color=" + color1 + "> ";
 

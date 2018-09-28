@@ -14,6 +14,11 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,7 +27,7 @@ import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
 import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
-import static com.hotix.myhotixguest.helpers.Utils.timeFormater;
+import static com.hotix.myhotixguest.helpers.Utils.timeFormater1;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
@@ -50,6 +55,9 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     // Session Manager Class
     Session session;
+    //___________(Currency Number format)_____________\\
+    private NumberFormat formatter;
+    private DecimalFormatSymbols decimalFormatSymbols;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,12 @@ public class EventDetailsActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
 
+        formatter = NumberFormat.getCurrencyInstance();
+        decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("TND ");
+        ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
+        formatter.setMinimumFractionDigits(3);
+
         if (!session.getISResident()) {
             participateButton.setVisibility(View.GONE);
         }
@@ -66,15 +80,15 @@ public class EventDetailsActivity extends AppCompatActivity {
         Picasso.get().load(BASE_URL+"/Android/pics_guest/Events/"+GLOBAL_EVENT.getImage()).fit().placeholder(R.drawable.activites).into(eventImg);
 
         eventDetailsDate.setText(Html.fromHtml(dateTowColors(dateFormater1(GLOBAL_EVENT.getDateDebut()), getApplicationContext())));
-        eventDetailsTime.setText(timeFormater(GLOBAL_EVENT.getHeure()));
+        eventDetailsTime.setText(timeFormater1(GLOBAL_EVENT.getHeure()));
         eventDetailsLocationText.setText(GLOBAL_EVENT.getLocation());
 
         if (!(GLOBAL_EVENT.getPrix() == 0)) {
             eventDetailsPriceText.setTextColor(Color.parseColor("#FFFFFF"));
-            eventDetailsPriceText.setText(GLOBAL_EVENT.getPrix() + " DT");
+            eventDetailsPriceText.setText(formatter.format(GLOBAL_EVENT.getPrix()));
         } else {
             eventDetailsPriceText.setTextColor(Color.parseColor("#388E3C"));
-            eventDetailsPriceText.setText("FREE ");
+            eventDetailsPriceText.setText(R.string.free);
         }
 
         eventDetailsType.setText(GLOBAL_EVENT.getCategorie());

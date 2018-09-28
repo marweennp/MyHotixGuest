@@ -13,18 +13,24 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.models.Event;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
 import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
-import static com.hotix.myhotixguest.helpers.Utils.timeFormater;
+import static com.hotix.myhotixguest.helpers.Utils.timeFormater1;
 
 public class EventAdapter extends ArrayAdapter<Event> {
 
     Context mContext;
     private ArrayList<Event> dataSet;
+    //___________(Currency Number format)_____________\\
+    private NumberFormat formatter;
+    private DecimalFormatSymbols decimalFormatSymbols;
 
     public EventAdapter(ArrayList<Event> data, Context context) {
         super(context, R.layout.list_event_row_item, data);
@@ -35,6 +41,12 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        formatter = NumberFormat.getCurrencyInstance();
+        decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("TND ");
+        ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
+        formatter.setMinimumFractionDigits(3);
 
         Event dataModel = getItem(position);
 
@@ -66,7 +78,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         }
 
         viewHolder.event_row_head_date.setText(Html.fromHtml(dateTowColors(dateFormater1(dataModel.getDateDebut()), getContext())));
-        viewHolder.event_row_head_time.setText(timeFormater("19:06:00"));
+        viewHolder.event_row_head_time.setText(timeFormater1(dataModel.getHeure()));
         viewHolder.event_row_head_title.setText(dataModel.getNom());
         viewHolder.event_row_head_desc.setText(dataModel.getDescription());
 
@@ -74,7 +86,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         if (!(dataModel.getPrix() == 0)) {
             viewHolder.event_row_price.setTextColor(getColor(getContext(), R.color.colorBackground));
-            viewHolder.event_row_price.setText(dataModel.getPrix() + " DT");
+            viewHolder.event_row_price.setText(formatter.format(dataModel.getPrix()));
         } else {
             viewHolder.event_row_price.setTextColor(getColor(getContext(), R.color.green_700));
             viewHolder.event_row_price.setText("FREE ");

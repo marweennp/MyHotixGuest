@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="56dp"
+    tools:context=".fragments.HotelFragment">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/hotel_frag_bg_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!-- Hotel Frag Menu -->
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/hotel_frag_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:background="#B3000000"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <!-- Hotel Frag Menu About-->
+        <RelativeLayout
+            android:id="@+id/hotel_frag_menu_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/hotel_frag_menu_info_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_info_white_48" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/hotel_frag_menu_info_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hotel_frag_menu_info_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:text="About"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:textAllCaps="true" />
+
+
+            <!-- Divider -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white" />
+
+        </RelativeLayout>
+
+        <!-- Hotel Frag Menu Contact-->
+        <RelativeLayout
+            android:id="@+id/hotel_frag_menu_contact"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/hotel_frag_menu_contact_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_phone_white_48" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/hotel_frag_menu_contact_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hotel_frag_menu_contact_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:text="Contact"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:textAllCaps="true" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white" />
+
+        </RelativeLayout>
+
+        <!-- Hotel Frag Menu Review-->
+        <RelativeLayout
+            android:id="@+id/hotel_frag_menu_review"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/hotel_frag_menu_review_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/baseline_favorite_black_48" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/hotel_frag_menu_review_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hotel_frag_menu_review_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:text="Review"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:textAllCaps="true" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</RelativeLayout>

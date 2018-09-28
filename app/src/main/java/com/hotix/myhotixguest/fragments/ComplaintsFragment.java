@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.ComplaintsAdapter;
 import com.hotix.myhotixguest.helpers.Session;
@@ -42,6 +43,9 @@ public class ComplaintsFragment extends Fragment {
     private static ComplaintsAdapter adapter;
     private AppCompatEditText complaintTitle;
     private AppCompatEditText complaintText;
+    private AppCompatButton listSortAll;
+    private AppCompatButton listSortTreated;
+    private AppCompatButton listSortWaiting;
     private TextInputLayout complaintTitleInput;
     private TextInputLayout complaintTextInput;
     private AppCompatButton addComplaint;
@@ -54,9 +58,11 @@ public class ComplaintsFragment extends Fragment {
     private RelativeLayout complaintDetailsAnswerView;
     private AppCompatButton complaintDetailsOkBt;
     private ArrayList<Complaint> dataModels;
+    private ArrayList<Complaint> myComplaints;
     private ListView listView;
     private Complaint complaint;
     private FloatingActionButton _floatingActionButton;
+    private PullRefreshLayout pullLayout;
     // Session Manager Class
     private Session session;
 
@@ -74,7 +80,6 @@ public class ComplaintsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -88,6 +93,8 @@ public class ComplaintsFragment extends Fragment {
         // Session Manager
         session = new Session(getActivity());
 
+        pullLayout = (PullRefreshLayout) getActivity().findViewById(R.id.complaints_list_pull_to_refresh);
+
         _floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.complaints_floatingActionButton_add);
 
         progressView = (LinearLayout) getActivity().findViewById(R.id.loading_view);
@@ -96,9 +103,14 @@ public class ComplaintsFragment extends Fragment {
         emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.empty_list_iv_icon);
         emptyListRefresh = (AppCompatImageButton) getActivity().findViewById(R.id.empty_list_ibt_refresh);
 
+        listSortAll = (AppCompatButton) getActivity().findViewById(R.id.complaints_list_sort_all_btn);
+        listSortTreated = (AppCompatButton) getActivity().findViewById(R.id.complaints_list_sort_treated_btn);
+        listSortWaiting = (AppCompatButton) getActivity().findViewById(R.id.complaints_list_sort_waiting_btn);
+
         listView = (ListView) getActivity().findViewById(R.id.complaints_list);
 
         dataModels = new ArrayList<>();
+        myComplaints = new ArrayList<>();
 
         _floatingActionButton.setOnClickListener(new View.OnClickListener() {
 
@@ -112,7 +124,7 @@ public class ComplaintsFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                loadeComplaints();
+                loadeComplaints(0);
             }
         });
 
@@ -120,11 +132,46 @@ public class ComplaintsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
 
-                complaint = dataModels.get(position);
+                complaint = myComplaints.get(position);
                 startComplaintDetailsDialog(complaint);
 
             }
         });
+
+        // listen refresh event
+        pullLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // start refresh
+                loadeComplaints(0);
+            }
+        });
+
+        listSortAll.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                loadeComplaints(0);
+            }
+        });
+
+        listSortTreated.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                loadeComplaints(1);
+            }
+        });
+
+        listSortWaiting.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                loadeComplaints(2);
+            }
+        });
+
+
 
 
     }
@@ -132,7 +179,7 @@ public class ComplaintsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadeComplaints();
+        loadeComplaints(0);
     }
 
     /**********************************(  Start Complaint Dialog  )*************************************/
@@ -221,10 +268,7 @@ public class ComplaintsFragment extends Fragment {
     }
 
     /**********************************(  __________________ )*************************************/
-    //This method is to refresh the listview.
-    private void refreshList() {
-        loadeComplaints();
-    }
+
 
     private void addComplaint() {
 
@@ -244,7 +288,7 @@ public class ComplaintsFragment extends Fragment {
                 progressDialog.dismiss();
 
                 if (response.raw().code() == 200) {
-                    loadeComplaints();
+                    loadeComplaints(0);
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.toString());
                 }
@@ -260,8 +304,10 @@ public class ComplaintsFragment extends Fragment {
 
     }
 
-    private void loadeComplaints() {
+    // int sort <0:All, 1:Treated, 2:Waiting>
+    private void loadeComplaints(int sort) {
 
+        final int x = sort;
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<ArrayList<Complaint>> billCall = service.getReclamationsQuery(session.getResaId().toString());
 
@@ -272,11 +318,35 @@ public class ComplaintsFragment extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<Complaint>> call, Response<ArrayList<Complaint>> response) {
                 progressView.setVisibility(View.GONE);
+                pullLayout.setRefreshing(false);
                 if (response.raw().code() == 200) {
 
                     dataModels = response.body();
-                    adapter = new ComplaintsAdapter(dataModels, getActivity());
+
+                    changeColerBtns(x);
+
+                    if (x == 1) {
+                        myComplaints.clear();
+                        for (Complaint obj : dataModels) {
+                            if (obj.getTraite()) {
+                                myComplaints.add(obj);
+                            }
+                        }
+                    }else if (x == 2) {
+                        myComplaints.clear();
+                        for (Complaint obj : dataModels) {
+                            if (!obj.getTraite()) {
+                                myComplaints.add(obj);
+                            }
+                        }
+                    }else {
+                        myComplaints.clear();
+                        myComplaints = dataModels;
+                    }
+
+                    adapter = new ComplaintsAdapter(myComplaints, getActivity());
                     listView.setAdapter(adapter);
+                    emptyListIcon.setImageResource(R.drawable.baseline_all_inbox_24);
                     emptyListText.setText(R.string.no_complaint_to_show);
                     listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
 
@@ -288,12 +358,31 @@ public class ComplaintsFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<Complaint>> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
+                pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
                 listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
             }
         });
+    }
+
+    private void changeColerBtns(int sort){
+
+        if (sort == 1) {
+            listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+            listSortTreated.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+            listSortWaiting.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+        }else if (sort == 2) {
+            listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+            listSortTreated.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+            listSortWaiting.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+        }else {
+            listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+            listSortTreated.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+            listSortWaiting.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+        }
+
     }
 
 }

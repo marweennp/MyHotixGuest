@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,14 +21,21 @@
     <include layout="@layout/include_loading_view" />
 
     <!-- Event ListView -->
-    <ListView
-        android:id="@+id/event_list"
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/event_list_pull_to_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
-        android:layout_marginBottom="56dp"
-        android:divider="@color/colorBackground"
-        android:drawSelectorOnTop="true" />
+        android:layout_marginBottom="56dp">
+
+        <ListView
+            android:id="@+id/event_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorBackground"
+            android:drawSelectorOnTop="true" />
+
+    </com.baoyz.widget.PullRefreshLayout>
 
     <!-- Event Empty View -->
     <include layout="@layout/include_empty_list_view" />

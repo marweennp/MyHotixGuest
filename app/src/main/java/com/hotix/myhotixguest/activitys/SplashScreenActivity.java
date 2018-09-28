@@ -104,6 +104,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 response.body().getNationaliteName(),
                                 response.body().getEtatResa(),
                                 response.body().getResaId(),
+                                response.body().getResaPaxId(),
                                 response.body().getClientId(),
                                 response.body().getFactureId(),
                                 response.body().getFactureAnnee(),

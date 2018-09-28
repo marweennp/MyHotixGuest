@@ -87,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
         getFirebaseInstanceId();
         Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
 
+        checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
+
         if (session.getIsLoggedIn()) {
             _loginEmailText.setText(session.getUserName());
             _loginPasswordText.setText(session.getUserPassword());
@@ -129,7 +131,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
     }
 
     @Override
@@ -187,6 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                                 response.body().getNationaliteName(),
                                 response.body().getEtatResa(),
                                 response.body().getResaId(),
+                                response.body().getResaPaxId(),
                                 response.body().getClientId(),
                                 response.body().getFactureId(),
                                 response.body().getFactureAnnee(),

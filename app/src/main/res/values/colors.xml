@@ -20,6 +20,7 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_70_alpha">#B3FFFFFF</color>
 
     <color name="colorBackground">#123456</color>
 

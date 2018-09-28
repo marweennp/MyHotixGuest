@@ -25,7 +25,7 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.SignupDatePickerFragment;
 import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.models.Signup;
-import com.hotix.myhotixguest.models.SignupMsg;
+import com.hotix.myhotixguest.models.ResponseMsg;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -54,7 +54,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private SignupViewPagerAdapter myViewPagerAdapter;
     private TextView[] dots;
-    private int[] layouts;// For input text Validation
+    private int[] layouts;
+    // For input text Validation
     private InputValidation inputValidation;
     private Signup newSignup;
 
@@ -63,7 +64,6 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
-
         inputValidation = new InputValidation(getApplicationContext());
 
         newSignup = new Signup();
@@ -81,7 +81,6 @@ public class SignupActivity extends AppCompatActivity {
         myViewPagerAdapter = new SignupViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(myViewPagerListener);
-
 
     }
 
@@ -243,7 +242,7 @@ public class SignupActivity extends AppCompatActivity {
     private void addNewUser() {
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
-        Call<SignupMsg> userCall = service.inscriptionQuery(
+        Call<ResponseMsg> userCall = service.inscriptionQuery(
                 "1",
                 newSignup.getUserName(),
                 newSignup.getPassword(),
@@ -258,14 +257,14 @@ public class SignupActivity extends AppCompatActivity {
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.signup_3_progress_bar);
         progressBar.setVisibility(View.VISIBLE);
 
-        userCall.enqueue(new Callback<SignupMsg>() {
+        userCall.enqueue(new Callback<ResponseMsg>() {
             @Override
-            public void onResponse(Call<SignupMsg> call, Response<SignupMsg> response) {
+            public void onResponse(Call<ResponseMsg> call, Response<ResponseMsg> response) {
 
                 progressBar.setVisibility(View.GONE);
 
                 if (response.raw().code() == 200) {
-                    SignupMsg msg = response.body();
+                    ResponseMsg msg = response.body();
                     if (msg.getIsOk()) {
                         finish();
                     } else {
@@ -289,7 +288,7 @@ public class SignupActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SignupMsg> call, Throwable t) {
+            public void onFailure(Call<ResponseMsg> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }

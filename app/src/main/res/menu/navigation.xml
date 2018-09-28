@@ -22,8 +22,8 @@
         android:title="@string/title_activities" />
 
     <item
-        android:id="@+id/navigation_review"
-        android:icon="@drawable/baseline_favorite_24"
-        android:title="@string/title_review" />
+        android:id="@+id/navigation_hotel"
+        android:icon="@drawable/ic_info_white_24dp"
+        android:title="@string/title_hotel" />
 
 </menu>

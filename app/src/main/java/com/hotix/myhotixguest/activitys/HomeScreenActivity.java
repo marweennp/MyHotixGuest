@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.EventsFragment;
 import com.hotix.myhotixguest.fragments.HomeFragment;
+import com.hotix.myhotixguest.fragments.HotelFragment;
 import com.hotix.myhotixguest.fragments.NotificationsFragment;
 import com.hotix.myhotixguest.fragments.OrdersFragment;
 import com.hotix.myhotixguest.fragments.ReviewFragment;
@@ -29,7 +30,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     Fragment ordersFragment;
     Fragment notificationsFragment;
     Fragment activitesFragment;
-    Fragment reviewFragment;
+    Fragment hotelFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         ordersFragment = new OrdersFragment();
         notificationsFragment = new NotificationsFragment();
         activitesFragment = new EventsFragment();
-        reviewFragment = new ReviewFragment();
+        hotelFragment = new HotelFragment();
 
         loadFragment(homeFragment);
 
@@ -63,8 +64,8 @@ public class HomeScreenActivity extends AppCompatActivity {
                     case R.id.navigation_activities:
                         loadFragment(activitesFragment);
                         return true;
-                    case R.id.navigation_review:
-                        loadFragment(reviewFragment);
+                    case R.id.navigation_hotel:
+                        loadFragment(hotelFragment);
                         return true;
                 }
                 return false;

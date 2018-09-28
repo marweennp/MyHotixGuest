@@ -59,21 +59,31 @@
             android:name=".activitys.EventDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
-
         <activity
             android:name=".activitys.GuestProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
-
+        <activity
+            android:name=".activitys.AboutHotelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".activitys.ContactHotelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".activitys.ReviewHotelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar" />
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/baseline_euro_24" />
+            android:resource="@mipmap/ic_launcher_round" />
         <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
+            android:resource="@color/colorPrimaryDark" />
 
         <!-- [START firebase_service] -->
         <service android:name=".services.MyFirebaseMessagingService">

@@ -3,7 +3,7 @@ package com.hotix.myhotixguest.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SignupMsg {
+public class ResponseMsg {
 
     @SerializedName("Message")
     @Expose

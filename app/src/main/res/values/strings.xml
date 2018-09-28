@@ -16,6 +16,7 @@
     <string name="error_message_phone_is_empty">Enter your Phone number</string>
     <string name="error_message_email_invalid">Enter a valid E-mail Address</string>
     <string name="error_message_password_empty">Enter Your Password</string>
+    <string name="error_message_password_does_not_match">Passwords does not match</string>
     <string name="error_message_password_too_short">Password Is Too Short</string>
     <string name="error_message_field_required">This field is required</string>
 
@@ -74,6 +75,7 @@
     <string name="compaint_waiting">waiting</string>
     <string name="no_activitie_to_show">No activitie to show</string>
     <string name="no_complaint_to_show">No complaint to show</string>
+    <string name="no_message_to_show">No message to show</string>
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
@@ -102,6 +104,7 @@
     <string name="cancel">Cancel</string>
     <string name="ok">ok</string>
     <string name="coomplaint_details">Coomplaint Details</string>
+    <string name="message_details">Message Details</string>
     <string name="answer">Answer</string>
     <string name="nationality">Nationality</string>
     <string name="personal_details">Personal Details</string>
@@ -122,6 +125,15 @@
     <string name="something_wrong">Something went wrong.</string>
     <string name="change_password">Change Password</string>
     <string name="profile">Profile</string>
+    <string name="all_btn">All</string>
+    <string name="treated_btn">Treated</string>
+    <string name="waiting_btn">waiting</string>
+    <string name="title_hotel">Hotel</string>
+    <string name="something_wen_wrong">Something went wrong.</string>
+    <string name="password_updated_successfully">Password updated successfully.</string>
+    <string name="profile_updated_successfully">Profile updated successfully.</string>
+    <string name="message_from">"From : "</string>
+    <string name="free">FREE</string>
 
 
 </resources>

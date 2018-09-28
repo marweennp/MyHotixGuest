@@ -1,6 +1,8 @@
 package com.hotix.myhotixguest.activitys;
 
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,31 +13,39 @@ import android.view.View;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.InputValidation;
+import com.hotix.myhotixguest.models.Guest;
+import com.hotix.myhotixguest.models.ResponseMsg;
+import com.hotix.myhotixguest.retrofit2.RetrofitClient;
+import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConnectionChecher.checkNetwork;
+import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater5;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    // Butter Knife BindView AppCompatImageView
+    // Butter Knife BindView
+    // AppCompatImageView
     @BindView(R.id.forgot_password_logo_imageView)
     AppCompatImageView forgotPasswordLogo;
-
-    // Butter Knife BindView AppCompatEditText
+    //AppCompatEditText
     @BindView(R.id.input_forgot_password_email)
     AppCompatEditText forgotPasswordEmailText;
-
-    // Butter Knife BindView TextInputLayout
+    //TextInputLayout
     @BindView(R.id.text_input_layout_forgot_password_email)
     TextInputLayout forgotPasswordEmailTextInput;
-
-    // Butter Knife BindView AppCompatButton
+    //ppCompatButton
     @BindView(R.id.forgot_password_button)
     AppCompatButton forgotPasswordButton;
-
     // For input text Validation
     private InputValidation inputValidation;
 
@@ -45,31 +55,76 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
         ButterKnife.bind(this);
 
-        Picasso.get().load("http://196.203.219.164/android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(forgotPasswordLogo);
+        inputValidation = new InputValidation(getApplicationContext());
 
-        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(forgotPasswordLogo);
 
-            @Override
-            public void onClick(View v) {
+    }
 
-            }
-        });
-
-
+    @OnClick(R.id.forgot_password_button)
+    public void forgotPassword() {
+        if (inputValidation()) {
+            newPassword();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        checkNetwork(findViewById(android.R.id.content), ForgotPasswordActivity.this);
     }
 
     /**********************************(  Input Validation  )*************************************/
     //This method is to validate the EditText valus.
-    public boolean inputTextValidation() {
+    public boolean inputValidation() {
+
+        if (!inputValidation.isInputEditTextFilled(forgotPasswordEmailText, forgotPasswordEmailTextInput, getString(R.string.error_message_email_is_empty))) {
+            return false;
+        }
+        if (!inputValidation.isInputEditTextEmail(forgotPasswordEmailText, forgotPasswordEmailTextInput, getString(R.string.error_message_email_invalid))) {
+            return false;
+        }
 
         //Return true if all the inputs are valid
         return true;
+
+    }
+
+    public void newPassword() {
+
+        final String mail = forgotPasswordEmailText.getText().toString();
+
+        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        Call<ResponseMsg> userCall = service.resetPasswordQuery(mail);
+
+        final ProgressDialog progressDialog = new ProgressDialog(ForgotPasswordActivity.this, R.style.AppThemeDialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        userCall.enqueue(new Callback<ResponseMsg>() {
+            @Override
+            public void onResponse(Call<ResponseMsg> call, Response<ResponseMsg> response) {
+                progressDialog.dismiss();
+                if (response.raw().code() == 200) {
+                    ResponseMsg msg = response.body();
+                    if (!msg.getIsOk()) {
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.something_wen_wrong));
+                    } else {
+                        finish();
+                    }
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), response.message());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseMsg> call, Throwable t) {
+                progressDialog.dismiss();
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
 
     }
 }

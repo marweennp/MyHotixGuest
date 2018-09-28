@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.EventDetailsActivity;
 import com.hotix.myhotixguest.adapters.EventAdapter;
@@ -42,6 +43,7 @@ public class EventsFragment extends Fragment {
     // Session Manager Class
     private Session session;
     private Toolbar toolbar;
+    private PullRefreshLayout pullLayout;
 
     // Loading View & Empty ListView
     private LinearLayout progressView;
@@ -70,6 +72,8 @@ public class EventsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Session Manager
         session = new Session(getActivity());
+
+        pullLayout = (PullRefreshLayout) getActivity().findViewById(R.id.event_list_pull_to_refresh);
 
         progressView = (LinearLayout) getActivity().findViewById(R.id.loading_view);
         emptyListView = (RelativeLayout) getActivity().findViewById(R.id.empty_list_view);
@@ -107,20 +111,30 @@ public class EventsFragment extends Fragment {
             }
         });
 
+        // listen refresh event
+        pullLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // start refresh
+                loadeEvents();
+            }
+        });
+
     }
 
     private void loadeEvents() {
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
-        Call<ArrayList<Event>> billCall = service.getActivitesQuery();
+        Call<ArrayList<Event>> userCall = service.getActivitesQuery();
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
 
-        billCall.enqueue(new Callback<ArrayList<Event>>() {
+        userCall.enqueue(new Callback<ArrayList<Event>>() {
             @Override
             public void onResponse(Call<ArrayList<Event>> call, Response<ArrayList<Event>> response) {
                 progressView.setVisibility(View.GONE);
+                pullLayout.setRefreshing(false);
                 if (response.raw().code() == 200) {
 
                     dataModels = response.body();
@@ -137,6 +151,7 @@ public class EventsFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<Event>> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
+                pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
                 listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));

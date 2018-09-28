@@ -10,14 +10,66 @@
     <!-- Complaints Progress View -->
     <include layout="@layout/include_loading_view" />
 
-    <!-- Complaints ListView -->
-    <ListView
-        android:id="@+id/complaints_list"
+    <!-- Complaints Sort menu -->
+    <LinearLayout
+        android:id="@+id/complaints_list_sort_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="1px"
-        android:drawSelectorOnTop="true" />
+        android:layout_height="36dp"
+        android:orientation="horizontal"
+        android:background="@color/colorBackground"
+        android:layout_alignParentTop="true"
+        android:elevation="2dp"
+        android:weightSum="3">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/complaints_list_sort_all_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/all_btn"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/white" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/complaints_list_sort_treated_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/treated_btn"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/white_70_alpha" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/complaints_list_sort_waiting_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/waiting_btn"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/white_70_alpha" />
+
+
+    </LinearLayout>
+
+    <!-- Complaints ListView -->
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/complaints_list_pull_to_refresh"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/complaints_list_sort_menu"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/complaints_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="1px"
+            android:drawSelectorOnTop="true" />
+
+    </com.baoyz.widget.PullRefreshLayout>
 
     <!-- Complaints Empty View -->
     <include layout="@layout/include_empty_list_view" />
