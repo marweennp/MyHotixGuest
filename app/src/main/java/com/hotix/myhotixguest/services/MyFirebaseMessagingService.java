@@ -48,14 +48,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Map<String, String> data = remoteMessage.getData();
             String body = data.get("body");
             String title = data.get("title");
-            sendNotification(title, body, channelId);
+            String type = data.get("type");
+            sendNotification(title, body, channelId, type);
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             String body = remoteMessage.getNotification().getBody();
             String title = remoteMessage.getNotification().getTitle();
-            sendNotification(title, body, channelId);
+            sendNotification(title, body, channelId, "");
         }
 
     }
@@ -70,8 +71,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     /**Create and show a simple notification containing the received FCM message.
      * @param messageBody FCM message body received.*/
-    private void sendNotification(String messageTitle , String messageBody, String channelId ) {
+    private void sendNotification(String messageTitle , String messageBody, String channelId, String type ) {
         Intent intent = new Intent(this, SplashScreenActivity.class);
+        intent.putExtra( type, type);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
 

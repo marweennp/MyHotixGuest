@@ -1,12 +1,15 @@
 package com.hotix.myhotixguest.activitys;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.EventsFragment;
@@ -18,6 +21,8 @@ import com.hotix.myhotixguest.fragments.ReviewFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.hotix.myhotixguest.helpers.Settings.HAVE_MESSAGE_NOTIFICATION;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -71,6 +76,11 @@ public class HomeScreenActivity extends AppCompatActivity {
                 return false;
             }
         });
+        if (HAVE_MESSAGE_NOTIFICATION) {
+            navigation.setSelectedItemId(R.id.navigation_complaints);
+            HAVE_MESSAGE_NOTIFICATION = false;
+        }
+
     }
 
     // load fragments

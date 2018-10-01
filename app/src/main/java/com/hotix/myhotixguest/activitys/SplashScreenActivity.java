@@ -21,6 +21,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Settings.HAVE_COMPLAINT_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.Settings.HAVE_MESSAGE_NOTIFICATION;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -35,6 +37,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     // Session Manager Class
     Session session;
 
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,18 @@ public class SplashScreenActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+
+        intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            if (extras.containsKey("message")) {
+                HAVE_MESSAGE_NOTIFICATION = true;
+            }
+            if (extras.containsKey("complaint")) {
+                HAVE_MESSAGE_NOTIFICATION = true;
+                HAVE_COMPLAINT_NOTIFICATION = true;
+            }
+        }
 
         Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(splashScreen);
 
@@ -92,7 +108,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 true,
                                 true,
                                 uName,
-                                uPwd,response.body().getDateArrivee(),
+                                uPwd, response.body().getDateArrivee(),
                                 response.body().getDateDepart(),
                                 response.body().getChambre(),
                                 response.body().getEmail(),

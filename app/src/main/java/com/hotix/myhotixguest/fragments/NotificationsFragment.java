@@ -16,6 +16,8 @@ import com.hotix.myhotixguest.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hotix.myhotixguest.helpers.Settings.HAVE_COMPLAINT_NOTIFICATION;
+
 public class NotificationsFragment extends Fragment {
 
 
@@ -45,6 +47,11 @@ public class NotificationsFragment extends Fragment {
 
         tabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        if (HAVE_COMPLAINT_NOTIFICATION) {
+            viewPager.setCurrentItem(2);
+            HAVE_COMPLAINT_NOTIFICATION = false;
+        }
 
     }
 
