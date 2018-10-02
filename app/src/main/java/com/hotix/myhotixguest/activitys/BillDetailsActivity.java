@@ -3,6 +3,7 @@ package com.hotix.myhotixguest.activitys;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -55,8 +56,8 @@ public class BillDetailsActivity extends AppCompatActivity {
     AppCompatTextView emptyListText;
     @BindView(R.id.empty_list_iv_icon)
     AppCompatImageView emptyListIcon;
-    @BindView(R.id.empty_list_ibt_refresh)
-    AppCompatImageButton emptyListRefresh;
+    @BindView(R.id.empty_list_refresh_btn)
+    AppCompatButton emptyListRefresh;
 
     // Session Manager Class
     Session session;
@@ -114,7 +115,7 @@ public class BillDetailsActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.empty_list_ibt_refresh)
+    @OnClick(R.id.empty_list_refresh_btn)
     public void refresh() {
         loadeBills();
     }
@@ -171,7 +172,7 @@ public class BillDetailsActivity extends AppCompatActivity {
             public void onFailure(Call<Facture> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(findViewById(R.id.empty_list_view));
                 showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
             }

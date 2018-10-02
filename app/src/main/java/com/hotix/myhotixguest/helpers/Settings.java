@@ -1,6 +1,9 @@
 package com.hotix.myhotixguest.helpers;
 
 import com.hotix.myhotixguest.models.Event;
+import com.hotix.myhotixguest.models.Produit;
+
+import java.util.ArrayList;
 
 public class Settings {
 
@@ -13,6 +16,9 @@ public class Settings {
 
     //event global
     public static Event GLOBAL_EVENT = new Event();
+
+    //Cart Global
+    public static ArrayList<Produit> GLOBAL_CART = new ArrayList<>();
 
     //true if app start from message notification
     public static boolean HAVE_MESSAGE_NOTIFICATION = false;

@@ -40,7 +40,7 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ComplaintsFragment extends Fragment {
 
-    private static ComplaintsAdapter adapter;
+
     private AppCompatEditText complaintTitle;
     private AppCompatEditText complaintText;
     private AppCompatButton listSortAll;
@@ -61,6 +61,7 @@ public class ComplaintsFragment extends Fragment {
     private ArrayList<Complaint> myComplaints;
     private ListView listView;
     private Complaint complaint;
+    private ComplaintsAdapter adapter;
     private FloatingActionButton _floatingActionButton;
     private PullRefreshLayout pullLayout;
     // Session Manager Class
@@ -71,7 +72,8 @@ public class ComplaintsFragment extends Fragment {
     private RelativeLayout emptyListView;
     private AppCompatTextView emptyListText;
     private AppCompatImageView emptyListIcon;
-    private AppCompatImageButton emptyListRefresh;
+    private AppCompatButton emptyListRefresh;
+    private LinearLayout listSortMenu;
 
 
     public ComplaintsFragment() {
@@ -101,7 +103,9 @@ public class ComplaintsFragment extends Fragment {
         emptyListView = (RelativeLayout) getActivity().findViewById(R.id.empty_list_view);
         emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.list_tv_msg);
         emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.empty_list_iv_icon);
-        emptyListRefresh = (AppCompatImageButton) getActivity().findViewById(R.id.empty_list_ibt_refresh);
+        emptyListRefresh = (AppCompatButton) getActivity().findViewById(R.id.empty_list_refresh_btn);
+
+        listSortMenu = (LinearLayout) getActivity().findViewById(R.id.complaints_list_sort_menu);
 
         listSortAll = (AppCompatButton) getActivity().findViewById(R.id.complaints_list_sort_all_btn);
         listSortTreated = (AppCompatButton) getActivity().findViewById(R.id.complaints_list_sort_treated_btn);
@@ -170,9 +174,6 @@ public class ComplaintsFragment extends Fragment {
                 loadeComplaints(2);
             }
         });
-
-
-
 
     }
 
@@ -313,6 +314,7 @@ public class ComplaintsFragment extends Fragment {
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
+        listSortMenu.setVisibility(View.GONE);
 
         billCall.enqueue(new Callback<ArrayList<Complaint>>() {
             @Override
@@ -322,6 +324,10 @@ public class ComplaintsFragment extends Fragment {
                 if (response.raw().code() == 200) {
 
                     dataModels = response.body();
+
+                    if (dataModels.size()> 0) {
+                        listSortMenu.setVisibility(View.VISIBLE);
+                    }
 
                     changeColerBtns(x);
 
@@ -346,7 +352,7 @@ public class ComplaintsFragment extends Fragment {
 
                     adapter = new ComplaintsAdapter(myComplaints, getActivity());
                     listView.setAdapter(adapter);
-                    emptyListIcon.setImageResource(R.drawable.baseline_all_inbox_24);
+                    emptyListIcon.setImageResource(R.drawable.ic_inbox_white_24);
                     emptyListText.setText(R.string.no_complaint_to_show);
                     listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
 
@@ -360,7 +366,7 @@ public class ComplaintsFragment extends Fragment {
                 progressView.setVisibility(View.GONE);
                 pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
             }

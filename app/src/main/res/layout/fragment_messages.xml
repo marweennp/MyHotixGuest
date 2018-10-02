@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="56dp"
     android:background="@color/white"
     tools:context=".fragments.ComplaintsFragment">
 
@@ -38,62 +38,20 @@
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/messages_list_pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_below="@+id/complaints_list_sort_menu"
-        android:layout_height="match_parent">
-    <ListView
-        android:id="@+id/messages_list"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="1px"
-        android:drawSelectorOnTop="true" />
+        android:layout_below="@+id/complaints_list_sort_menu">
+
+        <ListView
+            android:id="@+id/messages_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="1px"
+            android:drawSelectorOnTop="true" />
 
     </com.baoyz.widget.PullRefreshLayout>
 
     <!-- Messages Empty View -->
-    <RelativeLayout
-        android:id="@+id/messages_empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true">
-
-
-
-
-        <!-- Empty List Icon -->
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/messages_empty_list_icon"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_centerInParent="true"
-            android:layout_above="@+id/messages_empty_list_text_view"
-            android:layout_centerHorizontal="true"
-            android:tint="@color/grey_400"
-            app:srcCompat="@drawable/baseline_comment_24" />
-
-        <!-- Empty List TextView -->
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/messages_empty_list_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:text="@string/no_item_to_show"
-            android:textColor="@color/grey_400"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <!-- Empty List ImageButton -->
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/messages_empty_list_ibt_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/messages_empty_list_text_view"
-            android:layout_centerHorizontal="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/baseline_refresh_black_48" />
-
-    </RelativeLayout>
+    <include layout="@layout/include_empty_list_with_refresh_button_view" />
 
 </RelativeLayout>

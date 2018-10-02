@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -87,8 +87,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     AppCompatTextView emptyListText;
     @BindView(R.id.empty_list_iv_icon)
     AppCompatImageView emptyListIcon;
-    @BindView(R.id.empty_list_ibt_refresh)
-    AppCompatImageButton emptyListRefresh;
+    @BindView(R.id.empty_list_refresh_btn)
+    AppCompatButton emptyListRefresh;
     @BindView(R.id.reservation_details_main_container)
     NestedScrollView reservationDetailsContainer;
 
@@ -200,7 +200,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 progressView.setVisibility(View.GONE);
                 emptyListView.setVisibility(View.VISIBLE);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
             }
         });

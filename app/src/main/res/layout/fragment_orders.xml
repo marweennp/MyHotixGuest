@@ -1,14 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="56dp"
+    android:background="@color/white"
     tools:context=".fragments.OrdersFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- AppBarLayout -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <include layout="@layout/include_toolbar" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- Orders Progress View -->
+    <include layout="@layout/include_loading_view" />
+
+    <!-- Orders ListView -->
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/orders_list_pull_to_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@+id/appbar">
 
-</FrameLayout>
+        <ListView
+            android:id="@+id/orders_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="1px"
+            android:drawSelectorOnTop="true" />
+
+    </com.baoyz.widget.PullRefreshLayout>
+
+    <!-- Orders Empty View -->
+    <include layout="@layout/include_empty_list_with_refresh_button_view" />
+
+
+    <!-- Orders Add FAB-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/orders_floatingActionButton_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/baseline_add_24" />
+
+</RelativeLayout>

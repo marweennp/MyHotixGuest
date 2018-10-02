@@ -75,6 +75,14 @@
             android:name=".activitys.ReviewHotelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".activitys.NewOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".activitys.OrderDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar" />
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data

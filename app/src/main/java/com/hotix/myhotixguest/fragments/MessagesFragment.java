@@ -57,7 +57,7 @@ public class MessagesFragment extends Fragment {
     private RelativeLayout emptyListView;
     private AppCompatTextView emptyListText;
     private AppCompatImageView emptyListIcon;
-    private AppCompatImageButton emptyListRefresh;
+    private AppCompatButton emptyListRefresh;
 
 
     public MessagesFragment() {
@@ -82,10 +82,10 @@ public class MessagesFragment extends Fragment {
         pullLayout = (PullRefreshLayout) getActivity().findViewById(R.id.messages_list_pull_to_refresh);
 
         progressView = (LinearLayout) getActivity().findViewById(R.id.messages_progress_view);
-        emptyListView = (RelativeLayout) getActivity().findViewById(R.id.messages_empty_view);
-        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.messages_empty_list_text_view);
-        emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.messages_empty_list_icon);
-        emptyListRefresh = (AppCompatImageButton) getActivity().findViewById(R.id.messages_empty_list_ibt_refresh);
+        emptyListView = (RelativeLayout) getActivity().findViewById(R.id.empty_list_main_view);
+        emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.list_msg_tv);
+        emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.empty_list_icon_iv);
+        emptyListRefresh = (AppCompatButton) getActivity().findViewById(R.id.empty_list_refresh_bt);
 
         listView = (ListView) getActivity().findViewById(R.id.messages_list);
 
@@ -162,7 +162,7 @@ public class MessagesFragment extends Fragment {
                 progressView.setVisibility(View.GONE);
                 pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(emptyListView);
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
             }

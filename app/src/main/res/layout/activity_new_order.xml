@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activitys.NewOrderActivity">
+
+    <!-- Orders Sort menu -->
+    <LinearLayout
+        android:id="@+id/complaints_list_sort_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorBackground"
+        android:elevation="2dp"
+        android:orientation="vertical">
+
+        <!-- Orders Sort menu Title View -->
+        <RelativeLayout
+            android:id="@+id/orders_sort_menu_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="36dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/orders_sort_menu_title_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_expand_more" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/orders_sort_menu_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/filters"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="3dp"
+                android:background="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
+
+        <!-- Orders Sort menu Filters View -->
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/orders_sort_menu_filters_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Orders Sort menu Categories Title View -->
+                <RelativeLayout
+                    android:id="@+id/orders_sort_menu_categories_title_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/orders_sort_menu_categories_title_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/ic_expand_less" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/orders_sort_menu_categories_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="16dp"
+                        android:text="Categories"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+                <!-- Orders Sort menu Categories View -->
+                <LinearLayout
+                    android:id="@+id/orders_sort_menu_categories_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/category_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Category 1" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/category_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Category 2" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+
+                <!-- Orders Sort menu Family Title View -->
+                <RelativeLayout
+                    android:id="@+id/orders_sort_menu_family_title_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/orders_sort_menu_family_title_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/ic_expand_more" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/orders_sort_menu_family_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="16dp"
+                        android:text="Family"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+                <!-- Orders Sort menu Family View -->
+                <LinearLayout
+                    android:id="@+id/orders_sort_menu_family_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/family_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Family 1" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/family_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Family 2" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/family_3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Family 3" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/Family_4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Family 4" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+
+                <!-- Orders Sort menu Sub Family Title View -->
+                <RelativeLayout
+                    android:id="@+id/orders_sort_menu_sub_family_title_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/orders_sort_menu_sub_family_title_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/ic_expand_more" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/orders_sort_menu_sub_family_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="16dp"
+                        android:text="Sub Family"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+                <!-- Orders Sort menu Sub Family View -->
+                <LinearLayout
+                    android:id="@+id/orders_sort_menu_sub_family_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/sub_family_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Sub Family 1" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/sub_family_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Sub Family  2" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/sub_family_3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Sub Family 3" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/sub_family_4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Sub Family 4" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/sub_family_5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Sub Family 5" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/sub_family_6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Sub Family  6" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/sub_family_7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Sub Family 7" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/sub_family_8"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Sub Family 8" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
+
+    <!-- Orders Progress View -->
+    <include layout="@layout/include_loading_view" />
+
+    <!-- Orders ListView -->
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/orders_list_pull_to_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/orders_cart_view"
+        android:layout_below="@+id/complaints_list_sort_menu">
+
+        <ListView
+            android:id="@+id/orders_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="1px"
+            android:drawSelectorOnTop="true" />
+
+    </com.baoyz.widget.PullRefreshLayout>
+
+    <!-- Complaints Empty View -->
+    <include layout="@layout/include_empty_list_with_refresh_button_view" />
+
+    <!-- Orders Cart View -->
+    <RelativeLayout
+        android:id="@+id/orders_cart_view"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBackground">
+
+        <RelativeLayout
+            android:id="@+id/orders_show_cart_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/orders_cart_show_arrow_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_keyboard_arrow_right" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/orders_cart_show_cart_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/orders_cart_show_title_tv"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toStartOf="@+id/orders_cart_show_arrow_img"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_shopping_cart_white_24" />
+
+            <RelativeLayout
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_above="@+id/orders_cart_show_title_tv"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toStartOf="@+id/orders_cart_show_cart_img"
+                android:background="@drawable/notification_badge">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/orders_cart_show_products_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="0"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/orders_cart_show_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toStartOf="@+id/orders_cart_show_arrow_img"
+                android:text="SHOW CART"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/orders_cart_total_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:text="Total :"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/orders_cart_total_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/orders_cart_total_title_tv"
+            android:text="0.000 DT "
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

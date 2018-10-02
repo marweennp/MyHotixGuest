@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -50,7 +51,7 @@ public class EventsFragment extends Fragment {
     private RelativeLayout emptyListView;
     private AppCompatTextView emptyListText;
     private AppCompatImageView emptyListIcon;
-    private AppCompatImageButton emptyListRefresh;
+    private AppCompatButton emptyListRefresh;
 
     public EventsFragment() {
         // Required empty public constructor
@@ -79,7 +80,7 @@ public class EventsFragment extends Fragment {
         emptyListView = (RelativeLayout) getActivity().findViewById(R.id.empty_list_view);
         emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.list_tv_msg);
         emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.empty_list_iv_icon);
-        emptyListRefresh = (AppCompatImageButton) getActivity().findViewById(R.id.empty_list_ibt_refresh);
+        emptyListRefresh = (AppCompatButton) getActivity().findViewById(R.id.empty_list_refresh_btn);
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -153,7 +154,7 @@ public class EventsFragment extends Fragment {
                 progressView.setVisibility(View.GONE);
                 pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
                 showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
             }

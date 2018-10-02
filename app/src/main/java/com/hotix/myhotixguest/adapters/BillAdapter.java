@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
@@ -36,7 +37,7 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        formatter = NumberFormat.getCurrencyInstance();
+        formatter = NumberFormat.getCurrencyInstance(Locale.US);
         decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
         decimalFormatSymbols.setCurrencySymbol("");
         ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);

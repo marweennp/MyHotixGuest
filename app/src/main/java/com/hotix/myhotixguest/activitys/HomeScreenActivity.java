@@ -1,15 +1,12 @@
 package com.hotix.myhotixguest.activitys;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.EventsFragment;
@@ -17,32 +14,35 @@ import com.hotix.myhotixguest.fragments.HomeFragment;
 import com.hotix.myhotixguest.fragments.HotelFragment;
 import com.hotix.myhotixguest.fragments.NotificationsFragment;
 import com.hotix.myhotixguest.fragments.OrdersFragment;
-import com.hotix.myhotixguest.fragments.ReviewFragment;
+import com.hotix.myhotixguest.helpers.Session;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.hotix.myhotixguest.helpers.Settings.HAVE_MESSAGE_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
     // Butter Knife BindViews
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
-
     // Fragments
     Fragment homeFragment;
     Fragment ordersFragment;
     Fragment notificationsFragment;
     Fragment activitesFragment;
     Fragment hotelFragment;
+    // Session Manager Class
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
         ButterKnife.bind(this);
+        // Session Manager
+        session = new Session(getApplicationContext());
 
         homeFragment = new HomeFragment();
         ordersFragment = new OrdersFragment();
@@ -61,10 +61,18 @@ public class HomeScreenActivity extends AppCompatActivity {
                         loadFragment(homeFragment);
                         return true;
                     case R.id.navigation_orders:
-                        loadFragment(ordersFragment);
+                        if (session.getISResident()) {
+                            loadFragment(ordersFragment);
+                        } else {
+                            showSnackbar(findViewById(android.R.id.content), "You must be a resident to use this feature");
+                        }
                         return true;
                     case R.id.navigation_complaints:
-                        loadFragment(notificationsFragment);
+                        if (session.getISResident()) {
+                            loadFragment(notificationsFragment);
+                        } else {
+                            showSnackbar(findViewById(android.R.id.content), "You must be a resident to use this feature");
+                        }
                         return true;
                     case R.id.navigation_activities:
                         loadFragment(activitesFragment);

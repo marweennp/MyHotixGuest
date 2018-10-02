@@ -52,8 +52,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         if (extras != null) {
             if (extras.containsKey("message")) {
                 HAVE_MESSAGE_NOTIFICATION = true;
-            }
-            if (extras.containsKey("complaint")) {
+            }else if (extras.containsKey("complaint")) {
                 HAVE_MESSAGE_NOTIFICATION = true;
                 HAVE_COMPLAINT_NOTIFICATION = true;
             }

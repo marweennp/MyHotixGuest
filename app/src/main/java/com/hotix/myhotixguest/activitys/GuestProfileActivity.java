@@ -223,24 +223,24 @@ public class GuestProfileActivity extends AppCompatActivity {
 
     private void loadData() {
 
-        profileDetailsFirstName.setText(session.getPrenom());
-        profileDetailsLastName.setText(session.getNom());
-        profileDetailsNationality.setText(session.getNationaliteName());
-        profileDetailsBirthDate.setText(dateFormater1(session.getBirthDay()));
-        profileDetailsAddress.setText(session.getAddress());
-        profileDetailsPhone.setText(session.getPhone());
-        profileDetailsMail.setText(session.getEmail());
+        profileDetailsFirstName.setText(session.getPrenom().trim());
+        profileDetailsLastName.setText(session.getNom().trim());
+        profileDetailsNationality.setText(session.getNationaliteName().trim());
+        profileDetailsBirthDate.setText(dateFormater1(session.getBirthDay()).trim());
+        profileDetailsAddress.setText(session.getAddress().trim());
+        profileDetailsPhone.setText(session.getPhone().trim());
+        profileDetailsMail.setText(session.getEmail().trim());
 
     }
 
     private void loadEt() {
 
-        editProfileDetailsFirstNameEt.setText(session.getPrenom());
-        editProfileDetailsLastNameEt.setText(session.getNom());
-        editProfileDetailsBirthDateEt.setText(dateFormater4(session.getBirthDay()));
-        editProfileDetailsAddressEt.setText(session.getAddress());
-        editProfileDetailsPhoneEt.setText(session.getPhone());
-        editProfileDetailsMailEt.setText(session.getEmail());
+        editProfileDetailsFirstNameEt.setText(session.getPrenom().trim());
+        editProfileDetailsLastNameEt.setText(session.getNom().trim());
+        editProfileDetailsBirthDateEt.setText(dateFormater4(session.getBirthDay()).trim());
+        editProfileDetailsAddressEt.setText(session.getAddress().trim());
+        editProfileDetailsPhoneEt.setText(session.getPhone().trim());
+        editProfileDetailsMailEt.setText(session.getEmail().trim());
 
     }
 
@@ -298,13 +298,13 @@ public class GuestProfileActivity extends AppCompatActivity {
 
 
         final String hotelId = "1";
-        final String clientId = session.getClientId().toString();
-        final String email = editProfileDetailsMailEt.getText().toString();
-        final String phone = editProfileDetailsPhoneEt.getText().toString();
-        final String nom = editProfileDetailsLastNameEt.getText().toString();
-        final String prenom = editProfileDetailsFirstNameEt.getText().toString();
-        final String datenaissance = dateFormater3(editProfileDetailsBirthDateEt.getText().toString());
-        final String adresse = editProfileDetailsAddressEt.getText().toString();
+        final String clientId = session.getClientId().toString().trim();
+        final String email = editProfileDetailsMailEt.getText().toString().trim();
+        final String phone = editProfileDetailsPhoneEt.getText().toString().trim();
+        final String nom = editProfileDetailsLastNameEt.getText().toString().trim();
+        final String prenom = editProfileDetailsFirstNameEt.getText().toString().trim();
+        final String datenaissance = dateFormater3(editProfileDetailsBirthDateEt.getText().toString()).trim();
+        final String adresse = editProfileDetailsAddressEt.getText().toString().trim();
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<ResponseMsg> userCall = service.updateProfileQuery(hotelId, clientId, email, phone, nom, prenom, datenaissance, adresse);

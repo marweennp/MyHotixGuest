@@ -3,7 +3,7 @@ package com.hotix.myhotixguest.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +33,7 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HistoryActivity extends AppCompatActivity {
 
+    private static HistoryAdapter adapter;
     // Butter Knife BindView
     // ListView
     @BindView(R.id.stays_list)
@@ -49,13 +50,11 @@ public class HistoryActivity extends AppCompatActivity {
     AppCompatTextView emptyListText;
     @BindView(R.id.empty_list_iv_icon)
     AppCompatImageView emptyListIcon;
-    @BindView(R.id.empty_list_ibt_refresh)
-    AppCompatImageButton emptyListRefresh;
-
+    @BindView(R.id.empty_list_refresh_btn)
+    AppCompatButton emptyListRefresh;
     // Session Manager Class
     Session session;
     ArrayList<Sejour> l_sejours;
-    private static HistoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +89,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.empty_list_ibt_refresh)
+    @OnClick(R.id.empty_list_refresh_btn)
     public void refresh() {
         loadeStays();
     }
