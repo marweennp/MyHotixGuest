@@ -1,13 +1,12 @@
 package com.hotix.myhotixguest.activitys;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -34,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater2;
+import static com.hotix.myhotixguest.helpers.Utils.dateColored;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class BillDetailsActivity extends AppCompatActivity {
@@ -158,7 +157,7 @@ public class BillDetailsActivity extends AppCompatActivity {
                     listView.addFooterView(footer);
 
                     billOwner.setText(session.getNom() + " " + session.getPrenom());
-                    billDate.setText(dateFormater2(session.getDateArrivee()) + " - " + dateFormater2(session.getDateDepart()));
+                    billDate.setText(Html.fromHtml(dateColored(session.getDateArrivee(), "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true) + " - " + dateColored(session.getDateDepart(), "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true)));
 
                     billNumber.setText(facture.getId() + "-" + facture.getAnnee());
                     billHeadTotalTTC.setText(formatter.format(facture.getTotalTTC()) + " " + facture.getDevise());

@@ -10,8 +10,6 @@ import android.widget.DatePicker;
 
 import com.hotix.myhotixguest.R;
 
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater3;
-
 public class SignupDatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
@@ -36,7 +34,7 @@ public class SignupDatePickerFragment extends DialogFragment implements DatePick
         }
 
         //date = y +  m  + d;
-        date = d+"/"+ m+"/"+y;
+        date = d + "/" + m + "/" + y;
 
         TextInputEditText text = (TextInputEditText) getActivity().findViewById(R.id.signup_2_birth_date_et);
         text.setText(date);

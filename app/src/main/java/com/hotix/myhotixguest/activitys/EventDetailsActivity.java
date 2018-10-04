@@ -2,8 +2,8 @@ package com.hotix.myhotixguest.activitys;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -17,7 +17,6 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,9 +24,8 @@ import butterknife.OnClick;
 
 import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_EVENT;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
-import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
-import static com.hotix.myhotixguest.helpers.Utils.timeFormater1;
+import static com.hotix.myhotixguest.helpers.Utils.dateColored;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
@@ -77,10 +75,10 @@ public class EventDetailsActivity extends AppCompatActivity {
             participateButton.setVisibility(View.GONE);
         }
 
-        Picasso.get().load(BASE_URL+"/Android/pics_guest/Events/"+GLOBAL_EVENT.getImage()).fit().placeholder(R.drawable.activites).into(eventImg);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/Events/" + GLOBAL_EVENT.getImage()).fit().placeholder(R.drawable.activites).into(eventImg);
 
-        eventDetailsDate.setText(Html.fromHtml(dateTowColors(dateFormater1(GLOBAL_EVENT.getDateDebut()), getApplicationContext())));
-        eventDetailsTime.setText(timeFormater1(GLOBAL_EVENT.getHeure()));
+        eventDetailsDate.setText(Html.fromHtml(dateColored(GLOBAL_EVENT.getDateDebut(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
+        eventDetailsTime.setText(dateFormater(GLOBAL_EVENT.getHeure(), "hh:mm:ss", "hh:mm"));
         eventDetailsLocationText.setText(GLOBAL_EVENT.getLocation());
 
         if (!(GLOBAL_EVENT.getPrix() == 0)) {
@@ -100,11 +98,11 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     @OnClick(R.id.participate_button)
     public void participationEmail() {
-        Intent intent = new  Intent(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "marweennandroid@gmail.com" });
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"marweennandroid@gmail.com"});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Event Participation");
-        intent.putExtra(Intent.EXTRA_TEXT, "I confirm my participation in the event "+GLOBAL_EVENT.getNom()+". \n Date : "+ dateFormater1(GLOBAL_EVENT.getDateDebut())+". \n Location : "+GLOBAL_EVENT.getLocation()+".");
+        intent.putExtra(Intent.EXTRA_TEXT, "I confirm my participation in the event " + GLOBAL_EVENT.getNom() + ". \n Date : " + dateFormater(GLOBAL_EVENT.getDateDebut(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy") + ". \n Location : " + GLOBAL_EVENT.getLocation() + ".");
 
         startActivity(Intent.createChooser(intent, "Send Email"));
     }

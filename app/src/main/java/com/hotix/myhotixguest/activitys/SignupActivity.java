@@ -24,8 +24,8 @@ import android.widget.TextView;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.SignupDatePickerFragment;
 import com.hotix.myhotixguest.helpers.InputValidation;
-import com.hotix.myhotixguest.models.Signup;
 import com.hotix.myhotixguest.models.ResponseMsg;
+import com.hotix.myhotixguest.models.Signup;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -37,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.Settings.TERMS_OF_SERVICE_URL;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater3;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class SignupActivity extends AppCompatActivity {
@@ -58,6 +58,62 @@ public class SignupActivity extends AppCompatActivity {
     // For input text Validation
     private InputValidation inputValidation;
     private Signup newSignup;
+    //  ViewPager Page Change Listener
+    ViewPager.OnPageChangeListener myViewPagerListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int position) {
+            addBottomDots(position);
+            if (position == 0) {
+                slideOneLoading();
+            }
+            if (position == 1) {
+                TextInputEditText text = (TextInputEditText) findViewById(R.id.signup_2_birth_date_et);
+                text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDatePickerDialog();
+                    }
+                });
+            }
+            if (position == 2) {
+                //AppCompatTextView
+                AppCompatTextView agreeTv = (AppCompatTextView) findViewById(R.id.signup_3_i_agree_tv);
+                //AppCompatTextView
+                ProgressBar progressBar = (ProgressBar) findViewById(R.id.signup_3_progress_bar);
+                progressBar.setVisibility(View.GONE);
+
+                agreeTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TERMS_OF_SERVICE_URL));
+                        startActivity(browserIntent);
+                    }
+                });
+            }
+            // changing button text
+            if (position == 0) {
+                btnNext.setText(getString(R.string.next));
+                btnBack.setVisibility(View.GONE);
+            } else if (position == layouts.length - 1) {
+                btnNext.setText(getString(R.string.done));
+                //btnBack.setVisibility(View.GONE);
+            } else {
+                btnNext.setText(getString(R.string.next));
+                btnBack.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,7 +263,7 @@ public class SignupActivity extends AppCompatActivity {
 
         newSignup.setFirstName(firstNameEt.getText().toString().trim());
         newSignup.setLastName(lastNameEt.getText().toString().trim());
-        newSignup.setBerthDate(dateFormater3(birthDateEt.getText().toString().trim()));
+        newSignup.setBerthDate(dateFormater(birthDateEt.getText().toString().trim(), "dd/MM/yyyy", "yyyyMMdd"));
         newSignup.setAddress(addressEt.getText().toString().trim());
 
         return true;
@@ -331,62 +387,5 @@ public class SignupActivity extends AppCompatActivity {
             container.removeView(view);
         }
     }
-
-    //  ViewPager Page Change Listener
-    ViewPager.OnPageChangeListener myViewPagerListener = new ViewPager.OnPageChangeListener() {
-
-        @Override
-        public void onPageSelected(int position) {
-            addBottomDots(position);
-            if (position == 0) {
-                slideOneLoading();
-            }
-            if (position == 1) {
-                TextInputEditText text = (TextInputEditText) findViewById(R.id.signup_2_birth_date_et);
-                text.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDatePickerDialog();
-                    }
-                });
-            }
-            if (position == 2) {
-                //AppCompatTextView
-                AppCompatTextView agreeTv = (AppCompatTextView) findViewById(R.id.signup_3_i_agree_tv);
-                //AppCompatTextView
-                ProgressBar progressBar = (ProgressBar) findViewById(R.id.signup_3_progress_bar);
-                progressBar.setVisibility(View.GONE);
-
-                agreeTv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TERMS_OF_SERVICE_URL));
-                        startActivity(browserIntent);
-                    }
-                });
-            }
-            // changing button text
-            if (position == 0) {
-                btnNext.setText(getString(R.string.next));
-                btnBack.setVisibility(View.GONE);
-            } else if (position == layouts.length - 1) {
-                btnNext.setText(getString(R.string.done));
-                //btnBack.setVisibility(View.GONE);
-            } else {
-                btnNext.setText(getString(R.string.next));
-                btnBack.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
 
 }

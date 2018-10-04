@@ -64,348 +64,67 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Orders Sort menu Categories Title View -->
+
+                <!-- Orders Sort menu Family View -->
                 <RelativeLayout
-                    android:id="@+id/orders_sort_menu_categories_title_view"
+                    android:id="@+id/orders_sort_menu_family_view"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp">
+                    android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/orders_sort_menu_categories_title_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="16dp"
-                        android:tint="@color/white"
-                        app:srcCompat="@drawable/ic_expand_less" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/orders_sort_menu_categories_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="16dp"
-                        android:text="Categories"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-                <!-- Orders Sort menu Categories View -->
-                <LinearLayout
-                    android:id="@+id/orders_sort_menu_categories_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/category_1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Category 1" />
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/category_2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Category 2" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@color/colorPrimaryDark" />
-
-                </LinearLayout>
-
-                <!-- Orders Sort menu Family Title View -->
-                <RelativeLayout
-                    android:id="@+id/orders_sort_menu_family_title_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/orders_sort_menu_family_title_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="16dp"
-                        android:tint="@color/white"
-                        app:srcCompat="@drawable/ic_expand_more" />
-
+                    <!-- Orders Sort menu Family Title -->
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/orders_sort_menu_family_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
                         android:layout_marginStart="16dp"
-                        android:text="Family"
+                        android:text="@string/families"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp" />
+
+                    <!-- Orders Sort menu Family Spinner -->
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/orders_sort_menu_family_sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/orders_sort_menu_family_title"
+                        android:layout_alignParentStart="true"
+                        android:popupBackground="@color/colorBackground"
+                        android:spinnerMode="dropdown" />
 
                 </RelativeLayout>
-                <!-- Orders Sort menu Family View -->
-                <LinearLayout
-                    android:id="@+id/orders_sort_menu_family_view"
+
+                <!-- Orders Sort menu Sub Family View -->
+                <RelativeLayout
+                    android:id="@+id/orders_sort_menu_sub_family_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:visibility="gone">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/family_1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Family 1" />
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/family_2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Family 2" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/family_3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Family 3" />
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/Family_4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Family 4" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@color/colorPrimaryDark" />
-
-                </LinearLayout>
-
-                <!-- Orders Sort menu Sub Family Title View -->
-                <RelativeLayout
-                    android:id="@+id/orders_sort_menu_sub_family_title_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/orders_sort_menu_sub_family_title_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="16dp"
-                        android:tint="@color/white"
-                        app:srcCompat="@drawable/ic_expand_more" />
-
+                    <!-- Orders Sort menu Sub Family Title -->
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/orders_sort_menu_sub_family_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
                         android:layout_marginStart="16dp"
-                        android:text="Sub Family"
+                        android:text="@string/sub_families"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp" />
+
+                    <!-- Orders Sort menu Sub Family Spinner -->
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/orders_sort_sub_family_sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/orders_sort_menu_sub_family_title"
+                        android:layout_alignParentStart="true"
+                        android:popupBackground="@color/colorBackground"
+                        android:spinnerMode="dropdown" />
 
                 </RelativeLayout>
-                <!-- Orders Sort menu Sub Family View -->
-                <LinearLayout
-                    android:id="@+id/orders_sort_menu_sub_family_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/sub_family_1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Sub Family 1" />
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/sub_family_2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Sub Family  2" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/sub_family_3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Sub Family 3" />
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/sub_family_4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Sub Family 4" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/sub_family_5"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Sub Family 5" />
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/sub_family_6"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Sub Family  6" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/sub_family_7"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Sub Family 7" />
-
-                        <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/sub_family_8"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Sub Family 8" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="3dp"
-                        android:background="@color/colorPrimaryDark" />
-
-                </LinearLayout>
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
@@ -433,7 +152,7 @@
 
     </com.baoyz.widget.PullRefreshLayout>
 
-    <!-- Complaints Empty View -->
+    <!-- Orders Empty View -->
     <include layout="@layout/include_empty_list_with_refresh_button_view" />
 
     <!-- Orders Cart View -->

@@ -31,10 +31,6 @@
     <string name="title_orders">Orders</string>
     <string name="title_review">Review</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
     <string name="splash_screen_footer_text">www.MyHotixGuest.com</string>
     <string name="complaints_text">Complaints</string>
     <string name="complaint_menu_add_text">Add</string>
@@ -139,6 +135,21 @@
     <string name="free">FREE</string>
     <string name="filters">FILTERS</string>
     <string name="refresh">REFRESH</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="families">Families</string>
+    <string name="sub_families">Sub Families</string>
+
+    <string-array name="categories_filter">
+        <item>First</item>
+        <item>Second</item>
+        <item>Third</item>
+        <item>Fourth</item>
+        <item>Fifth</item>
+        <item>Sixth</item>
+        <item>Seventh</item>
+    </string-array>
 
 
 </resources>

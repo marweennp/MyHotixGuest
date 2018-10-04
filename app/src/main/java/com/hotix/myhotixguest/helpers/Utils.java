@@ -1,19 +1,11 @@
 package com.hotix.myhotixguest.helpers;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.models.Event;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,9 +20,11 @@ public class Utils {
     private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     private static final String NUMERIC = "0123456789";
     private static final String SPECIAL_CHARS = "!@#$%^&*_=+-/";
-    private static final String DICTIO = ALPHA_CAPS + ALPHA + NUMERIC + SPECIAL_CHARS ;
+    private static final String DICTIO = ALPHA_CAPS + ALPHA + NUMERIC + SPECIAL_CHARS;
 
-    /** Method will generate random string
+    /**
+     * Method will generate random string
+     *
      * @param len //the length of the random string
      * @return the random password
      */
@@ -213,7 +207,7 @@ public class Utils {
         String st2 = date.substring(3, 6);
         String st3 = date.substring(7, date.length());
 
-        String text = "<font color=" + color1 + ">" + st1 + "</font> <font color=" + color2 + "><b>" + st2 + "</b></font>" + "<font color=" + color1 + "> "+st3;
+        String text = "<font color=" + color1 + ">" + st1 + "</font> <font color=" + color2 + "><b>" + st2 + "</b></font>" + "<font color=" + color1 + "> " + st3;
 
         return text;
     }
@@ -242,6 +236,93 @@ public class Utils {
         String text = "<font color=" + color1 + ">" + text1 + "</font> <font color=" + color2 + "><b>" + text2 + "</b></color>";
 
         return text;
+    }
+
+    /**
+     ***********************************************************************************************
+     */
+
+    /**
+     * String Empty Or Null (String)
+     * EX stringEmptyOrNull("hello")
+     *
+     * @param str //the String to check for null or empty value
+     * @return true if the String is !null & !empty false if not
+     */
+    public static boolean stringEmptyOrNull(String str) {
+
+        if(str != null && !str.isEmpty()) { return false; }
+        return true;
+    }
+
+    /**
+     * Date formatter (String, String, String)
+     * EX dateFormater("2000-01-01'T'00:00:00", "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy")
+     *
+     * @param date       //the original date to format
+     * @param fromFormat //the original date string format EX "yyyy-MM-dd'T'hh:mm:ss"
+     * @param toFormat   //the string format to transform to EX "dd MMM yyyy"
+     * @return the String Date
+     */
+    public static String dateFormater(String date, String fromFormat, String toFormat) {
+        SimpleDateFormat sdf_from = new SimpleDateFormat(fromFormat);
+        SimpleDateFormat sdf_to = new SimpleDateFormat(toFormat);
+        Date result;
+        String dateResult = "";
+        try {
+            result = sdf_from.parse(date);
+            dateResult = sdf_to.format(result);
+        } catch (Exception e) {
+        }
+        return dateResult;
+    }
+
+    /**
+     * Date Colored (String, String, String)
+     * EX dateFormater("2000-01-01'T'00:00:00", "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy")
+     *
+     * @param date       //the original date to format
+     * @param col_1      //coler 1 default #757575
+     * @param col_1      //coler 2 default #424242
+     * @param fromFormat //the original date string format EX "yyyy-MM-dd'T'hh:mm:ss"
+     * @param full       //if tru return "dd MMM yyyy" else return "dd MMM "
+     * @return the String Colered Date
+     */
+    public static String dateColored(String date, String col_1, String col_2, String fromFormat, boolean full) {
+
+        String color1 = "#9E9E9E";//default color
+        String color2 = "#757575";//default color
+
+        SimpleDateFormat sdf_from = new SimpleDateFormat(fromFormat);
+        SimpleDateFormat sdf_d = new SimpleDateFormat("dd");
+        SimpleDateFormat sdf_m = new SimpleDateFormat("MMM");
+        SimpleDateFormat sdf_y = new SimpleDateFormat("yyyy");
+        Date result;
+        String dateResult = "";
+        String st_d = "";
+        String st_m = "";
+        String st_y = "";
+
+        if (!stringEmptyOrNull(col_1)) { color1 = col_1; }
+
+        if (!stringEmptyOrNull(col_2)) { color2 = col_2; }
+
+        try {
+            result = sdf_from.parse(date);
+            st_d = sdf_d.format(result);
+            st_m = sdf_m.format(result);
+            st_y = sdf_y.format(result);
+        } catch (Exception e) {
+        }
+
+        if (full) {
+            dateResult = "<font color=" + color1 + ">" + st_d + "</font> <font color=" + color2 + "><b>" + st_m + "</b></font>" + "<font color=" + color1 + "> " + st_y;
+        } else {
+            dateResult = "<font color=" + color1 + ">" + st_d + "</font> <font color=" + color2 + "><b>" + st_m + "</b></font>";
+        }
+
+
+        return dateResult;
     }
 
 }

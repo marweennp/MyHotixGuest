@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
@@ -30,9 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
-import static com.hotix.myhotixguest.helpers.Utils.timeFormater2;
 
 public class MessagesFragment extends Fragment {
 
@@ -188,8 +186,8 @@ public class MessagesFragment extends Fragment {
             messageDetailsPhoneView.setVisibility(View.GONE);
         }
         messageDetailsTitle.setText(getString(R.string.message_from) + message.getFrom());
-        messageDetailsDate.setText(dateFormater1(message.getDate()));
-        messageDetailsTime.setText(timeFormater2(message.getDate()));
+        messageDetailsDate.setText(dateFormater(message.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy"));
+        messageDetailsTime.setText(dateFormater(message.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "hh:mm"));
         messageDetailsDesc.setText(message.getDetails());
 
         mBuilder.setView(mView);

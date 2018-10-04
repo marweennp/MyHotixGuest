@@ -1,6 +1,7 @@
 package com.hotix.myhotixguest.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,8 @@ import com.hotix.myhotixguest.models.Message;
 
 import java.util.ArrayList;
 
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
-import static com.hotix.myhotixguest.helpers.Utils.timeFormater2;
+import static com.hotix.myhotixguest.helpers.Utils.dateColored;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 
 public class MessageAdapter extends ArrayAdapter<Message> {
 
@@ -55,8 +56,8 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         viewHolder.message_title.setText(mContext.getString(R.string.message_from) + dataModel.getFrom());
         viewHolder.message_text.setText(dataModel.getDetails());
-        viewHolder.message_date.setText(dateFormater1(dataModel.getDate()));
-        viewHolder.message_time.setText(timeFormater2(dataModel.getDate()));
+        viewHolder.message_date.setText(Html.fromHtml(dateColored(dataModel.getDate(), "", "", "yyyy-MM-dd'T'hh:mm:ss", true)));
+        viewHolder.message_time.setText(dateFormater(dataModel.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "hh:mm"));
 
 
         // Return the completed view to render on screen
@@ -71,6 +72,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         TextView message_time;
 
     }
+
 
 }
 

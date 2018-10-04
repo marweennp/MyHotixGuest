@@ -20,9 +20,8 @@ import java.util.ArrayList;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
-import static com.hotix.myhotixguest.helpers.Utils.dateTowColors;
-import static com.hotix.myhotixguest.helpers.Utils.timeFormater1;
+import static com.hotix.myhotixguest.helpers.Utils.dateColored;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 
 public class EventAdapter extends ArrayAdapter<Event> {
 
@@ -77,8 +76,8 @@ public class EventAdapter extends ArrayAdapter<Event> {
             result = convertView;
         }
 
-        viewHolder.event_row_head_date.setText(Html.fromHtml(dateTowColors(dateFormater1(dataModel.getDateDebut()), getContext())));
-        viewHolder.event_row_head_time.setText(timeFormater1(dataModel.getHeure()));
+        viewHolder.event_row_head_date.setText(Html.fromHtml(dateColored(dataModel.getDateDebut(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
+        viewHolder.event_row_head_time.setText(dateFormater(dataModel.getHeure(), "hh:mm:ss", "hh:mm"));
         viewHolder.event_row_head_title.setText(dataModel.getNom());
         viewHolder.event_row_head_desc.setText(dataModel.getDescription());
 

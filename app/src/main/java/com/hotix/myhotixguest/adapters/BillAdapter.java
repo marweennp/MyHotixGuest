@@ -1,6 +1,7 @@
 package com.hotix.myhotixguest.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import static android.support.v4.content.ContextCompat.getColor;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
+import static com.hotix.myhotixguest.helpers.Utils.dateColored;
 
 public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
@@ -68,7 +69,7 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
         viewHolder.bill_transaction_title.setText(dataModel.getDescription());
         viewHolder.bill_transaction_sum.setText(formatter.format(dataModel.getMontant()));
-        viewHolder.bill_transaction_date.setText(dateFormater1(dataModel.getDate()));
+        viewHolder.bill_transaction_date.setText(Html.fromHtml(dateColored(dataModel.getDate(), "#757575", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
 
         if (!(dataModel.getModePaiement() == 0)) {
             viewHolder.bill_transaction_sum.setTextColor(getColor(getContext(), R.color.green_500));

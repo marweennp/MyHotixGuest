@@ -50,7 +50,7 @@ public class ProductAdapter extends ArrayAdapter<Produit> {
         }
 
         viewHolder.product_name.setText(dataModel.getName());
-        viewHolder.product_price.setText(dataModel.getPrice());
+        viewHolder.product_price.setText(dataModel.getPrix().toString());
 
         // Return the completed view to render on screen
         return convertView;

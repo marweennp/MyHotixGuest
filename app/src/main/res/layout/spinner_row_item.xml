@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/spinner_row_img"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:padding="5dp"
+        app:srcCompat="@drawable/ic_filter_list_white_24" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/spinner_row_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+</LinearLayout>

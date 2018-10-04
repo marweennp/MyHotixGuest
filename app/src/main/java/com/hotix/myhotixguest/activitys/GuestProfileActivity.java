@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.ProfileDatePickerFragment;
-import com.hotix.myhotixguest.fragments.SignupDatePickerFragment;
 import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.ResponseMsg;
@@ -31,10 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater1;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater3;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater4;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater5;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class GuestProfileActivity extends AppCompatActivity {
@@ -226,7 +222,7 @@ public class GuestProfileActivity extends AppCompatActivity {
         profileDetailsFirstName.setText(session.getPrenom().trim());
         profileDetailsLastName.setText(session.getNom().trim());
         profileDetailsNationality.setText(session.getNationaliteName().trim());
-        profileDetailsBirthDate.setText(dateFormater1(session.getBirthDay()).trim());
+        profileDetailsBirthDate.setText(dateFormater(session.getBirthDay(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy").trim());
         profileDetailsAddress.setText(session.getAddress().trim());
         profileDetailsPhone.setText(session.getPhone().trim());
         profileDetailsMail.setText(session.getEmail().trim());
@@ -237,7 +233,7 @@ public class GuestProfileActivity extends AppCompatActivity {
 
         editProfileDetailsFirstNameEt.setText(session.getPrenom().trim());
         editProfileDetailsLastNameEt.setText(session.getNom().trim());
-        editProfileDetailsBirthDateEt.setText(dateFormater4(session.getBirthDay()).trim());
+        editProfileDetailsBirthDateEt.setText(dateFormater(session.getBirthDay(), "yyyy-MM-dd'T'hh:mm:ss", "dd/MM/yyyy").trim());
         editProfileDetailsAddressEt.setText(session.getAddress().trim());
         editProfileDetailsPhoneEt.setText(session.getPhone().trim());
         editProfileDetailsMailEt.setText(session.getEmail().trim());
@@ -303,7 +299,7 @@ public class GuestProfileActivity extends AppCompatActivity {
         final String phone = editProfileDetailsPhoneEt.getText().toString().trim();
         final String nom = editProfileDetailsLastNameEt.getText().toString().trim();
         final String prenom = editProfileDetailsFirstNameEt.getText().toString().trim();
-        final String datenaissance = dateFormater3(editProfileDetailsBirthDateEt.getText().toString()).trim();
+        final String datenaissance = dateFormater(editProfileDetailsBirthDateEt.getText().toString().trim(), "dd/MM/yyyy", "yyyyMMdd");
         final String adresse = editProfileDetailsAddressEt.getText().toString().trim();
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
@@ -334,7 +330,7 @@ public class GuestProfileActivity extends AppCompatActivity {
                         session.setPhone(phone);
                         session.setNom(nom);
                         session.setPrenom(prenom);
-                        session.setBirthDay(dateFormater5(datenaissance));
+                        session.setBirthDay(dateFormater(datenaissance, "yyyyMMdd", "yyyy-MM-dd'T'hh:mm:ss"));
                         session.setAddress(adresse);
 
                         loadData();

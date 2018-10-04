@@ -2,18 +2,15 @@ package com.hotix.myhotixguest.activitys;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
-import android.view.View;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.InputValidation;
-import com.hotix.myhotixguest.models.Guest;
 import com.hotix.myhotixguest.models.ResponseMsg;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
@@ -26,9 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.ConnectionChecher.checkNetwork;
 import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater5;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ForgotPasswordActivity extends AppCompatActivity {

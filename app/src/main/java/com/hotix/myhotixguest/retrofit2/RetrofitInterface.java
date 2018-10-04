@@ -3,6 +3,7 @@ package com.hotix.myhotixguest.retrofit2;
 import com.hotix.myhotixguest.models.Complaint;
 import com.hotix.myhotixguest.models.Event;
 import com.hotix.myhotixguest.models.Facture;
+import com.hotix.myhotixguest.models.Famille;
 import com.hotix.myhotixguest.models.Guest;
 import com.hotix.myhotixguest.models.Message;
 import com.hotix.myhotixguest.models.Sejour;
@@ -35,6 +36,10 @@ public interface RetrofitInterface {
     @GET("/HNGAPI/api/myhotixguest/getdetailsfacture?")
     Call<Facture> getFactureQuery(@Query("id") String id,
                                   @Query("annee") String annee);
+
+    //Get All Products service call
+    @GET("/HNGAPI/api/myhotixguest/GetAllProducts")
+    Call<ArrayList<Famille>> getAllProductsQuery();
 
     //Get Activites service call
     @GET("/HNGAPI/api/myhotixguest/getactivites")

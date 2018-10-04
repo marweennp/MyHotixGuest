@@ -2,6 +2,7 @@ package com.hotix.myhotixguest.adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +15,13 @@ import com.hotix.myhotixguest.models.Complaint;
 
 import java.util.ArrayList;
 
+import static com.hotix.myhotixguest.helpers.Utils.dateColored;
+
 
 public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
 
-    private ArrayList<Complaint> dataSet;
     Context mContext;
-
-    // View lookup cache
-    private static class ViewHolder {
-        TextView complaint_title;
-        TextView complaint_text;
-        TextView complaint_date;
-        TextView complaint_state;
-
-        RelativeLayout complaint_color_text_layout;
-        RelativeLayout complaint_color_layout;
-    }
+    private ArrayList<Complaint> dataSet;
 
     public ComplaintsAdapter(ArrayList<Complaint> data, Context context) {
         super(context, R.layout.list_complaint_row_item, data);
@@ -44,8 +36,6 @@ public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
 
         ViewHolder viewHolder;
 
-        final View result;
-
         if (convertView == null) {
 
             viewHolder = new ViewHolder();
@@ -53,22 +43,19 @@ public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
             convertView = inflater.inflate(R.layout.list_complaint_row_item, parent, false);
             viewHolder.complaint_title = (TextView) convertView.findViewById(R.id.complaint_title);
             viewHolder.complaint_text = (TextView) convertView.findViewById(R.id.complaint_text);
-            viewHolder.complaint_date = (TextView) convertView.findViewById(R.id.complaint_date);
+            viewHolder.complaint_date = (TextView) convertView.findViewById(R.id.complaint_row_date);
             viewHolder.complaint_state = (TextView) convertView.findViewById(R.id.complaint_state);
             viewHolder.complaint_color_layout = (RelativeLayout) convertView.findViewById(R.id.complaint_color_layout);
             viewHolder.complaint_color_text_layout = (RelativeLayout) convertView.findViewById(R.id.complaint_color_text_layout);
 
-            result = convertView;
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result = convertView;
         }
 
         viewHolder.complaint_title.setText(dataModel.getObject());
         viewHolder.complaint_text.setText(dataModel.getDescription());
-        viewHolder.complaint_date.setText(dataModel.getDateCreation());
+        viewHolder.complaint_date.setText(Html.fromHtml(dateColored(dataModel.getDateCreation(), "", "", "dd/MM/yyyy", true)));
 
         if (dataModel.getTraite()) {
             viewHolder.complaint_state.setText(R.string.compaint_treated);
@@ -82,6 +69,17 @@ public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
 
         // Return the completed view to render on screen
         return convertView;
+    }
+
+    // View lookup cache
+    private static class ViewHolder {
+        TextView complaint_title;
+        TextView complaint_text;
+        TextView complaint_date;
+        TextView complaint_state;
+
+        RelativeLayout complaint_color_text_layout;
+        RelativeLayout complaint_color_layout;
     }
 
 }
