@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!-- Add To Cart Dialog Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/colorBackground">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/add_to_cart_dialog_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/add_to_cart"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <!-- Add To Cart Dialog Product Name -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/add_to_cart_dialog_prod_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Produit"
+        android:textColor="@color/colorBackground"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Add To Cart Dialog Product Price -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/add_to_cart_dialog_prod_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:text="Price : 2.800 DT"
+        android:textColor="@color/light_bg_dark_disabled_text"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Add To Cart Dialog Total Price -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/add_to_cart_dialog_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:text="Total : 2.800 DT"
+        android:textColor="@color/light_bg_dark_disabled_text"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Add To Cart Dialog Add/Remove Product  -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <!-- Add To Cart Dialog Remove Btn -->
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/add_to_cart_dialog_remove_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="50dp"
+            android:layout_toStartOf="@+id/add_to_cart_dialog_amount_tv"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/ic_remove_circle_white_36" />
+
+        <!-- Add To Cart Dialog Amount -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/add_to_cart_dialog_amount_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="1"
+            android:textColor="@color/light_bg_dark_disabled_text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Add To Cart Dialog Add Btn -->
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/add_to_cart_dialog_add_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50dp"
+            android:layout_toEndOf="@+id/add_to_cart_dialog_amount_tv"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/ic_add_circle_white_36" />
+
+    </RelativeLayout>
+
+    <!-- Add/Cancel Buttons -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:alpha=".5"
+            android:background="@color/colorBackground" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_Add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/new_complaint_confirm"
+            android:textColor="@color/colorPrimary" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_toStartOf="@+id/btn_Add"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/cancel"
+            android:textColor="@color/colorPrimary" />
+    </RelativeLayout>
+
+</LinearLayout>

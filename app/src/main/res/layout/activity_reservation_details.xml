@@ -63,10 +63,10 @@
                     android:id="@+id/profile_user_agency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="8dp"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
                     android:text="Booking Travel"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
@@ -75,10 +75,10 @@
                     android:id="@+id/profile_bill_icon_layou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="8dp"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="8dp"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.AppCompatImageView
@@ -192,10 +192,10 @@
                     android:id="@+id/profile_nights_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/profile_res_text"
-                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
                     android:orientation="vertical">
 
 
@@ -224,8 +224,8 @@
                     android:id="@+id/profile_rooms_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/profile_nights_layout"
+                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
@@ -309,8 +309,8 @@
                     android:id="@+id/profile_arrangement_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/profile_rooms_layout"
+                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
@@ -341,8 +341,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_arrangement_layout"
-                    android:layout_marginRight="64dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginRight="64dp"
                     android:layout_toLeftOf="@+id/profile_kids_layout"
                     android:orientation="vertical">
 
@@ -443,25 +443,40 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white">
 
-
+                <!-- Profile Guest Details Title -->
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/profile_guest_details_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Guest Details"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/guest_details"
                     android:textColor="@color/colorBackground"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <!-- Profile Guest Details Edit Pax Button -->
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/profile_guest_details_edit_pax_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:drawableEnd="@drawable/ic_create_blue_500_24"
+                    android:layout_marginEnd="8dp"
+                    android:text="EDIT"
+                    android:textColor="@color/colorPrimary" />
+
+
                 <!-- Guests Details Container -->
                 <LinearLayout
                     android:id="@+id/guests_details_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_guest_details_text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical"
                     android:paddingBottom="24dp">

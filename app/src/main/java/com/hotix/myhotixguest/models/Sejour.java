@@ -1,5 +1,6 @@
 package com.hotix.myhotixguest.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -47,7 +48,7 @@ public class Sejour {
     private String dateDepart;
     @SerializedName("DetailsPax")
     @Expose
-    private List<DetailsPax> detailsPax = null;
+    private ArrayList<DetailsPax> detailsPax = null;
 
     public Integer getResaId() {
         return resaId;
@@ -153,11 +154,11 @@ public class Sejour {
         this.dateDepart = dateDepart;
     }
 
-    public List<DetailsPax> getDetailsPax() {
+    public ArrayList<DetailsPax> getDetailsPax() {
         return detailsPax;
     }
 
-    public void setDetailsPax(List<DetailsPax> detailsPax) {
+    public void setDetailsPax(ArrayList<DetailsPax> detailsPax) {
         this.detailsPax = detailsPax;
     }
 

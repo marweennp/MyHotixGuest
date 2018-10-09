@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".fragments.PaxDetailsFragment">
+
+    <!-- Main Container -->
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/pax_detail_frag_main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Top Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <!-- Personal Details -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/pax_detail_frag_guest_details_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/personal_details"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Edit Personal Details Container -->
+                <LinearLayout
+                    android:id="@+id/pax_detail_frag_details_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pax_detail_frag_guest_details_text"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="24dp">
+
+                    <!-- Pax Details Civilite -->
+                    <RelativeLayout
+                        android:id="@+id/pax_detail_frag_civilite_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
+
+                        <!-- Pax Details Civilite Title -->
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/pax_detail_frag_civilite_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="@string/civilite"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+
+                        <!-- Pax Details Civilite Spinner -->
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/pax_detail_frag_civilite_sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/pax_detail_frag_civilite_title"
+                            android:layout_alignParentStart="true"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:popupBackground="@color/white"
+                            android:spinnerMode="dropdown" />
+
+                    </RelativeLayout>
+
+                    <!-- First Name -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_first_name_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_first_name_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/first_name"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Last Name -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_last_name_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_last_name_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/last_name"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <RadioGroup
+                        android:id="@+id/pax_detail_sexe_rGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="3dp"
+                        android:checkedButton="@+id/pax_detail_sexe_m_rb"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/pax_detail_sexe_m_rb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            android:text="@string/male"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="18sp" />
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/pax_detail_sexe_f_rb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            android:text="@string/female"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="18sp" />
+
+
+                    </RadioGroup>
+
+                    <!-- Phone -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_phone_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_phone_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_phone"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Mail -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_mail_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_mail_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_email"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Birth Date -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_birth_date_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_birth_date_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="@string/birth_date"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Birth Place -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_birth_place_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_birth_Place_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/birth_place"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Pax Details Countries -->
+                    <RelativeLayout
+                        android:id="@+id/pax_detail_frag_countries_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
+
+                        <!-- Pax Details Civilite Title -->
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/pax_detail_frag_countries_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="@string/countries"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+
+                        <!-- Pax Details Civilite Spinner -->
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/pax_detail_frag_countries_sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/pax_detail_frag_countries_title"
+                            android:layout_alignParentStart="true"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:popupBackground="@color/white"
+                            android:spinnerMode="dropdown" />
+
+                    </RelativeLayout>
+
+                    <!-- Address -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_address_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_address_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_adress"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <RadioGroup
+                        android:id="@+id/pax_detail_situation_rGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="3dp"
+                        android:checkedButton="@+id/pax_detail_situation_single_rb"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/pax_detail_situation_single_rb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            android:text="@string/single"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="18sp" />
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/pax_detail_situation_married_rb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            android:text="@string/married"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="18sp" />
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/pax_detail_situation_divorced_rb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            android:text="@string/divorced"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="18sp" />
+
+
+                    </RadioGroup>
+
+                    <!-- Pax Details Doc Type -->
+                    <RelativeLayout
+                        android:id="@+id/pax_detail_frag_doc_type_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
+
+                        <!-- Pax Details Civilite Title -->
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/pax_detail_frag_doc_type_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="@string/doc_type"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+
+                        <!-- Pax Details Civilite Spinner -->
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/pax_detail_frag_doc_type_sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/pax_detail_frag_doc_type_title"
+                            android:layout_alignParentStart="true"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:popupBackground="@color/white"
+                            android:spinnerMode="dropdown" />
+
+                    </RelativeLayout>
+
+                    <!-- Doc Id -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_doc_id_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_doc_id_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/doc_id"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Job -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/pax_detail_job_il"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:textColorHint="@color/grey_400">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/pax_detail_job_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/job"
+                            android:inputType="text"
+                            android:textColor="@color/colorBackground"
+                            android:theme="@style/MyEditTextStyle" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Smooker CheckBox -->
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/pax_detail_smooker_chb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="false"
+                        android:text="@string/smooker"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="18sp" />
+
+                    <!-- Disability CheckBox -->
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/pax_detail_disability_chb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="false"
+                        android:text="@string/disability"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="18sp" />
+
+                    <!-- Save Buttons -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/pax_detail_save_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:text="@string/save"
+                            android:textColor="@color/colorPrimary" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

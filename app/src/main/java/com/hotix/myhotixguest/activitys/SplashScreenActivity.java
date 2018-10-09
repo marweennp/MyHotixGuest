@@ -52,13 +52,14 @@ public class SplashScreenActivity extends AppCompatActivity {
         if (extras != null) {
             if (extras.containsKey("message")) {
                 HAVE_MESSAGE_NOTIFICATION = true;
-            }else if (extras.containsKey("complaint")) {
+            } else if (extras.containsKey("complaint")) {
                 HAVE_MESSAGE_NOTIFICATION = true;
                 HAVE_COMPLAINT_NOTIFICATION = true;
             }
         }
 
         Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(splashScreen);
+
 
         if (session.getIsLoggedIn()) {
             login(session.getUserName(), session.getUserPassword());
@@ -74,9 +75,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     finish();
                 }
             }, SPLASH_TIME_OUT);
-
         }
-
     }
 
     /**********************************(  Login Logic  )*************************************/

@@ -15,7 +15,7 @@
             android:id="@+id/profile_guest_details_is_master"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MASTER"
+            android:text="@string/master"
             android:textColor="@color/green_500"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -32,7 +32,7 @@
             android:id="@+id/profile_guest_details_name_op"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mr."
+            android:text=""
             android:textColor="@color/light_bg_dark_secondary_text"
             android:textSize="16dp"
             android:textStyle="bold" />
@@ -41,7 +41,7 @@
             android:id="@+id/profile_guest_details_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Foulan Foulani"
+            android:text=""
             android:textColor="@color/light_bg_dark_primary_text"
             android:textSize="16dp" />
 
@@ -58,7 +58,7 @@
             android:id="@+id/profile_guest_details_nationality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tunisian"
+            android:text=""
             android:textColor="@color/light_bg_dark_primary_text"
             android:textSize="16dp" />
 
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="1976-08-19"
+            android:text=""
             android:textColor="@color/light_bg_dark_primary_text"
             android:textSize="16dp" />
 
@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="Client Adresse"
+            android:text=""
             android:textColor="@color/light_bg_dark_primary_text"
             android:textSize="16dp" />
 
@@ -136,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="+000 00 000 000"
+            android:text=""
             android:textColor="@color/light_bg_dark_primary_text"
             android:textSize="16dp" />
 
@@ -162,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="foulan.foulani@mail.com"
+            android:text=""
             android:textColor="@color/light_bg_dark_primary_text"
             android:textSize="16dp" />
 

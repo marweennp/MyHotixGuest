@@ -1,5 +1,4 @@
 package com.hotix.myhotixguest.models;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -32,6 +31,12 @@ public class DetailsPax {
     @SerializedName("isMatser")
     @Expose
     private Boolean isMatser;
+    @SerializedName("CiviliteId")
+    @Expose
+    private Integer civiliteId;
+    @SerializedName("CiviliteName")
+    @Expose
+    private String civiliteName;
 
     public Integer getClientId() {
         return clientId;
@@ -103,6 +108,22 @@ public class DetailsPax {
 
     public void setIsMatser(Boolean isMatser) {
         this.isMatser = isMatser;
+    }
+
+    public Integer getCiviliteId() {
+        return civiliteId;
+    }
+
+    public void setCiviliteId(Integer civiliteId) {
+        this.civiliteId = civiliteId;
+    }
+
+    public String getCiviliteName() {
+        return civiliteName;
+    }
+
+    public void setCiviliteName(String civiliteName) {
+        this.civiliteName = civiliteName;
     }
 
 }

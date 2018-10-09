@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.ReviewHotelActivity;
 import com.hotix.myhotixguest.activitys.AboutHotelActivity;
 import com.hotix.myhotixguest.activitys.ContactHotelActivity;
+import com.hotix.myhotixguest.activitys.ReviewHotelActivity;
 import com.squareup.picasso.Picasso;
 
 public class HotelFragment extends Fragment {
@@ -85,4 +85,5 @@ public class HotelFragment extends Fragment {
 
 
     }
+
 }

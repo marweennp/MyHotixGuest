@@ -1,7 +1,9 @@
 package com.hotix.myhotixguest.helpers;
 
 import com.hotix.myhotixguest.models.Event;
+import com.hotix.myhotixguest.models.Pax;
 import com.hotix.myhotixguest.models.Produit;
+import com.hotix.myhotixguest.models.StartData;
 
 import java.util.ArrayList;
 
@@ -14,11 +16,17 @@ public class Settings {
     // terms of service url
     public static final String TERMS_OF_SERVICE_URL = "https://termsfeed.com/blog/add-i-agree-terms-checkbox/";
 
+    //this will be loaded on app startup
+    public static StartData GLOBAL_START_DATA = new StartData();
+
     //event global
     public static Event GLOBAL_EVENT = new Event();
 
     //Cart Global
     public static ArrayList<Produit> GLOBAL_CART = new ArrayList<>();
+
+    //Pax List Global
+    public static ArrayList<Pax> GLOBAL_PAX_LIST = new ArrayList<>();
 
     //true if app start from message notification
     public static boolean HAVE_MESSAGE_NOTIFICATION = false;

@@ -64,6 +64,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Orders Sort menu Search View -->
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/orders_sort_menu_search_et"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Search"
+                    android:paddingStart="16dp"
+                    android:inputType="text"
+                    android:textColor="@color/colorBackground"
+                    android:theme="@style/MyEditTextStyle" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimaryDark" />
 
                 <!-- Orders Sort menu Family View -->
                 <RelativeLayout

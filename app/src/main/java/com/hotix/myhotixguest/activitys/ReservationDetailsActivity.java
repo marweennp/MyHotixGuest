@@ -31,6 +31,7 @@ import retrofit2.Response;
 import static com.hotix.myhotixguest.helpers.Utils.calculateDaysBetween;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
+import static com.hotix.myhotixguest.helpers.Utils.stringEmptyOrNull;
 
 public class ReservationDetailsActivity extends AppCompatActivity {
 
@@ -76,6 +77,10 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     LinearLayout guestsContainer;
     @BindView(R.id.profile_bill_icon_layou)
     LinearLayoutCompat profileBillLayou;
+
+    //
+    @BindView(R.id.profile_guest_details_edit_pax_btn)
+    AppCompatButton editPaxDetails;
 
 
     // Loading View & Empty ListView
@@ -131,6 +136,15 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             }
         });
 
+        editPaxDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EditPaxDetailsActivity.class);
+                i.putExtra("resaId", resaId);
+                startActivity(i);
+            }
+        });
+
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,8 +152,20 @@ public class ReservationDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadData();
     }
+
 
     private void loadData() {
 
@@ -177,16 +203,9 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                     billId = sejour.getFactureId().toString();
                     billAn = sejour.getFactureAnnee().toString();
 
+                    guestsContainer.removeAllViews();
                     for (DetailsPax obj : sejour.getDetailsPax()) {
-                        addGuestDetales(
-                                obj.getIsMatser(),
-                                "Mr",
-                                obj.getClientNom() + " " + obj.getClientPrenom(),
-                                obj.getClientNationalite(),
-                                obj.getClientDateNaissance(),
-                                obj.getClientAdresse(),
-                                obj.getClientPhone(),
-                                obj.getClientEmail());
+                        addGuestDetales(obj);
                     }
 
                 } else {
@@ -201,24 +220,14 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 emptyListView.setVisibility(View.VISIBLE);
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
-                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
 
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+    public void addGuestDetales(DetailsPax pax) {
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    public void addGuestDetales(boolean master, String cv, String name, String nat, String bd, String adr, String phone, String mail) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View guestView = inflater.inflate(R.layout.list_guest_details_row, null);
         AppCompatTextView guestIsMaster = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_is_master);
@@ -238,41 +247,56 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         LinearLayout phoneLayout = (LinearLayout) guestView.findViewById(R.id.phone_layout);
         LinearLayout mailLayout = (LinearLayout) guestView.findViewById(R.id.mail_layout);
 
-        if (!master) {
+        if (!pax.getIsMatser()) {
             guestIsMaster.setVisibility(View.GONE);
         }
-        guestNameOp.setText(cv);
-        guestName.setText(name);
-        guestNationality.setText(nat);
-        if (bd.trim().isEmpty()) {
+
+        if (!stringEmptyOrNull(pax.getCiviliteName().trim())) {
+            guestNameOp.setText(pax.getCiviliteName().trim() + " ");
+        }
+
+        if (!stringEmptyOrNull(pax.getClientNom().trim()) || !stringEmptyOrNull(pax.getClientPrenom().trim())) {
+            guestName.setText(pax.getClientNom().trim() + " " + pax.getClientPrenom().trim());
+        }
+
+        if (!stringEmptyOrNull(pax.getClientNationalite().trim())) {
+            guestNationality.setText(pax.getClientNationalite().trim());
+        }
+
+        if (stringEmptyOrNull(pax.getClientDateNaissance().trim())) {
             guestBirthDateIcon.setVisibility(View.GONE);
             guestBirthDate.setVisibility(View.GONE);
             bdLayout.setVisibility(View.GONE);
         } else {
-            guestBirthDate.setText(bd);
+            guestBirthDate.setText(pax.getClientDateNaissance().trim());
         }
-        if (adr.trim().isEmpty()) {
+
+        if (stringEmptyOrNull(pax.getClientAdresse().trim())) {
             guestAddressIcon.setVisibility(View.GONE);
             guestAddress.setVisibility(View.GONE);
             adrLayout.setVisibility(View.GONE);
         } else {
-            guestAddress.setText(adr);
+            guestAddress.setText(pax.getClientAdresse().trim());
         }
-        if (phone.trim().isEmpty()) {
+
+        if (stringEmptyOrNull(pax.getClientPhone().trim())) {
             guestPhoneIcon.setVisibility(View.GONE);
             guestPhone.setVisibility(View.GONE);
             phoneLayout.setVisibility(View.GONE);
         } else {
-            guestPhone.setText(phone);
+            guestPhone.setText(pax.getClientPhone().trim());
         }
-        if (mail.trim().isEmpty()) {
+
+        if (stringEmptyOrNull(pax.getClientEmail().trim())) {
             guestMailIcon.setVisibility(View.GONE);
             guestMail.setVisibility(View.GONE);
             mailLayout.setVisibility(View.GONE);
         } else {
-            guestMail.setText(mail);
+            guestMail.setText(pax.getClientEmail().trim());
         }
 
         guestsContainer.addView(guestView);
     }
+
+
 }

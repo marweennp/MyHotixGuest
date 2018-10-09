@@ -3,11 +3,15 @@ package com.hotix.myhotixguest.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -51,6 +55,9 @@ public class NewOrderActivity extends AppCompatActivity {
     @BindView(R.id.orders_sort_sub_family_sp)
     AppCompatSpinner sub_family_sp;
 
+    @BindView(R.id.orders_sort_menu_search_et)
+    AppCompatEditText sortMenuSearchEt;
+
     // Butter Knife BindView RelativeLayout
     @BindView(R.id.orders_sort_menu_title_view)
     RelativeLayout sortMenuTitleView;
@@ -58,19 +65,15 @@ public class NewOrderActivity extends AppCompatActivity {
     RelativeLayout sortMenuFamilyView;
     @BindView(R.id.orders_sort_menu_sub_family_view)
     RelativeLayout sortMenuSubFamilyView;
-
     // Butter Knife BindView AppCompatImageView
     @BindView(R.id.orders_sort_menu_title_icon)
     AppCompatImageView sortMenuTitleIcon;
-
     // Butter Knife BindView NestedScrollView
     @BindView(R.id.orders_sort_menu_filters_view)
     NestedScrollView sortMenuFiltersView;
-
     // Butter Knife BindView PullRefreshLayout
     @BindView(R.id.orders_list_pull_to_refresh)
     PullRefreshLayout pullLayout;
-
     // Butter Knife BindView ListView
     @BindView(R.id.orders_list)
     ListView listView;
@@ -95,6 +98,15 @@ public class NewOrderActivity extends AppCompatActivity {
     AppCompatTextView cartTotalTv;
     @BindView(R.id.orders_cart_show_products_count_tv)
     AppCompatTextView cartShowProductsCountTv;
+    // Dialog
+    private AppCompatTextView prodNameTv;
+    private AppCompatTextView prodPriceTv;
+    private AppCompatTextView prodTotalTv;
+    private AppCompatTextView prodAmountTv;
+    private AppCompatImageView addProd;
+    private AppCompatImageView removeProd;
+    private AppCompatButton confirmBt;
+    private AppCompatButton cancelBt;
     private ArrayList<Famille> dataModels;
     private ArrayList<Produit> produits;
     private ArrayList<SFamille> sFamilles;
@@ -106,9 +118,14 @@ public class NewOrderActivity extends AppCompatActivity {
     //
     private Double price = 0.0;
     private int familles_id = -1;
+    private int amount = 1;
+    private Double total = 0.0;
+
     //___________(Currency Number format)_____________\\
     private NumberFormat formatter;
     private DecimalFormatSymbols decimalFormatSymbols;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,9 +148,9 @@ public class NewOrderActivity extends AppCompatActivity {
 
         price = 0.0;
         for (Produit obj : GLOBAL_CART) {
-            price += Double.valueOf(obj.getPrix());
+            price += Double.valueOf(formatter.format(obj.getPrix()));
         }
-        cartTotalTv.setText(formatter.format(price));
+        cartTotalTv.setText(formatter.format(price)+" DT");
         cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
 
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +203,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 emptyListIcon.setImageResource(R.drawable.ic_shopping_cart_white_24);
                 listView.setEmptyView(emptyListView);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -218,6 +236,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 emptyListIcon.setImageResource(R.drawable.ic_shopping_cart_white_24);
                 listView.setEmptyView(emptyListView);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -228,14 +247,7 @@ public class NewOrderActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
                 produit = produits.get(position);
-                GLOBAL_CART.add(produit);
-                price = 0.0;
-                for (Produit obj : GLOBAL_CART) {
-                    price += Double.valueOf(obj.getPrix());
-                }
-                cartTotalTv.setText(formatter.format(price));
-                cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
-
+                startAddToCartDialog();
             }
         });
 
@@ -260,6 +272,25 @@ public class NewOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), OrderDetailsActivity.class);
                 startActivity(i);
+            }
+        });
+
+
+        sortMenuSearchEt.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                filterList(sortMenuSearchEt.getText().toString().trim());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
             }
         });
 
@@ -313,7 +344,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     familles.addAll(dataModels);
                     familySpinnerAdapter = new FamilySpinnerAdapter(getApplicationContext(), familles);
                     family_sp.setAdapter(familySpinnerAdapter);
-
+                    //adapter.getFilter().filter("F");
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
@@ -331,5 +362,115 @@ public class NewOrderActivity extends AppCompatActivity {
         });
     }
 
+    private void filterList(String str) {
+        ArrayList<Produit> tempProduits = new ArrayList<Produit>();
+        if (str != null && str.length() > 0) {
+            tempProduits.clear();
+            for (Produit prod : produits) {
+                if (prod.getName().toLowerCase().contains(str.toLowerCase())) {
+                    tempProduits.add(prod);
+                }
+            }
+
+        } else {
+            tempProduits.clear();
+            tempProduits = produits;
+        }
+
+        adapter = new ProductAdapter(tempProduits, getApplicationContext());
+        listView.setAdapter(adapter);
+        emptyListText.setText(R.string.no_products_to_show);
+        emptyListIcon.setImageResource(R.drawable.ic_shopping_cart_white_24);
+        listView.setEmptyView(emptyListView);
+
+    }
+
+    private void startAddToCartDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(NewOrderActivity.this);
+
+        amount=1;
+        total=0.0;
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_add_to_cart, null);
+        prodNameTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_name);
+        prodPriceTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_price);
+        prodTotalTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_total_price);
+        prodAmountTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_amount_tv);
+        addProd = (AppCompatImageView) mView.findViewById(R.id.add_to_cart_dialog_add_icon);
+        removeProd = (AppCompatImageView) mView.findViewById(R.id.add_to_cart_dialog_remove_icon);
+        confirmBt = (AppCompatButton) mView.findViewById(R.id.btn_Add);
+        cancelBt = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
+
+        prodNameTv.setText(produit.getName());
+        prodPriceTv.setText("Price : "+formatter.format(produit.getPrix())+" DT");
+        total += Double.valueOf(formatter.format(produit.getPrix()));
+        prodTotalTv.setText("Price : "+ formatter.format(total)+" DT");
+        prodAmountTv.setText(""+ amount);
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        addProd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (amount < 10000) {
+                    amount++;
+                    total = 0.0;
+                    for(int i = 1; i <= amount; i++)
+                    {
+                        total += Double.valueOf(formatter.format(produit.getPrix()));
+                    }
+                    prodTotalTv.setText("Price : "+ formatter.format(total) +" DT");
+                    prodAmountTv.setText(""+amount );
+                }
+            }
+        });
+
+        removeProd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (amount > 0) {
+                    amount--;
+                    total = 0.0;
+                    for(int i = 1; i <= amount; i++)
+                    {
+                        total += Double.valueOf(produit.getPrix());
+                    }
+                    prodTotalTv.setText("Price : "+ formatter.format(total) +" DT");
+                    prodAmountTv.setText(""+amount);
+                }
+            }
+        });
+
+        confirmBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for(int i = 1; i <= amount; i++)
+                {
+                    GLOBAL_CART.add(produit);
+                }
+
+                price = 0.0;
+                for (Produit obj : GLOBAL_CART) {
+                    price += Double.valueOf(formatter.format(obj.getPrix()));
+                }
+                cartTotalTv.setText(formatter.format(price)+" DT");
+                cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
+                dialog.dismiss();
+            }
+        });
+
+        cancelBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+    }
 
 }

@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
@@ -117,7 +116,6 @@ public class ComplaintsFragment extends Fragment {
         myComplaints = new ArrayList<>();
 
         _floatingActionButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 startComplaintDialog();
@@ -125,7 +123,6 @@ public class ComplaintsFragment extends Fragment {
         });
 
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 loadeComplaints(0);
@@ -135,18 +132,14 @@ public class ComplaintsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
-
                 complaint = myComplaints.get(position);
                 startComplaintDetailsDialog(complaint);
-
             }
         });
 
-        // listen refresh event
         pullLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // start refresh
                 loadeComplaints(0);
             }
         });
@@ -270,7 +263,6 @@ public class ComplaintsFragment extends Fragment {
 
     /**********************************(  __________________ )*************************************/
 
-
     private void addComplaint() {
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
@@ -325,7 +317,7 @@ public class ComplaintsFragment extends Fragment {
 
                     dataModels = response.body();
 
-                    if (dataModels.size()> 0) {
+                    if (dataModels.size() > 0) {
                         listSortMenu.setVisibility(View.VISIBLE);
                     }
 
@@ -338,14 +330,14 @@ public class ComplaintsFragment extends Fragment {
                                 myComplaints.add(obj);
                             }
                         }
-                    }else if (x == 2) {
+                    } else if (x == 2) {
                         myComplaints.clear();
                         for (Complaint obj : dataModels) {
                             if (!obj.getTraite()) {
                                 myComplaints.add(obj);
                             }
                         }
-                    }else {
+                    } else {
                         myComplaints.clear();
                         myComplaints = dataModels;
                     }
@@ -373,17 +365,17 @@ public class ComplaintsFragment extends Fragment {
         });
     }
 
-    private void changeColerBtns(int sort){
+    private void changeColerBtns(int sort) {
 
         if (sort == 1) {
             listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
             listSortTreated.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
             listSortWaiting.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
-        }else if (sort == 2) {
+        } else if (sort == 2) {
             listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
             listSortTreated.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
             listSortWaiting.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-        }else {
+        } else {
             listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
             listSortTreated.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
             listSortWaiting.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));

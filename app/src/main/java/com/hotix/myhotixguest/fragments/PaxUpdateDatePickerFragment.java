@@ -9,7 +9,7 @@ import android.widget.DatePicker;
 
 import com.hotix.myhotixguest.R;
 
-public class ProfileDatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class PaxUpdateDatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -35,10 +35,8 @@ public class ProfileDatePickerFragment extends DialogFragment implements DatePic
         //date = y +  m  + d;
         date = d + "/" + m + "/" + y;
 
-        AppCompatEditText text = (AppCompatEditText) getActivity().findViewById(R.id.edit_profile_details_birth_date_et);
+        AppCompatEditText text = (AppCompatEditText) getActivity().findViewById(R.id.pax_detail_birth_date_et);
         text.setText(date);
 
     }
-
-
 }
