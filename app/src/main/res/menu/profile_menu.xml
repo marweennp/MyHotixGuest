@@ -7,10 +7,5 @@
         android:icon="@drawable/baseline_create_24"
         android:title="@string/edit_item_menu"
         app:showAsAction="ifRoom"></item>
-    <item
-        android:id="@+id/action_logout"
-        android:icon="@drawable/baseline_meeting_room_24"
-        android:title="@string/logout_item_menu"
-        app:showAsAction="ifRoom"></item>
 
 </menu>

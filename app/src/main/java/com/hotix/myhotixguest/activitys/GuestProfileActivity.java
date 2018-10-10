@@ -198,12 +198,6 @@ public class GuestProfileActivity extends AppCompatActivity {
                 editProfileDetailsContainer.setVisibility(View.VISIBLE);
                 loadEt();
                 return true;
-            case R.id.action_logout:
-                session.clearSessionDetails();
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -82,12 +82,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/home_guest_logout_icon"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="18dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_settings_24" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/home_guest_logout_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/colorPrimary"
-                app:srcCompat="@drawable/baseline_settings_24" />
+                android:tint="@color/red_600"
+                app:srcCompat="@drawable/ic_power_settings_new_white_24" />
 
 
         </RelativeLayout>

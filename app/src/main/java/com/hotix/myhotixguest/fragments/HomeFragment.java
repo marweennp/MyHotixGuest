@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -18,9 +21,11 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.BillDetailsActivity;
 import com.hotix.myhotixguest.activitys.GuestProfileActivity;
 import com.hotix.myhotixguest.activitys.HistoryActivity;
+import com.hotix.myhotixguest.activitys.LoginActivity;
 import com.hotix.myhotixguest.activitys.NewReservationActivity;
 import com.hotix.myhotixguest.activitys.ReservationDetailsActivity;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.models.Complaint;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 import com.squareup.picasso.Picasso;
@@ -59,6 +64,7 @@ public class HomeFragment extends Fragment {
     private AppCompatTextView homeGuestNights;
     private AppCompatTextView homeResaDetailsTitle;
     private AppCompatImageButton guestEditProfile;
+    private AppCompatImageButton guestLogout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -101,6 +107,7 @@ public class HomeFragment extends Fragment {
         homeResaDetailsTitle = (AppCompatTextView) getActivity().findViewById(R.id.home_reservation_details_title);
 
         guestEditProfile = (AppCompatImageButton) getActivity().findViewById(R.id.home_guest_edit_icon);
+        guestLogout = (AppCompatImageButton) getActivity().findViewById(R.id.home_guest_logout_icon);
 
         homeGuestName.setText(session.getNom() + " " + session.getPrenom());
         if (session.getISResident()) {
@@ -199,21 +206,54 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-
-                //Start the NewReservationActivity
                 Intent i = new Intent(getActivity(), GuestProfileActivity.class);
                 startActivity(i);
+            }
+        });
 
-//                session.clearSessionDetails();
-//                Intent i = new Intent(getActivity(), LoginActivity.class);
-//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(i);
+        //Logout OnClickListener
+        guestLogout.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                startLogoutDialog();
+            }
+        });
+
+
+    }
+
+    private void startLogoutDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_logout, null);
+        AppCompatButton logoutBtn = (AppCompatButton) mView.findViewById(R.id.logout_dialog_yes_btn);
+        AppCompatButton cancelBtn = (AppCompatButton) mView.findViewById(R.id.logout_dialog_cancel_btn);
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(true);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                session.clearSessionDetails();
+                Intent i = new Intent(getActivity(), LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
 
     }
-
 
     public void updateFireBaseToken() {
 

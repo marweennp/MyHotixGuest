@@ -137,7 +137,8 @@ public interface RetrofitInterface {
                                                   @Field("Email") String Email,
                                                   @Field("Gsm") String Gsm,
                                                   @Field("Profession") String Profession,
-                                                  @Field("Image") String Image);
+                                                  @Field("Image") String Image,
+                                                  @Field("civilite") String civilite);
 
 
 }

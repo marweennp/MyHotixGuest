@@ -230,20 +230,19 @@ public class PaxDetailsFragment extends Fragment {
         disabilityCBox.setChecked(GLOBAL_PAX_LIST.get(mPax).getHandicape() == 1);
 
         //loade EditTexts
-        first_name_et.setText(GLOBAL_PAX_LIST.get(mPax).getPrenom());
-        last_name_et.setText(GLOBAL_PAX_LIST.get(mPax).getNom());
-        bd_et.setText(GLOBAL_PAX_LIST.get(mPax).getDateNaissance());
-        bp_et.setText(GLOBAL_PAX_LIST.get(mPax).getLieu());
-        adr_et.setText(GLOBAL_PAX_LIST.get(mPax).getAddresse());
+        first_name_et.setText(GLOBAL_PAX_LIST.get(mPax).getPrenom().trim());
+        last_name_et.setText(GLOBAL_PAX_LIST.get(mPax).getNom().trim());
+        bd_et.setText(dateFormater(GLOBAL_PAX_LIST.get(mPax).getDateNaissance(), "yyyy/MM/dd", "dd/MM/yyyy").trim());
+        bp_et.setText(GLOBAL_PAX_LIST.get(mPax).getLieu().trim());
+        adr_et.setText(GLOBAL_PAX_LIST.get(mPax).getAddresse().trim());
         if (!stringEmptyOrNull(GLOBAL_PAX_LIST.get(mPax).getGsm())) {
-            tel_et.setText(GLOBAL_PAX_LIST.get(mPax).getGsm());
+            tel_et.setText(GLOBAL_PAX_LIST.get(mPax).getGsm().trim());
         } else {
-            tel_et.setText(GLOBAL_START_DATA.getPays().get(countriesSp.getSelectedItemPosition()).getCode());
+            tel_et.setText(GLOBAL_START_DATA.getPays().get(countriesSp.getSelectedItemPosition()).getCode().trim());
         }
-        mail_et.setText(GLOBAL_PAX_LIST.get(mPax).getEmail());
-        doc_id_et.setText(GLOBAL_PAX_LIST.get(mPax).getDocNum());
-        job_et.setText(GLOBAL_PAX_LIST.get(mPax).getProfession());
-
+        mail_et.setText(GLOBAL_PAX_LIST.get(mPax).getEmail().trim());
+        doc_id_et.setText(GLOBAL_PAX_LIST.get(mPax).getDocNum().trim());
+        job_et.setText(GLOBAL_PAX_LIST.get(mPax).getProfession().trim());
     }
 
     private void updatePax() {
@@ -266,7 +265,8 @@ public class PaxDetailsFragment extends Fragment {
                 paxData.getEmail(),
                 paxData.getGsm(),
                 paxData.getProfession(),
-                "");
+                "",
+                paxData.getCivilite());
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
         progressDialog.setIndeterminate(true);
@@ -281,7 +281,12 @@ public class PaxDetailsFragment extends Fragment {
                 progressDialog.dismiss();
 
                 if (response.raw().code() == 200) {
-                    showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
+                    ResponseMsg msg = response.body();
+                    if (msg.getIsOk()) {
+                        showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.update_success));
+                    } else {
+                        showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.something_wrong));
+                    }
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.toString());
                 }
@@ -290,7 +295,7 @@ public class PaxDetailsFragment extends Fragment {
             @Override
             public void onFailure(Call<ResponseMsg> call, Throwable t) {
                 progressDialog.dismiss();
-                showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
 
@@ -359,7 +364,7 @@ public class PaxDetailsFragment extends Fragment {
 
     public void showDatePickerDialog() {
         DialogFragment newFragment = new PaxUpdateDatePickerFragment();
-        newFragment.show(getFragmentManager() , "datePicker");
+        newFragment.show(getFragmentManager(), "datePicker");
     }
 
 }

@@ -129,6 +129,7 @@
     <string name="used_email">This E-mail has been used</string>
     <string name="server_down">Server is down please try after some time</string>
     <string name="something_wrong">Something went wrong.</string>
+    <string name="update_success">Update success.</string>
     <string name="change_password">Change Password</string>
     <string name="profile">Profile</string>
     <string name="all_btn">All</string>
