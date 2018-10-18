@@ -19,6 +19,8 @@ import com.hotix.myhotixguest.helpers.Session;
 
 import java.util.Map;
 
+import static com.hotix.myhotixguest.helpers.ConstantConfig.RECEIVE_NOTIFICATION;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
@@ -26,21 +28,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        if (RECEIVE_NOTIFICATION) {
 
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Map<String, String> data = remoteMessage.getData();
-            String body = data.get("body");
-            String title = data.get("title");
-            String type = data.get("type");
-            sendNotification(title, body, channelId, type);
-        }
+            // Check if message contains a data payload.
+            if (remoteMessage.getData().size() > 0) {
+                Map<String, String> data = remoteMessage.getData();
+                String body = data.get("body");
+                String title = data.get("title");
+                String type = data.get("type");
+                sendNotification(title, body, channelId, type);
+            }
 
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            String body = remoteMessage.getNotification().getBody();
-            String title = remoteMessage.getNotification().getTitle();
-            sendNotification(title, body, channelId, "");
+            // Check if message contains a notification payload.
+            if (remoteMessage.getNotification() != null) {
+                String body = remoteMessage.getNotification().getBody();
+                String title = remoteMessage.getNotification().getTitle();
+                sendNotification(title, body, channelId, "");
+            }
         }
 
     }
@@ -68,7 +72,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         switch (type) {
             case "message":
                 icon = R.drawable.notif_message;
-                notifTitele = getString(R.string.message_from_)+ messageTitle;
+                notifTitele = getString(R.string.message_from_) + messageTitle;
                 notifBody = messageBody;
                 break;
             case "complaint":

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_EVENT;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class EventsFragment extends Fragment {

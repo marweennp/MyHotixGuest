@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 
 public class ImageSliderAdapter extends PagerAdapter {
 

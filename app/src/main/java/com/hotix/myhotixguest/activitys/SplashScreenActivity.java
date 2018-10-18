@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatTextView;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.Guest;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
@@ -20,9 +21,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Settings.HAVE_COMPLAINT_NOTIFICATION;
-import static com.hotix.myhotixguest.helpers.Settings.HAVE_MESSAGE_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_COMPLAINT_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_MESSAGE_NOTIFICATION;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -36,6 +37,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     AppCompatTextView splashScreenFooter;
     // Session Manager Class
     Session session;
+    // Settings Class
+    Settings settings;
 
     private Intent intent;
 
@@ -46,6 +49,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+        //settings
+        settings = new Settings(getApplicationContext());
+
 
         intent = getIntent();
         Bundle extras = intent.getExtras();

@@ -36,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Settings.TERMS_OF_SERVICE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.TERMS_OF_SERVICE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 

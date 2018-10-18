@@ -7,8 +7,8 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Settings.BASE_URL_2;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL_2;
 
 public class RetrofitClient {
 

@@ -72,7 +72,7 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
         viewHolder.bill_transaction_date.setText(Html.fromHtml(dateColored(dataModel.getDate(), "#757575", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
 
         if (!(dataModel.getModePaiement() == 0)) {
-            viewHolder.bill_transaction_sum.setTextColor(getColor(getContext(), R.color.green_500));
+            viewHolder.bill_transaction_sum.setTextColor(getColor(getContext(), R.color.green_600));
         }
 
         // Return the completed view to render on screen

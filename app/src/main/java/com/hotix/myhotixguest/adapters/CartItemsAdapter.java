@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.models.Produit;
+import com.hotix.myhotixguest.models.CartItem;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -16,16 +16,16 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ProductAdapter extends ArrayAdapter<Produit> {
+public class CartItemsAdapter extends ArrayAdapter<CartItem> {
 
     Context mContext;
-    private ArrayList<Produit> dataSet;
+    private ArrayList<CartItem> dataSet;
     //___________(Currency Number format)_____________\\
     private NumberFormat formatter;
     private DecimalFormatSymbols decimalFormatSymbols;
 
-    public ProductAdapter(ArrayList<Produit> data, Context context) {
-        super(context, R.layout.list_product_row_item, data);
+    public CartItemsAdapter(ArrayList<CartItem> data, Context context) {
+        super(context, R.layout.list_cart_details_row_item, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -40,30 +40,27 @@ public class ProductAdapter extends ArrayAdapter<Produit> {
         ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
         formatter.setMinimumFractionDigits(3);
 
-        Produit dataModel = getItem(position);
+        CartItem dataModel = getItem(position);
 
-        ProductAdapter.ViewHolder viewHolder;
-
-        final View result;
+        CartItemsAdapter.ViewHolder viewHolder;
 
         if (convertView == null) {
 
-            viewHolder = new ProductAdapter.ViewHolder();
+            viewHolder = new CartItemsAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_product_row_item, parent, false);
-            viewHolder.product_name = (TextView) convertView.findViewById(R.id.product_name);
-            viewHolder.product_price = (TextView) convertView.findViewById(R.id.product_price);
-
-            result = convertView;
+            convertView = inflater.inflate(R.layout.list_cart_details_row_item, parent, false);
+            viewHolder.item_quantite = (TextView) convertView.findViewById(R.id.cart_row_quantite);
+            viewHolder.item_name = (TextView) convertView.findViewById(R.id.cart_row_item_name);
+            viewHolder.item_price = (TextView) convertView.findViewById(R.id.cart_row_item_price);
 
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ProductAdapter.ViewHolder) convertView.getTag();
-            result = convertView;
+            viewHolder = (CartItemsAdapter.ViewHolder) convertView.getTag();
         }
 
-        viewHolder.product_name.setText(dataModel.getName().trim());
-        viewHolder.product_price.setText(formatter.format(dataModel.getPrix()));
+        viewHolder.item_quantite.setText(dataModel.getQuantite()+" X ");
+        viewHolder.item_name.setText(dataModel.getProduitName().trim());
+        viewHolder.item_price.setText(formatter.format(dataModel.getPrixUnitaire()));
 
         // Return the completed view to render on screen
         return convertView;
@@ -71,8 +68,9 @@ public class ProductAdapter extends ArrayAdapter<Produit> {
 
     // View lookup cache
     private static class ViewHolder {
-        TextView product_name;
-        TextView product_price;
+        TextView item_quantite;
+        TextView item_name;
+        TextView item_price;
     }
 
 }

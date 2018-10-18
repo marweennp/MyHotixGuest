@@ -23,8 +23,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_EVENT;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.Utils.dateColored;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 

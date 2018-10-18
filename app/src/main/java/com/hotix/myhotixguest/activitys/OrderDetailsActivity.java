@@ -1,67 +1,116 @@
 package com.hotix.myhotixguest.activitys;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.hotix.myhotixguest.R;
+import com.hotix.myhotixguest.adapters.CartItemsAdapter;
+import com.hotix.myhotixguest.adapters.OrderAdapter;
+import com.hotix.myhotixguest.models.CartItem;
+import com.hotix.myhotixguest.models.Order;
 import com.hotix.myhotixguest.models.ResponseMsg;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_CART;
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_ORDER;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_CART;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_INFOS;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_ORDER;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_SLIDES;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class OrderDetailsActivity extends AppCompatActivity {
-    private String json;
-    private LinearLayoutCompat container;
+
+    // Butter Knife BindView
+    @BindView(R.id.cart_items_list)
+    ListView listView;
+    @BindView(R.id.order_details_total_actv)
+    AppCompatTextView order_details_total;
+    @BindView(R.id.order_details_products_count_tv)
+    AppCompatTextView order_details_products_count;
+
+
+    private ArrayList<CartItem> dataModels;
+    private CartItem cartItem;
+    private CartItemsAdapter adapter;
+    private Double price = 0.0;
+    //___________(Currency Number format)_____________\\
+    private NumberFormat formatter;
+    private DecimalFormatSymbols decimalFormatSymbols;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
+        ButterKnife.bind(this);
 
-        Gson gson = new Gson();
-        json = gson.toJson(GLOBAL_ORDER);
+        formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
+        formatter.setMinimumFractionDigits(3);
 
-        container = (LinearLayoutCompat) findViewById(R.id.order_main_container);
-        AppCompatButton send = (AppCompatButton) findViewById(R.id.order_send_btn);
+        setHeader();
+        setListView();
 
-        addView(json);
-
-        send.setOnClickListener(new View.OnClickListener() {
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                sendCommande();
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+                cartItem = dataModels.get(position);
             }
         });
 
+    }
+
+    @OnClick(R.id.order_details_footer)
+    public void confirmOrder() {
+        sendCommande();
+    }
+
+    private void setHeader(){
+
+        price = 0.0;
+        for (CartItem obj : GLOBAL_ORDER.getDetails()) {
+            price += obj.getPrixUnitaire() * obj.getQuantite();
+        }
+        order_details_total.setText("Total : "+(formatter.format(price) + " DT"));
+        order_details_products_count.setText(String.valueOf(GLOBAL_ORDER.getDetails().size()));
 
     }
 
+    private void setListView(){
 
-    private void addView(String text) {
+        dataModels = new ArrayList<>();
+        dataModels =GLOBAL_ORDER.getDetails();
 
-        AppCompatTextView tv = new AppCompatTextView(this);
-        tv.setText(text);
-        tv.setTextColor(ContextCompat.getColor(this, R.color.colorBackground));
-        tv.setLayoutParams(new LinearLayoutCompat.LayoutParams(
-                LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                LinearLayoutCompat.LayoutParams.WRAP_CONTENT));
-
-        container.addView(tv);
+        adapter = new CartItemsAdapter(dataModels, this);
+        listView.setAdapter(adapter);
 
     }
 
@@ -87,14 +136,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 if (response.raw().code() == 200) {
                     ResponseMsg msg = response.body();
                     if (!msg.getIsOk()) {
-                        showSnackbar(findViewById(android.R.id.content), "Something went wrong.");
-                        addView("Something went wrong.");
-                        addView(response.toString());
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.something_wrong));
+
                     } else {
                         GLOBAL_CART.clear();
-                        addView(msg.getIsOk().toString());
-                        addView(msg.getMessage());
-                        addView(response.toString());
                     }
 
                 } else {
@@ -106,7 +151,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseMsg> call, Throwable t) {
                 progressDialog.dismiss();
-                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
 

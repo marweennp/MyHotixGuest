@@ -19,7 +19,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import static android.support.v4.content.ContextCompat.getColor;
-import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.dateColored;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 
@@ -84,11 +84,13 @@ public class EventAdapter extends ArrayAdapter<Event> {
         viewHolder.event_row_cat.setText(dataModel.getCategorie());
 
         if (!(dataModel.getPrix() == 0)) {
-            viewHolder.event_row_price.setTextColor(getColor(getContext(), R.color.colorBackground));
+            viewHolder.event_row_price.setTextColor(getColor(getContext(), R.color.colorPrimaryDark));
+            viewHolder.event_row_price.setTextSize(18);
             viewHolder.event_row_price.setText(formatter.format(dataModel.getPrix()));
         } else {
-            viewHolder.event_row_price.setTextColor(getColor(getContext(), R.color.green_700));
-            viewHolder.event_row_price.setText("FREE ");
+            viewHolder.event_row_price.setTextColor(getColor(getContext(), R.color.green_600));
+            viewHolder.event_row_price.setTextSize(26);
+            viewHolder.event_row_price.setText(R.string.free);
         }
 
         if (dataModel.getImage().equals("")) {

@@ -27,9 +27,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_INFOS;
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_SLIDES;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_INFOS;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_SLIDES;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class AboutHotelActivity extends AppCompatActivity {

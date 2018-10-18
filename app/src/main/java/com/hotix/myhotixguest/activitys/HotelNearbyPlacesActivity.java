@@ -3,7 +3,6 @@ package com.hotix.myhotixguest.activitys;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -17,6 +16,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hotix.myhotixguest.R;
+import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.NearbyPlaces;
 import com.hotix.myhotixguest.models.Result;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
@@ -24,14 +24,13 @@ import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Settings.G_PLACES_API_KEY;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.G_PLACES_API_KEY;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -41,13 +40,18 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
     private String mRadius = ("10000");
     private ArrayList<Result> mResult;
 
+    // Settings Class
+    private Settings settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_nearby_places);
         ButterKnife.bind(this);
         isServicesOK();
-
+        //settings
+        settings = new Settings(getApplicationContext());
+        mRadius = String.valueOf(settings.getNearbyRadius());
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 

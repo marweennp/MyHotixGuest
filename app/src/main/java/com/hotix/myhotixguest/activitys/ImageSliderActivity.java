@@ -21,8 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_INFOS;
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_SLIDES;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_INFOS;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_SLIDES;
 
 public class ImageSliderActivity extends AppCompatActivity {
 

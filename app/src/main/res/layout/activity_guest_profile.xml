@@ -89,8 +89,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/profile_details_first_name_title"
+                            android:layout_alignParentStart="true"
                             android:layout_marginLeft="16dp"
                             android:orientation="horizontal">
 
@@ -128,8 +128,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/profile_details_last_name_title"
+                            android:layout_alignParentStart="true"
                             android:layout_marginLeft="16dp"
                             android:orientation="horizontal">
 
@@ -167,8 +167,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/profile_details_nationality_title"
+                            android:layout_alignParentStart="true"
                             android:layout_marginLeft="16dp"
                             android:orientation="horizontal">
 
@@ -206,8 +206,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/profile_details_birth_date_title"
+                            android:layout_alignParentStart="true"
                             android:layout_marginLeft="16dp"
                             android:orientation="horizontal">
 
@@ -253,8 +253,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/profile_details_address_title"
+                            android:layout_alignParentStart="true"
                             android:layout_marginLeft="16dp"
                             android:orientation="horizontal">
 
@@ -300,8 +300,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/profile_details_phone_title"
+                            android:layout_alignParentStart="true"
                             android:layout_marginLeft="16dp"
                             android:orientation="horizontal">
 
@@ -347,8 +347,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/profile_details_mail_title"
+                            android:layout_alignParentStart="true"
                             android:layout_marginLeft="16dp"
                             android:orientation="horizontal">
 
@@ -391,9 +391,9 @@
                         android:id="@+id/edit_profile_details_first_name_il"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
                         android:textColorHint="@color/grey_400">
 
                         <android.support.v7.widget.AppCompatEditText
@@ -411,9 +411,9 @@
                         android:id="@+id/edit_profile_details_last_name_il"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
                         android:textColorHint="@color/grey_400">
 
                         <android.support.v7.widget.AppCompatEditText
@@ -431,18 +431,18 @@
                         android:id="@+id/edit_profile_details_birth_date_il"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
                         android:textColorHint="@color/grey_400">
 
                         <android.support.v7.widget.AppCompatEditText
                             android:id="@+id/edit_profile_details_birth_date_et"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/birth_date"
-                            android:focusable="false"
                             android:clickable="true"
+                            android:focusable="false"
+                            android:hint="@string/birth_date"
                             android:inputType="text"
                             android:textColor="@color/colorBackground"
                             android:theme="@style/MyEditTextStyle" />
@@ -453,9 +453,9 @@
                         android:id="@+id/edit_profile_details_address_il"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
                         android:textColorHint="@color/grey_400">
 
                         <android.support.v7.widget.AppCompatEditText
@@ -473,9 +473,9 @@
                         android:id="@+id/edit_profile_details_phone_il"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
                         android:textColorHint="@color/grey_400">
 
                         <android.support.v7.widget.AppCompatEditText
@@ -493,9 +493,9 @@
                         android:id="@+id/edit_profile_details_mail_il"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
                         android:textColorHint="@color/grey_400">
 
                         <android.support.v7.widget.AppCompatEditText
@@ -589,9 +589,9 @@
                         android:id="@+id/profile_login_details_new_pwd_il"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
                         android:textColorHint="@color/grey_400"
                         android:visibility="gone">
 
@@ -610,9 +610,9 @@
                         android:id="@+id/profile_login_details_confirm_pwd_il"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="8dp"
                         android:textColorHint="@color/grey_400"
                         android:visibility="gone">
 
@@ -658,12 +658,115 @@
 
             </RelativeLayout>
 
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <!-- Settings -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/profile_guest_settings_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Settings"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- ConstantConfig Container -->
+                <LinearLayout
+                    android:id="@+id/settings_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_guest_settings_text"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="24dp">
+
+                    <!-- Notification Setting -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/settings_notification_actv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="6dp"
+                            android:text="Rreceive Notification"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="16sp" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/settings_notification_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="16dp"
+                            android:text="Off"
+                            android:textColor="@color/colorBackground" />
+
+                    </RelativeLayout>
+
+                    <!-- Nearby Radius Setting -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/settings_nearby_radius_actv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="6dp"
+                            android:text="Nearby Radius"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="16sp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/settings_nearby_radius_value_actv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginTop="6dp"
+                            android:text="0 m"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:id="@+id/settings_nearby_radius_acsb"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/settings_nearby_radius_actv"
+                            android:layout_margin="16dp"
+                            android:min="200"
+                            android:max="1500"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-    <!-- Reservation Details Empty View -->
+    <!-- Empty View -->
     <include layout="@layout/include_empty_list_view" />
 
 

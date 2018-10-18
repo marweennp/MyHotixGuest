@@ -16,7 +16,7 @@ import com.hotix.myhotixguest.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.hotix.myhotixguest.helpers.Settings.HAVE_COMPLAINT_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_COMPLAINT_NOTIFICATION;
 
 public class NotificationsFragment extends Fragment {
 

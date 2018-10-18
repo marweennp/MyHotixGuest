@@ -1,31 +1,23 @@
 package com.hotix.myhotixguest.activitys;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.helpers.InputValidation;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.hotix.myhotixguest.helpers.Settings.TERMS_OF_SERVICE_URL;
 
 public class ReviewHotelActivity extends AppCompatActivity {
 

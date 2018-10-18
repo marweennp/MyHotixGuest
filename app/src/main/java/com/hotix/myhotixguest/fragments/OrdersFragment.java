@@ -1,6 +1,5 @@
 package com.hotix.myhotixguest.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,17 +22,11 @@ import android.widget.RelativeLayout;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.HomeScreenActivity;
 import com.hotix.myhotixguest.activitys.NewOrderActivity;
-import com.hotix.myhotixguest.adapters.MessageAdapter;
 import com.hotix.myhotixguest.adapters.OrderAdapter;
-import com.hotix.myhotixguest.adapters.ProductAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.CartItem;
-import com.hotix.myhotixguest.models.Message;
 import com.hotix.myhotixguest.models.Order;
-import com.hotix.myhotixguest.models.Pax;
-import com.hotix.myhotixguest.models.Produit;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -47,7 +40,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_PAX_LIST;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 

@@ -13,7 +13,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hotix.myhotixguest.R;
@@ -23,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.hotix.myhotixguest.helpers.Settings.WEB_SITE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.WEB_SITE_URL;
 
 public class ContactHotelActivity extends FragmentActivity implements OnMapReadyCallback {
 

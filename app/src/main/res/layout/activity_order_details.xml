@@ -1,33 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".activitys.OrderDetailsActivity">
 
-    <android.support.v4.widget.NestedScrollView
+    <RelativeLayout
+        android:id="@+id/order_details_header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorBackground">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/order_details_total_actv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:text="Total : 00.000 DT"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/order_details_cart_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_shopping_cart_white_24" />
+
+        <RelativeLayout
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@+id/order_details_cart_img"
+            android:background="@drawable/notification_badge">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_details_products_count_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="0"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/cart_items_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/order_send_btn">
+        android:layout_above="@+id/order_details_footer"
+        android:layout_below="@+id/order_details_header"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="1px"
+        android:drawSelectorOnTop="true" />
 
-        <android.support.v7.widget.LinearLayoutCompat
-            android:id="@+id/order_main_container"
-            android:layout_margin="6dp"
-            android:orientation="vertical"
-            android:padding="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v7.widget.LinearLayoutCompat>
-    </android.support.v4.widget.NestedScrollView>
-
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/order_send_btn"
+    <RelativeLayout
+        android:id="@+id/order_details_footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:text="SEND" />
+        android:background="@color/colorBackground"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/order_details_footer_confirm_actv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Confirm Order"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

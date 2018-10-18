@@ -1,24 +1,29 @@
 package com.hotix.myhotixguest.activitys;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.ProfileDatePickerFragment;
 import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.ResponseMsg;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
@@ -30,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hotix.myhotixguest.helpers.ConstantConfig.RECEIVE_NOTIFICATION;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
@@ -106,8 +112,19 @@ public class GuestProfileActivity extends AppCompatActivity {
     AppCompatEditText profileLoginDetailsNewPssEt;
     @BindView(R.id.profile_login_details_confirm_pwd_et)
     AppCompatEditText profileLoginDetailsConfirmPassEt;
+
+    //Settings
+    @BindView(R.id.settings_notification_switch)
+    SwitchCompat settings_notification;
+    @BindView(R.id.settings_nearby_radius_acsb)
+    AppCompatSeekBar settings_nearby_radius;
+    @BindView(R.id.settings_nearby_radius_value_actv)
+    AppCompatTextView settings_nearby_radius_value;
+
     // Session Manager Class
     Session session;
+    // Settings Class
+    Settings settings;
     // For input text Validation
     private InputValidation inputValidation;
 
@@ -120,6 +137,10 @@ public class GuestProfileActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
 
+        //settings
+        settings = new Settings(getApplicationContext());
+        RECEIVE_NOTIFICATION = settings.getReceiveNotification();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         AppCompatTextView toolbarTitle = (AppCompatTextView) toolbar.findViewById(R.id.toolbar_center_title);
@@ -127,7 +148,42 @@ public class GuestProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        settings_notification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+                if (bChecked) {
+                    settings_notification.setText("ON");
+                    settings.setReceiveNotification(true);
+                    RECEIVE_NOTIFICATION = true;
+                } else {
+                    settings_notification.setText("OFF");
+                    settings.setReceiveNotification(false);
+                    RECEIVE_NOTIFICATION = true;
+                }
+            }
+        });
+
+        settings_nearby_radius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                progress = progresValue;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                settings_nearby_radius_value.setText( progress + " m");
+                settings.setNearbyRadius(progress);
+            }
+        });
+
         loadData();
+        loadSettings();
     }
 
     @OnClick(R.id.edit_profile_details_save_btn)
@@ -220,6 +276,15 @@ public class GuestProfileActivity extends AppCompatActivity {
         profileDetailsAddress.setText(session.getAddress().trim());
         profileDetailsPhone.setText(session.getPhone().trim());
         profileDetailsMail.setText(session.getEmail().trim());
+
+    }
+
+    private void loadSettings() {
+
+        settings_notification.setChecked(settings.getReceiveNotification());
+        settings_nearby_radius.setProgress(settings.getNearbyRadius());
+        settings_nearby_radius_value.setText(settings.getNearbyRadius()+" m");
+
 
     }
 

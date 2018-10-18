@@ -1,55 +1,74 @@
 package com.hotix.myhotixguest.helpers;
 
-import com.hotix.myhotixguest.models.CartItem;
-import com.hotix.myhotixguest.models.Event;
-import com.hotix.myhotixguest.models.Order;
-import com.hotix.myhotixguest.models.Pax;
-import com.hotix.myhotixguest.models.Produit;
-import com.hotix.myhotixguest.models.Slide;
-import com.hotix.myhotixguest.models.StartData;
-
-import java.util.ArrayList;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class Settings {
 
-    //public static final String BASE_URL = "http://196.203.219.164/";
-    //public static final String BASE_URL = "http://192.168.0.110/";
-    public static final String BASE_URL = "http://192.168.0.109/";
+    //Shared Preferences Keys
+    // Booleans
+    public static final String KEY_firstStart = "firstStart";
+    public static final String KEY_receiveNotification = "receiveNotification";
 
-    public static final String BASE_URL_2 = "https://maps.googleapis.com/";
+    // Integers
+    public static final String KEY_nearbyRadius = "nearbyRadius";
 
-    // Terms of service url
-    public static final String TERMS_OF_SERVICE_URL = "https://termsfeed.com/blog/add-i-agree-terms-checkbox/";
 
-    // Web Site URL
-    public static final String WEB_SITE_URL = "https://www.leroyal.com/en/AFRICA/hammamet-tunisia";
+    // Sharedpref file name
+    private static final String PREF_NAME = "MyGuestSettings";
+    // Shared Preferences
+    SharedPreferences pref;
+    // Editor for Shared preferences
+    SharedPreferences.Editor editor;
+    // Context
+    Context _context;
+    // Shared pref mode
+    int PRIVATE_MODE = 0;
 
-    // Google MAps API Key
-    public static final String G_MAP_API_KEY = "AIzaSyDpqH7ciz4f0tE-jixmz7QTXm8hmNzG9s4";
-    public static final String G_PLACES_API_KEY = "AIzaSyBCaBLHuK_snYuADXjOas2XElNtZ1eGIZI";
 
-    //this will be loaded on app startup
-    public static StartData GLOBAL_START_DATA = new StartData();
+    // Constructor
+    public Settings(Context context) {
+        this._context = context;
+        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        editor = pref.edit();
+    }
 
-    //GLOBAL_EVENT
-    public static Event GLOBAL_EVENT = new Event();
+    /**********************************(  Getters & Setters )**************************************/
+    // Booleans
+    public boolean getFirstStart() {
+        return pref.getBoolean(KEY_firstStart, true);
+    }
 
-    //GLOBAL_SLIDES and GLOBAL_INFOS
-    public static ArrayList<Slide> GLOBAL_SLIDES = new ArrayList<>();
-    public static String GLOBAL_INFOS = "";
+    public void setFirstStart(boolean firstStart) {
+        editor.putBoolean(KEY_firstStart, firstStart);
+        editor.commit();
+    }
 
-    //Cart Global
-    public static ArrayList<CartItem> GLOBAL_CART = new ArrayList<>();
+    public boolean getReceiveNotification() {
+        return pref.getBoolean(KEY_receiveNotification, true);
+    }
 
-    //Orde Global
-    public static Order GLOBAL_ORDER = new Order();
+    public void setReceiveNotification(boolean receiveNotification) {
+        editor.putBoolean(KEY_receiveNotification, receiveNotification);
+        editor.commit();
+    }
 
-    //Pax List Global
-    public static ArrayList<Pax> GLOBAL_PAX_LIST = new ArrayList<>();
+    // Integers
+    public Integer getNearbyRadius() {
+        return pref.getInt(KEY_nearbyRadius, 500);
+    }
 
-    //true if app start from message notification
-    public static boolean HAVE_MESSAGE_NOTIFICATION = false;
-    //true if app start from complaint notification
-    public static boolean HAVE_COMPLAINT_NOTIFICATION = false;
+    public void setNearbyRadius(Integer nearbyRadius) {
+        editor.putInt(KEY_nearbyRadius, nearbyRadius);
+        editor.commit();
+    }
+
+    /*****************************************(  _______  )****************************************/
+    //Clear Settings details
+    public void clearSettingsDetails() {
+        // Clearing all data from Shared Preferences
+        editor.clear();
+        editor.commit();
+    }
 
 }

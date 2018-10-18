@@ -32,8 +32,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_PAX_LIST;
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_START_DATA;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_PAX_LIST;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_START_DATA;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class EditPaxDetailsActivity extends AppCompatActivity {

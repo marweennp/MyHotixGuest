@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConnectionChecher.checkNetwork;
-import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 import static com.hotix.myhotixguest.helpers.Utils.signeUpTextTowColors;
 

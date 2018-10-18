@@ -207,8 +207,8 @@
                 app:srcCompat="@drawable/ic_shopping_cart_white_24" />
 
             <RelativeLayout
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_above="@+id/orders_cart_show_title_tv"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
@@ -222,7 +222,7 @@
                     android:layout_centerInParent="true"
                     android:text="0"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -252,7 +252,7 @@
             android:layout_marginStart="16dp"
             android:text="Total :"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <android.support.v7.widget.AppCompatTextView
@@ -264,7 +264,7 @@
             android:layout_toEndOf="@+id/orders_cart_total_title_tv"
             android:text="0.000 DT "
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

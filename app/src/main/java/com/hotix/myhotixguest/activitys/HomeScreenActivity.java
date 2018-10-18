@@ -19,8 +19,7 @@ import com.hotix.myhotixguest.helpers.Session;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_START_DATA;
-import static com.hotix.myhotixguest.helpers.Settings.HAVE_MESSAGE_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_MESSAGE_NOTIFICATION;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HomeScreenActivity extends AppCompatActivity {

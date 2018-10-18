@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <!-- Quantite -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/cart_row_quantite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="6dp"
+        android:text="3 *"
+        android:textColor="@color/light_bg_dark_secondary_text"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Item Name -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/cart_row_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="3dp"
+        android:layout_toEndOf="@+id/cart_row_quantite"
+        android:text="Coca Colla"
+        android:textColor="@color/colorBackground"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Item Price -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/cart_row_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="6dp"
+        android:text="0.000 DT"
+        android:textColor="@color/light_bg_dark_secondary_text"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

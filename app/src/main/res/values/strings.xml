@@ -175,6 +175,7 @@
     <string name="contacts">Contacts</string>
     <string name="about_hotel">ABOUT HOTEL</string>
     <string name="total">Total :</string>
+    <string name="cart_is_empty">Your cart is empty</string>
 
 
 </resources>
