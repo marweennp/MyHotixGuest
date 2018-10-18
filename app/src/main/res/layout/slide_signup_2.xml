@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <!--  Slide Signup 2 Title Label -->
+    <!--  ImgSlide Signup 2 Title Label -->
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!--  Slide Signup 2 First Name Label -->
+        <!--  ImgSlide Signup 2 First Name Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_2_first_name_il"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
-        <!--  Slide Signup 2 Last Name Label -->
+        <!--  ImgSlide Signup 2 Last Name Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_2_last_name_il"
             android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Slide Signup 2 Birth Date Label -->
+        <!-- ImgSlide Signup 2 Birth Date Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_2_birth_date_il"
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Slide Signup 2 Address Label -->
+        <!-- ImgSlide Signup 2 Address Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_2_address_il"
             android:layout_width="match_parent"

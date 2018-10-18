@@ -1,14 +1,17 @@
 package com.hotix.myhotixguest.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +25,31 @@ import com.baoyz.widget.PullRefreshLayout;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activitys.HomeScreenActivity;
 import com.hotix.myhotixguest.activitys.NewOrderActivity;
+import com.hotix.myhotixguest.adapters.MessageAdapter;
+import com.hotix.myhotixguest.adapters.OrderAdapter;
 import com.hotix.myhotixguest.adapters.ProductAdapter;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.models.CartItem;
+import com.hotix.myhotixguest.models.Message;
+import com.hotix.myhotixguest.models.Order;
+import com.hotix.myhotixguest.models.Pax;
 import com.hotix.myhotixguest.models.Produit;
+import com.hotix.myhotixguest.retrofit2.RetrofitClient;
+import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_PAX_LIST;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class OrdersFragment extends Fragment {
 
@@ -34,9 +57,9 @@ public class OrdersFragment extends Fragment {
     private Toolbar toolbar;
     private PullRefreshLayout pullLayout;
     private ListView listView;
-    private ArrayList<Produit> dataModels;
-    private Produit produit;
-    private ProductAdapter adapter;
+    private ArrayList<Order> dataModels;
+    private Order order;
+    private OrderAdapter adapter;
     private FloatingActionButton floatingActionButton;
     // Session Manager Class
     private Session session;
@@ -47,6 +70,10 @@ public class OrdersFragment extends Fragment {
     private AppCompatTextView emptyListText;
     private AppCompatImageView emptyListIcon;
     private AppCompatButton emptyListRefresh;
+
+    //___________(Currency Number format)_____________\\
+    private NumberFormat formatter;
+    private DecimalFormatSymbols decimalFormatSymbols;
 
     public OrdersFragment() {
     }
@@ -66,6 +93,12 @@ public class OrdersFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Session Manager
         session = new Session(getActivity());
+
+        formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
+        formatter.setMinimumFractionDigits(3);
 
         pullLayout = (PullRefreshLayout) getActivity().findViewById(R.id.orders_list_pull_to_refresh);
 
@@ -107,11 +140,11 @@ public class OrdersFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
-                // TODO: 01/10/2018
+                order = dataModels.get(position);
+                orderDetailsDialog(order);
             }
         });
 
-        // listen refresh event
         pullLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -128,25 +161,100 @@ public class OrdersFragment extends Fragment {
         loadeOrders();
     }
 
-    private void loadeOrders() {
+
+    /************************************(  Loade Orders  )****************************************/
+    public void loadeOrders() {
+
+        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        Call<ArrayList<Order>> userCall = service.getCommandesQuery(session.getResaId().toString());
 
         pullLayout.setRefreshing(false);
+        progressView.setVisibility(View.VISIBLE);
+        emptyListView.setVisibility(View.GONE);
 
-//        dataModels.add(new Produit("Produit 1", "10.000", "Category 1", "Family 1", "Sub Family 1"));
-//        dataModels.add(new Produit("Produit 2", "5.000", "Category 1", "Family 1", "Sub Family 2"));
-//        dataModels.add(new Produit("Produit 3", "8.000", "Category 1", "Family 2", "Sub Family 3"));
-//        dataModels.add(new Produit("Produit 4", "100.000", "Category 1", "Family 2", "Sub Family 4"));
-//        dataModels.add(new Produit("Produit 5", "0.500", "Category 2", "Family 3", "Sub Family 5"));
-//        dataModels.add(new Produit("Produit 6", "2.200", "Category 2", "Family 3", "Sub Family 6"));
-//        dataModels.add(new Produit("Produit 7", "1.000", "Category 2", "Family 4", "Sub Family 7"));
-//        dataModels.add(new Produit("Produit 8", "0.100", "Category 2", "Family 4", "Sub Family 8"));
+        userCall.enqueue(new Callback<ArrayList<Order>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Order>> call, Response<ArrayList<Order>> response) {
 
-        adapter = new ProductAdapter(dataModels, getActivity());
-        listView.setAdapter(adapter);
+                progressView.setVisibility(View.GONE);
+                emptyListView.setVisibility(View.GONE);
 
-        emptyListIcon.setImageResource(R.drawable.ic_add_shopping_cart_white_24);
-        emptyListText.setText(R.string.no_orders_to_show);
-        listView.setEmptyView(emptyListView);
+                if (response.raw().code() == 200) {
+                    dataModels = response.body();
+
+                    adapter = new OrderAdapter(dataModels, getActivity());
+                    listView.setAdapter(adapter);
+
+                    emptyListIcon.setImageResource(R.drawable.ic_add_shopping_cart_white_24);
+                    emptyListText.setText(R.string.no_orders_to_show);
+                    listView.setEmptyView(emptyListView);
+
+                } else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Order>> call, Throwable t) {
+                progressView.setVisibility(View.GONE);
+                emptyListView.setVisibility(View.VISIBLE);
+                emptyListText.setText(R.string.server_unreachable);
+                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+
+    }
+
+    /**********************************************************************************************/
+
+    private void orderDetailsDialog(Order order) {
+
+        ArrayList<CartItem> carts = new ArrayList<>();
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_order_details, null);
+
+        LinearLayoutCompat container = (LinearLayoutCompat) mView.findViewById(R.id.order_details_container);
+
+        AppCompatTextView dateTv = (AppCompatTextView) mView.findViewById(R.id.order_details_date);
+        AppCompatTextView timeTv = (AppCompatTextView) mView.findViewById(R.id.order_details_time);
+        AppCompatTextView totalTv = (AppCompatTextView) mView.findViewById(R.id.order_details_total);
+
+        AppCompatButton okBt = (AppCompatButton) mView.findViewById(R.id.order_details_btn_ok);
+
+       Double price = 0.0;
+        carts = order.getDetails();
+        for (CartItem obj : carts) {
+            price += obj.getPrixUnitaire() * obj.getQuantite();
+
+            View orderRow = getLayoutInflater().inflate(R.layout.list_order_details_row_item, null);
+            AppCompatTextView quantite = (AppCompatTextView) orderRow.findViewById(R.id.order_details_quantite);
+            AppCompatTextView u_name = (AppCompatTextView) orderRow.findViewById(R.id.order_details_u_name);
+            AppCompatTextView u_price = (AppCompatTextView) orderRow.findViewById(R.id.order_details_u_price);
+
+            quantite.setText(obj.getQuantite()+" X ");
+            u_name.setText(obj.getProduitName().trim());
+            u_price.setText(formatter.format(obj.getPrixUnitaire()));
+            container.addView(orderRow);
+        }
+
+        totalTv.setText(getString(R.string.total) + formatter.format(price) +" DT");
+        dateTv.setText(dateFormater(order.getDate(), "yyyyMMdd hh:mm", "dd MMM yyyy"));
+        timeTv.setText(dateFormater(order.getDate(), "yyyyMMdd hh:mm", "hh:mm"));
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        okBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
     }
 

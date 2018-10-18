@@ -24,6 +24,7 @@ import com.hotix.myhotixguest.adapters.FamilySpinnerAdapter;
 import com.hotix.myhotixguest.adapters.ProductAdapter;
 import com.hotix.myhotixguest.adapters.SubFamilySpinnerAdapter;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.models.CartItem;
 import com.hotix.myhotixguest.models.Famille;
 import com.hotix.myhotixguest.models.Produit;
 import com.hotix.myhotixguest.models.SFamille;
@@ -43,6 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_CART;
+import static com.hotix.myhotixguest.helpers.Settings.GLOBAL_ORDER;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class NewOrderActivity extends AppCompatActivity {
@@ -126,7 +128,6 @@ public class NewOrderActivity extends AppCompatActivity {
     private DecimalFormatSymbols decimalFormatSymbols;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,10 +148,10 @@ public class NewOrderActivity extends AppCompatActivity {
         familles = new ArrayList<>();
 
         price = 0.0;
-        for (Produit obj : GLOBAL_CART) {
-            price += Double.valueOf(formatter.format(obj.getPrix()));
+        for (CartItem obj : GLOBAL_CART) {
+            price += Double.valueOf(formatter.format(obj.getPrixUnitaire() * obj.getQuantite()));
         }
-        cartTotalTv.setText(formatter.format(price)+" DT");
+        cartTotalTv.setText(formatter.format(price) + " DT");
         cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
 
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
@@ -271,6 +272,9 @@ public class NewOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), OrderDetailsActivity.class);
+
+                GLOBAL_ORDER.setResaId(session.getResaId());
+                GLOBAL_ORDER.setDetails(GLOBAL_CART);
                 startActivity(i);
             }
         });
@@ -300,6 +304,12 @@ public class NewOrderActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadeData();
+        price = 0.0;
+        for (CartItem obj : GLOBAL_CART) {
+            price += Double.valueOf(formatter.format(obj.getPrixUnitaire() * obj.getQuantite()));
+        }
+        cartTotalTv.setText(formatter.format(price) + " DT");
+        cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
     }
 
     private void loadeData() {
@@ -389,8 +399,8 @@ public class NewOrderActivity extends AppCompatActivity {
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(NewOrderActivity.this);
 
-        amount=1;
-        total=0.0;
+        amount = 1;
+        total = 0.0;
 
         View mView = getLayoutInflater().inflate(R.layout.dialog_add_to_cart, null);
         prodNameTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_name);
@@ -403,10 +413,10 @@ public class NewOrderActivity extends AppCompatActivity {
         cancelBt = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
 
         prodNameTv.setText(produit.getName());
-        prodPriceTv.setText("Price : "+formatter.format(produit.getPrix())+" DT");
+        prodPriceTv.setText("Price : " + formatter.format(produit.getPrix()) + " DT");
         total += Double.valueOf(formatter.format(produit.getPrix()));
-        prodTotalTv.setText("Price : "+ formatter.format(total)+" DT");
-        prodAmountTv.setText(""+ amount);
+        prodTotalTv.setText("Price : " + formatter.format(total) + " DT");
+        prodAmountTv.setText("" + amount);
 
         mBuilder.setView(mView);
         mBuilder.setCancelable(false);
@@ -419,12 +429,11 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (amount < 10000) {
                     amount++;
                     total = 0.0;
-                    for(int i = 1; i <= amount; i++)
-                    {
+                    for (int i = 1; i <= amount; i++) {
                         total += Double.valueOf(formatter.format(produit.getPrix()));
                     }
-                    prodTotalTv.setText("Price : "+ formatter.format(total) +" DT");
-                    prodAmountTv.setText(""+amount );
+                    prodTotalTv.setText("Price : " + formatter.format(total) + " DT");
+                    prodAmountTv.setText("" + amount);
                 }
             }
         });
@@ -435,12 +444,11 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (amount > 0) {
                     amount--;
                     total = 0.0;
-                    for(int i = 1; i <= amount; i++)
-                    {
+                    for (int i = 1; i <= amount; i++) {
                         total += Double.valueOf(produit.getPrix());
                     }
-                    prodTotalTv.setText("Price : "+ formatter.format(total) +" DT");
-                    prodAmountTv.setText(""+amount);
+                    prodTotalTv.setText("Total : " + formatter.format(total) + " DT");
+                    prodAmountTv.setText("" + amount);
                 }
             }
         });
@@ -449,16 +457,23 @@ public class NewOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                for(int i = 1; i <= amount; i++)
-                {
-                    GLOBAL_CART.add(produit);
-                }
+                    int index = 0;
+                    for (CartItem obj : GLOBAL_CART) {
+                        if (obj.getProduit() == produit.getId()) {
+                            amount+=obj.getQuantite();
+                            GLOBAL_CART.remove(index);
+                        }
+                        index++;
+                    }
+                    GLOBAL_CART.add(new CartItem(produit.getId(), produit.getName(), amount, produit.getPrix()));
+
+
 
                 price = 0.0;
-                for (Produit obj : GLOBAL_CART) {
-                    price += Double.valueOf(formatter.format(obj.getPrix()));
+                for (CartItem obj : GLOBAL_CART) {
+                    price += Double.valueOf(formatter.format(obj.getPrixUnitaire() * obj.getQuantite()));
                 }
-                cartTotalTv.setText(formatter.format(price)+" DT");
+                cartTotalTv.setText(formatter.format(price) + " DT");
                 cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
                 dialog.dismiss();
             }

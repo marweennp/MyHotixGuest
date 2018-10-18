@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <!--  Slide Review 4 Title Label -->
+    <!--  ImgSlide Review 4 Title Label -->
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!--  Slide Review 4 Rating Bar -->
+        <!--  ImgSlide Review 4 Rating Bar -->
         <RatingBar
             android:id="@+id/rating_bar_review4"
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             android:stepSize="1"
             android:thumbTint="@color/yellow_500" />
 
-        <!--  Slide Review 4 Switch Compat -->
+        <!--  ImgSlide Review 4 Switch Compat -->
         <android.support.v7.widget.SwitchCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Receive promotions ?" />
 
-        <!--  Slide Review 4 Comments -->
+        <!--  ImgSlide Review 4 Comments -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_comments_review4"
             android:layout_width="match_parent"

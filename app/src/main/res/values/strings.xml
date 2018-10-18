@@ -50,6 +50,7 @@
     <string name="error_message_title_is_empty">The Title  is Empty</string>
     <string name="error_message_complaint_text_is_empty">The Complaint text  is Empty</string>
     <string name="reservation_details">RESERVATION DETAILS</string>
+    <string name="event_details">EVENT DETAILS</string>
     <string name="my_history">MY HISTORY</string>
     <string name="bill_details">MY BILL DETAILS</string>
     <string name="home_reservation_text">Current Stay</string>
@@ -110,6 +111,7 @@
     <string name="ok">ok</string>
     <string name="coomplaint_details">Coomplaint Details</string>
     <string name="message_details">Message Details</string>
+    <string name="order_details">Order Details</string>
     <string name="answer">Answer</string>
     <string name="nationality">Nationality</string>
     <string name="personal_details">Personal Details</string>
@@ -159,6 +161,20 @@
     <string name="single">Single</string>
     <string name="married">Married</string>
     <string name="divorced">Divorced</string>
+    <string name="message_from_">"Message From : "</string>
+    <string name="complaint_treated">Complaint Treated</string>
+    <string name="reservation_detail">Reservation Details</string>
+    <string name="arrival">Arrival</string>
+    <string name="departure">Departure</string>
+    <string name="room_n">Room N°</string>
+    <string name="rate">Rate</string>
+    <string name="arrangement">Arrangement</string>
+    <string name="edit">EDIT</string>
+    <string name="my_bill">My Bill</string>
+    <string name="address">Address</string>
+    <string name="contacts">Contacts</string>
+    <string name="about_hotel">ABOUT HOTEL</string>
+    <string name="total">Total :</string>
 
 
 </resources>

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 
@@ -29,13 +30,13 @@ import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
-    // Butter Knife BindView AppCompatImageView
+    // Butter Knife BindView
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.event_details_img)
     AppCompatImageView eventImg;
-    // Butter Knife BindView AppCompatButton
     @BindView(R.id.participate_button)
     AppCompatButton participateButton;
-    // Butter Knife BindView AppCompatTextView
     @BindView(R.id.event_details_date)
     AppCompatTextView eventDetailsDate;
     @BindView(R.id.event_details_time)
@@ -64,6 +65,13 @@ public class EventDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        AppCompatTextView toolbarTitle = (AppCompatTextView) toolbar.findViewById(R.id.toolbar_center_title);
+        toolbarTitle.setText(R.string.event_details);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         formatter = NumberFormat.getCurrencyInstance();
         decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
@@ -94,7 +102,11 @@ public class EventDetailsActivity extends AppCompatActivity {
         eventDetailsDesc.setText(GLOBAL_EVENT.getDescription());
 
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     @OnClick(R.id.participate_button)
     public void participationEmail() {

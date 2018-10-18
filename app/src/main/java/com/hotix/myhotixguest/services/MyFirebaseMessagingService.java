@@ -14,22 +14,10 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.HomeScreenActivity;
-import com.hotix.myhotixguest.activitys.LoginActivity;
 import com.hotix.myhotixguest.activitys.SplashScreenActivity;
 import com.hotix.myhotixguest.helpers.Session;
-import com.hotix.myhotixguest.models.Guest;
-import com.hotix.myhotixguest.retrofit2.RetrofitClient;
-import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
 import java.util.Map;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -38,10 +26,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-//        Log.d(TAG, "From: " + remoteMessage.getFrom());
-//        Log.i(TAG, "From: " + remoteMessage.getData().toString());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
@@ -69,20 +53,41 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         session.setFCMToken(token);
     }
 
-    /**Create and show a simple notification containing the received FCM message.
-     * @param messageBody FCM message body received.*/
-    private void sendNotification(String messageTitle , String messageBody, String channelId, String type ) {
+    //Create and show a simple notification
+    private void sendNotification(String messageTitle, String messageBody, String channelId, String type) {
         Intent intent = new Intent(this, SplashScreenActivity.class);
-        intent.putExtra( type, type);
+        intent.putExtra(type, type);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        int icon;
+        String notifTitele;
+        String notifBody;
+        switch (type) {
+            case "message":
+                icon = R.drawable.notif_message;
+                notifTitele = getString(R.string.message_from_)+ messageTitle;
+                notifBody = messageBody;
+                break;
+            case "complaint":
+                icon = R.drawable.notif_info;
+                notifTitele = getString(R.string.complaint_treated);
+                notifBody = messageBody;
+                break;
+            default:
+                icon = R.drawable.notif_message;
+                notifTitele = messageTitle;
+                notifBody = messageBody;
+                break;
+        }
+
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.mipmap.ic_launcher_round)
-                        .setContentTitle(messageTitle)
-                        .setContentText(messageBody)
+                        .setSmallIcon(icon)
+                        .setContentTitle(notifTitele)
+                        .setContentText(notifBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
@@ -92,13 +97,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
-                     channelId,
+                    channelId,
                     "Channel human readable title",
-                     NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
 
-        notificationManager.notify(0 , notificationBuilder.build());
+        notificationManager.notify(0, notificationBuilder.build());
     }
 
 }

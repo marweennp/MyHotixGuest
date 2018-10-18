@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <!--  Slide Review 1 Title Label -->
+    <!--  ImgSlide Review 1 Title Label -->
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:padding="24dp">
 
 
-        <!--  Slide Review 1 Visit Date Label -->
+        <!--  ImgSlide Review 1 Visit Date Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_visit_date_review3"
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
-        <!--  Slide Review 1 Country Label -->
+        <!--  ImgSlide Review 1 Country Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_country_review3"
             android:layout_width="match_parent"

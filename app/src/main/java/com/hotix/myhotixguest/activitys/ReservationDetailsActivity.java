@@ -111,7 +111,9 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         session = new Session(getApplicationContext());
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.reservation_details);
+        getSupportActionBar().setTitle("");
+        AppCompatTextView toolbarTitle = (AppCompatTextView) toolbar.findViewById(R.id.toolbar_center_title);
+        toolbarTitle.setText(R.string.reservation_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

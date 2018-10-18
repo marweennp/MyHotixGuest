@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/white">
+
+    <!-- Color Layout -->
+    <RelativeLayout
+        android:id="@+id/order_row_color_layout"
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:background="@color/grey_500" />
+
+    <!-- Order Total -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/order_row_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="6dp"
+        android:text="test"
+        android:textColor="@color/colorBackground"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Date Icon -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/order_row_date_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="4dp"
+        android:tint="@color/colorPrimary"
+        app:srcCompat="@drawable/baseline_calendar_today_black_18" />
+
+    <!-- Date -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/order_row_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/order_row_date_icon"
+        android:text=""
+        android:textColor="@color/grey_500"
+        android:textSize="16sp" />
+
+    <!-- Date Time Divider -->
+    <View
+        android:id="@+id/date_time_divider"
+        android:layout_width="1dp"
+        android:layout_height="18dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/order_row_date"
+        android:background="@color/grey_500" />
+
+    <!-- Time Icon -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/order_row_time_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/date_time_divider"
+        android:tint="@color/colorPrimary"
+        app:srcCompat="@drawable/baseline_schedule_black_18" />
+
+    <!-- Time -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/order_row_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/order_row_time_icon"
+        android:text=""
+        android:textColor="@color/grey_500"
+        android:textSize="16sp" />
+
+    <!-- Time Cart Divider -->
+    <View
+        android:id="@+id/time_cart_divider"
+        android:layout_width="1dp"
+        android:layout_height="18dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/order_row_time"
+        android:background="@color/grey_500" />
+
+    <!-- Cart Icon -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/order_row_cart_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/time_cart_divider"
+        android:tint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_shopping_cart_white_18" />
+
+    <!-- Cart -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/order_row_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/order_row_cart_icon"
+        android:text=""
+        android:textColor="@color/grey_500"
+        android:textSize="16sp" />
+
+
+    <!-- Order State -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/order_row_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="6dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="test"
+        android:textColor="@color/grey_500"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:textAllCaps="true" />
+
+    <!-- Bottom Divider -->
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBackground" />
+
+
+</RelativeLayout>

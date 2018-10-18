@@ -44,11 +44,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="Foulan Foulani"
                     android:textColor="@color/white"
-                    android:textSize="24dp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.AppCompatTextView
@@ -56,28 +56,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_user_name"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:text="individual" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/profile_user_agency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="Booking Travel"
                     android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/profile_bill_icon_layou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
 
@@ -93,7 +93,7 @@
                         android:id="@+id/profile_bill_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Bill"
+                        android:text="@string/my_bill"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -115,17 +115,17 @@
                 android:background="@color/white"
                 android:paddingBottom="16dp">
 
-
+                <!-- Title -->
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/profile_res_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Reservation Details"
+                    android:text="@string/reservation_detail"
                     android:textColor="@color/colorBackground"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <!-- Arrival -->
@@ -134,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_res_text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
@@ -142,9 +142,9 @@
                         android:id="@+id/profile_arrival_date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Arrival"
+                        android:text="@string/arrival"
                         android:textColor="@color/light_bg_dark_secondary_text"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.AppCompatTextView
@@ -172,9 +172,9 @@
                         android:id="@+id/profile_departure_date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Departure"
+                        android:text="@string/departure"
                         android:textColor="@color/light_bg_dark_secondary_text"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.AppCompatTextView
@@ -183,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:text="03 Jan 2018"
                         android:textColor="@color/light_bg_dark_primary_text"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -193,9 +193,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_res_text"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
                     android:orientation="vertical">
 
 
@@ -214,7 +214,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="3"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -225,8 +225,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_nights_layout"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="16dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
@@ -239,19 +239,19 @@
                             android:id="@+id/profile_rooms_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Room N°"
+                            android:text="@string/room_n"
                             android:textColor="@color/light_bg_dark_secondary_text"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/profile_rooms_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:text="1"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -262,7 +262,7 @@
                         android:layout_height="wrap_content"
                         android:text="Single room"
                         android:textColor="@color/light_bg_dark_primary_text"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -273,7 +273,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_nights_layout"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
@@ -286,19 +286,19 @@
                             android:id="@+id/profile_Rate_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rate"
+                            android:text="@string/rate"
                             android:textColor="@color/light_bg_dark_secondary_text"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/profile_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:text="120 DT"
                             android:textColor="@color/light_bg_dark_primary_text"
-                            android:textSize="16dp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -310,8 +310,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_rooms_layout"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="16dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
@@ -320,9 +320,9 @@
                         android:id="@+id/profile_arrangement_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Arrangement"
+                        android:text="@string/arrangement"
                         android:textColor="@color/light_bg_dark_secondary_text"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.AppCompatTextView
@@ -331,7 +331,7 @@
                         android:layout_height="wrap_content"
                         android:text="Bed and breakfast"
                         android:textColor="@color/light_bg_dark_primary_text"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -342,8 +342,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_arrangement_layout"
                     android:layout_marginTop="16dp"
-                    android:layout_marginRight="64dp"
-                    android:layout_toLeftOf="@+id/profile_kids_layout"
+                    android:layout_marginEnd="64dp"
+                    android:layout_toStartOf="@+id/profile_kids_layout"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.AppCompatImageView
@@ -361,7 +361,7 @@
                         android:layout_gravity="center"
                         android:text="1"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
 
@@ -392,7 +392,7 @@
                         android:layout_gravity="center"
                         android:text="0"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -403,9 +403,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_arrangement_layout"
-                    android:layout_marginLeft="64dp"
+                    android:layout_marginStart="64dp"
                     android:layout_marginTop="16dp"
-                    android:layout_toRightOf="@+id/profile_kids_layout"
+                    android:layout_toEndOf="@+id/profile_kids_layout"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.AppCompatImageView
@@ -423,7 +423,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="0"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -466,7 +466,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:drawableEnd="@drawable/ic_create_blue_500_24"
                     android:layout_marginEnd="8dp"
-                    android:text="EDIT"
+                    android:text="@string/edit"
                     android:textColor="@color/colorPrimary" />
 
 

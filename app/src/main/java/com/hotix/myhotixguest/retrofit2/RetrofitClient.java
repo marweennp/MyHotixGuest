@@ -8,10 +8,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.hotix.myhotixguest.helpers.Settings.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Settings.BASE_URL_2;
 
 public class RetrofitClient {
 
     private static Retrofit retrofit = null;
+    private static Retrofit retrofitUrl = null;
 
     public static Retrofit getClient() {
         if (retrofit == null) {
@@ -33,4 +35,28 @@ public class RetrofitClient {
         }
         return retrofit;
     }
+
+    //Retrofit Client Without Base_Url
+    public static Retrofit getClientUrl() {
+        if (retrofitUrl == null) {
+
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .cache(null)
+                    .build();
+
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+
+            retrofitUrl = new Retrofit.Builder()
+                    .baseUrl(BASE_URL_2)
+                    .client(okHttpClient)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+        }
+        return retrofitUrl;
+    }
+
+
 }

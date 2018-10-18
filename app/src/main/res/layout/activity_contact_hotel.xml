@@ -1,9 +1,361 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="5"
     tools:context=".activitys.ContactHotelActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <!-- Contact Hotel Map -->
+    <RelativeLayout
+        android:id="@+id/contact_hotel_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/grey_200">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <!-- Contact Hotel Details -->
+    <RelativeLayout
+        android:id="@+id/contact_hotel_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+        <!-- Divider -->
+        <View
+            android:id="@+id/contact_hotel_top_divider"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark" />
+
+        <!-- Contact Hotel Main Container -->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/contact_hotel_top_divider">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Address Title -->
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contact_hotel_address_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/address"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Address Text -->
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contact_hotel_address_text_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="LE ROYAL HOTEL - HAMMAMET"
+                    android:textColor="@color/light_bg_dark_secondary_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contact_hotel_address_text_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="BP 237 - Yasmine Hammamet 8050"
+                    android:textColor="@color/light_bg_dark_secondary_text"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contact_hotel_address_text_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Hammamet - Tunisia"
+                    android:textColor="@color/light_bg_dark_secondary_text"
+                    android:textSize="16sp" />
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <!-- Contacts Title -->
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/contact_hotel_contacts_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/contacts"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Phone -->
+                <LinearLayout
+                    android:id="@+id/contact_hotel_phone_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/contact_hotel_phone_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/light_bg_dark_secondary_text"
+                        app:srcCompat="@drawable/ic_phone_white_24" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/contact_hotel_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="+216 72 244 999"
+                        android:textColor="@color/purple_500"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <!-- Fax -->
+                <LinearLayout
+                    android:id="@+id/contact_hotel_fax_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/contact_hotel_fax_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/light_bg_dark_secondary_text"
+                        app:srcCompat="@drawable/ic_print_white_24" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/contact_hotel_fax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text=" +216 72 244 315"
+                        android:textColor="@color/light_bg_dark_primary_text"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Info"
+                    android:textColor="@color/light_bg_dark_secondary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <!-- Mail 1 -->
+                <LinearLayout
+                    android:id="@+id/contact_hotel_mail_layout_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/contact_hotel_mail_icon_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/light_bg_dark_secondary_text"
+                        app:srcCompat="@drawable/ic_mail_white_24" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/contact_hotel_mail_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="info-ham@leroyal.com"
+                        android:textColor="@color/purple_500"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Reservation"
+                    android:textColor="@color/light_bg_dark_secondary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <!-- Mail 2 -->
+                <LinearLayout
+                    android:id="@+id/contact_hotel_mail_layout_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/contact_hotel_mail_icon_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/light_bg_dark_secondary_text"
+                        app:srcCompat="@drawable/ic_mail_white_24" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/contact_hotel_mail_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="reservation-ham@leroyal.com"
+                        android:textColor="@color/purple_500"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+                <!-- Mail 3 -->
+                <LinearLayout
+                    android:id="@+id/contact_hotel_mail_layout_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/contact_hotel_mail_icon_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/light_bg_dark_secondary_text"
+                        app:srcCompat="@drawable/ic_mail_white_24" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/contact_hotel_mail_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="marketing-ham@leroyal.com"
+                        android:textColor="@color/purple_500"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Careers"
+                    android:textColor="@color/light_bg_dark_secondary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <!-- Mail 4 -->
+                <LinearLayout
+                    android:id="@+id/contact_hotel_mail_layout_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/contact_hotel_mail_icon_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/light_bg_dark_secondary_text"
+                        app:srcCompat="@drawable/ic_mail_white_24" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/contact_hotel_mail_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="personnel@leroyal-hammamet.com"
+                        android:textColor="@color/purple_500"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Web Site"
+                    android:textColor="@color/light_bg_dark_secondary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                <!-- Web Site -->
+                <LinearLayout
+                    android:id="@+id/contact_hotel_web_site_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="6dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/contact_hotel_web_site_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/light_bg_dark_secondary_text"
+                        app:srcCompat="@drawable/ic_public_white_24" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/contact_hotel_web_site"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="www.leroyal.com"
+                        android:textColor="@color/purple_500"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/colorPrimaryDark" />
+
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</LinearLayout>

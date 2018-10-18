@@ -52,6 +52,15 @@ dependencies {
     // PullToRefresh
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
 
+    //Maps
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.android.gms:play-services-nearby:16.0.0'
+
+    //Image Slider
+    //implementation "com.ss.bannerslider:bannerslider:2.0.0"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

@@ -35,11 +35,12 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 public class MessagesFragment extends Fragment {
 
 
-    private static MessageAdapter adapter;
+    private MessageAdapter adapter;
     private AppCompatTextView messageDetailsTitle;
     private AppCompatTextView messageDetailsDate;
     private AppCompatTextView messageDetailsTime;
     private AppCompatTextView messageDetailsDesc;
+    private AppCompatTextView messageDetailsSubject;
     private AppCompatTextView messageDetailsPhone;
     private RelativeLayout messageDetailsPhoneView;
     private AppCompatButton messageDetailsOkBt;
@@ -130,12 +131,12 @@ public class MessagesFragment extends Fragment {
     private void loadeMessages() {
 
         RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
-        Call<ArrayList<Message>> billCall = service.getMessagesQuery(session.getResaId().toString(), session.getResaPaxId().toString());
+        Call<ArrayList<Message>> userCall = service.getMessagesQuery(session.getResaId().toString(), session.getResaPaxId().toString());
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
 
-        billCall.enqueue(new Callback<ArrayList<Message>>() {
+        userCall.enqueue(new Callback<ArrayList<Message>>() {
             @Override
             public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
                 progressView.setVisibility(View.GONE);
@@ -175,6 +176,7 @@ public class MessagesFragment extends Fragment {
         messageDetailsTitle = (AppCompatTextView) mView.findViewById(R.id.message_details_title);
         messageDetailsDate = (AppCompatTextView) mView.findViewById(R.id.message_details_date);
         messageDetailsTime = (AppCompatTextView) mView.findViewById(R.id.message_details_time);
+        messageDetailsSubject = (AppCompatTextView) mView.findViewById(R.id.message_details_subject);
         messageDetailsDesc = (AppCompatTextView) mView.findViewById(R.id.message_details_desc);
         messageDetailsPhone = (AppCompatTextView) mView.findViewById(R.id.message_details_phone);
         messageDetailsPhoneView = (RelativeLayout) mView.findViewById(R.id.message_details_phone_view);
@@ -188,6 +190,7 @@ public class MessagesFragment extends Fragment {
         messageDetailsTitle.setText(getString(R.string.message_from) + message.getFrom());
         messageDetailsDate.setText(dateFormater(message.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy"));
         messageDetailsTime.setText(dateFormater(message.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "hh:mm"));
+        messageDetailsSubject.setText(message.getSubject());
         messageDetailsDesc.setText(message.getDetails());
 
         mBuilder.setView(mView);

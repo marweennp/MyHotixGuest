@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activitys.HotelNearbyPlacesActivity">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttons_container" />
+
+    <LinearLayout
+        android:id="@+id/buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <!-- restaurant -->
+        <RelativeLayout
+            android:id="@+id/nearby_place_restaurant_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="6dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/nearby_place_restaurant_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_restaurant_white_24" />
+
+        </RelativeLayout>
+
+        <!-- atm -->
+        <RelativeLayout
+            android:id="@+id/nearby_place_atm_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="6dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/nearby_place_atm_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_local_atm_white_24" />
+
+        </RelativeLayout>
+
+        <!-- park -->
+        <RelativeLayout
+            android:id="@+id/nearby_place_park_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="6dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/nearby_place_park_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_local_florist_white_24" />
+
+        </RelativeLayout>
+
+        <!-- shopping_mall -->
+        <RelativeLayout
+            android:id="@+id/nearby_place_shopping_mall_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="6dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/nearby_place_shopping_mall_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_shopping_basket_white_24" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

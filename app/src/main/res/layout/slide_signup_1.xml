@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <!--  Slide Signup 1 Title Label -->
+    <!--  ImgSlide Signup 1 Title Label -->
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!--  Slide Signup 1 Username Label -->
+        <!--  ImgSlide Signup 1 Username Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_1_username_il"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
-        <!--  Slide Signup 1 Password Label -->
+        <!--  ImgSlide Signup 1 Password Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_1_password_il"
             android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Slide Signup 1 Email Label -->
+        <!-- ImgSlide Signup 1 Email Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_1_email_il"
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Slide Signup 1 Phone Label -->
+        <!-- ImgSlide Signup 1 Phone Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_1_phone_il"
             android:layout_width="match_parent"

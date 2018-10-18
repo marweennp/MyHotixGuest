@@ -1,4 +1,5 @@
 package com.hotix.myhotixguest.models;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -19,6 +20,9 @@ public class Message {
     @SerializedName("Id")
     @Expose
     private Integer id;
+    @SerializedName("Subject")
+    @Expose
+    private String subject;
 
     public String getDetails() {
         return details;
@@ -58,6 +62,14 @@ public class Message {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
 }
