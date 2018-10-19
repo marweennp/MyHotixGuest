@@ -1,25 +1,19 @@
 package com.hotix.myhotixguest.activitys;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
-import com.google.gson.Gson;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.CartItemsAdapter;
-import com.hotix.myhotixguest.adapters.OrderAdapter;
 import com.hotix.myhotixguest.models.CartItem;
 import com.hotix.myhotixguest.models.Order;
 import com.hotix.myhotixguest.models.ResponseMsg;
@@ -40,9 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_CART;
-import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_INFOS;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_ORDER;
-import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_SLIDES;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class OrderDetailsActivity extends AppCompatActivity {
@@ -60,6 +52,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private CartItem cartItem;
     private CartItemsAdapter adapter;
     private Double price = 0.0;
+    private int amount = 1;
+    private Double total = 0.0;
+
     //___________(Currency Number format)_____________\\
     private NumberFormat formatter;
     private DecimalFormatSymbols decimalFormatSymbols;
@@ -83,8 +78,18 @@ public class OrderDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
                 cartItem = dataModels.get(position);
+                startAddToCartDialog();
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(getApplicationContext(), NewOrderActivity.class);
+        startActivity(i);
+        finish();
 
     }
 
@@ -93,24 +98,143 @@ public class OrderDetailsActivity extends AppCompatActivity {
         sendCommande();
     }
 
-    private void setHeader(){
+    private void setHeader() {
 
         price = 0.0;
         for (CartItem obj : GLOBAL_ORDER.getDetails()) {
             price += obj.getPrixUnitaire() * obj.getQuantite();
         }
-        order_details_total.setText("Total : "+(formatter.format(price) + " DT"));
+        order_details_total.setText("Total : " + (formatter.format(price) + " DT"));
         order_details_products_count.setText(String.valueOf(GLOBAL_ORDER.getDetails().size()));
 
     }
 
-    private void setListView(){
+    private void setListView() {
 
         dataModels = new ArrayList<>();
-        dataModels =GLOBAL_ORDER.getDetails();
+        dataModels = GLOBAL_ORDER.getDetails();
 
         adapter = new CartItemsAdapter(dataModels, this);
         listView.setAdapter(adapter);
+
+    }
+
+    private void startAddToCartDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        amount = cartItem.getQuantite();
+        total = cartItem.getPrixUnitaire() * cartItem.getQuantite();
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_add_to_cart, null);
+        AppCompatTextView dialogTitle = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_header);
+        AppCompatTextView prodNameTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_name);
+        AppCompatTextView prodPriceTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_price);
+        final AppCompatTextView prodTotalTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_total_price);
+        final AppCompatTextView prodAmountTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_amount_tv);
+        AppCompatImageView addProd = (AppCompatImageView) mView.findViewById(R.id.add_to_cart_dialog_add_icon);
+        AppCompatImageView removeProd = (AppCompatImageView) mView.findViewById(R.id.add_to_cart_dialog_remove_icon);
+        AppCompatButton confirmBt = (AppCompatButton) mView.findViewById(R.id.btn_Add);
+        AppCompatButton removeBt = (AppCompatButton) mView.findViewById(R.id.btn_remove);
+        AppCompatButton cancelBt = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
+
+        cancelBt.setVisibility(View.GONE);
+
+        dialogTitle.setText("Cart Item");
+        prodNameTv.setText(cartItem.getProduitName());
+        prodPriceTv.setText(getString(R.string.price) + formatter.format(cartItem.getPrixUnitaire()) + " DT");
+        prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
+        prodAmountTv.setText("" + amount);
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        addProd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (amount < 10000) {
+                    amount++;
+                    total = cartItem.getPrixUnitaire() * amount;
+                    prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
+                    prodAmountTv.setText("" + amount);
+                }
+            }
+        });
+
+        removeProd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (amount > 1) {
+                    amount--;
+                    total = cartItem.getPrixUnitaire() * amount;
+                    prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
+                    prodAmountTv.setText("" + amount);
+                }
+            }
+        });
+
+        confirmBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int index = 0;
+                for (CartItem obj : GLOBAL_ORDER.getDetails()) {
+                    if (obj.getProduit() == cartItem.getProduit()) {
+                        if (amount > 0) {
+                            obj.setQuantite(amount);
+                        } else {
+                            GLOBAL_ORDER.getDetails().remove(index);
+                        }
+                    }
+                    index++;
+                }
+
+                setHeader();
+                setListView();
+                dialog.dismiss();
+            }
+        });
+
+        removeBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int index = 0;
+                for (CartItem obj : GLOBAL_ORDER.getDetails()) {
+                    if (obj.getProduit() == cartItem.getProduit()) {
+                        GLOBAL_ORDER.getDetails().remove(index);
+                    }
+                    index++;
+                }
+
+                setHeader();
+                setListView();
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void startSuccessDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_success, null);
+        AppCompatButton okBtn = (AppCompatButton) mView.findViewById(R.id.success_dialog_ok_btn);
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                finish();
+            }
+        });
 
     }
 
@@ -140,6 +264,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
                     } else {
                         GLOBAL_CART.clear();
+                        GLOBAL_ORDER = new Order();
+                        startSuccessDialog();
                     }
 
                 } else {

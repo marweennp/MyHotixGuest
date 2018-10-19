@@ -9,7 +9,7 @@
         android:layout_height="16dp"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginStart="10dp"
-        app:srcCompat="@drawable/notification_badge"
+        app:srcCompat="@drawable/notification_badge_white"
         android:gravity="center"
         android:padding="3dp" />
 </FrameLayout>

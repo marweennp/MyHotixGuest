@@ -52,15 +52,17 @@ public class CartItemsAdapter extends ArrayAdapter<CartItem> {
             viewHolder.item_quantite = (TextView) convertView.findViewById(R.id.cart_row_quantite);
             viewHolder.item_name = (TextView) convertView.findViewById(R.id.cart_row_item_name);
             viewHolder.item_price = (TextView) convertView.findViewById(R.id.cart_row_item_price);
+            viewHolder.total_price = (TextView) convertView.findViewById(R.id.cart_row_total_price);
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CartItemsAdapter.ViewHolder) convertView.getTag();
         }
 
-        viewHolder.item_quantite.setText(dataModel.getQuantite()+" X ");
+        viewHolder.item_quantite.setText(String.valueOf(dataModel.getQuantite()));
         viewHolder.item_name.setText(dataModel.getProduitName().trim());
-        viewHolder.item_price.setText(formatter.format(dataModel.getPrixUnitaire()));
+        viewHolder.item_price.setText(mContext.getString(R.string.price) + formatter.format(dataModel.getPrixUnitaire()));
+        viewHolder.total_price.setText(mContext.getString(R.string.total) + formatter.format(dataModel.getPrixUnitaire() * dataModel.getQuantite()));
 
         // Return the completed view to render on screen
         return convertView;
@@ -71,6 +73,7 @@ public class CartItemsAdapter extends ArrayAdapter<CartItem> {
         TextView item_quantite;
         TextView item_name;
         TextView item_price;
+        TextView total_price;
     }
 
 }

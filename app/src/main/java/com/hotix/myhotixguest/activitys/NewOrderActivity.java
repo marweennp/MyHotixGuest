@@ -100,15 +100,8 @@ public class NewOrderActivity extends AppCompatActivity {
     AppCompatTextView cartTotalTv;
     @BindView(R.id.orders_cart_show_products_count_tv)
     AppCompatTextView cartShowProductsCountTv;
-    // Dialog
-    private AppCompatTextView prodNameTv;
-    private AppCompatTextView prodPriceTv;
-    private AppCompatTextView prodTotalTv;
-    private AppCompatTextView prodAmountTv;
-    private AppCompatImageView addProd;
-    private AppCompatImageView removeProd;
-    private AppCompatButton confirmBt;
-    private AppCompatButton cancelBt;
+
+    //
     private ArrayList<Famille> dataModels;
     private ArrayList<Produit> produits;
     private ArrayList<SFamille> sFamilles;
@@ -276,6 +269,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 GLOBAL_ORDER.setDetails(GLOBAL_CART);
                 if (GLOBAL_CART.size() > 0) {
                     startActivity(i);
+                    finish();
                 } else {
                     showSnackbar(findViewById(android.R.id.content), getString(R.string.cart_is_empty));
                 }
@@ -407,19 +401,22 @@ public class NewOrderActivity extends AppCompatActivity {
         total = 0.0;
 
         View mView = getLayoutInflater().inflate(R.layout.dialog_add_to_cart, null);
-        prodNameTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_name);
-        prodPriceTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_price);
-        prodTotalTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_total_price);
-        prodAmountTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_amount_tv);
-        addProd = (AppCompatImageView) mView.findViewById(R.id.add_to_cart_dialog_add_icon);
-        removeProd = (AppCompatImageView) mView.findViewById(R.id.add_to_cart_dialog_remove_icon);
-        confirmBt = (AppCompatButton) mView.findViewById(R.id.btn_Add);
-        cancelBt = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
+        AppCompatTextView prodNameTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_name);
+        AppCompatTextView prodPriceTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_prod_price);
+        final AppCompatTextView prodTotalTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_total_price);
+        final AppCompatTextView prodAmountTv = (AppCompatTextView) mView.findViewById(R.id.add_to_cart_dialog_amount_tv);
+        AppCompatImageView addProd = (AppCompatImageView) mView.findViewById(R.id.add_to_cart_dialog_add_icon);
+        AppCompatImageView removeProd = (AppCompatImageView) mView.findViewById(R.id.add_to_cart_dialog_remove_icon);
+        AppCompatButton confirmBt = (AppCompatButton) mView.findViewById(R.id.btn_Add);
+        AppCompatButton removeBt = (AppCompatButton) mView.findViewById(R.id.btn_remove);
+        AppCompatButton cancelBt = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
+
+        removeBt.setVisibility(View.GONE);
 
         prodNameTv.setText(produit.getName());
-        prodPriceTv.setText("Price : " + formatter.format(produit.getPrix()) + " DT");
+        prodPriceTv.setText(getString(R.string.price) + formatter.format(produit.getPrix()) + " DT");
         total += Double.valueOf(formatter.format(produit.getPrix()));
-        prodTotalTv.setText("Price : " + formatter.format(total) + " DT");
+        prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
         prodAmountTv.setText("" + amount);
 
         mBuilder.setView(mView);
@@ -436,7 +433,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     for (int i = 1; i <= amount; i++) {
                         total += Double.valueOf(formatter.format(produit.getPrix()));
                     }
-                    prodTotalTv.setText("Price : " + formatter.format(total) + " DT");
+                    prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
                     prodAmountTv.setText("" + amount);
                 }
             }
@@ -451,7 +448,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     for (int i = 1; i <= amount; i++) {
                         total += Double.valueOf(produit.getPrix());
                     }
-                    prodTotalTv.setText("Total : " + formatter.format(total) + " DT");
+                    prodTotalTv.setText(getString(R.string.total)+ formatter.format(total) + " DT");
                     prodAmountTv.setText("" + amount);
                 }
             }

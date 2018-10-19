@@ -174,8 +174,12 @@
     <string name="address">Address</string>
     <string name="contacts">Contacts</string>
     <string name="about_hotel">ABOUT HOTEL</string>
-    <string name="total">Total :</string>
+    <string name="total">"Total "</string>
     <string name="cart_is_empty">Your cart is empty</string>
+    <string name="price">"Price "</string>
+    <string name="remove">Remove</string>
+    <string name="success">Success</string>
+    <string name="success_msg">Order Successfully Added</string>
 
 
 </resources>
