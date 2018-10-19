@@ -1,4 +1,4 @@
-package com.hotix.myhotixguest.activitys;
+package com.hotix.myhotixguest.activites;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

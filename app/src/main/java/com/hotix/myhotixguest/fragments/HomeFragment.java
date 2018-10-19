@@ -17,12 +17,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.BillDetailsActivity;
-import com.hotix.myhotixguest.activitys.GuestProfileActivity;
-import com.hotix.myhotixguest.activitys.HistoryActivity;
-import com.hotix.myhotixguest.activitys.LoginActivity;
-import com.hotix.myhotixguest.activitys.NewReservationActivity;
-import com.hotix.myhotixguest.activitys.ReservationDetailsActivity;
+import com.hotix.myhotixguest.activites.BillDetailsActivity;
+import com.hotix.myhotixguest.activites.GuestProfileActivity;
+import com.hotix.myhotixguest.activites.HistoryActivity;
+import com.hotix.myhotixguest.activites.LoginActivity;
+import com.hotix.myhotixguest.activites.NewReservationActivity;
+import com.hotix.myhotixguest.activites.ReservationDetailsActivity;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;

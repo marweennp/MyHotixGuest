@@ -33,7 +33,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
     private ArrayList<CartItem> carts ;
 
     public OrderAdapter(ArrayList<Order> data, Context context) {
-        super(context, R.layout.list_order_row_item, data);
+        super(context, R.layout.item_order_row, data);
         this.dataSet = data;
         this.mContext = context;
     }
@@ -58,7 +58,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
             viewHolder = new OrderAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_order_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_order_row, parent, false);
 
             viewHolder.order_total = (TextView) convertView.findViewById(R.id.order_row_total);
             viewHolder.order_date = (TextView) convertView.findViewById(R.id.order_row_date);

@@ -25,7 +25,7 @@ public class CartItemsAdapter extends ArrayAdapter<CartItem> {
     private DecimalFormatSymbols decimalFormatSymbols;
 
     public CartItemsAdapter(ArrayList<CartItem> data, Context context) {
-        super(context, R.layout.list_cart_details_row_item, data);
+        super(context, R.layout.item_cart_details_row, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -48,7 +48,7 @@ public class CartItemsAdapter extends ArrayAdapter<CartItem> {
 
             viewHolder = new CartItemsAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_cart_details_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_cart_details_row, parent, false);
             viewHolder.item_quantite = (TextView) convertView.findViewById(R.id.cart_row_quantite);
             viewHolder.item_name = (TextView) convertView.findViewById(R.id.cart_row_item_name);
             viewHolder.item_price = (TextView) convertView.findViewById(R.id.cart_row_item_price);

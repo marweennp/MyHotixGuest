@@ -7,10 +7,10 @@
         android:id="@+id/slide_img_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:adjustViewBounds="true"
         android:layout_gravity="center"
-        android:src="@drawable/hotel"
-        android:scaleType="centerCrop" />
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/hotel" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,12 +22,12 @@
             android:id="@+id/slide_img_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
-            android:text="Image Title"
-            android:textColor="@color/white_70_alpha"/>
+            android:text=""
+            android:textColor="@color/white_70_alpha" />
 
     </RelativeLayout>
 

@@ -25,7 +25,7 @@
         android:layout_margin="3dp"
         android:layout_toStartOf="@+id/order_details_u_price"
         android:layout_toEndOf="@+id/order_details_quantite"
-        android:text="Coca Colla"
+        android:text=""
         android:textColor="@color/colorBackground"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="3dp"
-        android:text="0.000 DT"
+        android:text=""
         android:textColor="@color/light_bg_dark_secondary_text"
         android:textSize="14sp"
         android:textStyle="bold" />

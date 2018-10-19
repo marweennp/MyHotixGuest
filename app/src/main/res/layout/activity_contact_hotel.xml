@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="5"
-    tools:context=".activitys.ContactHotelActivity">
+    tools:context=".activites.ContactHotelActivity">
 
     <!-- Contact Hotel Map -->
     <RelativeLayout

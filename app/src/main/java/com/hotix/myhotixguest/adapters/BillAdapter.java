@@ -29,7 +29,7 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
     private DecimalFormatSymbols decimalFormatSymbols;
 
     public BillAdapter(ArrayList<LignesFacture> data, Context context) {
-        super(context, R.layout.list_bill_row_item, data);
+        super(context, R.layout.item_bill_row, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -54,7 +54,7 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_bill_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_bill_row, parent, false);
             viewHolder.bill_transaction_title = (TextView) convertView.findViewById(R.id.bill_transaction_title);
             viewHolder.bill_transaction_sum = (TextView) convertView.findViewById(R.id.bill_transaction_sum);
             viewHolder.bill_transaction_date = (TextView) convertView.findViewById(R.id.bill_transaction_date);

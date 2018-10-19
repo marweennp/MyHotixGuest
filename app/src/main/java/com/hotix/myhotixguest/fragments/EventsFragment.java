@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.EventDetailsActivity;
+import com.hotix.myhotixguest.activites.EventDetailsActivity;
 import com.hotix.myhotixguest.adapters.EventAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.Event;

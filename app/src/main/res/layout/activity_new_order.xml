@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activitys.NewOrderActivity">
+    tools:context=".activites.NewOrderActivity">
 
     <!-- Orders Sort menu -->
     <LinearLayout
@@ -67,12 +67,12 @@
                 <!-- Orders Sort menu Search View -->
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/orders_sort_menu_search_et"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:background="@color/white"
                     android:hint="Search"
-                    android:paddingStart="16dp"
                     android:inputType="text"
+                    android:paddingStart="16dp"
                     android:textColor="@color/colorBackground"
                     android:theme="@style/MyEditTextStyle" />
 
@@ -222,7 +222,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="2dp"
-                    android:text="0"
+                    android:text=""
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -237,7 +237,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="3dp"
                 android:layout_toStartOf="@+id/orders_cart_show_arrow_img"
-                android:text="SHOW CART"
+                android:text="@string/show_cart"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -252,7 +252,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:text="Total :"
+            android:text="@string/total"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -264,7 +264,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
             android:layout_toEndOf="@+id/orders_cart_total_title_tv"
-            android:text="0.000 DT "
+            android:text=""
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />

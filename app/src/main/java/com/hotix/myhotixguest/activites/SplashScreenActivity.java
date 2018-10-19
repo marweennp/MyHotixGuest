@@ -1,4 +1,4 @@
-package com.hotix.myhotixguest.activitys;
+package com.hotix.myhotixguest.activites;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="Total TTC :  "
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -37,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:text="000.00 DT"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

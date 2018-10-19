@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activitys.GuestProfileActivity">
+    tools:context=".activites.GuestProfileActivity">
 
     <!-- ToolBar -->
     <android.support.design.widget.AppBarLayout
@@ -91,16 +91,16 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profile_details_first_name_title"
                             android:layout_alignParentStart="true"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/profile_details_first_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Foulan"
+                                android:text=""
                                 android:textColor="@color/light_bg_dark_primary_text"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -130,16 +130,16 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profile_details_last_name_title"
                             android:layout_alignParentStart="true"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/profile_details_last_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Foulani"
+                                android:text=""
                                 android:textColor="@color/light_bg_dark_primary_text"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -169,16 +169,16 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profile_details_nationality_title"
                             android:layout_alignParentStart="true"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/profile_details_nationality"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tunisan"
+                                android:text=""
                                 android:textColor="@color/light_bg_dark_primary_text"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -208,7 +208,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profile_details_birth_date_title"
                             android:layout_alignParentStart="true"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -222,10 +222,10 @@
                                 android:id="@+id/profile_details_birth_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="1976-08-19"
+                                android:layout_marginStart="8dp"
+                                android:text=""
                                 android:textColor="@color/light_bg_dark_primary_text"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -255,7 +255,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profile_details_address_title"
                             android:layout_alignParentStart="true"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -269,10 +269,10 @@
                                 android:id="@+id/profile_details_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="Client Adresse"
+                                android:layout_marginStart="8dp"
+                                android:text=""
                                 android:textColor="@color/light_bg_dark_primary_text"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -302,7 +302,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profile_details_phone_title"
                             android:layout_alignParentStart="true"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -316,10 +316,10 @@
                                 android:id="@+id/profile_details_phone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="+000 00 000 000"
+                                android:layout_marginStart="8dp"
+                                android:text=""
                                 android:textColor="@color/light_bg_dark_primary_text"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -349,7 +349,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profile_details_mail_title"
                             android:layout_alignParentStart="true"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -363,10 +363,10 @@
                                 android:id="@+id/profile_details_mail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="foulan.foulani@mail.com"
+                                android:layout_marginStart="8dp"
+                                android:text=""
                                 android:textColor="@color/light_bg_dark_primary_text"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -556,11 +556,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Login Details"
+                    android:text=""
                     android:textColor="@color/colorBackground"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
                 <!-- Login Details Container -->
                 <LinearLayout
@@ -568,7 +568,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_guest_login_details_text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical"
                     android:paddingBottom="24dp">
@@ -646,7 +646,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="20dp"
-                            android:layout_toLeftOf="@+id/profile_login_details_save_btn"
+                            android:layout_toStartOf="@+id/profile_login_details_save_btn"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:text="@string/cancel"
                             android:textColor="@color/colorPrimary"
@@ -677,7 +677,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Settings"
+                    android:text=""
                     android:textColor="@color/colorBackground"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -705,7 +705,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="6dp"
-                            android:text="Rreceive Notification"
+                            android:text="@string/rreceive_notification"
                             android:textColor="@color/colorBackground"
                             android:textSize="16sp" />
 
@@ -716,7 +716,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="16dp"
-                            android:text="Off"
+                            android:text="@string/off"
                             android:textColor="@color/colorBackground" />
 
                     </RelativeLayout>
@@ -733,7 +733,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_marginStart="6dp"
                             android:layout_marginTop="6dp"
-                            android:text="Nearby Radius"
+                            android:text="@string/nearby_radius"
                             android:textColor="@color/colorBackground"
                             android:textSize="16sp" />
 
@@ -742,9 +742,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginTop="6dp"
-                            android:text="0 m"
+                            android:layout_marginEnd="16dp"
+                            android:text=""
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
 
@@ -754,8 +754,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/settings_nearby_radius_actv"
                             android:layout_margin="16dp"
-                            android:min="200"
-                            android:max="1500"/>
+                            android:max="1500"
+                            android:min="200" />
                     </RelativeLayout>
 
                 </LinearLayout>

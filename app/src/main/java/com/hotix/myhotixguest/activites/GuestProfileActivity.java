@@ -1,4 +1,4 @@
-package com.hotix.myhotixguest.activitys;
+package com.hotix.myhotixguest.activites;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.ProfileDatePickerFragment;

@@ -14,7 +14,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.SplashScreenActivity;
+import com.hotix.myhotixguest.activites.SplashScreenActivity;
 import com.hotix.myhotixguest.helpers.Session;
 
 import java.util.Map;

@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activitys.SplashScreenActivity"
+            android:name=".activites.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
@@ -27,77 +27,77 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activitys.LoginActivity"
+            android:name=".activites.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.SignupActivity"
+            android:name=".activites.SignupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.ForgotPasswordActivity"
+            android:name=".activites.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.HomeScreenActivity"
+            android:name=".activites.HomeScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.ReservationDetailsActivity"
+            android:name=".activites.ReservationDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.BillDetailsActivity"
+            android:name=".activites.BillDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.HistoryActivity"
+            android:name=".activites.HistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.NewReservationActivity"
+            android:name=".activites.NewReservationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.EventDetailsActivity"
+            android:name=".activites.EventDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.GuestProfileActivity"
+            android:name=".activites.GuestProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.AboutHotelActivity"
+            android:name=".activites.AboutHotelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.ContactHotelActivity"
+            android:name=".activites.ContactHotelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.ReviewHotelActivity"
+            android:name=".activites.ReviewHotelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.NewOrderActivity"
+            android:name=".activites.NewOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activitys.OrderDetailsActivity"
+            android:name=".activites.OrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.EditPaxDetailsActivity"
+            android:name=".activites.EditPaxDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
-            android:name=".activitys.ImageSliderActivity"
+            android:name=".activites.ImageSliderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
 
         <activity
-            android:name=".activitys.HotelNearbyPlacesActivity"
+            android:name=".activites.HotelNearbyPlacesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" />
 

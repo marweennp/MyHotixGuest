@@ -22,7 +22,7 @@ public class HistoryAdapter extends ArrayAdapter<Sejour> {
     private ArrayList<Sejour> dataSet;
 
     public HistoryAdapter(ArrayList<Sejour> data, Context context) {
-        super(context, R.layout.list_stay_row_item, data);
+        super(context, R.layout.item_stay_row, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -41,7 +41,7 @@ public class HistoryAdapter extends ArrayAdapter<Sejour> {
 
             viewHolder = new HistoryAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_stay_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_stay_row, parent, false);
 
             viewHolder.stay_title = (TextView) convertView.findViewById(R.id.stay_title);
             viewHolder.stay_sub_title = (TextView) convertView.findViewById(R.id.stay_sub_title);

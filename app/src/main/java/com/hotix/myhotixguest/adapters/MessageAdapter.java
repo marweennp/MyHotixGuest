@@ -22,7 +22,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
     private ArrayList<Message> dataSet;
 
     public MessageAdapter(ArrayList<Message> data, Context context) {
-        super(context, R.layout.list_message_row_item, data);
+        super(context, R.layout.item_message_row, data);
         this.dataSet = data;
         this.mContext = context;
     }
@@ -40,7 +40,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
             viewHolder = new MessageAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_message_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_message_row, parent, false);
             viewHolder.message_title = (TextView) convertView.findViewById(R.id.message_row_title);
             viewHolder.message_text = (TextView) convertView.findViewById(R.id.message_row_text);
             viewHolder.message_date = (TextView) convertView.findViewById(R.id.message_row_date);

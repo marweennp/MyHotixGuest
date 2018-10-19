@@ -1,4 +1,4 @@
-package com.hotix.myhotixguest.activitys;
+package com.hotix.myhotixguest.activites;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -104,8 +104,8 @@ public class BillDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        header = (View) getLayoutInflater().inflate(R.layout.list_bill_header, null);
-        footer = (View) getLayoutInflater().inflate(R.layout.list_bill_footer, null);
+        header = (View) getLayoutInflater().inflate(R.layout.content_bill_header, null);
+        footer = (View) getLayoutInflater().inflate(R.layout.content_bill_footer, null);
         billNumber = (AppCompatTextView) header.findViewById(R.id.bill_number_text);
         billOwner = (AppCompatTextView) header.findViewById(R.id.bill_owner_text);
         billDate = (AppCompatTextView) header.findViewById(R.id.bill_date_text);

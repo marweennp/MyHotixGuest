@@ -25,7 +25,7 @@ public class ProductAdapter extends ArrayAdapter<Produit> {
     private DecimalFormatSymbols decimalFormatSymbols;
 
     public ProductAdapter(ArrayList<Produit> data, Context context) {
-        super(context, R.layout.list_product_row_item, data);
+        super(context, R.layout.item_product_row, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -50,7 +50,7 @@ public class ProductAdapter extends ArrayAdapter<Produit> {
 
             viewHolder = new ProductAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_product_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_product_row, parent, false);
             viewHolder.product_name = (TextView) convertView.findViewById(R.id.product_name);
             viewHolder.product_price = (TextView) convertView.findViewById(R.id.product_price);
 

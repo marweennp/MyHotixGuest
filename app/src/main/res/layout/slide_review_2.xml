@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="Meetings and Events"
-                android:textAppearance="?android:attr/textAppearanceMedium"  />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:id="@+id/review1_radio_wedding"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="Wedding"
-                android:textAppearance="?android:attr/textAppearanceMedium"  />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </RadioGroup>
 

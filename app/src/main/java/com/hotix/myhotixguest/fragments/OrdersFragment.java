@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.activitys.NewOrderActivity;
+import com.hotix.myhotixguest.activites.NewOrderActivity;
 import com.hotix.myhotixguest.adapters.OrderAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.CartItem;
@@ -221,7 +221,7 @@ public class OrdersFragment extends Fragment {
         for (CartItem obj : carts) {
             price += obj.getPrixUnitaire() * obj.getQuantite();
 
-            View orderRow = getLayoutInflater().inflate(R.layout.list_order_details_row_item, null);
+            View orderRow = getLayoutInflater().inflate(R.layout.item_order_details_row, null);
             AppCompatTextView quantite = (AppCompatTextView) orderRow.findViewById(R.id.order_details_quantite);
             AppCompatTextView u_name = (AppCompatTextView) orderRow.findViewById(R.id.order_details_u_name);
             AppCompatTextView u_price = (AppCompatTextView) orderRow.findViewById(R.id.order_details_u_price);

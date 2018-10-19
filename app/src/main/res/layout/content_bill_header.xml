@@ -15,10 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="16dp"
-            android:text="Foulan Foulani"
+            android:layout_marginStart="16dp"
+            android:text=""
             android:textColor="@color/white"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <!-- Bill Header Date -->
         <android.support.v7.widget.AppCompatTextView
@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/bill_owner_text"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="00/00/0000 - 00/00/0000" />
+            android:layout_marginStart="16dp"
+            android:text="" />
 
         <!-- Bill Header Bill Number -->
         <android.support.v7.widget.AppCompatTextView
@@ -37,9 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/bill_date_text"
             android:layout_centerHorizontal="true"
-            android:text="0000-0000"
+            android:text=""
             android:textColor="@color/white"
-            android:textSize="32dp"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
         <!-- Bill Header Total TTC -->
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="Total TTC :  "
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -68,8 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:text="000.00 DT"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

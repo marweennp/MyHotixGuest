@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activitys.OrderDetailsActivity">
+    tools:context=".activites.OrderDetailsActivity">
 
     <RelativeLayout
         android:id="@+id/order_details_header"
@@ -21,7 +21,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:text="Total : 00.000 DT"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="0"
+                android:text=""
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Confirm Order"
+            android:text="@string/confirm_order"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />

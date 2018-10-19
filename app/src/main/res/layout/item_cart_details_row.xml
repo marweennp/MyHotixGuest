@@ -7,10 +7,10 @@
     <RelativeLayout
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/notification_badge_blue">
 
         <android.support.v7.widget.AppCompatTextView
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginBottom="2dp"
-            android:text="0"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -31,16 +31,16 @@
         android:id="@+id/cart_row_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="3dp"
-        android:layout_alignParentStart="true"
-        android:text="Coca Colla"
-        android:textColor="@color/colorBackground"
-        android:maxLines="1"
         android:ellipsize="end"
+        android:maxLines="1"
+        android:text=""
+        android:textColor="@color/colorBackground"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -49,11 +49,11 @@
         android:id="@+id/cart_row_item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/cart_row_total_price"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="3dp"
-        android:text="0.000 DT"
+        android:layout_toStartOf="@+id/cart_row_total_price"
+        android:text=""
         android:textColor="@color/grey_500"
         android:textSize="14sp"
         android:textStyle="bold" />
@@ -67,7 +67,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="3dp"
-        android:text="0.000 DT"
+        android:text=""
         android:textColor="@color/grey_500"
         android:textSize="14sp"
         android:textStyle="bold" />

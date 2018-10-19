@@ -32,7 +32,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
     private DecimalFormatSymbols decimalFormatSymbols;
 
     public EventAdapter(ArrayList<Event> data, Context context) {
-        super(context, R.layout.list_event_row_item, data);
+        super(context, R.layout.item_event_row, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -57,7 +57,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
             viewHolder = new EventAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_event_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_event_row, parent, false);
 
             viewHolder.event_row_head_date = (TextView) convertView.findViewById(R.id.event_row_head_date);
             viewHolder.event_row_head_time = (TextView) convertView.findViewById(R.id.event_row_head_time);

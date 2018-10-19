@@ -1,4 +1,4 @@
-package com.hotix.myhotixguest.activitys;
+package com.hotix.myhotixguest.activites;
 
 import android.content.Context;
 import android.content.Intent;
@@ -231,7 +231,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     public void addGuestDetales(DetailsPax pax) {
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View guestView = inflater.inflate(R.layout.list_guest_details_row, null);
+        final View guestView = inflater.inflate(R.layout.item_guest_details, null);
         AppCompatTextView guestIsMaster = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_is_master);
         AppCompatTextView guestNameOp = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_name_op);
         AppCompatTextView guestName = (AppCompatTextView) guestView.findViewById(R.id.profile_guest_details_name);
