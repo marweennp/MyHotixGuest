@@ -25,6 +25,7 @@
         <item name="colorButtonNormal">@color/colorPrimaryDark</item>
     </style>
 
+    <!-- My Edit Text Style -->
     <style name="MyEditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="colorControlNormal">@color/grey_500</item>
         <item name="colorControlActivated">@color/colorPrimary</item>

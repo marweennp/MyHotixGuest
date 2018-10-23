@@ -312,7 +312,7 @@ public class NewOrderActivity extends AppCompatActivity {
 
     private void loadeData() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ArrayList<Famille>> userCall = service.getAllProductsQuery();
 
         progressView.setVisibility(View.VISIBLE);
@@ -365,7 +365,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(emptyListView);
-                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
     }

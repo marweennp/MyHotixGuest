@@ -88,7 +88,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         final String mail = forgotPasswordEmailText.getText().toString();
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseMsg> userCall = service.resetPasswordQuery(mail);
 
         final ProgressDialog progressDialog = new ProgressDialog(ForgotPasswordActivity.this, R.style.AppThemeDialog);

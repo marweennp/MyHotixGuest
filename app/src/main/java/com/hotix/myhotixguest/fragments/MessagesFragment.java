@@ -130,7 +130,7 @@ public class MessagesFragment extends Fragment {
      */
     private void loadeMessages() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ArrayList<Message>> userCall = service.getMessagesQuery(session.getResaId().toString(), session.getResaPaxId().toString());
 
         progressView.setVisibility(View.VISIBLE);
@@ -163,7 +163,7 @@ public class MessagesFragment extends Fragment {
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(emptyListView);
-                showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
     }

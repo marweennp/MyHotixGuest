@@ -1,5 +1,6 @@
 package com.hotix.myhotixguest.fragments;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
@@ -25,6 +27,9 @@ import com.hotix.myhotixguest.models.Pax;
 import com.hotix.myhotixguest.models.ResponseMsg;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -168,7 +173,7 @@ public class PaxDetailsFragment extends Fragment {
         bd_et.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDatePickerDialog();
+                startDatePickerDialog(bd_et);
             }
         });
 
@@ -247,7 +252,7 @@ public class PaxDetailsFragment extends Fragment {
 
     private void updatePax() {
         checkPaxData();
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseMsg> userCall = service.updateReservationInfosQuery(
                 paxData.getId().toString(),
                 paxData.getNom(),
@@ -362,9 +367,20 @@ public class PaxDetailsFragment extends Fragment {
 
     }
 
-    public void showDatePickerDialog() {
-        DialogFragment newFragment = new PaxUpdateDatePickerFragment();
-        newFragment.show(getFragmentManager(), "datePicker");
+    private void startDatePickerDialog(final AppCompatEditText et) {
+        Calendar currentTime = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                et.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        }, currentTime.get(Calendar.YEAR), currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+
     }
 
 }

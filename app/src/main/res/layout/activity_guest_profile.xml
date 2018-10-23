@@ -558,7 +558,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text=""
+                    android:text="@string/login_details"
                     android:textColor="@color/colorBackground"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -677,7 +677,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text=""
+                    android:text="@string/settings"
                     android:textColor="@color/colorBackground"
                     android:textSize="16sp"
                     android:textStyle="bold" />

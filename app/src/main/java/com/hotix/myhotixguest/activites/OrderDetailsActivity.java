@@ -242,7 +242,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         final String content_type = "application/json";
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseMsg> userCall = service.sendCommandeQuery(content_type, GLOBAL_ORDER);
 
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppThemeDialog);

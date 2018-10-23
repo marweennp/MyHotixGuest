@@ -8,11 +8,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="56dp"
         android:orientation="vertical"
         android:weightSum="5">
+
         <!-- Image Slider -->
         <RelativeLayout
             android:id="@+id/image_slider_view"
@@ -47,6 +47,7 @@
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_above="@+id/image_slider_places_btn"
                 android:layout_below="@+id/image_slider_top_divider">
 
                 <!-- Container -->
@@ -71,18 +72,20 @@
 
             </android.support.v4.widget.NestedScrollView>
 
+            <!-- Button -->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/image_slider_places_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:padding="12dp"
+                android:text="@string/nearby_places"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
         </RelativeLayout>
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/image_slider_places_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:padding="12dp"
-        android:text="@string/nearby_places"
-        android:textSize="24sp"
-        android:visibility="gone" />
 
 
 </RelativeLayout>

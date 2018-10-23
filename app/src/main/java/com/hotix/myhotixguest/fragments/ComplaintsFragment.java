@@ -265,7 +265,7 @@ public class ComplaintsFragment extends Fragment {
 
     private void addComplaint() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseBody> userCall = service.sendReclamationQuery("1", session.getChambre(), complaintTitle.getText().toString(), complaintText.getText().toString(), session.getResaId().toString());
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
@@ -291,7 +291,7 @@ public class ComplaintsFragment extends Fragment {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 progressDialog.dismiss();
-                showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
 
@@ -301,7 +301,7 @@ public class ComplaintsFragment extends Fragment {
     private void loadeComplaints(int sort) {
 
         final int x = sort;
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ArrayList<Complaint>> billCall = service.getReclamationsQuery(session.getResaId().toString());
 
         progressView.setVisibility(View.VISIBLE);
@@ -360,7 +360,7 @@ public class ComplaintsFragment extends Fragment {
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
-                showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
     }

@@ -157,7 +157,7 @@ public class OrdersFragment extends Fragment {
     /************************************(  Loade Orders  )****************************************/
     public void loadeOrders() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ArrayList<Order>> userCall = service.getCommandesQuery(session.getResaId().toString());
 
         pullLayout.setRefreshing(false);

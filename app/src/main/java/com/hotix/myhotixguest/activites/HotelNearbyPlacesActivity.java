@@ -108,7 +108,7 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
 
         final String mType = type;
 
-        RetrofitInterface service = RetrofitClient.getClientUrl().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientGooglePlaces().create(RetrofitInterface.class);
         Call<NearbyPlaces> userCall = service.getNearbyPlacesQuery(location, radius, mType, key);
 
         final ProgressDialog progressDialog = new ProgressDialog(HotelNearbyPlacesActivity.this, R.style.AppThemeDialog);
@@ -128,7 +128,7 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
                     NearbyPlaces nearbyPlaces = response.body();
                     mResult.addAll(nearbyPlaces.getResults());
                     if (!(nearbyPlaces.getStatus().equals("OK"))) {
-                        showSnackbar(findViewById(android.R.id.content), "Something went wrong. please verify your login or password");
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.something_wrong));
                     } else {
                         showNearbyPlaces(mResult,mType);
                     }
@@ -142,7 +142,7 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
             @Override
             public void onFailure(Call<NearbyPlaces> call, Throwable t) {
                 progressDialog.dismiss();
-                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
 

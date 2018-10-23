@@ -169,7 +169,7 @@ public class AboutHotelActivity extends AppCompatActivity {
 
     private void loadMenu() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ArrayList<MenuItem>> userCall = service.getMenuQuery("Fr");
 
         progressView.setVisibility(View.VISIBLE);

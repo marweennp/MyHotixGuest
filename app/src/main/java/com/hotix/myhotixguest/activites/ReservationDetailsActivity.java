@@ -171,7 +171,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
     private void loadData() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<Sejour> userCall = service.getStayQuery(resaId);
 
         progressView.setVisibility(View.VISIBLE);

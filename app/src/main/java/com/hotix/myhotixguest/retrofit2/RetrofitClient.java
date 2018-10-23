@@ -3,6 +3,8 @@ package com.hotix.myhotixguest.retrofit2;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,11 +17,13 @@ public class RetrofitClient {
     private static Retrofit retrofit = null;
     private static Retrofit retrofitUrl = null;
 
-    public static Retrofit getClient() {
+    public static Retrofit getClientHngApi() {
         if (retrofit == null) {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .cache(null)
+                    .readTimeout(30000, TimeUnit.MILLISECONDS)
+                    .connectTimeout(30000, TimeUnit.MILLISECONDS)
                     .build();
 
             Gson gson = new GsonBuilder()
@@ -37,11 +41,13 @@ public class RetrofitClient {
     }
 
     //Retrofit Client Without Base_Url
-    public static Retrofit getClientUrl() {
+    public static Retrofit getClientGooglePlaces() {
         if (retrofitUrl == null) {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .cache(null)
+                    .readTimeout(30000, TimeUnit.MILLISECONDS)
+                    .connectTimeout(30000, TimeUnit.MILLISECONDS)
                     .build();
 
             Gson gson = new GsonBuilder()

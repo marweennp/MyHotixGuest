@@ -1,12 +1,12 @@
 package com.hotix.myhotixguest.activites;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,17 +17,20 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.fragments.SignupDatePickerFragment;
 import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.models.ResponseMsg;
 import com.hotix.myhotixguest.models.Signup;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,11 +71,11 @@ public class SignupActivity extends AppCompatActivity {
                 slideOneLoading();
             }
             if (position == 1) {
-                TextInputEditText text = (TextInputEditText) findViewById(R.id.signup_2_birth_date_et);
+                final TextInputEditText text = (TextInputEditText) findViewById(R.id.signup_2_birth_date_et);
                 text.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showDatePickerDialog();
+                        startDatePickerDialog(text);
                     }
                 });
             }
@@ -188,11 +191,6 @@ public class SignupActivity extends AppCompatActivity {
             dots[currentPage].setTextColor(getResources().getColor(R.color.dot_light));
     }
 
-    public void showDatePickerDialog() {
-        DialogFragment newFragment = new SignupDatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-
     private boolean slideOneValidation() {
 
         //TextInputLayout
@@ -297,7 +295,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void addNewUser() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseMsg> userCall = service.inscriptionQuery(
                 "1",
                 newSignup.getUserName(),
@@ -349,6 +347,22 @@ public class SignupActivity extends AppCompatActivity {
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
+
+    }
+
+    private void startDatePickerDialog(final TextInputEditText et) {
+        Calendar currentTime = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                et.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        }, currentTime.get(Calendar.YEAR), currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
 
     }
 

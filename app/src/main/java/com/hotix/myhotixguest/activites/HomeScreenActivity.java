@@ -64,14 +64,14 @@ public class HomeScreenActivity extends AppCompatActivity {
                         if (session.getISResident()) {
                             loadFragment(ordersFragment);
                         } else {
-                            showSnackbar(findViewById(android.R.id.content), "You must be a resident to use this feature");
+                            showSnackbar(findViewById(android.R.id.content), getString(R.string.not_resident));
                         }
                         return true;
                     case R.id.navigation_complaints:
                         if (session.getISResident()) {
                             loadFragment(notificationsFragment);
                         } else {
-                            showSnackbar(findViewById(android.R.id.content), "You must be a resident to use this feature");
+                            showSnackbar(findViewById(android.R.id.content), getString(R.string.not_resident));
                         }
                         return true;
                     case R.id.navigation_activities:

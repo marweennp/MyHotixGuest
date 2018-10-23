@@ -83,8 +83,6 @@ public class EditPaxDetailsActivity extends AppCompatActivity {
         }
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_pax);
-        loadResaPax();
-        //setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -101,6 +99,7 @@ public class EditPaxDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        loadResaPax();
     }
 
     @Override
@@ -159,7 +158,7 @@ public class EditPaxDetailsActivity extends AppCompatActivity {
     /**********************************(  load Resa Pax  )*************************************/
     public void loadResaPax() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ArrayList<Pax>> userCall = service.getPaxResaQuery(resaId);
 
         progressView.setVisibility(View.VISIBLE);
@@ -196,7 +195,7 @@ public class EditPaxDetailsActivity extends AppCompatActivity {
     /**********************************(  Loading Start Data  )*************************************/
     public void loadingStartData() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<StartData> userCall = service.getAllDataQuery();
 
         userCall.enqueue(new Callback<StartData>() {

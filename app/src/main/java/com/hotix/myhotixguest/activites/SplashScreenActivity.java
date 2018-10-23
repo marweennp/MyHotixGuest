@@ -87,7 +87,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     /**********************************(  Login Logic  )*************************************/
     public void login(final String uname, final String pwd) {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<Guest> userCall = service.getGuestQuery(uname, pwd);
         final String uName = uname;
         final String uPwd = pwd;

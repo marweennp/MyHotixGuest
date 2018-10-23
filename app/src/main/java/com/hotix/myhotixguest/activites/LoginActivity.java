@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
         final String uname = _loginEmailText.getText().toString();
         final String pwd = _loginPasswordText.getText().toString();
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<Guest> userCall = service.getGuestQuery(uname, pwd);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppThemeDialog);
@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.raw().code() == 200) {
                     Guest guest = response.body();
                     if (!(guest.getError() == -1)) {
-                        showSnackbar(findViewById(android.R.id.content), "Something went wrong. please verify your login or password");
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.wrong_login));
                     } else {
 
                         remember_me = _rememberMe.isChecked();
@@ -208,7 +208,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Guest> call, Throwable t) {
                 progressDialog.dismiss();
-                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
 

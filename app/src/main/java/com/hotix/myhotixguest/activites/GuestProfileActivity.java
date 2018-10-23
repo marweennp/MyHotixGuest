@@ -1,9 +1,9 @@
 package com.hotix.myhotixguest.activites;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -15,17 +15,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.fragments.ProfileDatePickerFragment;
 import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.ResponseMsg;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -176,7 +179,7 @@ public class GuestProfileActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                settings_nearby_radius_value.setText( progress + " m");
+                settings_nearby_radius_value.setText(progress + " m");
                 settings.setNearbyRadius(progress);
             }
         });
@@ -228,7 +231,7 @@ public class GuestProfileActivity extends AppCompatActivity {
 
     @OnClick(R.id.edit_profile_details_birth_date_et)
     public void datePicker() {
-        showDatePickerDialog();
+        startDatePickerDialog(editProfileDetailsBirthDateEt);
     }
 
     @Override
@@ -261,11 +264,6 @@ public class GuestProfileActivity extends AppCompatActivity {
 
     //______________________________________________________________________________________________
 
-    public void showDatePickerDialog() {
-        DialogFragment newFragment = new ProfileDatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-
     private void loadData() {
 
         profileDetailsFirstName.setText(session.getPrenom().trim());
@@ -282,7 +280,7 @@ public class GuestProfileActivity extends AppCompatActivity {
 
         settings_notification.setChecked(settings.getReceiveNotification());
         settings_nearby_radius.setProgress(settings.getNearbyRadius());
-        settings_nearby_radius_value.setText(settings.getNearbyRadius()+" m");
+        settings_nearby_radius_value.setText(settings.getNearbyRadius() + " m");
 
 
     }
@@ -303,7 +301,7 @@ public class GuestProfileActivity extends AppCompatActivity {
         final String password = profileLoginDetailsNewPssEt.getText().toString();
         final String userId = session.getClientId().toString();
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseMsg> userCall = service.updatePassQuery(userId, password);
 
         final ProgressDialog progressDialog = new ProgressDialog(GuestProfileActivity.this, R.style.AppThemeDialog);
@@ -360,7 +358,7 @@ public class GuestProfileActivity extends AppCompatActivity {
         final String datenaissance = dateFormater(editProfileDetailsBirthDateEt.getText().toString().trim(), "dd/MM/yyyy", "yyyyMMdd");
         final String adresse = editProfileDetailsAddressEt.getText().toString().trim();
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseMsg> userCall = service.updateProfileQuery(hotelId, clientId, email, phone, nom, prenom, datenaissance, adresse);
 
         final ProgressDialog progressDialog = new ProgressDialog(GuestProfileActivity.this, R.style.AppThemeDialog);
@@ -450,6 +448,22 @@ public class GuestProfileActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void startDatePickerDialog(final AppCompatEditText et) {
+        Calendar currentTime = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                et.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        }, currentTime.get(Calendar.YEAR), currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+
     }
 
 }

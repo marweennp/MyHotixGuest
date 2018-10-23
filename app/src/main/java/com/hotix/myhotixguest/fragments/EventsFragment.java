@@ -124,7 +124,7 @@ public class EventsFragment extends Fragment {
 
     private void loadeEvents() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ArrayList<Event>> userCall = service.getActivitesQuery();
 
         progressView.setVisibility(View.VISIBLE);
@@ -155,7 +155,7 @@ public class EventsFragment extends Fragment {
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
-                showSnackbar(getActivity().findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
     }

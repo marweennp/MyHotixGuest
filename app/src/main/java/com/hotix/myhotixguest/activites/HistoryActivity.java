@@ -102,7 +102,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void loadeStays() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ArrayList<Sejour>> billCall = service.getStayHistoryQuery(session.getClientId().toString());
 
         progressView.setVisibility(View.VISIBLE);
@@ -131,7 +131,7 @@ public class HistoryActivity extends AppCompatActivity {
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
                 listView.setEmptyView(findViewById(R.id.empty_list_view));
-                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
     }

@@ -133,7 +133,7 @@ public class BillDetailsActivity extends AppCompatActivity {
 
     private void loadeBills() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<Facture> billCall = service.getFactureQuery(billId, billAn);
 
         progressView.setVisibility(View.VISIBLE);
@@ -173,7 +173,7 @@ public class BillDetailsActivity extends AppCompatActivity {
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
                 listView.setEmptyView(findViewById(R.id.empty_list_view));
-                showSnackbar(findViewById(android.R.id.content), "Server is down please try after some time");
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
     }

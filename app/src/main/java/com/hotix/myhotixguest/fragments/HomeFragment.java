@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment {
                 } else if (session.getResaId() != 0) {
                     startActivity(i);
                 } else {
-                    showSnackbar(getActivity().findViewById(android.R.id.content), "You must be a resident to use this feature");
+                    showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.not_resident));
                 }
             }
         });
@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment {
                     i.putExtra("billAn", session.getFactureAnnee().toString());
                     startActivity(i);
                 } else {
-                    showSnackbar(getActivity().findViewById(android.R.id.content), "You must be a resident to use this feature");
+                    showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.not_resident));
                 }
 
             }
@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
                     Intent i = new Intent(getActivity(), HistoryActivity.class);
                     startActivity(i);
                 } else {
-                    showSnackbar(getActivity().findViewById(android.R.id.content), "You have no history to check");
+                    showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.no_history));
                 }
 
             }
@@ -255,7 +255,7 @@ public class HomeFragment extends Fragment {
 
     public void updateFireBaseToken() {
 
-        RetrofitInterface service = RetrofitClient.getClient().create(RetrofitInterface.class);
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseBody> userCall = service.updateSerialKeyQuery(session.getClientId().toString(), session.getFCMToken());
 
         userCall.enqueue(new Callback<ResponseBody>() {

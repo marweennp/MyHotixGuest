@@ -57,6 +57,7 @@
     <string name="home_my_bill">My Bill</string>
     <string name="home_history">History</string>
     <string name="home_new_reservation">New Reservation</string>
+    <string name="new_reservation">New Reservation</string>
     <string name="no_reservations">No Reservations</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Password</string>
@@ -185,6 +186,17 @@
     <string name="about">About</string>
     <string name="contact">Contact</string>
     <string name="review">Review</string>
+    <string name="check_in">Check-in</string>
+    <string name="check_out">Check-out</string>
+    <string name="babies">Babies</string>
+    <string name="kids">Kids</string>
+    <string name="adults">Adults</string>
+    <string name="search">Search</string>
+    <string name="not_resident">You must be a resident to use this feature</string>
+    <string name="wrong_login">Something went wrong. please verify your login or password</string>
+    <string name="no_history">You have no history to check</string>
+    <string name="login_details">Login Details</string>
+    <string name="settings">Settings</string>
 
 
 </resources>
