@@ -24,6 +24,7 @@ import retrofit2.Response;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_COMPLAINT_NOTIFICATION;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_MESSAGE_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -64,11 +65,18 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }
 
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(splashScreen);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher).into(splashScreen);
 
 
         if (session.getIsLoggedIn()) {
-            login(session.getUserName(), session.getUserPassword());
+            try {
+                login(session.getUserName(), session.getUserPassword());
+            } catch (Exception e) {
+                Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
+            }
         } else {
             new Handler().postDelayed(new Runnable() {
 

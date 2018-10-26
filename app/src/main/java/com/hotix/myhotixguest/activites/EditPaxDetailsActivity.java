@@ -67,7 +67,11 @@ public class EditPaxDetailsActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
 
-        loadingStartData();
+        try {
+            loadingStartData();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,7 +94,11 @@ public class EditPaxDetailsActivity extends AppCompatActivity {
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadResaPax();
+                try {
+                    loadResaPax();
+                } catch (Exception e) {
+                    showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+                }
             }
         });
 
@@ -99,7 +107,11 @@ public class EditPaxDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadResaPax();
+        try {
+            loadResaPax();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @Override

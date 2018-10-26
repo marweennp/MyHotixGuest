@@ -37,13 +37,13 @@ public class ConnectionChecher {
     }
 
     /*Android Network Availability*/
-    protected static boolean isNetworkAvailable(Context context) {
+    private static boolean isNetworkAvailable(Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
     /* Check if Serveur Online (ping) */
-    public static boolean isOnline() {
+    private static boolean isOnline() {
         try {
             return (Runtime.getRuntime().exec("ping -c 1 google.com").waitFor() == 0);
         } catch (Exception e) {

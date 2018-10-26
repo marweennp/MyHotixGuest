@@ -52,14 +52,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         inputValidation = new InputValidation(getApplicationContext());
 
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(forgotPasswordLogo);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher).into(forgotPasswordLogo);
 
     }
 
     @OnClick(R.id.forgot_password_button)
     public void forgotPassword() {
         if (inputValidation()) {
-            newPassword();
+            try {
+                newPassword();
+            } catch (Exception e) {
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+            }
         }
     }
 

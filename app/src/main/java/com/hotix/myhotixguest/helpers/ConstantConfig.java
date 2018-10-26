@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ConstantConfig {
 
-    /********************** *****************( Finol )************************  *******************/
+    /********************** *****************( Final )************************  *******************/
     //public static final String BASE_URL = "http://196.203.219.164/";
     //public static final String BASE_URL = "http://192.168.0.110/";
     public static final String BASE_URL = "http://192.168.0.109/";
@@ -28,7 +28,7 @@ public class ConstantConfig {
     public static final String G_MAP_API_KEY = "AIzaSyDpqH7ciz4f0tE-jixmz7QTXm8hmNzG9s4";
     public static final String G_PLACES_API_KEY = "AIzaSyBCaBLHuK_snYuADXjOas2XElNtZ1eGIZI";
 
-    /***************************************(Not Finol )*******************************************/
+    /***************************************(Non Finol )*******************************************/
     // Notification ON/OFF
     public static boolean RECEIVE_NOTIFICATION = true;
 

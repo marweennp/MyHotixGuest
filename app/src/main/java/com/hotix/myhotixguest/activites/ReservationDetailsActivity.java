@@ -150,7 +150,11 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData();
+                try {
+                    loadData();
+                } catch (Exception e) {
+                    showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+                }
             }
         });
 
@@ -165,7 +169,11 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadData();
+        try {
+            loadData();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
 

@@ -98,7 +98,12 @@ public class AboutHotelActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
 
-        loadMenu();
+
+        try {
+            loadMenu();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
 
     }
 

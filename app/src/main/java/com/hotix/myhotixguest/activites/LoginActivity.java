@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
         getFirebaseInstanceId();
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher_round).into(imagelogin);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher).into(imagelogin);
 
         checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
 
@@ -102,7 +102,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (inputTextValidation()) { login(); }
+                if (inputTextValidation()) {
+                    try {
+                        login();
+                    } catch (Exception e) {
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+                    }
+                }
             }
         });
 
@@ -176,16 +182,16 @@ public class LoginActivity extends AppCompatActivity {
                                 remember_me,
                                 uname,
                                 pwd,
-                                response.body().getDateArrivee().trim(),
-                                response.body().getDateDepart().trim(),
-                                response.body().getChambre().trim(),
-                                response.body().getEmail().trim(),
-                                response.body().getNom().trim(),
-                                response.body().getPrenom().trim(),
-                                response.body().getPhone().trim(),
-                                response.body().getDateNaissance().trim(),
-                                response.body().getAdresse().trim(),
-                                response.body().getNationaliteName().trim(),
+                                response.body().getDateArrivee(),
+                                response.body().getDateDepart(),
+                                response.body().getChambre(),
+                                response.body().getEmail(),
+                                response.body().getNom(),
+                                response.body().getPrenom(),
+                                response.body().getPhone(),
+                                response.body().getDateNaissance(),
+                                response.body().getAdresse(),
+                                response.body().getNationaliteName(),
                                 response.body().getEtatResa(),
                                 response.body().getResaId(),
                                 response.body().getResaPaxId(),

@@ -95,7 +95,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     @OnClick(R.id.order_details_footer)
     public void confirmOrder() {
-        sendCommande();
+        try {
+            sendCommande();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     private void setHeader() {

@@ -191,7 +191,11 @@ public class GuestProfileActivity extends AppCompatActivity {
     @OnClick(R.id.edit_profile_details_save_btn)
     public void saveProfile() {
         if (profileValidation()) {
-            updateProfile();
+            try {
+                updateProfile();
+            } catch (Exception e) {
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+            }
         }
     }
 
@@ -215,7 +219,11 @@ public class GuestProfileActivity extends AppCompatActivity {
     public void saveNewPassword() {
 
         if (passwordValidation()) {
-            updatePassword();
+            try {
+                updatePassword();
+            } catch (Exception e) {
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+            }
         }
 
     }

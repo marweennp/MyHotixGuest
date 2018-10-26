@@ -59,22 +59,38 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
 
     @OnClick(R.id.nearby_place_restaurant_view)
     public void showRestaurant() {
-        loadNearbyPlaces(mLocation, mRadius, "restaurant", G_PLACES_API_KEY);
+        try {
+            loadNearbyPlaces(mLocation, mRadius, "restaurant", G_PLACES_API_KEY);
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @OnClick(R.id.nearby_place_atm_view)
     public void showAirport() {
-        loadNearbyPlaces(mLocation, mRadius, "atm", G_PLACES_API_KEY);
+        try {
+            loadNearbyPlaces(mLocation, mRadius, "atm", G_PLACES_API_KEY);
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @OnClick(R.id.nearby_place_park_view)
     public void showSchool() {
-        loadNearbyPlaces(mLocation, mRadius, "park", G_PLACES_API_KEY);
+        try {
+            loadNearbyPlaces(mLocation, mRadius, "park", G_PLACES_API_KEY);
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @OnClick(R.id.nearby_place_shopping_mall_view)
     public void showBank() {
-        loadNearbyPlaces(mLocation, mRadius, "shopping_mall", G_PLACES_API_KEY);
+        try {
+            loadNearbyPlaces(mLocation, mRadius, "shopping_mall", G_PLACES_API_KEY);
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
 
@@ -130,7 +146,7 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
                     if (!(nearbyPlaces.getStatus().equals("OK"))) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.something_wrong));
                     } else {
-                        showNearbyPlaces(mResult,mType);
+                        showNearbyPlaces(mResult, mType);
                     }
 
                 } else {

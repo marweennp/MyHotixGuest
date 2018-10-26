@@ -73,7 +73,11 @@ public class HistoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        loadeStays();
+        try {
+            loadeStays();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,7 +95,11 @@ public class HistoryActivity extends AppCompatActivity {
 
     @OnClick(R.id.empty_list_refresh_btn)
     public void refresh() {
-        loadeStays();
+        try {
+            loadeStays();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @Override

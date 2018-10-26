@@ -150,14 +150,22 @@ public class NewOrderActivity extends AppCompatActivity {
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadeData();
+                try {
+                    loadeData();
+                } catch (Exception e) {
+                    showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+                }
             }
         });
 
         pullLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadeData();
+                try {
+                    loadeData();
+                } catch (Exception e) {
+                    showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+                }
                 sortMenuFiltersView.setVisibility(View.GONE);
                 sortMenuTitleIcon.setImageResource(R.drawable.ic_expand_more);
                 pullLayout.setRefreshing(false);
@@ -301,7 +309,11 @@ public class NewOrderActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadeData();
+        try {
+            loadeData();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
         price = 0.0;
         for (CartItem obj : GLOBAL_CART) {
             price += obj.getPrixUnitaire() * obj.getQuantite();

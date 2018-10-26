@@ -116,13 +116,21 @@ public class BillDetailsActivity extends AppCompatActivity {
 
     @OnClick(R.id.empty_list_refresh_btn)
     public void refresh() {
-        loadeBills();
+        try {
+            loadeBills();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadeBills();
+        try {
+            loadeBills();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @Override

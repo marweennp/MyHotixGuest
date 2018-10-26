@@ -19,6 +19,7 @@
     <string name="error_message_password_does_not_match">Passwords does not match</string>
     <string name="error_message_password_too_short">Password Is Too Short</string>
     <string name="error_message_field_required">This field is required</string>
+    <string name="error_message_check_settings">Something went wrong. Check your settings!</string>
 
     <!-- Success Messages  -->
     <string name="success_login_message">Login Successful</string>

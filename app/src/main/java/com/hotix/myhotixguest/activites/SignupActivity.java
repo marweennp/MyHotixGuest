@@ -158,7 +158,11 @@ public class SignupActivity extends AppCompatActivity {
             if (viewPager.getCurrentItem() == 2 && !termsOfServicValidation()) {
                 return;
             }
-            addNewUser();
+            try {
+                addNewUser();
+            } catch (Exception e) {
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+            }
         }
 
     }
