@@ -57,7 +57,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         viewHolder.message_title.setText(mContext.getString(R.string.message_from) + dataModel.getFrom());
         viewHolder.message_text.setText(dataModel.getSubject());
         viewHolder.message_date.setText(Html.fromHtml(dateColored(dataModel.getDate(), "", "", "yyyy-MM-dd'T'hh:mm:ss", true)));
-        viewHolder.message_time.setText(dateFormater(dataModel.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "hh:mm"));
+        viewHolder.message_time.setText(dateFormater(dataModel.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "HH:mm"));
 
 
         // Return the completed view to render on screen

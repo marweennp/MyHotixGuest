@@ -39,7 +39,9 @@ import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.RECEIVE_NOTIFICATION;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
+import static com.hotix.myhotixguest.helpers.Utils.stringEmptyOrNull;
 
 public class GuestProfileActivity extends AppCompatActivity {
 
@@ -188,6 +190,12 @@ public class GuestProfileActivity extends AppCompatActivity {
         loadSettings();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setBaseUrl(this);
+    }
+
     @OnClick(R.id.edit_profile_details_save_btn)
     public void saveProfile() {
         if (profileValidation()) {
@@ -274,13 +282,42 @@ public class GuestProfileActivity extends AppCompatActivity {
 
     private void loadData() {
 
-        profileDetailsFirstName.setText(session.getPrenom().trim());
-        profileDetailsLastName.setText(session.getNom().trim());
-        profileDetailsNationality.setText(session.getNationaliteName().trim());
-        profileDetailsBirthDate.setText(dateFormater(session.getBirthDay(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy").trim());
-        profileDetailsAddress.setText(session.getAddress().trim());
-        profileDetailsPhone.setText(session.getPhone().trim());
-        profileDetailsMail.setText(session.getEmail().trim());
+        if (!stringEmptyOrNull(session.getPrenom())) {
+            profileDetailsFirstName.setText(session.getPrenom().trim());
+        } else {
+            profileDetailsFirstName.setText("-");
+        }
+        if (!stringEmptyOrNull(session.getNom())) {
+            profileDetailsLastName.setText(session.getNom().trim());
+        } else {
+            profileDetailsLastName.setText("-");
+        }
+        if (!stringEmptyOrNull(session.getNationaliteName())) {
+            profileDetailsNationality.setText(session.getNationaliteName().trim());
+        } else {
+            profileDetailsNationality.setText("-");
+        }
+        if (!stringEmptyOrNull(session.getBirthDay())) {
+            profileDetailsBirthDate.setText(dateFormater(session.getBirthDay(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy").trim());
+        } else {
+            profileDetailsBirthDate.setText("-");
+        }
+        if (!stringEmptyOrNull(session.getAddress())) {
+            profileDetailsAddress.setText(session.getAddress().trim());
+        } else {
+            profileDetailsAddress.setText("-");
+        }
+        if (!stringEmptyOrNull(session.getPhone())) {
+            profileDetailsPhone.setText(session.getPhone().trim());
+        } else {
+            profileDetailsPhone.setText("-");
+        }
+        if (!stringEmptyOrNull(session.getEmail())) {
+            profileDetailsMail.setText(session.getEmail().trim());
+        } else {
+            profileDetailsMail.setText("-");
+        }
+
 
     }
 
@@ -295,12 +332,24 @@ public class GuestProfileActivity extends AppCompatActivity {
 
     private void loadEt() {
 
-        editProfileDetailsFirstNameEt.setText(session.getPrenom().trim());
-        editProfileDetailsLastNameEt.setText(session.getNom().trim());
-        editProfileDetailsBirthDateEt.setText(dateFormater(session.getBirthDay(), "yyyy-MM-dd'T'hh:mm:ss", "dd/MM/yyyy").trim());
-        editProfileDetailsAddressEt.setText(session.getAddress().trim());
-        editProfileDetailsPhoneEt.setText(session.getPhone().trim());
-        editProfileDetailsMailEt.setText(session.getEmail().trim());
+        if (!stringEmptyOrNull(session.getPrenom())) {
+            editProfileDetailsFirstNameEt.setText(session.getPrenom().trim());
+        }
+        if (!stringEmptyOrNull(session.getNom())) {
+            editProfileDetailsLastNameEt.setText(session.getNom().trim());
+        }
+        if (!stringEmptyOrNull(session.getBirthDay())) {
+            editProfileDetailsBirthDateEt.setText(dateFormater(session.getBirthDay(), "yyyy-MM-dd'T'hh:mm:ss", "dd/MM/yyyy").trim());
+        }
+        if (!stringEmptyOrNull(session.getAddress())) {
+            editProfileDetailsAddressEt.setText(session.getAddress().trim());
+        }
+        if (!stringEmptyOrNull(session.getPhone())) {
+            editProfileDetailsPhoneEt.setText(session.getPhone().trim());
+        }
+        if (!stringEmptyOrNull(session.getEmail())) {
+            editProfileDetailsMailEt.setText(session.getEmail().trim());
+        }
 
     }
 

@@ -51,10 +51,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
             android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/logout"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorBackground" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/logout_dialog_cancel_btn"
@@ -65,7 +66,7 @@
             android:layout_toStartOf="@+id/logout_dialog_yes_btn"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/cancel"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorBackground" />
     </RelativeLayout>
 
 </LinearLayout>

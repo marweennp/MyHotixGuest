@@ -61,8 +61,8 @@ public class HomeFragment extends Fragment {
     private AppCompatTextView homeGuestDate;
     private AppCompatTextView homeGuestNights;
     private AppCompatTextView homeResaDetailsTitle;
-    private AppCompatImageButton guestEditProfile;
-    private AppCompatImageButton guestLogout;
+    private AppCompatImageView guestEditProfile;
+    private AppCompatImageView guestLogout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -84,7 +84,14 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Session Manager
         session = new Session(getActivity());
-        if (session.getNewToken()) updateFireBaseToken();
+
+        if (session.getNewToken()) {
+            try {
+                updateFireBaseToken();
+            } catch (Exception e) {
+                Log.e("HOME FRAGMENT LOG", e.toString());
+            }
+        }
 
         _guestDetails = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_guest_details_layout);
         _reservationDetails = (RelativeLayout) getActivity().findViewById(R.id.home_fragment_reservation_details_layout);
@@ -104,8 +111,8 @@ public class HomeFragment extends Fragment {
         homeGuestNights = (AppCompatTextView) getActivity().findViewById(R.id.home_guest_nights);
         homeResaDetailsTitle = (AppCompatTextView) getActivity().findViewById(R.id.home_reservation_details_title);
 
-        guestEditProfile = (AppCompatImageButton) getActivity().findViewById(R.id.home_guest_edit_icon);
-        guestLogout = (AppCompatImageButton) getActivity().findViewById(R.id.home_guest_logout_icon);
+        guestEditProfile = (AppCompatImageView) getActivity().findViewById(R.id.home_guest_edit_icon);
+        guestLogout = (AppCompatImageView) getActivity().findViewById(R.id.home_guest_logout_icon);
 
         homeGuestName.setText(session.getNom() + " " + session.getPrenom());
         if (session.getISResident()) {
@@ -124,10 +131,10 @@ public class HomeFragment extends Fragment {
             homeGuestNightsIcon.setVisibility(View.GONE);
         }
 
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_1.jpg").fit().into(_reservationDetailsBG);
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_2.jpg").fit().into(_billBG);
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_3.jpg").fit().into(_historyBG);
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_4.jpg").fit().into(_newReservationBG);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_1.jpg").fit().placeholder(R.drawable.banner_placeholder).error(R.drawable.banner_placeholder).into(_reservationDetailsBG);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_2.jpg").fit().placeholder(R.drawable.banner_placeholder).error(R.drawable.banner_placeholder).into(_billBG);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_3.jpg").fit().placeholder(R.drawable.banner_placeholder).error(R.drawable.banner_placeholder).into(_historyBG);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_4.jpg").fit().placeholder(R.drawable.banner_placeholder).error(R.drawable.banner_placeholder).into(_newReservationBG);
 
 
         //Reservation Details OnClickListener
@@ -161,6 +168,9 @@ public class HomeFragment extends Fragment {
                     Intent i = new Intent(getActivity(), BillDetailsActivity.class);
                     i.putExtra("billId", session.getFactureId().toString());
                     i.putExtra("billAn", session.getFactureAnnee().toString());
+                    i.putExtra("dateIn", session.getDateArrivee());
+                    i.putExtra("dateOut", session.getDateDepart());
+                    i.putExtra("histo", false);
                     startActivity(i);
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.not_resident));

@@ -14,7 +14,7 @@ public class ConstantConfig {
     /********************** *****************( Final )************************  *******************/
     //public static final String BASE_URL = "http://196.203.219.164/";
     //public static final String BASE_URL = "http://192.168.0.110/";
-    public static final String BASE_URL = "http://192.168.0.109/";
+    //public static final String BASE_URL = "http://192.168.0.109/";
 
     public static final String BASE_URL_2 = "https://maps.googleapis.com/";
 
@@ -28,7 +28,17 @@ public class ConstantConfig {
     public static final String G_MAP_API_KEY = "AIzaSyDpqH7ciz4f0tE-jixmz7QTXm8hmNzG9s4";
     public static final String G_PLACES_API_KEY = "AIzaSyBCaBLHuK_snYuADXjOas2XElNtZ1eGIZI";
 
+    //Hotel Config
+    public static final String CONFIG_BASE_URL = "http://41.228.21.123:99/";
+    //public static final String CONFIG_BASE_URL = "http://192.168.0.6:99/";
+    public static final String FINAL_APP_ID = "1";
+    public static final String FINAL_HOTEL_ID = "9999";// 1111 Local test hotel id
+
     /***************************************(Non Finol )*******************************************/
+
+    //BASE URL
+    public static String BASE_URL = "";
+
     // Notification ON/OFF
     public static boolean RECEIVE_NOTIFICATION = true;
 

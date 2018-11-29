@@ -35,6 +35,7 @@ import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_CART;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_ORDER;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class OrderDetailsActivity extends AppCompatActivity {
@@ -82,6 +83,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setBaseUrl(this);
     }
 
     @Override
@@ -176,6 +183,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
                     prodAmountTv.setText("" + amount);
                 }
+
             }
         });
 
@@ -214,7 +222,13 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
                 setHeader();
                 setListView();
+
+                if (GLOBAL_ORDER.getDetails().size()<1) {
+                    finish();
+                }
+
                 dialog.dismiss();
+
             }
         });
 

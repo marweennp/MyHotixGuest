@@ -82,7 +82,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
         viewHolder.order_total.setText(mContext.getString(R.string.total) + formatter.format(price) +" DT");
         viewHolder.order_date.setText(Html.fromHtml(dateColored(dataModel.getDate(), "", "", "yyyyMMdd hh:mm", true)));
-        viewHolder.order_time.setText(dateFormater(dataModel.getDate(), "yyyyMMdd hh:mm", "hh:mm"));
+        viewHolder.order_time.setText(dateFormater(dataModel.getDate(), "yyyyMMdd hh:mm", "HH:mm"));
         viewHolder.order_cart.setText(dataModel.getDetails().size()+"");
 
         if (dataModel.getEtat() == 3) {

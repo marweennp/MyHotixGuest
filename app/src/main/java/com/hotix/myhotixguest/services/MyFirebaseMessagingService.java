@@ -91,6 +91,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(icon)
                         .setContentTitle(notifTitele)
+                        .setShowWhen(true)
                         .setContentText(notifBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)

@@ -5,6 +5,7 @@ import com.hotix.myhotixguest.models.Event;
 import com.hotix.myhotixguest.models.Facture;
 import com.hotix.myhotixguest.models.Famille;
 import com.hotix.myhotixguest.models.Guest;
+import com.hotix.myhotixguest.models.HotelSettings;
 import com.hotix.myhotixguest.models.MenuItem;
 import com.hotix.myhotixguest.models.Message;
 import com.hotix.myhotixguest.models.NearbyPlaces;
@@ -161,7 +162,7 @@ public interface RetrofitInterface {
 
 
     /**
-     * GooGle Places********************************************************************************************
+     * GooGle Places********************************************************************************
      **/
     //Nearby Places service call
     @GET("/maps/api/place/nearbysearch/json?")
@@ -169,6 +170,23 @@ public interface RetrofitInterface {
                                             @Query("radius") String radius,
                                             @Query("type") String type,
                                             @Query("key") String key);
+
+
+    /**
+     * Ping Serveur*********************************************************************************
+     **/
+    //Is Connected service call
+    @GET("/HNGAPI/v0/api/MyHotixguest/isconnected")
+    Call<ResponseBody> isConnectedQuery();
+
+
+    /**
+     * Hotel Config*********************************************************************************
+     **/
+    //Get Infos service call
+    @GET("/hotixsupport/api/myhotix/GetInfos?")
+    Call<HotelSettings> getInfosQuery(@Query("codehotel") String codehotel,
+                                      @Query("applicationId") String applicationId);
 
 
 }

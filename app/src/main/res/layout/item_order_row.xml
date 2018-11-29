@@ -30,14 +30,13 @@
     <!-- Date Icon -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/order_row_date_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="4dp"
-        android:tint="@color/colorPrimary"
-        app:srcCompat="@drawable/baseline_calendar_today_black_18" />
+        app:srcCompat="@drawable/svg_date_blue_512" />
 
     <!-- Date -->
     <android.support.v7.widget.AppCompatTextView
@@ -67,13 +66,12 @@
     <!-- Time Icon -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/order_row_time_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="4dp"
         android:layout_toEndOf="@+id/date_time_divider"
-        android:tint="@color/colorPrimary"
-        app:srcCompat="@drawable/baseline_schedule_black_18" />
+        app:srcCompat="@drawable/svg_time_blue_512" />
 
     <!-- Time -->
     <android.support.v7.widget.AppCompatTextView
@@ -103,13 +101,12 @@
     <!-- Cart Icon -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/order_row_cart_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="4dp"
         android:layout_toEndOf="@+id/time_cart_divider"
-        android:tint="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_shopping_cart_white_18" />
+        app:srcCompat="@drawable/svg_cart_blue_512" />
 
     <!-- Cart -->
     <android.support.v7.widget.AppCompatTextView

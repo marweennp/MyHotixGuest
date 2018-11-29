@@ -1,12 +1,16 @@
 package com.hotix.myhotixguest.activites;
 
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -34,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.Utils.dateColored;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class BillDetailsActivity extends AppCompatActivity {
@@ -70,6 +75,11 @@ public class BillDetailsActivity extends AppCompatActivity {
     private View footer;
     private String billId;
     private String billAn;
+    private String dateIn;
+    private String dateOut;
+    private boolean histo;
+
+    private Drawable mIconTwo;
 
     //___________(Currency Number format)_____________\\
     private NumberFormat formatter;
@@ -83,10 +93,20 @@ public class BillDetailsActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
 
+        //Check android vertion and load image
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            mIconTwo = getResources().getDrawable(R.drawable.svg_server_grey_512, this.getTheme());
+        } else {
+            mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, this.getTheme());
+        }
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             billId = extras.getString("billId");
             billAn = extras.getString("billAn");
+            dateIn = extras.getString("dateIn");
+            dateOut = extras.getString("dateOut");
+            histo = extras.getBoolean("histo");
         }
 
         formatter = NumberFormat.getCurrencyInstance(Locale.US);
@@ -126,6 +146,7 @@ public class BillDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setBaseUrl(this);
         try {
             loadeBills();
         } catch (Exception e) {
@@ -165,7 +186,12 @@ public class BillDetailsActivity extends AppCompatActivity {
                     listView.addFooterView(footer);
 
                     billOwner.setText(session.getNom() + " " + session.getPrenom());
-                    billDate.setText(Html.fromHtml(dateColored(session.getDateArrivee(), "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true) + " - " + dateColored(session.getDateDepart(), "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true)));
+
+                    if (histo) {
+                        billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", true)));
+                    } else {
+                        billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true)));
+                    }
 
                     billNumber.setText(facture.getId() + "-" + facture.getAnnee());
                     billHeadTotalTTC.setText(formatter.format(facture.getTotalTTC()) + " " + facture.getDevise());
@@ -179,7 +205,7 @@ public class BillDetailsActivity extends AppCompatActivity {
             public void onFailure(Call<Facture> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
+                emptyListIcon.setImageDrawable(mIconTwo);
                 listView.setEmptyView(findViewById(R.id.empty_list_view));
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }

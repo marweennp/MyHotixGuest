@@ -3,15 +3,25 @@ package com.hotix.myhotixguest.helpers;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 
 import com.hotix.myhotixguest.R;
+import com.hotix.myhotixguest.retrofit2.RetrofitClient;
+import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 
 public class Utils {
 
@@ -62,11 +72,9 @@ public class Utils {
         try {
             start = df.parse(startDate);
             end = df.parse(endDate);
-
             return Long.toString((end.getTime() - start.getTime()) / (24 * 60 * 60 * 1000));
         } catch (Exception e) {
         }
-
         return "0";
     }
 
@@ -109,9 +117,57 @@ public class Utils {
         return text;
     }
 
-    /**
-     ***********************************************************************************************
-     */
+    /**********************************************************************************************/
+
+    /*Set BASE_URL*/
+    public static void setBaseUrl(Context context) {
+        Settings mySettings = new Settings(context);
+
+        if (mySettings.getLocalIpEnabled() && mySettings.getPublicIpEnabled()) {
+
+            BASE_URL = mySettings.getLocalIpDefault() ? mySettings.getLocalBaseUrl() : mySettings.getPublicBaseUrl();
+            try {
+                ping(context);
+            } catch (Exception e) {
+                Log.e("Exception", e.toString());
+            }
+
+        } else {
+            BASE_URL = mySettings.getLocalIpEnabled() ? mySettings.getLocalBaseUrl() : mySettings.getPublicBaseUrl();
+        }
+
+    }
+
+    public static void ping(Context context) {
+        final Settings mMySettings = new Settings(context);
+
+        RetrofitInterface service = RetrofitClient.getClientPing().create(RetrofitInterface.class);
+        Call<ResponseBody> userCall = service.isConnectedQuery();
+        userCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.raw().code() == 200) {
+                    Log.e("BASE_URL OK 200", BASE_URL);
+
+                } else {
+                    BASE_URL = mMySettings.getLocalIpDefault() ? mMySettings.getPublicBaseUrl() : mMySettings.getLocalBaseUrl();
+                    mMySettings.setLocalIpDefault(!mMySettings.getLocalIpDefault());
+                    Log.e("BASE_URL Switshed", BASE_URL);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                BASE_URL = mMySettings.getLocalIpDefault() ? mMySettings.getPublicBaseUrl() : mMySettings.getLocalBaseUrl();
+                mMySettings.setLocalIpDefault(!mMySettings.getLocalIpDefault());
+                Log.e("BASE_URL onFailure", BASE_URL);
+            }
+        });
+
+    }
+
+    /**********************************************************************************************/
 
     /**
      * String Empty Or Null (String)
@@ -122,7 +178,9 @@ public class Utils {
      */
     public static boolean stringEmptyOrNull(String str) {
 
-        if(str != null && !str.isEmpty()) { return false; }
+        if (str != null && !str.isEmpty()) {
+            return false;
+        }
         return true;
     }
 
@@ -174,9 +232,13 @@ public class Utils {
         String st_m = "";
         String st_y = "";
 
-        if (!stringEmptyOrNull(col_1)) { color1 = col_1; }
+        if (!stringEmptyOrNull(col_1)) {
+            color1 = col_1;
+        }
 
-        if (!stringEmptyOrNull(col_2)) { color2 = col_2; }
+        if (!stringEmptyOrNull(col_2)) {
+            color2 = col_2;
+        }
 
         try {
             result = sdf_from.parse(date);

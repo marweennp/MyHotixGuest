@@ -24,6 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
@@ -70,6 +71,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setBaseUrl(this);
     }
 
     /**********************************(  Input Validation  )*************************************/

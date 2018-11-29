@@ -15,12 +15,11 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/event_row_date_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/baseline_calendar_today_24" />
+            app:srcCompat="@drawable/svg_date_white_512" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/event_row_head_date"
@@ -35,13 +34,12 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/event_row_time_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="4dp"
             android:layout_toStartOf="@+id/event_row_head_time"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/baseline_schedule_24" />
+            app:srcCompat="@drawable/svg_time_white_512" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/event_row_head_time"

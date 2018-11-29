@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_MESSAGE_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -89,6 +90,12 @@ public class HomeScreenActivity extends AppCompatActivity {
             HAVE_MESSAGE_NOTIFICATION = false;
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setBaseUrl(this);
     }
 
     // load fragments

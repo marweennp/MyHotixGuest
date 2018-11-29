@@ -33,11 +33,10 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/hotel_frag_menu_info_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_centerInParent="true"
-                android:tint="@color/white"
-                app:srcCompat="@drawable/ic_info_white_48" />
+                app:srcCompat="@drawable/svg_information_white_512" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/hotel_frag_menu_info_text"
@@ -75,11 +74,10 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/hotel_frag_menu_contact_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_centerInParent="true"
-                android:tint="@color/white"
-                app:srcCompat="@drawable/ic_phone_white_48" />
+                app:srcCompat="@drawable/svg_telephone_white_512" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/hotel_frag_menu_contact_text"
@@ -116,11 +114,10 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/hotel_frag_menu_review_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_centerInParent="true"
-                android:tint="@color/white"
-                app:srcCompat="@drawable/baseline_favorite_black_48" />
+                app:srcCompat="@drawable/svg_heart_two_white_512" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/hotel_frag_menu_review_text"

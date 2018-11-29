@@ -41,6 +41,7 @@ import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.TERMS_OF_SERVICE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class SignupActivity extends AppCompatActivity {
@@ -141,6 +142,12 @@ public class SignupActivity extends AppCompatActivity {
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(myViewPagerListener);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setBaseUrl(this);
     }
 
     @OnClick(R.id.signup_next_btn)

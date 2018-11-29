@@ -1,7 +1,10 @@
 package com.hotix.myhotixguest.activites;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
@@ -29,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class HistoryActivity extends AppCompatActivity {
@@ -56,6 +60,8 @@ public class HistoryActivity extends AppCompatActivity {
     Session session;
     ArrayList<Sejour> l_sejours;
 
+    private Drawable mIconTwo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +69,13 @@ public class HistoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+
+        //Check android vertion and load image
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            mIconTwo = getResources().getDrawable(R.drawable.svg_server_grey_512, this.getTheme());
+        } else {
+            mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, this.getTheme());
+        }
 
         l_sejours = new ArrayList<>();
 
@@ -73,11 +86,7 @@ public class HistoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        try {
-            loadeStays();
-        } catch (Exception e) {
-            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
-        }
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,6 +100,17 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setBaseUrl(this);
+        try {
+            loadeStays();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @OnClick(R.id.empty_list_refresh_btn)
@@ -111,12 +131,12 @@ public class HistoryActivity extends AppCompatActivity {
     private void loadeStays() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<ArrayList<Sejour>> billCall = service.getStayHistoryQuery(session.getClientId().toString());
+        Call<ArrayList<Sejour>> userCall = service.getStayHistoryQuery(session.getClientId().toString());
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
 
-        billCall.enqueue(new Callback<ArrayList<Sejour>>() {
+        userCall.enqueue(new Callback<ArrayList<Sejour>>() {
             @Override
             public void onResponse(Call<ArrayList<Sejour>> call, Response<ArrayList<Sejour>> response) {
                 progressView.setVisibility(View.GONE);
@@ -137,7 +157,7 @@ public class HistoryActivity extends AppCompatActivity {
             public void onFailure(Call<ArrayList<Sejour>> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.baseline_signal_wifi_off_24);
+                emptyListIcon.setImageDrawable(mIconTwo);
                 listView.setEmptyView(findViewById(R.id.empty_list_view));
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }

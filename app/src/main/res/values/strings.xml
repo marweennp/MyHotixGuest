@@ -1,7 +1,7 @@
 <resources>
 
     <!-- App Name -->
-    <string name="app_name">My Hotix Guest</string>
+    <string name="app_name">MyHotix Guest</string>
 
     <!-- EditText Hints -->
     <string name="hint_login_email">Username</string>
@@ -77,11 +77,11 @@
     <string name="day_till_check_in">Day till check-in</string>
     <string name="compaint_treated">treated</string>
     <string name="compaint_waiting">waiting</string>
-    <string name="no_activitie_to_show">No activities to show</string>
-    <string name="no_complaint_to_show">You have placed no complaints</string>
-    <string name="no_products_to_show">No products to show</string>
-    <string name="no_orders_to_show">You have placed no orders</string>
-    <string name="no_message_to_show">No message to show</string>
+    <string name="no_activitie_to_show">No activities found.</string>
+    <string name="no_complaint_to_show">You have placed no complaints yet.</string>
+    <string name="no_products_to_show">No products found!</string>
+    <string name="no_orders_to_show">You have placed no orders yet.</string>
+    <string name="no_message_to_show">You have no messages to show.</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">FCM Message</string>
@@ -100,9 +100,9 @@
     <string name="smooker">Smooker</string>
     <string name="disability">Disability</string>
     <string name="no_item_to_show">No item to show.</string>
-    <string name="server_unreachable">The server is unreachable</string>
+    <string name="server_unreachable">The server is unreachable!</string>
     <string name="loading">Loading…</string>
-    <string name="no_history_to_show">No hestory to show</string>
+    <string name="no_history_to_show">No Hestory to show.</string>
     <string name="no_bills_to_show">No Bills to show</string>
     <string name="new_complaint_title">Title</string>
     <string name="new_complaint_subject">Subject</string>
@@ -198,6 +198,11 @@
     <string name="no_history">You have no history to check</string>
     <string name="login_details">Login Details</string>
     <string name="settings">Settings</string>
+    <string name="event_participate">Participate</string>
+    <string name="connection_failed_title">Connection Failed</string>
+    <string name="connection_failed_msg">Please Check your Internet Connection</string>
+    <string name="retry">Try Again</string>
+    <string name="exit">Exit</string>
 
 
 </resources>

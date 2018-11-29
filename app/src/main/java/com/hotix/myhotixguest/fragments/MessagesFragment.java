@@ -1,7 +1,10 @@
 package com.hotix.myhotixguest.fragments;
 
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
@@ -58,6 +61,7 @@ public class MessagesFragment extends Fragment {
     private AppCompatImageView emptyListIcon;
     private AppCompatButton emptyListRefresh;
 
+    private Drawable mIconOne, mIconTwo;
 
     public MessagesFragment() {
     }
@@ -77,6 +81,15 @@ public class MessagesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Session Manager
         session = new Session(getActivity());
+
+        //Check android vertion and load image
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            mIconOne = getResources().getDrawable(R.drawable.svg_notifications_grey_512, getActivity().getTheme());
+            mIconTwo = getResources().getDrawable(R.drawable.svg_server_grey_512, getActivity().getTheme());
+        } else {
+            mIconOne = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_notifications_grey_512, getActivity().getTheme());
+            mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, getActivity().getTheme());
+        }
 
         pullLayout = (PullRefreshLayout) getActivity().findViewById(R.id.messages_list_pull_to_refresh);
 
@@ -147,7 +160,7 @@ public class MessagesFragment extends Fragment {
 
                     adapter = new MessageAdapter(dataModels, getActivity());
                     listView.setAdapter(adapter);
-                    emptyListIcon.setImageResource(R.drawable.baseline_comment_24);
+                    emptyListIcon.setImageDrawable(mIconOne);
                     emptyListText.setText(R.string.no_message_to_show);
                     listView.setEmptyView(emptyListView);
 
@@ -161,7 +174,7 @@ public class MessagesFragment extends Fragment {
                 progressView.setVisibility(View.GONE);
                 pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
+                emptyListIcon.setImageDrawable(mIconTwo);
                 listView.setEmptyView(emptyListView);
                 showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
             }

@@ -76,8 +76,8 @@ public class EventAdapter extends ArrayAdapter<Event> {
             result = convertView;
         }
 
-        viewHolder.event_row_head_date.setText(Html.fromHtml(dateColored(dataModel.getDateDebut(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
-        viewHolder.event_row_head_time.setText(dateFormater(dataModel.getHeure(), "hh:mm:ss", "hh:mm"));
+        viewHolder.event_row_head_date.setText(Html.fromHtml(dateColored(dataModel.getDateDebut(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", false)+"-"+dateColored(dataModel.getDateFin(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
+        viewHolder.event_row_head_time.setText(dateFormater(dataModel.getHeure(), "hh:mm:ss", "HH:mm"));
         viewHolder.event_row_head_title.setText(dataModel.getNom());
         viewHolder.event_row_head_desc.setText(dataModel.getDescription());
 

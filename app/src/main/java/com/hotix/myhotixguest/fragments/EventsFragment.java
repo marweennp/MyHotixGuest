@@ -1,8 +1,11 @@
 package com.hotix.myhotixguest.fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -52,6 +55,8 @@ public class EventsFragment extends Fragment {
     private AppCompatImageView emptyListIcon;
     private AppCompatButton emptyListRefresh;
 
+    private Drawable mIconOne, mIconTwo;
+
     public EventsFragment() {
         // Required empty public constructor
     }
@@ -72,6 +77,15 @@ public class EventsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Session Manager
         session = new Session(getActivity());
+
+        //Check android vertion and load image
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            mIconOne = getResources().getDrawable(R.drawable.svg_running_grey_512, getActivity().getTheme());
+            mIconTwo = getResources().getDrawable(R.drawable.svg_server_grey_512, getActivity().getTheme());
+        } else {
+            mIconOne = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_running_grey_512, getActivity().getTheme());
+            mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, getActivity().getTheme());
+        }
 
         pullLayout = (PullRefreshLayout) getActivity().findViewById(R.id.event_list_pull_to_refresh);
 
@@ -141,6 +155,7 @@ public class EventsFragment extends Fragment {
                     adapter = new EventAdapter(dataModels, getActivity());
                     listView.setAdapter(adapter);
                     emptyListText.setText(R.string.no_activitie_to_show);
+                    emptyListIcon.setImageDrawable(mIconOne);
                     listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
 
                 } else {
@@ -153,7 +168,7 @@ public class EventsFragment extends Fragment {
                 progressView.setVisibility(View.GONE);
                 pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
+                emptyListIcon.setImageDrawable(mIconTwo);
                 listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
                 showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
             }

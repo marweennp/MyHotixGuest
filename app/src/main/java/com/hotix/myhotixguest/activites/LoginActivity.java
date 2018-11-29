@@ -36,6 +36,7 @@ import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConnectionChecher.checkNetwork;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 import static com.hotix.myhotixguest.helpers.Utils.signeUpTextTowColors;
 
@@ -137,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setBaseUrl(this);
     }
 
     @Override
@@ -206,7 +208,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    showSnackbar(findViewById(android.R.id.content), response.message());
+                    showSnackbar(findViewById(android.R.id.content), "here" + response.message());
                 }
 
             }

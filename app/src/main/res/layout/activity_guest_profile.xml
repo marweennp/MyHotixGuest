@@ -213,10 +213,9 @@
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/profile_details_birth_date_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:tint="@color/light_bg_dark_secondary_text"
-                                app:srcCompat="@drawable/baseline_calendar_today_24" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                app:srcCompat="@drawable/svg_date_grey_512" />
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/profile_details_birth_date"
@@ -260,10 +259,9 @@
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/profile_details_address_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:tint="@color/light_bg_dark_secondary_text"
-                                app:srcCompat="@drawable/baseline_location_on_24" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                app:srcCompat="@drawable/svg_pin_grey_512" />
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/profile_details_address"
@@ -307,10 +305,9 @@
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/profile_details_phone_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:tint="@color/light_bg_dark_secondary_text"
-                                app:srcCompat="@drawable/baseline_smartphone_24" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                app:srcCompat="@drawable/svg_mobile_grey_512" />
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/profile_details_phone"
@@ -354,10 +351,9 @@
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/profile_details_mail_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:tint="@color/light_bg_dark_secondary_text"
-                                app:srcCompat="@drawable/baseline_email_24" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                app:srcCompat="@drawable/svg_mail_grey_512" />
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/profile_details_mail"

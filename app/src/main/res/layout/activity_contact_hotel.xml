@@ -125,10 +125,9 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/contact_hotel_phone_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/ic_phone_white_24" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/svg_telephone_grey_512" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/contact_hotel_phone"
@@ -153,10 +152,9 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/contact_hotel_fax_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/ic_print_white_24" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/svg_fax_grey_512" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/contact_hotel_fax"
@@ -190,10 +188,9 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/contact_hotel_mail_icon_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/ic_mail_white_24" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/svg_mail_grey_512" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/contact_hotel_mail_1"
@@ -227,10 +224,9 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/contact_hotel_mail_icon_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/ic_mail_white_24" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/svg_mail_grey_512" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/contact_hotel_mail_2"
@@ -254,10 +250,9 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/contact_hotel_mail_icon_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/ic_mail_white_24" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/svg_mail_grey_512" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/contact_hotel_mail_3"
@@ -291,10 +286,9 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/contact_hotel_mail_icon_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/ic_mail_white_24" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/svg_mail_grey_512" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/contact_hotel_mail_4"
@@ -328,10 +322,9 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/contact_hotel_web_site_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/ic_public_white_24" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/svg_web_grey_512" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/contact_hotel_web_site"

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
@@ -84,7 +85,7 @@ public class PaxDetailsFragment extends Fragment {
     private TextInputLayout job_il;
     private AppCompatEditText job_et;
 
-    private AppCompatButton save_btn;
+    private AppCompatImageButton save_btn;
 
     private Pax paxData = new Pax();
 
@@ -159,7 +160,7 @@ public class PaxDetailsFragment extends Fragment {
         job_il = (TextInputLayout) view.findViewById(R.id.pax_detail_job_il);
         job_et = (AppCompatEditText) view.findViewById(R.id.pax_detail_job_et);
 
-        save_btn = (AppCompatButton) view.findViewById(R.id.pax_detail_save_btn);
+        save_btn = (AppCompatImageButton) view.findViewById(R.id.pax_detail_save_btn);
 
         initData();
 

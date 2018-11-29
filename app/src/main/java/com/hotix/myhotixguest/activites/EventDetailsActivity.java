@@ -85,7 +85,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         Picasso.get().load(BASE_URL + "/Android/pics_guest/Events/" + GLOBAL_EVENT.getImage()).fit().placeholder(R.drawable.activites).into(eventImg);
 
-        eventDetailsDate.setText(Html.fromHtml(dateColored(GLOBAL_EVENT.getDateDebut(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
+        eventDetailsDate.setText(Html.fromHtml(dateColored(GLOBAL_EVENT.getDateDebut(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", false)+"-"+dateColored(GLOBAL_EVENT.getDateFin(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
         eventDetailsTime.setText(dateFormater(GLOBAL_EVENT.getHeure(), "hh:mm:ss", "hh:mm"));
         eventDetailsLocationText.setText(GLOBAL_EVENT.getLocation());
 
@@ -102,6 +102,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         eventDetailsDesc.setText(GLOBAL_EVENT.getDescription());
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

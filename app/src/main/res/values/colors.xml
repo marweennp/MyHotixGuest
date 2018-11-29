@@ -23,6 +23,7 @@
     <color name="white_70_alpha">#B3FFFFFF</color>
 
     <color name="colorBackground">#123456</color>
+    <color name="colorImgBg">#E0E0E0</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark">#FFFFFFFF</color>

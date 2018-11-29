@@ -1,7 +1,10 @@
 package com.hotix.myhotixguest.activites;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
@@ -30,6 +33,7 @@ import retrofit2.Response;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_INFOS;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_SLIDES;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class AboutHotelActivity extends AppCompatActivity {
@@ -90,6 +94,8 @@ public class AboutHotelActivity extends AppCompatActivity {
 
     private ArrayList<MenuItem> mMenu;
 
+    private Drawable mIconTwo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,11 +104,11 @@ public class AboutHotelActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
 
-
-        try {
-            loadMenu();
-        } catch (Exception e) {
-            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        //Check android vertion and load image
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            mIconTwo = getResources().getDrawable(R.drawable.svg_server_grey_512, this.getTheme());
+        } else {
+            mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, this.getTheme());
         }
 
     }
@@ -110,62 +116,74 @@ public class AboutHotelActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setBaseUrl(this);
+        try {
+            loadMenu();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
     }
 
     @OnClick(R.id.about_hotel_menu_1_view)
     public void hotelInfo() {
 
-        GLOBAL_SLIDES.clear();
-        GLOBAL_SLIDES.addAll(mMenu.get(0).getSlides());
-        GLOBAL_INFOS = mMenu.get(0).getInfos();
+        if (mMenu.size() > 0) {
+            GLOBAL_SLIDES.clear();
+            GLOBAL_SLIDES.addAll(mMenu.get(0).getSlides());
+            GLOBAL_INFOS = mMenu.get(0).getInfos();
 
-        Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
-        i.putExtra("nearby", true);
-        startActivity(i);
+            Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
+            i.putExtra("nearby", true);
+            startActivity(i);
+        }
     }
 
     @OnClick(R.id.about_hotel_menu_2_view)
     public void hotelRooms() {
+        if (mMenu.size() > 0) {
+            GLOBAL_SLIDES.clear();
+            GLOBAL_SLIDES.addAll(mMenu.get(1).getSlides());
+            GLOBAL_INFOS = mMenu.get(1).getInfos();
 
-        GLOBAL_SLIDES.clear();
-        GLOBAL_SLIDES.addAll(mMenu.get(1).getSlides());
-        GLOBAL_INFOS = mMenu.get(1).getInfos();
-
-        Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
-        startActivity(i);
+            Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
+            startActivity(i);
+        }
     }
 
     @OnClick(R.id.about_hotel_menu_3_view)
     public void hotelSpa() {
+        if (mMenu.size() > 0) {
+            GLOBAL_SLIDES.clear();
+            GLOBAL_SLIDES.addAll(mMenu.get(2).getSlides());
+            GLOBAL_INFOS = mMenu.get(2).getInfos();
 
-        GLOBAL_SLIDES.clear();
-        GLOBAL_SLIDES.addAll(mMenu.get(2).getSlides());
-        GLOBAL_INFOS = mMenu.get(2).getInfos();
-
-        Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
-        startActivity(i);
+            Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
+            startActivity(i);
+        }
     }
 
     @OnClick(R.id.about_hotel_menu_4_view)
     public void hotelResto() {
+        if (mMenu.size() > 0) {
+            GLOBAL_SLIDES.clear();
+            GLOBAL_SLIDES.addAll(mMenu.get(3).getSlides());
+            GLOBAL_INFOS = mMenu.get(3).getInfos();
 
-        GLOBAL_SLIDES.clear();
-        GLOBAL_SLIDES.addAll(mMenu.get(3).getSlides());
-        GLOBAL_INFOS = mMenu.get(3).getInfos();
-
-        Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
-        startActivity(i);
+            Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
+            startActivity(i);
+        }
     }
 
     @OnClick(R.id.about_hotel_menu_5_view)
     public void hotelConf() {
+        if (mMenu.size() > 0) {
+            GLOBAL_SLIDES.clear();
+            GLOBAL_SLIDES.addAll(mMenu.get(4).getSlides());
+            GLOBAL_INFOS = mMenu.get(4).getInfos();
 
-        GLOBAL_SLIDES.clear();
-        GLOBAL_SLIDES.addAll(mMenu.get(4).getSlides());
-        GLOBAL_INFOS = mMenu.get(4).getInfos();
-
-        Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
-        startActivity(i);
+            Intent i = new Intent(getApplicationContext(), ImageSliderActivity.class);
+            startActivity(i);
+        }
     }
 
     /**
@@ -194,21 +212,32 @@ public class AboutHotelActivity extends AppCompatActivity {
                     mMenu = new ArrayList<>();
                     mMenu = response.body();
 
-                    Picasso.get().load(BASE_URL + mMenu.get(0).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_1_bg);
-                    Picasso.get().load(BASE_URL + mMenu.get(1).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_2_bg);
-                    Picasso.get().load(BASE_URL + mMenu.get(2).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_3_bg);
-                    Picasso.get().load(BASE_URL + mMenu.get(3).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_4_bg);
-                    Picasso.get().load(BASE_URL + mMenu.get(4).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_5_bg);
+                    if (mMenu.size() > 0) {
 
-                    menu_1_tv.setText(mMenu.get(0).getTitle());
-                    menu_2_tv.setText(mMenu.get(1).getTitle());
-                    menu_3_tv.setText(mMenu.get(2).getTitle());
-                    menu_4_tv.setText(mMenu.get(3).getTitle());
-                    menu_5_tv.setText(mMenu.get(4).getTitle());
+                        Picasso.get().load(BASE_URL + mMenu.get(0).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_1_bg);
+                        Picasso.get().load(BASE_URL + mMenu.get(1).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_2_bg);
+                        Picasso.get().load(BASE_URL + mMenu.get(2).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_3_bg);
+                        Picasso.get().load(BASE_URL + mMenu.get(3).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_4_bg);
+                        Picasso.get().load(BASE_URL + mMenu.get(4).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_5_bg);
 
+                        menu_1_tv.setText(mMenu.get(0).getTitle());
+                        menu_2_tv.setText(mMenu.get(1).getTitle());
+                        menu_3_tv.setText(mMenu.get(2).getTitle());
+                        menu_4_tv.setText(mMenu.get(3).getTitle());
+                        menu_5_tv.setText(mMenu.get(4).getTitle());
+                    } else {
+                        mainContainer.setVisibility(View.GONE);
+                        emptyListView.setVisibility(View.VISIBLE);
+                        emptyListText.setText(R.string.server_unreachable);
+                        emptyListIcon.setImageDrawable(mIconTwo);
+                    }
 
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
+                    mainContainer.setVisibility(View.GONE);
+                    emptyListView.setVisibility(View.VISIBLE);
+                    emptyListText.setText(R.string.server_unreachable);
+                    emptyListIcon.setImageDrawable(mIconTwo);
                 }
             }
 
@@ -217,7 +246,7 @@ public class AboutHotelActivity extends AppCompatActivity {
                 progressView.setVisibility(View.GONE);
                 emptyListView.setVisibility(View.VISIBLE);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
+                emptyListIcon.setImageDrawable(mIconTwo);
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });

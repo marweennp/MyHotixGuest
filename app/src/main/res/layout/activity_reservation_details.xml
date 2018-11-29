@@ -83,11 +83,10 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/profile_bill_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/baseline_receipt_black_36"
-                        android:tint="@color/white" />
+                        app:srcCompat="@drawable/svg_receipt_white_512" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/profile_bill_text"
@@ -109,11 +108,11 @@
                 android:background="@color/colorPrimaryDark" />
 
             <!-- Profile Reservation Details -->
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingBottom="16dp">
+                android:orientation="vertical"
+                android:background="@color/white">
 
                 <!-- Title -->
                 <android.support.v7.widget.AppCompatTextView
@@ -128,127 +127,93 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <!-- Arrival -->
                 <LinearLayout
-                    android:id="@+id/profile_arrival_layout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_res_text"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:weightSum="7">
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_arrival_date_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/arrival"
-                        android:textColor="@color/light_bg_dark_secondary_text"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_arrival_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/light_bg_dark_primary_text"
-                        android:textSize="16sp" />
-
-
-                </LinearLayout>
-
-                <!-- Departure -->
-                <LinearLayout
-                    android:id="@+id/profile_departure_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_res_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_departure_date_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/departure"
-                        android:textColor="@color/light_bg_dark_secondary_text"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_departure_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/light_bg_dark_primary_text"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <!-- Nights -->
-                <LinearLayout
-                    android:id="@+id/profile_nights_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_res_text"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:orientation="vertical">
-
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/profile_nights_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/baseline_moon_24" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_nights"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text=""
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <!-- Rooms -->
-                <LinearLayout
-                    android:id="@+id/profile_rooms_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_nights_layout"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical">
-
+                    <!-- Arrival -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/profile_arrival_layout"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_rooms_text"
+                            android:id="@+id/profile_arrival_date_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/room_n"
+                            android:text="@string/arrival"
                             android:textColor="@color/light_bg_dark_secondary_text"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_rooms_count"
+                            android:id="@+id/profile_arrival_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:text=""
+                            android:textColor="@color/light_bg_dark_primary_text"
+                            android:textSize="16sp" />
+
+
+                    </LinearLayout>
+
+                    <!-- Departure -->
+                    <LinearLayout
+                        android:id="@+id/profile_departure_layout"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/profile_departure_date_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/departure"
+                            android:textColor="@color/light_bg_dark_secondary_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/profile_departure_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/light_bg_dark_primary_text"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <!-- Nights -->
+                    <LinearLayout
+                        android:id="@+id/profile_nights_layout"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/profile_nights_icon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_horizontal"
+                            app:srcCompat="@drawable/svg_moon_grey_512" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/profile_nights"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:text=""
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="16sp"
@@ -256,51 +221,98 @@
 
                     </LinearLayout>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_room_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/light_bg_dark_primary_text"
-                        android:textSize="16sp" />
 
                 </LinearLayout>
 
-                <!-- Rate -->
+
                 <LinearLayout
-                    android:id="@+id/profile_Rate_layout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_nights_layout"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:weightSum="6">
 
+                    <!-- Rooms -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/profile_rooms_layout"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
 
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_Rate_text"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/rate"
-                            android:textColor="@color/light_bg_dark_secondary_text"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/profile_rooms_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/room_n"
+                                android:textColor="@color/light_bg_dark_secondary_text"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/profile_rooms_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text=""
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/profile_rate"
+                            android:id="@+id/profile_room_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
                             android:text=""
                             android:textColor="@color/light_bg_dark_primary_text"
                             android:textSize="16sp" />
 
                     </LinearLayout>
+
+                    <!-- Rate -->
+                    <LinearLayout
+                        android:id="@+id/profile_Rate_layout"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/profile_Rate_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/rate"
+                                android:textColor="@color/light_bg_dark_secondary_text"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/profile_rate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text=""
+                                android:textColor="@color/light_bg_dark_primary_text"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
@@ -309,10 +321,8 @@
                     android:id="@+id/profile_arrangement_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_rooms_layout"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
 
@@ -335,101 +345,108 @@
 
                 </LinearLayout>
 
-                <!-- Adults -->
-                <LinearLayout
-                    android:id="@+id/profile_adultes_layout"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_arrangement_layout"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="64dp"
-                    android:layout_toStartOf="@+id/profile_kids_layout"
-                    android:orientation="vertical">
+                    android:paddingBottom="16dp">
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/profile_adults_icon"
+                    <!-- Adults -->
+                    <LinearLayout
+                        android:id="@+id/profile_adultes_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/baseline_group_24" />
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="64dp"
+                        android:layout_toStartOf="@+id/profile_kids_layout"
+                        android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_adults"
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/profile_adults_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:tint="@color/light_bg_dark_secondary_text"
+                            app:srcCompat="@drawable/baseline_group_24" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/profile_adults"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                    <!-- Kids -->
+                    <LinearLayout
+                        android:id="@+id/profile_kids_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text=""
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical">
 
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/profile_kids_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:tint="@color/light_bg_dark_secondary_text"
+                            app:srcCompat="@drawable/baseline_child_care_24" />
 
-                </LinearLayout>
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/profile_kids"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                <!-- Kids -->
-                <LinearLayout
-                    android:id="@+id/profile_kids_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_arrangement_layout"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical">
+                    </LinearLayout>
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/profile_kids_icon"
+                    <!-- Babies -->
+                    <LinearLayout
+                        android:id="@+id/profile_babies_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/baseline_child_care_24" />
+                        android:layout_marginStart="64dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_toEndOf="@+id/profile_kids_layout"
+                        android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_kids"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text=""
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/profile_babies_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:tint="@color/light_bg_dark_secondary_text"
+                            app:srcCompat="@drawable/baseline_child_friendly_24" />
 
-                </LinearLayout>
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/profile_babies"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text=""
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                <!-- Babies -->
-                <LinearLayout
-                    android:id="@+id/profile_babies_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_arrangement_layout"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_toEndOf="@+id/profile_kids_layout"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/profile_babies_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:tint="@color/light_bg_dark_secondary_text"
-                        app:srcCompat="@drawable/baseline_child_friendly_24" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profile_babies"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text=""
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                    </LinearLayout>
 
 
-            </RelativeLayout>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
 
             <!-- Divider -->
             <View
@@ -457,17 +474,26 @@
                     android:textStyle="bold" />
 
                 <!-- Profile Guest Details Edit Pax Button -->
-                <android.support.v7.widget.AppCompatButton
+
+                <RelativeLayout
                     android:id="@+id/profile_guest_details_edit_pax_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="8dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:drawableEnd="@drawable/ic_create_blue_500_24"
-                    android:text="@string/edit"
-                    android:textColor="@color/colorPrimary" />
+                    android:background="@drawable/circle_bg_grey"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginTop="6dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="8dp"
+                        app:srcCompat="@drawable/svg_edit_white_512" />
+
+                </RelativeLayout>
+
 
 
                 <!-- Guests Details Container -->

@@ -55,7 +55,7 @@ public class ComplaintsAdapter extends ArrayAdapter<Complaint> {
 
         viewHolder.complaint_title.setText(dataModel.getObject());
         viewHolder.complaint_text.setText(dataModel.getDescription());
-        viewHolder.complaint_date.setText(Html.fromHtml(dateColored(dataModel.getDateCreation(), "", "", "dd/MM/yyyy", true)));
+        viewHolder.complaint_date.setText(Html.fromHtml(dateColored(dataModel.getDateCreation(), "", "#03A9F4", "dd/MM/yyyy", true)));
 
         if (dataModel.getTraite()) {
             viewHolder.complaint_state.setText(R.string.compaint_treated);

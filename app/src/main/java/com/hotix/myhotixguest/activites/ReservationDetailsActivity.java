@@ -2,7 +2,10 @@ package com.hotix.myhotixguest.activites;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -30,6 +33,7 @@ import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.Utils.calculateDaysBetween;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 import static com.hotix.myhotixguest.helpers.Utils.stringEmptyOrNull;
 
@@ -80,7 +84,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
 
     //
     @BindView(R.id.profile_guest_details_edit_pax_btn)
-    AppCompatButton editPaxDetails;
+    RelativeLayout editPaxDetails;
 
 
     // Loading View & Empty ListView
@@ -100,7 +104,11 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     private String resaId;
     private String billId;
     private String billAn;
+    private String dateIn;
+    private String dateOut;
     private String histo;
+
+    private Drawable mIconTwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +117,13 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+
+        //Check android vertion and load image
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            mIconTwo = getResources().getDrawable(R.drawable.svg_server_grey_512, this.getTheme());
+        } else {
+            mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, this.getTheme());
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -134,6 +149,9 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), BillDetailsActivity.class);
                 i.putExtra("billId", billId);
                 i.putExtra("billAn", billAn);
+                i.putExtra("dateIn", dateIn);
+                i.putExtra("dateOut", dateOut);
+                i.putExtra("histo", true);
                 startActivity(i);
             }
         });
@@ -161,19 +179,20 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
+        setBaseUrl(this);
         try {
             loadData();
         } catch (Exception e) {
             showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 
@@ -212,6 +231,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                     profileBabies.setText(sejour.getNbreB().toString());
                     billId = sejour.getFactureId().toString();
                     billAn = sejour.getFactureAnnee().toString();
+                    dateIn = sejour.getDateArrivee();
+                    dateOut = sejour.getDateDepart();
 
                     guestsContainer.removeAllViews();
                     for (DetailsPax obj : sejour.getDetailsPax()) {
@@ -229,7 +250,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 progressView.setVisibility(View.GONE);
                 emptyListView.setVisibility(View.VISIBLE);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
+                emptyListIcon.setImageDrawable(mIconTwo);
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
@@ -262,7 +283,10 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         }
 
         if (!stringEmptyOrNull(pax.getCiviliteName().trim())) {
+            guestNameOp.setVisibility(View.VISIBLE);
             guestNameOp.setText(pax.getCiviliteName().trim() + " ");
+        } else {
+            guestNameOp.setVisibility(View.GONE);
         }
 
         if (!stringEmptyOrNull(pax.getClientNom().trim()) || !stringEmptyOrNull(pax.getClientPrenom().trim())) {
@@ -270,7 +294,10 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         }
 
         if (!stringEmptyOrNull(pax.getClientNationalite().trim())) {
+            guestNationality.setVisibility(View.VISIBLE);
             guestNationality.setText(pax.getClientNationalite().trim());
+        } else {
+            guestNationality.setVisibility(View.GONE);
         }
 
         if (stringEmptyOrNull(pax.getClientDateNaissance().trim())) {

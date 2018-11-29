@@ -1,7 +1,10 @@
 package com.hotix.myhotixguest.activites;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +48,7 @@ import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_CART;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_ORDER;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class NewOrderActivity extends AppCompatActivity {
@@ -116,6 +120,8 @@ public class NewOrderActivity extends AppCompatActivity {
     private int amount = 1;
     private Double total = 0.0;
 
+    private Drawable mIconOne, mIconTwo;
+
     //___________(Currency Number format)_____________\\
     private NumberFormat formatter;
     private DecimalFormatSymbols decimalFormatSymbols;
@@ -128,6 +134,15 @@ public class NewOrderActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+
+        //Check android vertion and load image
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            mIconOne = getResources().getDrawable(R.drawable.svg_cart_grey_512, this.getTheme());
+            mIconTwo = getResources().getDrawable(R.drawable.svg_server_grey_512, this.getTheme());
+        } else {
+            mIconOne = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_cart_grey_512, this.getTheme());
+            mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, this.getTheme());
+        }
 
         formatter = NumberFormat.getCurrencyInstance(Locale.US);
         decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
@@ -202,7 +217,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 adapter = new ProductAdapter(produits, getApplicationContext());
                 listView.setAdapter(adapter);
                 emptyListText.setText(R.string.no_products_to_show);
-                emptyListIcon.setImageResource(R.drawable.ic_shopping_cart_white_24);
+                emptyListIcon.setImageDrawable(mIconOne);
                 listView.setEmptyView(emptyListView);
             }
 
@@ -235,7 +250,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 adapter = new ProductAdapter(produits, getApplicationContext());
                 listView.setAdapter(adapter);
                 emptyListText.setText(R.string.no_products_to_show);
-                emptyListIcon.setImageResource(R.drawable.ic_shopping_cart_white_24);
+                emptyListIcon.setImageDrawable(mIconOne);
                 listView.setEmptyView(emptyListView);
             }
 
@@ -309,6 +324,7 @@ public class NewOrderActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setBaseUrl(this);
         try {
             loadeData();
         } catch (Exception e) {
@@ -356,7 +372,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     adapter = new ProductAdapter(produits, getApplicationContext());
                     listView.setAdapter(adapter);
                     emptyListText.setText(R.string.no_products_to_show);
-                    emptyListIcon.setImageResource(R.drawable.ic_shopping_cart_white_24);
+                    emptyListIcon.setImageDrawable(mIconOne);
                     listView.setEmptyView(emptyListView);
 
                     familles.clear();
@@ -375,7 +391,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 progressView.setVisibility(View.GONE);
                 pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageResource(R.drawable.ic_dns_white_24);
+                emptyListIcon.setImageDrawable(mIconTwo);
                 listView.setEmptyView(emptyListView);
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
@@ -400,7 +416,7 @@ public class NewOrderActivity extends AppCompatActivity {
         adapter = new ProductAdapter(tempProduits, getApplicationContext());
         listView.setAdapter(adapter);
         emptyListText.setText(R.string.no_products_to_show);
-        emptyListIcon.setImageResource(R.drawable.ic_shopping_cart_white_24);
+        emptyListIcon.setImageDrawable(mIconOne);
         listView.setEmptyView(emptyListView);
 
     }

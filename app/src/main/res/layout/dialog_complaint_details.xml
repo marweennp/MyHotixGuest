@@ -63,14 +63,13 @@
         <!-- Message Date Icon -->
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/complaint_details_date_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="4dp"
-            android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/baseline_calendar_today_black_18" />
+            app:srcCompat="@drawable/svg_date_blue_512" />
 
         <!-- Message Date -->
         <android.support.v7.widget.AppCompatTextView
@@ -169,11 +168,12 @@
             android:id="@+id/complaint_details_btn_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/ok"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorBackground" />
 
     </RelativeLayout>
 

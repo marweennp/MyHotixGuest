@@ -27,9 +27,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="6dp"
-                android:text="Foulan Foulani"
+                android:layout_marginEnd="6dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -39,67 +42,72 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/home_guest_name"
-                android:layout_marginLeft="8dp"
-                android:text="individual"
+                android:layout_marginStart="6dp"
+                android:text=""
                 android:textColor="@color/white" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/home_guest_nights"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:text="3"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
+                android:text="0"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/home_guest_nights_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="22dp"
                 android:layout_toEndOf="@+id/home_guest_nights"
-                android:tint="@color/colorPrimaryDark"
-                app:srcCompat="@drawable/baseline_moon_24" />
+                app:srcCompat="@drawable/svg_moon_blue_512" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/home_guest_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
                 android:layout_toEndOf="@+id/home_guest_nights_icon"
                 android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <android.support.v7.widget.AppCompatImageButton
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/home_guest_edit_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@+id/home_guest_logout_icon"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="18dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/colorPrimary"
-                app:srcCompat="@drawable/baseline_settings_24" />
-
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/home_guest_logout_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="6dp"
+                android:layout_toStartOf="@+id/home_guest_logout_icon"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/red_600"
-                app:srcCompat="@drawable/ic_power_settings_new_white_24" />
+                app:srcCompat="@drawable/svg_setting_two_blue_512" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/home_guest_logout_icon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_power_settings_new_white_36dp"
+                android:tint="@color/red_600"/>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimaryDark" />
 
 
         </RelativeLayout>
@@ -110,13 +118,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@color/colorImgBg"
             android:foreground="?attr/selectableItemBackgroundBorderless">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/home_reservation_details_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/room" />
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:layout_width="120dp"
@@ -126,19 +134,21 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/home_reservation_details_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/baseline_group_black_36"
-                    android:tint="@color/white" />
+                    app:srcCompat="@drawable/svg_group_white_512" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/home_reservation_details_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_marginBottom="8dp"
+                    android:gravity="center"
                     android:text="@string/home_reservation_text"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -160,13 +170,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@color/colorImgBg"
             android:foreground="?attr/selectableItemBackgroundBorderless">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/home_bill_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/bill" />
+                android:layout_height="match_parent"/>
 
             <RelativeLayout
                 android:layout_width="120dp"
@@ -176,19 +186,20 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/home_bill_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/baseline_receipt_black_36"
-                    android:tint="@color/white" />
+                    app:srcCompat="@drawable/svg_receipt_white_512" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/home_bill_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_marginBottom="8dp"
+                    android:gravity="center"
                     android:text="@string/home_my_bill"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -210,13 +221,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@color/colorImgBg"
             android:foreground="?attr/selectableItemBackgroundBorderless">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/home_history_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/history" />
+                android:layout_height="match_parent"/>
 
             <RelativeLayout
                 android:layout_width="120dp"
@@ -226,19 +237,20 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/home_history_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/baseline_history_black_36"
-                    android:tint="@color/white" />
+                    app:srcCompat="@drawable/svg_histo_white_512" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/home_history_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_marginBottom="8dp"
+                    android:gravity="center"
                     android:text="@string/home_history"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -260,14 +272,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/colorBackground"
+            android:background="@color/colorImgBg"
             android:foreground="?attr/selectableItemBackgroundBorderless">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/home_new_reservation_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/reservation" />
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:layout_width="120dp"
@@ -277,19 +288,20 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/home_new_reservation_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_group_add_white_36"
-                    android:tint="@color/white" />
+                    app:srcCompat="@drawable/svg_date_time_white_512" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/home_new_reservation_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_marginBottom="8dp"
+                    android:gravity="center"
                     android:text="@string/home_new_reservation"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
