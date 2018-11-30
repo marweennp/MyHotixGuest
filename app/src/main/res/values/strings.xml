@@ -123,6 +123,7 @@
     <string name="edit_item_menu">Edit</string>
     <string name="logout">Logout</string>
     <string name="logout_msg">Are you sure you want to log out?</string>
+    <string name="exit_msg">Are you sure you want to EXIT?</string>
     <string name="login_information">Login Information</string>
     <string name="username">Username</string>
     <string name="terms_of_service">When you sign-up for an account you’re required to check the “I agree to the terms of service” checkbox before clicking on the “DONE” button</string>

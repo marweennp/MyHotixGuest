@@ -1,12 +1,16 @@
 package com.hotix.myhotixguest.activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.fragments.EventsFragment;
@@ -110,9 +114,41 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (navigation.getSelectedItemId() == R.id.navigation_home) {
-            finish();
+            startExitDialog();
         } else {
             navigation.setSelectedItemId(R.id.navigation_home);
         }
+    }
+
+    /** **************************************************************************************** **/
+
+    private void startExitDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_exit, null);
+        AppCompatButton logoutBtn = (AppCompatButton) mView.findViewById(R.id.logout_dialog_yes_btn);
+        AppCompatButton cancelBtn = (AppCompatButton) mView.findViewById(R.id.logout_dialog_cancel_btn);
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(true);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
     }
 }
