@@ -34,7 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.ConnectionChecher.checkNetwork;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
@@ -88,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         getFirebaseInstanceId();
         Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher).into(imagelogin);
 
-        checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
+        //checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
 
         if (session.getIsLoggedIn()) {
             _loginEmailText.setText(session.getUserName());
@@ -169,42 +168,55 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.raw().code() == 200) {
                     Guest guest = response.body();
-                    if (!(guest.getError() == -1)) {
-                        showSnackbar(findViewById(android.R.id.content), getString(R.string.wrong_login));
-                    } else {
 
-                        remember_me = _rememberMe.isChecked();
-                        is_logged_in = _rememberMe.isChecked();
-                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                        session.setNewToken(true);
-                        session.createNewGuestSession(
-                                response.body().getISResident(),
-                                response.body().getHasHistory(),
-                                is_logged_in,
-                                remember_me,
-                                uname,
-                                pwd,
-                                response.body().getDateArrivee(),
-                                response.body().getDateDepart(),
-                                response.body().getChambre(),
-                                response.body().getEmail(),
-                                response.body().getNom(),
-                                response.body().getPrenom(),
-                                response.body().getPhone(),
-                                response.body().getDateNaissance(),
-                                response.body().getAdresse(),
-                                response.body().getNationaliteName(),
-                                response.body().getEtatResa(),
-                                response.body().getResaId(),
-                                response.body().getResaPaxId(),
-                                response.body().getClientId(),
-                                response.body().getFactureId(),
-                                response.body().getFactureAnnee(),
-                                response.body().getNationaliteId());
-                        //Start the HomeScreenActivity
-                        Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
-                        startActivity(i);
-                        finish();
+                    switch (guest.getError()) {
+
+                        case -1:
+                            remember_me = _rememberMe.isChecked();
+                            is_logged_in = _rememberMe.isChecked();
+                            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                            session.setNewToken(true);
+                            session.createNewGuestSession(
+                                    response.body().getISResident(),
+                                    response.body().getHasHistory(),
+                                    is_logged_in,
+                                    remember_me,
+                                    uname,
+                                    pwd,
+                                    response.body().getDateArrivee(),
+                                    response.body().getDateDepart(),
+                                    response.body().getChambre(),
+                                    response.body().getEmail(),
+                                    response.body().getNom(),
+                                    response.body().getPrenom(),
+                                    response.body().getPhone(),
+                                    response.body().getDateNaissance(),
+                                    response.body().getAdresse(),
+                                    response.body().getNationaliteName(),
+                                    response.body().getEtatResa(),
+                                    response.body().getResaId(),
+                                    response.body().getResaPaxId(),
+                                    response.body().getClientId(),
+                                    response.body().getFactureId(),
+                                    response.body().getFactureAnnee(),
+                                    response.body().getNationaliteId());
+                            //Start the HomeScreenActivity
+                            Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
+                            startActivity(i);
+                            finish();
+                            break;
+                        case 0:
+                            showSnackbar(findViewById(android.R.id.content), getString(R.string.wrong_login));
+                            break;
+                        case 1:
+                            showSnackbar(findViewById(android.R.id.content), getString(R.string.wrong_login));
+                            break;
+                        case 2:
+                            showSnackbar(findViewById(android.R.id.content), getString(R.string.inactive_account));
+                            break;
+                        default:
+                            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+                            break;
                     }
 
                 } else {

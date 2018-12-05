@@ -3,6 +3,10 @@ package com.hotix.myhotixguest.models;
 public class Signup {
 
     private int hotelId;
+    private int civilityId;
+    private int countryId;
+    private int NationalityId;
+
     private String userName;
     private String password;
     private String email;
@@ -12,10 +16,14 @@ public class Signup {
     private String berthDate;
     private String address;
 
-    public Signup() { }
+    public Signup() {
+    }
 
-    public Signup(int hotelId, String userName, String password, String email, String phone, String firstName, String lastName, String berthDate, String address) {
+    public Signup(int hotelId, int civilityId, int countryId, int nationalityId, String userName, String password, String email, String phone, String firstName, String lastName, String berthDate, String address) {
         this.hotelId = hotelId;
+        this.civilityId = civilityId;
+        this.countryId = countryId;
+        NationalityId = nationalityId;
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -32,6 +40,30 @@ public class Signup {
 
     public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
+    }
+
+    public int getCivilityId() {
+        return civilityId;
+    }
+
+    public void setCivilityId(int civilityId) {
+        this.civilityId = civilityId;
+    }
+
+    public int getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
+    }
+
+    public int getNationalityId() {
+        return NationalityId;
+    }
+
+    public void setNationalityId(int nationalityId) {
+        NationalityId = nationalityId;
     }
 
     public String getUserName() {
@@ -102,6 +134,9 @@ public class Signup {
     public String toString() {
         return "Signup{" +
                 "hotelId=" + hotelId +
+                ", civilityId=" + civilityId +
+                ", countryId=" + countryId +
+                ", NationalityId=" + NationalityId +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -113,3 +148,7 @@ public class Signup {
                 '}';
     }
 }
+
+
+
+

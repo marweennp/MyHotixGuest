@@ -5,47 +5,71 @@
     android:layout_height="match_parent"
     tools:context=".activites.SignupActivity">
 
-    <com.hotix.myhotixguest.helpers.NonSwipeableViewPager
-        android:id="@+id/signup_pager"
+    <!-- Main Containr -->
+    <RelativeLayout
+        android:id="@+id/rl_signup_main_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/signup_dots_layout"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        <!-- Non Swipeable ViewPager -->
+        <com.hotix.myhotixguest.helpers.NonSwipeableViewPager
+            android:id="@+id/signup_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/layoutDots"
-        android:alpha=".5"
-        android:background="@color/white" />
+            <!-- Dots Layout -->
+            <LinearLayout
+                android:id="@+id/signup_dots_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/signup_next_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:text="@string/next"
-        android:textColor="@color/white" />
+            </LinearLayout>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/signup_back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:text="@string/back"
-        android:textColor="@color/white" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:background="@color/colorPrimary" />
+
+            <!--Next-->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/signup_next_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:text="@string/next"
+                android:textColor="@color/white" />
+
+            <!--Back-->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/signup_back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:text="@string/back"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <!-- Progress View -->
+    <include layout="@layout/include_loading_view" />
+
+    <!-- Empty View -->
+    <include layout="@layout/include_empty_list_view" />
 
 </RelativeLayout>

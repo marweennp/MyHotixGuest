@@ -2,6 +2,7 @@ package com.hotix.myhotixguest.helpers;
 
 import com.hotix.myhotixguest.models.CartItem;
 import com.hotix.myhotixguest.models.Event;
+import com.hotix.myhotixguest.models.HotelInfos;
 import com.hotix.myhotixguest.models.Order;
 import com.hotix.myhotixguest.models.Pax;
 import com.hotix.myhotixguest.models.Slide;
@@ -16,7 +17,11 @@ public class ConstantConfig {
     //public static final String BASE_URL = "http://192.168.0.110/";
     //public static final String BASE_URL = "http://192.168.0.109/";
 
+    // Google maps api url
     public static final String BASE_URL_2 = "https://maps.googleapis.com/";
+
+    // HNGAPI version
+    public static final String API_VERSION = "v0";
 
     // Terms of service url
     public static final String TERMS_OF_SERVICE_URL = "https://termsfeed.com/blog/add-i-agree-terms-checkbox/";
@@ -32,7 +37,7 @@ public class ConstantConfig {
     public static final String CONFIG_BASE_URL = "http://41.228.21.123:99/";
     //public static final String CONFIG_BASE_URL = "http://192.168.0.6:99/";
     public static final String FINAL_APP_ID = "1";
-    public static final String FINAL_HOTEL_ID = "9999";// 1111 Local test hotel id
+    public static final String FINAL_HOTEL_ID = "1111";// 1111 Local test hotel id
 
     /***************************************(Non Finol )*******************************************/
 
@@ -60,6 +65,9 @@ public class ConstantConfig {
 
     //Pax List Global
     public static ArrayList<Pax> GLOBAL_PAX_LIST = new ArrayList<>();
+
+    //Hotel Infos
+    public static HotelInfos GLOBAL_HOTEL_INFOS = new HotelInfos();
 
     //true if app start from message notification
     public static boolean HAVE_MESSAGE_NOTIFICATION = false;

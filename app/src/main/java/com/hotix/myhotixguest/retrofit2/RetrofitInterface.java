@@ -5,6 +5,7 @@ import com.hotix.myhotixguest.models.Event;
 import com.hotix.myhotixguest.models.Facture;
 import com.hotix.myhotixguest.models.Famille;
 import com.hotix.myhotixguest.models.Guest;
+import com.hotix.myhotixguest.models.HotelInfos;
 import com.hotix.myhotixguest.models.HotelSettings;
 import com.hotix.myhotixguest.models.MenuItem;
 import com.hotix.myhotixguest.models.Message;
@@ -27,115 +28,131 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
+import static com.hotix.myhotixguest.helpers.ConstantConfig.API_VERSION;
+
 public interface RetrofitInterface {
 
     /**
      * GET********************************************************************************************
      **/
-    //Login service call
-    @GET("/HNGAPI/v0/api/myhotixguest/authentifier?")
-    Call<Guest> getGuestQuery(@Query("_user") String _user,
-                              @Query("_pass") String _pass);
 
     //Get Stay Details service call
-    @GET("/HNGAPI/v0/api/myhotixguest/getdetailsresa?")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/getdetailsresa?")
     Call<Sejour> getStayQuery(@Query("resaid") String resaid);
 
     //Get Stay History Details service call
-    @GET("/HNGAPI/v0/api/myhotixguest/gethistosejour?")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/gethistosejour?")
     Call<ArrayList<Sejour>> getStayHistoryQuery(@Query("clientid") String clientid);
 
     //Get Bill Details service call
-    @GET("/HNGAPI/v0/api/myhotixguest/getdetailsfacture?")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/getdetailsfacture?")
     Call<Facture> getFactureQuery(@Query("id") String id,
                                   @Query("annee") String annee);
 
     //Get All Products service call
-    @GET("/HNGAPI/v0/api/myhotixguest/GetAllProducts")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/GetAllProducts")
     Call<ArrayList<Famille>> getAllProductsQuery();
 
     //Get Activites service call
-    @GET("/HNGAPI/v0/api/myhotixguest/getactivites")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/getactivites")
     Call<ArrayList<Event>> getActivitesQuery();
 
     //Get Reclamations service call
-    @GET("/HNGAPI/v0/api/myhotixguest/getreclamations?")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/getreclamations?")
     Call<ArrayList<Complaint>> getReclamationsQuery(@Query("resaid") String resaid);
 
     //Get Menu service call
-    @GET("/HNGAPI/v0/api/myhotixguest/GetMenu?")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/GetMenu?")
     Call<ArrayList<MenuItem>> getMenuQuery(@Query("language") String language);
 
     //Get GetMessages service call
-    @GET("/HNGAPI/v0/api/myhotixguest/GetMessages?")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/GetMessages?")
     Call<ArrayList<Message>> getMessagesQuery(@Query("ResaId") String ResaId,
                                               @Query("PaxId") String PaxId);
 
     //Get All Data service call
-    @GET("/HNGAPI/v0/api/myhotixguest/getalldata")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/getalldata")
     Call<StartData> getAllDataQuery();
 
     //Get Pax Resa service call
-    @GET("/HNGAPI/v0/api/myhotixguest/GetPaxResa?")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/GetPaxResa?")
     Call<ArrayList<Pax>> getPaxResaQuery(@Query("resaId") String resaId);
 
     //Get Commandes service call
-    @GET("/HNGAPI/v0/api/myhotixguest/GetCommandes?")
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/GetCommandes?")
     Call<ArrayList<Order>> getCommandesQuery(@Query("ResaId") String resaId);
 
-
+    //Get Hotel Infos service call
+    @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/GetHotelInfos")
+    Call<HotelInfos> getHotelInfosQuery();
 
     /**
      * POST********************************************************************************************
      **/
+
+    //Login service call
+    @FormUrlEncoded
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/authentifier")
+    Call<Guest> getGuestQuery(@Field("_user") String _user,
+                              @Field("_pass") String _pass);
+
     //Post UpdateSerialKey service call
-    @POST("/HNGAPI/v0/api/myhotixguest/UpdateSerialKey?")
-    Call<ResponseBody> updateSerialKeyQuery(@Query("clientId") String clientId,
-                                            @Query("serialKey") String serialKey);
+    @FormUrlEncoded
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/UpdateSerialKey")
+    Call<ResponseBody> updateSerialKeyQuery(@Field("clientId") String clientId,
+                                            @Field("serialKey") String serialKey);
 
     //Post Inscription service call
-    @POST("/HNGAPI/v0/api/myhotixguest/Inscription?")
-    Call<ResponseMsg> inscriptionQuery(@Query("hotelId") String hotelId,
-                                       @Query("login") String login,
-                                       @Query("pwd") String pwd,
-                                       @Query("email") String email,
-                                       @Query("phone") String phone,
-                                       @Query("nom") String nom,
-                                       @Query("prenom") String prenom,
-                                       @Query("datenaissance") String datenaissance,
-                                       @Query("adresse") String adresse);
+    @FormUrlEncoded
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/Inscription")
+    Call<ResponseMsg> inscriptionQuery(@Field("hotelId") String hotelId,
+                                       @Field("login") String login,
+                                       @Field("pwd") String pwd,
+                                       @Field("email") String email,
+                                       @Field("phone") String phone,
+                                       @Field("nom") String nom,
+                                       @Field("prenom") String prenom,
+                                       @Field("datenaissance") String datenaissance,
+                                       @Field("adresse") String adresse,
+                                       @Field("nationaliteId") String nationaliteId,
+                                       @Field("civiliteId") String civiliteId,
+                                       @Field("paysId") String paysId);
 
     //Post UpdatePass service call
-    @POST("/HNGAPI/v0/api/myhotixguest/UpdatePass?")
-    Call<ResponseMsg> updatePassQuery(@Query("clientId") String clientId,
-                                      @Query("pass") String pass);
+    @FormUrlEncoded
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/UpdatePassword")
+    Call<ResponseMsg> updatePassQuery(@Field("clientId") String clientId,
+                                      @Field("pass") String pass);
 
     //Post SendReclamation service call
-    @POST("/HNGAPI/v0/api/myhotixguest/SendReclamation?")
-    Call<ResponseBody> sendReclamationQuery(@Query("hotelId") String hotelId,
-                                            @Query("numChambre") String numChambre,
-                                            @Query("objectRec") String objectRec,
-                                            @Query("detail") String detail,
-                                            @Query("ResaId") String ResaId);
+    @FormUrlEncoded
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/SendReclamation")
+    Call<ResponseBody> sendReclamationQuery(@Field("hotelId") String hotelId,
+                                            @Field("numChambre") String numChambre,
+                                            @Field("objectRec") String objectRec,
+                                            @Field("detail") String detail,
+                                            @Field("ResaId") String ResaId);
 
     //Post UpdateProfile service call
-    @POST("/HNGAPI/v0/api/myhotixguest/UpdateProfile?")
-    Call<ResponseMsg> updateProfileQuery(@Query("hotelId") String hotelId,
-                                         @Query("clientId") String clientId,
-                                         @Query("email") String email,
-                                         @Query("phone") String phone,
-                                         @Query("nom") String nom,
-                                         @Query("prenom") String prenom,
-                                         @Query("datenaissance") String datenaissance,
-                                         @Query("adresse") String adresse);
+    @FormUrlEncoded
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/UpdateProfile")
+    Call<ResponseMsg> updateProfileQuery(@Field("hotelId") String hotelId,
+                                         @Field("clientId") String clientId,
+                                         @Field("email") String email,
+                                         @Field("phone") String phone,
+                                         @Field("nom") String nom,
+                                         @Field("prenom") String prenom,
+                                         @Field("datenaissance") String datenaissance,
+                                         @Field("adresse") String adresse);
 
     //Post ResetPassword service call
-    @POST("/HNGAPI/v0/api/myhotixguest/ResetPassword?")
-    Call<ResponseMsg> resetPasswordQuery(@Query("email") String email);
+    @FormUrlEncoded
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/ResetPassword")
+    Call<ResponseMsg> resetPasswordQuery(@Field("email") String email);
 
     //Post UpdateReservationInfos service call
     @FormUrlEncoded
-    @POST("/HNGAPI/v0/api/myhotixguest/UpdateReservationInfos")
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/UpdateReservationInfos")
     Call<ResponseMsg> updateReservationInfosQuery(@Field("clientId") String clientId,
                                                   @Field("NomClient") String NomClient,
                                                   @Field("PrenomClient") String PrenomClient,
@@ -156,7 +173,7 @@ public interface RetrofitInterface {
                                                   @Field("civilite") String civilite);
 
     //Post SendCommande service call
-    @POST("/HNGAPI/v0/api/myhotixguest/SendCommande")
+    @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/SendCommande")
     Call<ResponseMsg> sendCommandeQuery(@Header("Content-Type") String content_type,
                                         @Body Order order);
 
@@ -176,7 +193,7 @@ public interface RetrofitInterface {
      * Ping Serveur*********************************************************************************
      **/
     //Is Connected service call
-    @GET("/HNGAPI/v0/api/MyHotixguest/isconnected")
+    @GET("/HNGAPI/" + API_VERSION + "/api/MyHotixguest/isconnected")
     Call<ResponseBody> isConnectedQuery();
 
 

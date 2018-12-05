@@ -92,6 +92,10 @@
     <string name="thanks_for_your_time">Thanks for your time!</string>
     <string name="done">DONE</string>
     <string name="personal_information">Personal Information</string>
+    <string name="address_information">Address Information</string>
+    <string name="signup_nationality">Nationality</string>
+    <string name="signup_country">Country</string>
+    <string name="signup_civility">Civility</string>
     <string name="hint_phone">Phone</string>
     <string name="visit_date">Visit Date</string>
     <string name="country">Country</string>
@@ -195,7 +199,8 @@
     <string name="adults">Adults</string>
     <string name="search">Search</string>
     <string name="not_resident">You must be a resident to use this feature</string>
-    <string name="wrong_login">Something went wrong. please verify your login or password</string>
+    <string name="wrong_login">You have entered an invalid username or password</string>
+    <string name="inactive_account">Your account is inactive.</string>
     <string name="no_history">You have no history to check</string>
     <string name="login_details">Login Details</string>
     <string name="settings">Settings</string>

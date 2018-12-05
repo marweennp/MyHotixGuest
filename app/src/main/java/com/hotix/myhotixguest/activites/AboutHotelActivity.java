@@ -186,9 +186,7 @@ public class AboutHotelActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Load The Menu**********************************************************************************
-     **/
+    //**** Load The Menu  **************************************************************************
 
     private void loadMenu() {
 

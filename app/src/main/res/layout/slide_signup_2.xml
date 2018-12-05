@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <!--  ImgSlide Signup 2 Title Label -->
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!--  logo -->
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/personal_information"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        app:srcCompat="@drawable/ic_person_white_48dp" />
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/signup_2_form_linearLayout"
@@ -24,6 +21,25 @@
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:padding="24dp">
+
+        <!--  ImgSlide Signup 2 Title Label -->
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/personal_information"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Civility Spinner -->
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sp_signup_civility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:popupBackground="@color/colorBackground"
+            android:spinnerMode="dropdown" />
 
         <!--  ImgSlide Signup 2 First Name Label -->
         <android.support.design.widget.TextInputLayout
@@ -75,21 +91,6 @@
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- ImgSlide Signup 2 Address Label -->
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/signup_2_address_il"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/signup_2_address_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_adress"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
 
     </android.support.v7.widget.LinearLayoutCompat>
 

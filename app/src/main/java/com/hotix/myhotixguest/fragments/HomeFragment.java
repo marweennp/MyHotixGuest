@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
@@ -131,11 +130,7 @@ public class HomeFragment extends Fragment {
             homeGuestNightsIcon.setVisibility(View.GONE);
         }
 
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_1.jpg").fit().placeholder(R.drawable.banner_placeholder).error(R.drawable.banner_placeholder).into(_reservationDetailsBG);
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_2.jpg").fit().placeholder(R.drawable.banner_placeholder).error(R.drawable.banner_placeholder).into(_billBG);
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_3.jpg").fit().placeholder(R.drawable.banner_placeholder).error(R.drawable.banner_placeholder).into(_historyBG);
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/pic_4.jpg").fit().placeholder(R.drawable.banner_placeholder).error(R.drawable.banner_placeholder).into(_newReservationBG);
-
+        loadeImages();
 
         //Reservation Details OnClickListener
         _reservationDetails.setOnClickListener(new View.OnClickListener() {
@@ -227,6 +222,79 @@ public class HomeFragment extends Fragment {
                 startLogoutDialog();
             }
         });
+
+
+    }
+
+    private void loadeImages() {
+
+        Picasso
+                .get()
+                .load(BASE_URL + "/Android/pics_guest/pic_1.jpg")
+                .placeholder(R.drawable.banner_placeholder)
+                .fit()
+                .into(_reservationDetailsBG, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get().load(R.drawable.room).fit().into(_reservationDetailsBG);
+                    }
+                });
+
+        Picasso
+                .get()
+                .load(BASE_URL + "/Android/pics_guest/pic_2.jpg")
+                .placeholder(R.drawable.banner_placeholder)
+                .fit()
+                .into(_billBG, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get().load(R.drawable.bill).fit().into(_billBG);
+                    }
+                });
+
+        Picasso
+                .get()
+                .load(BASE_URL + "/Android/pics_guest/pic_3.jpg")
+                .placeholder(R.drawable.banner_placeholder)
+                .fit()
+                .into(_historyBG, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get().load(R.drawable.history).fit().into(_historyBG);
+                    }
+                });
+
+        Picasso
+                .get()
+                .load(BASE_URL + "/Android/pics_guest/pic_4.jpg")
+                .placeholder(R.drawable.banner_placeholder)
+                .fit()
+                .into(_newReservationBG, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get().load(R.drawable.reservation).fit().into(_newReservationBG);
+                    }
+                });
 
 
     }

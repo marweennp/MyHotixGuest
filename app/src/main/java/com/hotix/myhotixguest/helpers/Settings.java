@@ -19,6 +19,7 @@ public class Settings {
     public static final String KEY_LOCAL_IP = "localIp";
     public static final String KEY_PUBLIC_BASE_URL = "publicBaseUrl";
     public static final String KEY_LOCAL_BASE_URL = "localBaseUrl";
+    public static final String KEY_API_VAERSION = "apiVersion";
 
     // Integers
     public static final String KEY_nearbyRadius = "nearbyRadius";
@@ -141,6 +142,15 @@ public class Settings {
 
     public void setLocalBaseUrl(String localBaseUrl) {
         editor.putString(KEY_LOCAL_BASE_URL, localBaseUrl);
+        editor.commit();
+    }
+
+    public String getApiVersion() {
+        return pref.getString(KEY_API_VAERSION, "v0");
+    }
+
+    public void setApiVersion(String apiVersion) {
+        editor.putString(KEY_API_VAERSION, apiVersion);
         editor.commit();
     }
 

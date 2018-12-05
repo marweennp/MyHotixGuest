@@ -7,15 +7,26 @@ import java.util.ArrayList;
 
 public class StartData {
 
+    @SerializedName("Civilites")
+    @Expose
+    private ArrayList<Civilite> civilites = null;
     @SerializedName("Pays")
     @Expose
     private ArrayList<Pay> pays = null;
     @SerializedName("Pieces")
     @Expose
     private ArrayList<Piece> pieces = null;
-    @SerializedName("Civilites")
+    @SerializedName("Nationalites")
     @Expose
-    private ArrayList<Civilite> civilites = null;
+    private ArrayList<Nationalite> nationalites = null;
+
+    public ArrayList<Civilite> getCivilites() {
+        return civilites;
+    }
+
+    public void setCivilites(ArrayList<Civilite> civilites) {
+        this.civilites = civilites;
+    }
 
     public ArrayList<Pay> getPays() {
         return pays;
@@ -33,12 +44,12 @@ public class StartData {
         this.pieces = pieces;
     }
 
-    public ArrayList<Civilite> getCivilites() {
-        return civilites;
+    public ArrayList<Nationalite> getNationalites() {
+        return nationalites;
     }
 
-    public void setCivilites(ArrayList<Civilite> civilites) {
-        this.civilites = civilites;
+    public void setNationalites(ArrayList<Nationalite> nationalites) {
+        this.nationalites = nationalites;
     }
 
 }
