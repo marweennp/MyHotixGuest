@@ -250,7 +250,7 @@ public class OrdersFragment extends Fragment {
             container.addView(orderRow);
         }
 
-        totalTv.setText(getString(R.string.total) + formatter.format(price) +" DT");
+        totalTv.setText(getString(R.string.total) +" "+ formatter.format(price) +" DT");
         dateTv.setText(dateFormater(order.getDate(), "yyyyMMdd hh:mm", "dd MMM yyyy"));
         timeTv.setText(dateFormater(order.getDate(), "yyyyMMdd hh:mm", "hh:mm"));
 

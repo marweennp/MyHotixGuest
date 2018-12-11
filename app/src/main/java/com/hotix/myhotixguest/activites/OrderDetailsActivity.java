@@ -153,8 +153,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         dialogTitle.setText("Cart Item");
         prodNameTv.setText(cartItem.getProduitName());
-        prodPriceTv.setText(getString(R.string.price) + formatter.format(cartItem.getPrixUnitaire()) + " DT");
-        prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
+        prodPriceTv.setText(getString(R.string.price) +" "+ formatter.format(cartItem.getPrixUnitaire()) + " DT");
+        prodTotalTv.setText(getString(R.string.total) +" "+ formatter.format(total) + " DT");
         prodAmountTv.setText("" + amount);
 
         mBuilder.setView(mView);
@@ -168,7 +168,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 if (amount < 10000) {
                     amount++;
                     total = cartItem.getPrixUnitaire() * amount;
-                    prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
+                    prodTotalTv.setText(getString(R.string.total) +" "+ formatter.format(total) + " DT");
                     prodAmountTv.setText("" + amount);
                 }
             }
