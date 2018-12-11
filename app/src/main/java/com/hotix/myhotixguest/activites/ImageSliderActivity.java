@@ -83,7 +83,7 @@ public class ImageSliderActivity extends AppCompatActivity {
             public void run() {
                 handler.post(Update);
             }
-        }, 0, 8000);
+        }, 0, 6000);
     }
 
 }

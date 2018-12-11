@@ -86,15 +86,15 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         viewHolder.order_cart.setText(dataModel.getDetails().size()+"");
 
         if (dataModel.getEtat() == 3) {
-            viewHolder.order_state.setText("done");
+            viewHolder.order_state.setText(R.string.done);
             viewHolder.order_state.setTextColor(ContextCompat.getColor(mContext, R.color.green_500));
             viewHolder.order_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.green_500));
         } else if (dataModel.getEtat() == 2) {
-            viewHolder.order_state.setText("processing");
+            viewHolder.order_state.setText(R.string.processing);
             viewHolder.order_state.setTextColor(ContextCompat.getColor(mContext, R.color.blue_500));
             viewHolder.order_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.blue_500));
         } else {
-            viewHolder.order_state.setText("waiting");
+            viewHolder.order_state.setText(R.string.waiting);
             viewHolder.order_state.setTextColor(ContextCompat.getColor(mContext, R.color.grey_500));
             viewHolder.order_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey_500));
         }

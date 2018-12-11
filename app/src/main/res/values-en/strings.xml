@@ -1,37 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- App Name -->
     <string name="app_name">MyHotix Guest</string>
-
-    <!-- EditText Hints -->
     <string name="hint_login_email">Username</string>
     <string name="hint_login_password">Password</string>
-
-    <!-- Buttons Texts -->
     <string name="text_login_button">Login</string>
-
-    <!-- Errors Messages  -->
-    <string name="error_message_email_is_empty">Enter your E-mail Address</string>
+    <string name="error_message_email_is_empty">Enter your Email Address</string>
     <string name="error_message_username_is_empty">Enter your Username</string>
     <string name="error_message_phone_is_empty">Enter your Phone number</string>
-    <string name="error_message_email_invalid">Enter a valid E-mail Address</string>
+    <string name="error_message_email_invalid">Enter a valid Email Address</string>
     <string name="error_message_password_empty">Enter Your Password</string>
     <string name="error_message_password_does_not_match">Passwords does not match</string>
     <string name="error_message_password_too_short">Password Is Too Short</string>
     <string name="error_message_field_required">This field is required</string>
     <string name="error_message_check_settings">Something went wrong. Check your settings!</string>
-
-    <!-- Success Messages  -->
     <string name="success_login_message">Login Successful</string>
     <string name="title_activity_main">MainActivity</string>
-
-    <!-- BottomNavigationView Menu  -->
     <string name="title_profile">Profile</string>
     <string name="title_bill">My Bill</string>
     <string name="title_complaint">Complaints</string>
     <string name="title_orders">Orders</string>
     <string name="title_review">Review</string>
-
     <string name="splash_screen_footer_text">www.MyHotixGuest.com</string>
     <string name="complaints_text">Complaints</string>
     <string name="complaint_menu_add_text">Add</string>
@@ -39,7 +27,7 @@
     <string name="no_internet">No Internet Connection!</string>
     <string name="unreachable_server">Login server is unreachable!</string>
     <string name="forgot_password">Forgot Password ?</string>
-    <string name="no_account_yet">No account yet? </string>
+    <string name="no_account_yet">"No account yet? "</string>
     <string name="sign_up">Sign Up</string>
     <string name="button_send">Send</string>
     <string name="forgot_password_help_text">"You should receive an e-mail containing your new password shortly. "</string>
@@ -50,7 +38,7 @@
     <string name="title_activities">Activities</string>
     <string name="error_message_title_is_empty">The Title  is Empty</string>
     <string name="error_message_complaint_text_is_empty">The Complaint text  is Empty</string>
-    <string name="reservation_details">RESERVATION DETAILS</string>
+    <string name="reservation_details">RESERVATION</string>
     <string name="event_details">EVENT DETAILS</string>
     <string name="my_history">MY HISTORY</string>
     <string name="bill_details">BILL</string>
@@ -82,8 +70,6 @@
     <string name="no_products_to_show">No products found!</string>
     <string name="no_orders_to_show">You have placed no orders yet.</string>
     <string name="no_message_to_show">You have no messages to show.</string>
-    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
-    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">FCM Message</string>
     <string name="next">NEXT</string>
     <string name="back">BACK</string>
@@ -113,7 +99,6 @@
     <string name="new_complaint_confirm">Confirm</string>
     <string name="new_complaint_alert_title">New Complaint</string>
     <string name="cancel">Cancel</string>
-    <string name="ok" translatable="false">Ok</string>
     <string name="coomplaint_details">Complaint Details</string>
     <string name="message_details">Message Details</string>
     <string name="order_details">Order Details</string>
@@ -132,7 +117,7 @@
     <string name="login_information">Login Information</string>
     <string name="username">Username</string>
     <string name="terms_of_service">When you sign-up for an account you’re required to check the “I agree to the terms of service” checkbox before clicking on the “DONE” button</string>
-    <string name="i_agree_to">I agree to the </string>
+    <string name="i_agree_to">"I agree to the "</string>
     <string name="terms_service">" terms of service"</string>
     <string name="used_username">This username has been used</string>
     <string name="used_email">This Email has been used</string>
@@ -178,14 +163,13 @@
     <string name="address">Address</string>
     <string name="contacts">Contacts</string>
     <string name="about_hotel">ABOUT HOTEL</string>
-    <string name="total">"Total "</string>
+    <string name="total">Total</string>
     <string name="cart_is_empty">Your cart is empty</string>
-    <string name="price">"Price "</string>
+    <string name="price">Price</string>
     <string name="remove">Remove</string>
     <string name="success">Success</string>
     <string name="success_msg">Order Successfully Added</string>
     <string name="rreceive_notification">Receive Notification</string>
-    <string name="off" translatable="false">Off</string>
     <string name="nearby_radius">Nearby Radius</string>
     <string name="nearby_places">Nearby Places</string>
     <string name="show_cart">SHOW CART</string>
@@ -220,7 +204,4 @@
     <string name="daily_request_exceeded">You have exceeded your daily request quota for this API</string>
     <string name="processing">Processing</string>
     <string name="waiting">Waiting</string>
-
-
 </resources>
-

@@ -120,7 +120,7 @@
         <!-- Google Map -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDpqH7ciz4f0tE-jixmz7QTXm8hmNzG9s4" />
+            android:value="AIzaSyBCaBLHuK_snYuADXjOas2XElNtZ1eGIZI" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

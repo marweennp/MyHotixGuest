@@ -212,11 +212,91 @@ public class AboutHotelActivity extends AppCompatActivity {
 
                     if (mMenu.size() > 0) {
 
-                        Picasso.get().load(BASE_URL + mMenu.get(0).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_1_bg);
-                        Picasso.get().load(BASE_URL + mMenu.get(1).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_2_bg);
-                        Picasso.get().load(BASE_URL + mMenu.get(2).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_3_bg);
-                        Picasso.get().load(BASE_URL + mMenu.get(3).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_4_bg);
-                        Picasso.get().load(BASE_URL + mMenu.get(4).getBackground()).fit().placeholder(R.drawable.royal_hotel_bg).fit().into(menu_5_bg);
+                        Picasso
+                                .get()
+                                .load(BASE_URL + mMenu.get(0).getBackground())
+                                .placeholder(R.drawable.menu_placeholder)
+                                .fit()
+                                .into(menu_1_bg, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Picasso.get().load(R.drawable.history).fit().into(menu_1_bg);
+                                    }
+                                });
+
+                        Picasso
+                                .get()
+                                .load(BASE_URL + mMenu.get(1).getBackground())
+                                .placeholder(R.drawable.menu_placeholder)
+                                .fit()
+                                .into(menu_2_bg, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Picasso.get().load(R.drawable.history).fit().into(menu_2_bg);
+                                    }
+                                });
+
+                        Picasso
+                                .get()
+                                .load(BASE_URL + mMenu.get(2).getBackground())
+                                .placeholder(R.drawable.menu_placeholder)
+                                .fit()
+                                .into(menu_3_bg, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Picasso.get().load(R.drawable.history).fit().into(menu_3_bg);
+                                    }
+                                });
+
+                        Picasso
+                                .get()
+                                .load(BASE_URL + mMenu.get(3).getBackground())
+                                .placeholder(R.drawable.menu_placeholder)
+                                .fit()
+                                .into(menu_4_bg, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Picasso.get().load(R.drawable.history).fit().into(menu_4_bg);
+                                    }
+                                });
+
+                        Picasso
+                                .get()
+                                .load(BASE_URL + mMenu.get(4).getBackground())
+                                .placeholder(R.drawable.menu_placeholder)
+                                .fit()
+                                .into(menu_5_bg, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Picasso.get().load(R.drawable.history).fit().into(menu_5_bg);
+                                    }
+                                });
+
 
                         menu_1_tv.setText(mMenu.get(0).getTitle());
                         menu_2_tv.setText(mMenu.get(1).getTitle());

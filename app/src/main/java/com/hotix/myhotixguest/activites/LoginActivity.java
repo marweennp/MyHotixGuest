@@ -14,6 +14,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -58,10 +59,10 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.login_button)
     AppCompatButton _loginButton;
     // Butter Knife BindView AppCompatTextView
-    @BindView(R.id.login_forgot_password_text_view)
-    AppCompatTextView _loginForgotPasswordTextView;
-    @BindView(R.id.login_signup_text_view)
-    AppCompatTextView _loginSignupTextView;
+    @BindView(R.id.ll_login_forgot_password)
+    LinearLayout _loginForgotPassword;
+    @BindView(R.id.ll_login_signup)
+    LinearLayout _loginSignup;
     // Butter Knife BindView TextInputLayout
     @BindView(R.id.text_input_layout_login_email)
     TextInputLayout _loginEmailTextInput;
@@ -85,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         // Session Manager
         session = new Session(getApplicationContext());
         getFirebaseInstanceId();
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher).into(imagelogin);
+        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.drawable.logo).into(imagelogin);
 
         //checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
 
@@ -93,8 +94,6 @@ public class LoginActivity extends AppCompatActivity {
             _loginEmailText.setText(session.getUserName());
             _loginPasswordText.setText(session.getUserPassword());
         }
-
-        _loginSignupTextView.setText(Html.fromHtml(signeUpTextTowColors(getString(R.string.no_account_yet), getString(R.string.sign_up), getApplicationContext())));
 
         inputValidation = new InputValidation(getApplicationContext());
 
@@ -112,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        _loginForgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+        _loginForgotPassword.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -122,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        _loginSignupTextView.setOnClickListener(new View.OnClickListener() {
+        _loginSignup.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

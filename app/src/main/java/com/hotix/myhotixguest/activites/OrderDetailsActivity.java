@@ -223,7 +223,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 setHeader();
                 setListView();
 
-                if (GLOBAL_ORDER.getDetails().size()<1) {
+                if (GLOBAL_ORDER.getDetails().size() < 1) {
                     finish();
                 }
 
@@ -279,7 +279,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     ResponseMsg msg = response.body();
                     if (!msg.getIsOk()) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.something_wrong));
-
                     } else {
                         GLOBAL_CART.clear();
                         GLOBAL_ORDER = new Order();

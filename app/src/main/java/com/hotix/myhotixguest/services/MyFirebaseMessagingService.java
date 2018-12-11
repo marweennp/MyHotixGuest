@@ -17,7 +17,11 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activites.SplashScreenActivity;
 import com.hotix.myhotixguest.helpers.Session;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.RECEIVE_NOTIFICATION;
 
@@ -71,17 +75,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String notifBody;
         switch (type) {
             case "message":
-                icon = R.drawable.notif_message;
+                icon = R.drawable.svg_notifications_blue_512;
                 notifTitele = getString(R.string.message_from_) + messageTitle;
                 notifBody = messageBody;
                 break;
             case "complaint":
-                icon = R.drawable.notif_info;
+                icon = R.drawable.svg_warning_blue_512;
                 notifTitele = getString(R.string.complaint_treated);
                 notifBody = messageBody;
                 break;
             default:
-                icon = R.drawable.notif_message;
+                icon = R.drawable.svg_information_blue_512;
                 notifTitele = messageTitle;
                 notifBody = messageBody;
                 break;
@@ -107,8 +111,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
+        Random r = new Random();
+        int i = r.nextInt(100);
+        notificationManager.notify(createID(), notificationBuilder.build());
+    }
 
-        notificationManager.notify(0, notificationBuilder.build());
+    public int createID(){
+        Date now = new Date();
+        int id = Integer.parseInt(new SimpleDateFormat("ddHHmmssSS",  Locale.US).format(now));
+        return id;
     }
 
 }

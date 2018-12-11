@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -88,6 +87,17 @@ public class ContactHotelActivity extends FragmentActivity implements OnMapReady
             mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, this.getTheme());
         }
 
+        emptyListRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    loadHotelInfos();
+                } catch (Exception e) {
+                    showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+                }
+            }
+        });
+
         init();
     }
 
@@ -104,16 +114,9 @@ public class ContactHotelActivity extends FragmentActivity implements OnMapReady
 
     //**********************************************************************************************
 
-
-    //**********************************************************************************************
-
-    public void init() {
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        isServicesOK();
-
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
     }
 
     public boolean isServicesOK() {
@@ -127,6 +130,17 @@ public class ContactHotelActivity extends FragmentActivity implements OnMapReady
             Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
         }
         return false;
+    }
+
+    //**********************************************************************************************
+
+    public void init() {
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        isServicesOK();
+
     }
 
     public void addMarker() {
@@ -322,21 +336,33 @@ public class ContactHotelActivity extends FragmentActivity implements OnMapReady
 
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-    }
-
     public void sendEmail(String mail) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{mail});
-        startActivity(Intent.createChooser(intent, "Send Email"));
+
+        try {
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{mail});
+            startActivity(Intent.createChooser(intent, "Send Email"));
+
+        } catch (Exception e) {
+
+        }
+
     }
 
     public void callPhone(String phone) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
-        startActivity(intent);
+
+        try {
+
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
+            startActivity(intent);
+
+        } catch (Exception e) {
+
+        }
+
+
     }
 
     public void browsWebSite(String webSite) {
@@ -353,7 +379,7 @@ public class ContactHotelActivity extends FragmentActivity implements OnMapReady
                 startActivity(browserIntent);
             }
         } catch (Exception e) {
-            Log.e("WWWWWWWWWWWWWWWWWeb",e.toString());
+
         }
 
 

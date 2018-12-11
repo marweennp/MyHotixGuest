@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Facture {
 
@@ -20,9 +19,12 @@ public class Facture {
     @SerializedName("TotalTTC")
     @Expose
     private Double totalTTC;
+    @SerializedName("DateFront")
+    @Expose
+    private String dateFront;
     @SerializedName("LignesFacture")
     @Expose
-    private ArrayList<LignesFacture> lignesFacture = null;
+    private ArrayList<LigneFacture> lignesFacture = null;
 
     public Integer getId() {
         return id;
@@ -56,11 +58,15 @@ public class Facture {
         this.totalTTC = totalTTC;
     }
 
-    public ArrayList<LignesFacture> getLignesFacture() {
+    public String getDateFront() { return dateFront; }
+
+    public void setDateFront(String dateFront) { this.dateFront = dateFront; }
+
+    public ArrayList<LigneFacture> getLignesFacture() {
         return lignesFacture;
     }
 
-    public void setLignesFacture(ArrayList<LignesFacture> lignesFacture) {
+    public void setLignesFacture(ArrayList<LigneFacture> lignesFacture) {
         this.lignesFacture = lignesFacture;
     }
 

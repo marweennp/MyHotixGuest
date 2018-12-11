@@ -3,6 +3,7 @@ package com.hotix.myhotixguest.activites;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -30,8 +31,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_HOTEL_INFOS;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.G_PLACES_API_KEY;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
+import static com.hotix.myhotixguest.helpers.Utils.stringEmptyOrNull;
 
 public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -52,6 +55,10 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
         //settings
         settings = new Settings(getApplicationContext());
         mRadius = String.valueOf(settings.getNearbyRadius());
+        if ((!stringEmptyOrNull(GLOBAL_HOTEL_INFOS.getLatitude())) && (!stringEmptyOrNull(GLOBAL_HOTEL_INFOS.getLatitude()))) {
+            mLocation = (GLOBAL_HOTEL_INFOS.getLatitude() + "," + GLOBAL_HOTEL_INFOS.getLongitude());
+        }
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -93,7 +100,6 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
         }
     }
 
-
     public boolean isServicesOK() {
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
         if (available == ConnectionResult.SUCCESS) {
@@ -107,17 +113,10 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
         return false;
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker
-        LatLng mLocation = new LatLng(36.85166946, 10.20361863);
-        LatLng hotel = new LatLng(36.38089258, 10.54804663);
-        mMap.addMarker(new MarkerOptions().position(mLocation).title("HOTIX"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(mLocation));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+        addMarker();
     }
 
     public void loadNearbyPlaces(String location, String radius, final String type, String key) {
@@ -144,7 +143,10 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
                     NearbyPlaces nearbyPlaces = response.body();
                     mResult.addAll(nearbyPlaces.getResults());
                     if (!(nearbyPlaces.getStatus().equals("OK"))) {
-                        showSnackbar(findViewById(android.R.id.content), getString(R.string.something_wrong));
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.daily_request_exceeded));
+                        Log.e("HELLO MAPS",nearbyPlaces.getErrorMessage());
+                        Log.e("HELLO MAPS",nearbyPlaces.getStatus());
+                        Log.e("HELLO MAPS",nearbyPlaces.getResults().toString());
                     } else {
                         showNearbyPlaces(mResult, mType);
                     }
@@ -196,15 +198,27 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
                 marker.icon(pin_shop);
             }
 
-
             mMap.addMarker(marker);
         }
 
-        LatLng mLocation = new LatLng(36.85166946, 10.20361863);
-        mMap.addMarker(new MarkerOptions().position(mLocation).title("HOTIX"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(mLocation));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+        addMarker();
 
+    }
+
+    public void addMarker() {
+
+        if ((!stringEmptyOrNull(GLOBAL_HOTEL_INFOS.getLatitude())) && (!stringEmptyOrNull(GLOBAL_HOTEL_INFOS.getLatitude()))) {
+
+            // Add a marker
+            LatLng hotel = new LatLng(Double.valueOf(GLOBAL_HOTEL_INFOS.getLatitude()), Double.valueOf(GLOBAL_HOTEL_INFOS.getLongitude()));
+            MarkerOptions marker = new MarkerOptions();
+            marker.position(hotel);
+            marker.title(GLOBAL_HOTEL_INFOS.getHotelName());
+
+            mMap.addMarker(marker).showInfoWindow();
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(hotel));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+        }
 
     }
 

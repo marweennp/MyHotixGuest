@@ -333,7 +333,11 @@ public class SignupActivity extends AppCompatActivity {
             newSignup.setBerthDate(dateFormater(birthDateEt.getText().toString().trim(), "dd/MM/yyyy", "yyyyMMdd"));
         }
 
-        newSignup.setCivilityId(GLOBAL_START_DATA.getCivilites().get(civiliteSp.getSelectedItemPosition()).getId());
+        if ((GLOBAL_START_DATA.getCivilites() != null) && (GLOBAL_START_DATA.getCivilites().size() > 0)) {
+            newSignup.setCivilityId(GLOBAL_START_DATA.getCivilites().get(civiliteSp.getSelectedItemPosition()).getId());
+        } else {
+            newSignup.setCivilityId(1);
+        }
 
         return true;
     }

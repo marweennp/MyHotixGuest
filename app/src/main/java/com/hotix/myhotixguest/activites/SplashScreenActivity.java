@@ -1,8 +1,12 @@
 package com.hotix.myhotixguest.activites;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -10,15 +14,17 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.Guest;
+import com.hotix.myhotixguest.models.HotelInfos;
 import com.hotix.myhotixguest.models.HotelSettings;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,12 +32,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
+import static com.hotix.myhotixguest.helpers.ConnectionChecher.isNetworkAvailable;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.FINAL_APP_ID;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.FINAL_HOTEL_ID;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_HOTEL_INFOS;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_COMPLAINT_NOTIFICATION;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_MESSAGE_NOTIFICATION;
 import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 import static com.hotix.myhotixguest.helpers.Utils.stringEmptyOrNull;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -42,14 +50,29 @@ public class SplashScreenActivity extends AppCompatActivity {
     @BindView(R.id.splash_screen_imageView)
     AppCompatImageView splashScreen;
     // Butter Knife BindView AppCompatTextView
-    @BindView(R.id.splash_screen_footer_text)
+    @BindView(R.id.tv_spalsh_progress)
     AppCompatTextView splashScreenFooter;
+
+    // Empty View
+    @BindView(R.id.empty_list_view)
+    RelativeLayout emptyListView;
+    @BindView(R.id.list_tv_msg)
+    AppCompatTextView emptyListText;
+    @BindView(R.id.empty_list_iv_icon)
+    AppCompatImageView emptyListIcon;
+    @BindView(R.id.empty_list_refresh_btn)
+    AppCompatButton emptyListRefresh;
+    @BindView(R.id.rl_main_container)
+    RelativeLayout mainContainer;
+
     // Session Manager Class
     Session session;
     // Settings Class
     Settings settings;
 
     private Intent intent;
+
+    private Drawable mIconOne, mIconTwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +83,15 @@ public class SplashScreenActivity extends AppCompatActivity {
         session = new Session(getApplicationContext());
         //settings
         settings = new Settings(getApplicationContext());
+
+        //Check android vertion and load image
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            mIconOne = getResources().getDrawable(R.drawable.svg_internet_grey_512, this.getTheme());
+            mIconTwo = getResources().getDrawable(R.drawable.svg_server_grey_512, this.getTheme());
+        } else {
+            mIconOne = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_internet_grey_512, this.getTheme());
+            mIconTwo = VectorDrawableCompat.create(this.getResources(), R.drawable.svg_server_grey_512, this.getTheme());
+        }
 
         intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -72,40 +104,42 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }
 
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher).into(splashScreen);
+        emptyListRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+            }
+        });
 
-        if (settings.getConfigured()) {
-            setBaseUrl(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        splashScreenFooter.setText(R.string.checking_internet_providers);
+        if (isNetworkAvailable(this)) {
+
+            if (settings.getConfigured()) {
+                setBaseUrl(this);
+            }
+
+            try {
+                lodeHotelConfig();
+            } catch (Exception e) {
+                Log.e("SPLASH LOG", e.toString());
+            }
+
+        } else {
+            mainContainer.setVisibility(View.GONE);
+            emptyListView.setVisibility(View.VISIBLE);
+            emptyListText.setText(R.string.check_internet_connection);
+            emptyListIcon.setImageDrawable(mIconOne);
         }
 
-        try {
-            lodeHotelConfig();
-        } catch (Exception e) {
-            Log.e("SPLASH LOG", e.toString());
-        }
 
     }
 
     /**********************************************************************************************/
-
-    private void init() {
-
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.mipmap.ic_launcher).into(splashScreen);
-
-         if (session.getIsLoggedIn()) {
-            try {
-                login(session.getUserName(), session.getUserPassword());
-            } catch (Exception e) {
-                Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                finish();
-            }
-        } else {
-            startDelay();
-        }
-
-    }
 
     private void startDelay() {
 
@@ -166,6 +200,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         Call<Guest> userCall = service.getGuestQuery(uname, pwd);
         final String uName = uname;
         final String uPwd = pwd;
+
+        splashScreenFooter.setText(R.string.login);
         userCall.enqueue(new Callback<Guest>() {
             @Override
             public void onResponse(Call<Guest> call, Response<Guest> response) {
@@ -234,6 +270,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         RetrofitInterface service = RetrofitClient.getHotixSupportApi().create(RetrofitInterface.class);
         Call<HotelSettings> userCall = service.getInfosQuery(FINAL_HOTEL_ID, FINAL_APP_ID);
 
+        splashScreenFooter.setText(R.string.loading_hotel_settings);
+
         userCall.enqueue(new Callback<HotelSettings>() {
             @Override
             public void onResponse(Call<HotelSettings> call, Response<HotelSettings> response) {
@@ -277,8 +315,19 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
 
                 if (settings.getConfigured()) {
-                    init();
-                }else{
+
+                    try {
+                        loadHotelInfos();
+                    } catch (Exception e) {
+
+                        mainContainer.setVisibility(View.GONE);
+                        emptyListView.setVisibility(View.VISIBLE);
+                        emptyListText.setText(R.string.check_internet_connection);
+                        emptyListIcon.setImageDrawable(mIconOne);
+
+                    }
+
+                } else {
                     startConnectionFailedDialog();
                 }
 
@@ -288,10 +337,77 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onFailure(Call<HotelSettings> call, Throwable t) {
                 Log.e("SPLASH LOG", getString(R.string.server_down));
                 if (settings.getConfigured()) {
-                    init();
-                }else{
+
+                    try {
+                        loadHotelInfos();
+                    } catch (Exception e) {
+
+                        mainContainer.setVisibility(View.GONE);
+                        emptyListView.setVisibility(View.VISIBLE);
+                        emptyListText.setText(R.string.check_internet_connection);
+                        emptyListIcon.setImageDrawable(mIconOne);
+
+                    }
+
+                } else {
                     startConnectionFailedDialog();
                 }
+            }
+        });
+
+    }
+
+    //**** Load Hotel Infos ************************************************************************
+    private void loadHotelInfos() {
+
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<HotelInfos> userCall = service.getHotelInfosQuery();
+
+        splashScreenFooter.setText(R.string.loading_hotel_infos);
+
+        userCall.enqueue(new Callback<HotelInfos>() {
+            @Override
+            public void onResponse(Call<HotelInfos> call, Response<HotelInfos> response) {
+
+                if (response.raw().code() == 200) {
+
+                    HotelInfos hotelInfos;
+                    hotelInfos = response.body();
+                    GLOBAL_HOTEL_INFOS = hotelInfos;
+
+                }
+
+                if (session.getIsLoggedIn()) {
+                    try {
+                        login(session.getUserName(), session.getUserPassword());
+                    } catch (Exception e) {
+                        Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                        startActivity(i);
+                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                        finish();
+                    }
+                } else {
+                    startDelay();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<HotelInfos> call, Throwable t) {
+
+                if (session.getIsLoggedIn()) {
+                    try {
+                        login(session.getUserName(), session.getUserPassword());
+                    } catch (Exception e) {
+                        Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                        startActivity(i);
+                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                        finish();
+                    }
+                } else {
+                    startDelay();
+                }
+
             }
         });
 

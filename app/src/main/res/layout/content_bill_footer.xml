@@ -17,30 +17,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/bill_total_ttc_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text=""
-                android:textColor="@color/white"
-                android:textSize="16sp" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/bill_total_ttc_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="4dp"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/bill_total_ttc_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="16dp"
+                android:text=""
+                android:textColor="@color/white_70_alpha"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

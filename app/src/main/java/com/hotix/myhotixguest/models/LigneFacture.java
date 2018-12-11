@@ -3,7 +3,7 @@ package com.hotix.myhotixguest.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LignesFacture {
+public class LigneFacture {
 
     @SerializedName("Id")
     @Expose
@@ -26,6 +26,9 @@ public class LignesFacture {
     @SerializedName("Montant")
     @Expose
     private Double montant;
+    @SerializedName("Auto")
+    @Expose
+    private Boolean auto;
 
     public Integer getId() {
         return id;
@@ -82,5 +85,9 @@ public class LignesFacture {
     public void setMontant(Double montant) {
         this.montant = montant;
     }
+
+    public Boolean getAuto() { return auto; }
+
+    public void setAuto(Boolean auto) { this.auto = auto; }
 
 }

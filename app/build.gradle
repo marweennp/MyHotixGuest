@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     //____FireBase____//
-    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
 
     //____Pull_To_Refresh____//

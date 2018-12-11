@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -19,8 +20,10 @@ import android.widget.RelativeLayout;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.BillAdapter;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.helpers.Utils;
+import com.hotix.myhotixguest.models.BillData;
 import com.hotix.myhotixguest.models.Facture;
-import com.hotix.myhotixguest.models.LignesFacture;
+import com.hotix.myhotixguest.models.LigneFacture;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -28,6 +31,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -37,13 +42,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.support.v4.content.ContextCompat.getColor;
+import static com.hotix.myhotixguest.helpers.Utils.dateBefore;
 import static com.hotix.myhotixguest.helpers.Utils.dateColored;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.sameDate;
 import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class BillDetailsActivity extends AppCompatActivity {
 
-    private static BillAdapter adapter;
     // Butter Knife BindView
     // ListView
     @BindView(R.id.bill_list)
@@ -62,25 +70,38 @@ public class BillDetailsActivity extends AppCompatActivity {
     AppCompatImageView emptyListIcon;
     @BindView(R.id.empty_list_refresh_btn)
     AppCompatButton emptyListRefresh;
+    @BindView(R.id.rl_bill_header)
+    RelativeLayout rlBillHeader;
+    //
+    @BindView(R.id.bill_header_total_ttc_text)
+    AppCompatTextView billHeadTotalTTC;
+    @BindView(R.id.bill_date_text)
+    AppCompatTextView billDate;
+    @BindView(R.id.bill_owner_text)
+    AppCompatTextView billOwner;
+    @BindView(R.id.bill_number_text)
+    AppCompatTextView billNumber;
+    @BindView(R.id.bill_header_total_ttc_title_text)
+    AppCompatTextView headDevise;
+    @BindView(R.id.chb_bill_header_whole_stay)
+    AppCompatCheckBox chbWholeStay;
 
     // Session Manager Class
     Session session;
-    ArrayList<LignesFacture> l_factures;
+    Facture facture;
+    ArrayList<LigneFacture> l_factures;
+    //**************************************************
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
     private AppCompatTextView billTotalTTC;
-    private AppCompatTextView billHeadTotalTTC;
-    private AppCompatTextView billDate;
-    private AppCompatTextView billOwner;
-    private AppCompatTextView billNumber;
-    private View header;
+    private AppCompatTextView footDevise;
     private View footer;
     private String billId;
     private String billAn;
     private String dateIn;
     private String dateOut;
     private boolean histo;
-
     private Drawable mIconTwo;
-
     //___________(Currency Number format)_____________\\
     private NumberFormat formatter;
     private DecimalFormatSymbols decimalFormatSymbols;
@@ -115,8 +136,6 @@ public class BillDetailsActivity extends AppCompatActivity {
         ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
         formatter.setMinimumFractionDigits(3);
 
-        l_factures = new ArrayList<>();
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         AppCompatTextView toolbarTitle = (AppCompatTextView) toolbar.findViewById(R.id.toolbar_center_title);
@@ -124,13 +143,17 @@ public class BillDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        header = (View) getLayoutInflater().inflate(R.layout.content_bill_header, null);
         footer = (View) getLayoutInflater().inflate(R.layout.content_bill_footer, null);
-        billNumber = (AppCompatTextView) header.findViewById(R.id.bill_number_text);
-        billOwner = (AppCompatTextView) header.findViewById(R.id.bill_owner_text);
-        billDate = (AppCompatTextView) header.findViewById(R.id.bill_date_text);
-        billHeadTotalTTC = (AppCompatTextView) header.findViewById(R.id.bill_header_total_ttc_text);
         billTotalTTC = (AppCompatTextView) footer.findViewById(R.id.bill_total_ttc_text);
+        footDevise = (AppCompatTextView) footer.findViewById(R.id.bill_total_ttc_title_text);
+
+        //Whole Stay True/False
+        chbWholeStay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+                showData(facture, bChecked);
+            }
+        });
 
     }
 
@@ -160,6 +183,96 @@ public class BillDetailsActivity extends AppCompatActivity {
         return true;
     }
 
+    //**********************************************************************************************
+
+    public void showData(Facture fact, boolean all) {
+
+        l_factures = new ArrayList<>();
+        l_factures.clear();
+        Double total = 0.0;
+
+        for (LigneFacture lf : fact.getLignesFacture()) {
+
+            if ((!all)) {
+
+                if (!lf.getAuto() || dateBefore(dateFormater(lf.getDate(), Utils.FormatsDate.F2.getFormat(), Utils.FormatsDate.F1.getFormat()), dateFormater(fact.getDateFront(), Utils.FormatsDate.F1.getFormat(), Utils.FormatsDate.F1.getFormat()))) {
+
+                    l_factures.add(lf);
+                    total += Double.valueOf(lf.getMontant());
+                }
+
+            } else {
+                l_factures.add(lf);
+                total += Double.valueOf(lf.getMontant());
+            }
+
+
+        }
+
+        listView.removeFooterView(footer);
+        BillAdapter listAdapter = new BillAdapter(this, l_factures, fact.getDateFront());
+        listView.setAdapter(listAdapter);
+        listView.addFooterView(footer);
+
+        billHeadTotalTTC.setText(formatter.format(total));
+        billTotalTTC.setText(formatter.format(total));
+
+        if (total < 0) {
+            billHeadTotalTTC.setTextColor(getResources().getColor( R.color.green_500));
+            billTotalTTC.setTextColor(getResources().getColor( R.color.green_500));
+        }else{
+            billHeadTotalTTC.setTextColor(getResources().getColor( R.color.white));
+            billTotalTTC.setTextColor(getResources().getColor( R.color.white));
+        }
+
+
+    }
+
+    public ArrayList<BillData> sortData(ArrayList<LigneFacture> lignesFacture) {
+
+        ArrayList<BillData> data = new ArrayList<BillData>();
+
+        for (LigneFacture lf : lignesFacture) {
+
+            if (data.size() < 1) {
+                BillData bDat = new BillData();
+                bDat.setDate(lf.getDate());
+                bDat.setTotal(lf.getMontant());
+                ArrayList<LigneFacture> lfList = new ArrayList<LigneFacture>();
+                lfList.add(lf);
+                bDat.setLignesFacture(lfList);
+                data.add(bDat);
+
+            } else {
+                boolean exist = false;
+                for (BillData bd : data) {
+
+                    if (sameDate(dateFormater(lf.getDate(), Utils.FormatsDate.F2.getFormat(), Utils.FormatsDate.F1.getFormat()), dateFormater(bd.getDate(), Utils.FormatsDate.F2.getFormat(), Utils.FormatsDate.F1.getFormat()))) {
+                        Double total = bd.getTotal();
+                        bd.setTotal(total += lf.getMontant());
+                        ArrayList<LigneFacture> lfList = bd.getLignesFacture();
+                        lfList.add(lf);
+                        bd.setLignesFacture(lfList);
+                        exist = true;
+                    }
+                }
+
+                if (!exist) {
+                    BillData bDat = new BillData();
+                    bDat.setDate(lf.getDate());
+                    bDat.setTotal(lf.getMontant());
+                    ArrayList<LigneFacture> lfList = new ArrayList<LigneFacture>();
+                    lfList.add(lf);
+                    bDat.setLignesFacture(lfList);
+                    data.add(bDat);
+                }
+            }
+
+        }
+        return data;
+    }
+
+    //**********************************************************************************************
     private void loadeBills() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
@@ -167,25 +280,23 @@ public class BillDetailsActivity extends AppCompatActivity {
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
+        rlBillHeader.setVisibility(View.GONE);
+
 
         billCall.enqueue(new Callback<Facture>() {
             @Override
             public void onResponse(Call<Facture> call, Response<Facture> response) {
                 progressView.setVisibility(View.GONE);
+                rlBillHeader.setVisibility(View.VISIBLE);
                 if (response.raw().code() == 200) {
-                    Facture facture = response.body();
-                    l_factures = facture.getLignesFacture();
 
-                    adapter = new BillAdapter(l_factures, getApplicationContext());
-
-                    listView.setAdapter(adapter);
-                    emptyListText.setText(R.string.no_bills_to_show);
-                    listView.setEmptyView(findViewById(R.id.empty_list_view));
-
-                    listView.addHeaderView(header);
-                    listView.addFooterView(footer);
+                    facture = response.body();
 
                     billOwner.setText(session.getNom() + " " + session.getPrenom());
+                    billNumber.setText(facture.getId() + "-" + facture.getAnnee());
+
+                    headDevise.setText(facture.getDevise());
+                    footDevise.setText(facture.getDevise());
 
                     if (histo) {
                         billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", true)));
@@ -193,9 +304,8 @@ public class BillDetailsActivity extends AppCompatActivity {
                         billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true)));
                     }
 
-                    billNumber.setText(facture.getId() + "-" + facture.getAnnee());
-                    billHeadTotalTTC.setText(formatter.format(facture.getTotalTTC()) + " " + facture.getDevise());
-                    billTotalTTC.setText(formatter.format(facture.getTotalTTC()) + " " + facture.getDevise());
+                    showData(facture, true);
+
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
@@ -204,6 +314,7 @@ public class BillDetailsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Facture> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
+                rlBillHeader.setVisibility(View.GONE);
                 emptyListText.setText(R.string.server_unreachable);
                 emptyListIcon.setImageDrawable(mIconTwo);
                 listView.setEmptyView(findViewById(R.id.empty_list_view));

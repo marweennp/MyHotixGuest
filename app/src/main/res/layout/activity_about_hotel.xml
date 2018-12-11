@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorImgBg"
     tools:context=".activites.AboutHotelActivity">
 
     <!-- Progress View -->
@@ -29,7 +29,7 @@
                 android:id="@+id/about_hotel_menu_1_bg_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/royal_hotel_bg" />
+                android:src="@drawable/menu_placeholder" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 android:id="@+id/about_hotel_menu_2_bg_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/royal_hotel_room" />
+                android:src="@drawable/menu_placeholder" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                 android:id="@+id/about_hotel_menu_3_bg_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/royal_hotel_spa" />
+                android:src="@drawable/menu_placeholder" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -158,7 +158,7 @@
                 android:id="@+id/about_hotel_menu_4_bg_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/royal_hotel_resto" />
+                android:src="@drawable/menu_placeholder" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -201,7 +201,7 @@
                 android:id="@+id/about_hotel_menu_5_bg_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/royal_hotel_conf" />
+                android:src="@drawable/menu_placeholder" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

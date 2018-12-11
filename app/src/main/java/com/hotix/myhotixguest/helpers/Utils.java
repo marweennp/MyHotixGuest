@@ -117,6 +117,39 @@ public class Utils {
         return text;
     }
 
+    //validate date
+    public static Boolean dateBefore(String dateOne, String dateTwo) {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date one;
+        Date two;
+        try {
+
+            one = df.parse(dateOne);
+            two = df.parse(dateTwo);
+            return two.compareTo(one) > 0;
+
+        } catch (Exception e) {
+        }
+        return false;
+
+    }
+
+    public static Boolean sameDate(String dateOne, String dateTwo) {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date one;
+        Date two;
+        try {
+            one = df.parse(dateOne);
+            two = df.parse(dateTwo);
+            return two.compareTo(one) == 0;
+
+        } catch (Exception e) {
+        }
+        return false;
+
+    }
+
+
     /**********************************************************************************************/
 
     /*Set BASE_URL*/
@@ -257,5 +290,25 @@ public class Utils {
 
         return dateResult;
     }
+
+
+    /**
+     * Enum for date formats
+     */
+    public enum FormatsDate {
+        F1("dd/MM/yyyy"),
+        F2("yyyy-MM-dd'T'hh:mm:ss");
+
+        private String format;
+
+        FormatsDate(String format) {
+            this.format = format;
+        }
+
+        public String getFormat() {
+            return this.format;
+        }
+    }
+
 
 }

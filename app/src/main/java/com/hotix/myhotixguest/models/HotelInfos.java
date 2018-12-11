@@ -22,6 +22,9 @@ public class HotelInfos {
     @SerializedName("Longitude")
     @Expose
     private String longitude;
+    @SerializedName("EventMail")
+    @Expose
+    private String eventMail;
     @SerializedName("HotelContactes")
     @Expose
     private ArrayList<HotelContactes> hotelContactes = null;
@@ -65,6 +68,10 @@ public class HotelInfos {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
+
+    public String getEventMail() { return eventMail; }
+
+    public void setEventMail(String eventMail) { this.eventMail = eventMail; }
 
     public ArrayList<HotelContactes> getHotelContactes() {
         return hotelContactes;

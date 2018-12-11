@@ -6,22 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".activites.SplashScreenActivity">
 
-    <!-- Splash Screen Logo -->
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/splash_screen_imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@mipmap/ic_launcher" />
+    <!-- Main Container -->
+    <RelativeLayout
+        android:id="@+id/rl_main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!-- Splash Screen Footer text -->
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/splash_screen_footer_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:text="@string/splash_screen_footer_text" />
+        <!-- Splash Screen Logo -->
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/splash_screen_imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/logo" />
+
+        <!-- Splash Screen Progress View -->
+        <LinearLayout
+            android:id="@+id/ll_splash_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <!-- Loading ProgressBar -->
+            <ProgressBar
+                android:id="@+id/pb_spalsh_progress"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_spalsh_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:text="@string/checking_internet_providers"
+                android:textColor="@color/white_70_alpha"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- Empty View -->
+    <include layout="@layout/include_empty_list_view" />
 
 </RelativeLayout>

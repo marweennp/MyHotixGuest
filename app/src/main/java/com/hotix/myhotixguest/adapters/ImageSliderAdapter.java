@@ -41,9 +41,25 @@ public class ImageSliderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
         View myImageLayout = inflater.inflate(R.layout.slide_image, view, false);
-        AppCompatImageView myImage = (AppCompatImageView) myImageLayout.findViewById(R.id.slide_img_view);
+        final AppCompatImageView myImage = (AppCompatImageView) myImageLayout.findViewById(R.id.slide_img_view);
         AppCompatTextView myText = (AppCompatTextView) myImageLayout.findViewById(R.id.slide_img_title);
         Picasso.get().load(BASE_URL + slides.get(position).getUrl()).fit().placeholder(R.drawable.hotel).fit().into(myImage);
+        Picasso
+                .get()
+                .load(BASE_URL + slides.get(position).getUrl())
+                .placeholder(R.drawable.bg_placeholder)
+                .fit()
+                .into(myImage, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get().load(R.drawable.bg_placeholder).fit().into(myImage);
+                    }
+                });
         myText.setText(slides.get(position).getLegende());
         view.addView(myImageLayout, 0);
         return myImageLayout;

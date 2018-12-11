@@ -9,7 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.models.LignesFacture;
+import com.hotix.myhotixguest.helpers.Utils;
+import com.hotix.myhotixguest.models.LigneFacture;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -18,20 +19,25 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.hotix.myhotixguest.helpers.Utils.dateBefore;
 import static com.hotix.myhotixguest.helpers.Utils.dateColored;
+import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 
-public class BillAdapter extends ArrayAdapter<LignesFacture> {
+public class BillAdapter extends ArrayAdapter<LigneFacture> {
 
     Context mContext;
-    private ArrayList<LignesFacture> dataSet;
+    private ArrayList<LigneFacture> dataSet;
+    private String dateFront;
     //___________(Currency Number format)_____________\\
     private NumberFormat formatter;
     private DecimalFormatSymbols decimalFormatSymbols;
 
-    public BillAdapter(ArrayList<LignesFacture> data, Context context) {
+    public BillAdapter(Context context, ArrayList<LigneFacture> data, String date) {
         super(context, R.layout.item_bill_row, data);
-        this.dataSet = data;
+
         this.mContext = context;
+        this.dataSet = data;
+        this.dateFront = date;
 
     }
 
@@ -44,11 +50,9 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
         ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
         formatter.setMinimumFractionDigits(3);
 
-        LignesFacture dataModel = getItem(position);
+        LigneFacture dataModel = getItem(position);
 
         ViewHolder viewHolder;
-
-        final View result;
 
         if (convertView == null) {
 
@@ -59,12 +63,9 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
             viewHolder.bill_transaction_sum = (TextView) convertView.findViewById(R.id.bill_transaction_sum);
             viewHolder.bill_transaction_date = (TextView) convertView.findViewById(R.id.bill_transaction_date);
 
-            result = convertView;
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result = convertView;
         }
 
         viewHolder.bill_transaction_title.setText(dataModel.getDescription());
@@ -73,6 +74,13 @@ public class BillAdapter extends ArrayAdapter<LignesFacture> {
 
         if (!(dataModel.getModePaiement() == 0)) {
             viewHolder.bill_transaction_sum.setTextColor(getColor(getContext(), R.color.green_600));
+        } else {
+
+            if (!dataModel.getAuto() || dateBefore(dateFormater(dataModel.getDate(), Utils.FormatsDate.F2.getFormat(), Utils.FormatsDate.F1.getFormat()), dateFormater(dateFront, Utils.FormatsDate.F1.getFormat(), Utils.FormatsDate.F1.getFormat()))) {
+                viewHolder.bill_transaction_sum.setTextColor(getColor(getContext(), R.color.light_bg_dark_primary_text));
+            } else {
+                viewHolder.bill_transaction_sum.setTextColor(getColor(getContext(), R.color.light_bg_dark_disabled_text));
+            }
         }
 
         // Return the completed view to render on screen
