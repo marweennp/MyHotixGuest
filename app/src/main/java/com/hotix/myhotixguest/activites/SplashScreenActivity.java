@@ -5,19 +5,20 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.hotix.myhotixguest.R;
+import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.Guest;
@@ -34,12 +35,12 @@ import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConnectionChecher.isNetworkAvailable;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.FINAL_APP_ID;
-import static com.hotix.myhotixguest.helpers.ConstantConfig.FINAL_HOTEL_ID;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.FINAL_HOTEL_CODE;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_HOTEL_INFOS;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_COMPLAINT_NOTIFICATION;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.HAVE_MESSAGE_NOTIFICATION;
+import static com.hotix.myhotixguest.helpers.Utils.clearImageDiskCache;
 import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
-import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 import static com.hotix.myhotixguest.helpers.Utils.stringEmptyOrNull;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -64,12 +65,13 @@ public class SplashScreenActivity extends AppCompatActivity {
     AppCompatButton emptyListRefresh;
     @BindView(R.id.rl_main_container)
     RelativeLayout mainContainer;
-
     // Session Manager Class
     Session session;
     // Settings Class
     Settings settings;
-
+    private TextInputLayout ilHotelCode;
+    private AppCompatEditText etHotelCode;
+    private InputValidation mInputValidation;
     private Intent intent;
 
     private Drawable mIconOne, mIconTwo;
@@ -83,6 +85,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         session = new Session(getApplicationContext());
         //settings
         settings = new Settings(getApplicationContext());
+
+        //Inputs Validation
+        mInputValidation = new InputValidation(this);
+
+        //Cleare Picasso Cash
+        clearImageDiskCache(getApplicationContext());
+        //settings.setFirstStart(true); // tests
 
         //Check android vertion and load image
         if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
@@ -116,6 +125,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         splashScreenFooter.setText(R.string.checking_internet_providers);
         if (isNetworkAvailable(this)) {
 
@@ -188,6 +198,47 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.dismiss();
                 finish();
+            }
+        });
+
+    }
+
+    //This method show Download Hotel Settings dialog.
+    private void startDownloadSettingsDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_hotel_settings, null);
+        AppCompatButton btnDownload = (AppCompatButton) mView.findViewById(R.id.btn_dialog_hotel_settings_download);
+        AppCompatButton btnCancel = (AppCompatButton) mView.findViewById(R.id.btn_dialog_hotel_settings_cancel);
+        ilHotelCode = (TextInputLayout) mView.findViewById(R.id.il_dialog_hotel_settings_code);
+        etHotelCode = (AppCompatEditText) mView.findViewById(R.id.et_dialog_hotel_settings_code);
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mInputValidation.isInputEditTextFilled(etHotelCode, ilHotelCode, getString(R.string.error_message_field_required))) {
+
+                    settings.setHotelCode(etHotelCode.getText().toString());
+                    settings.setFirstStart(false);
+                    recreate();
+
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                dialog.dismiss();
             }
         });
 
@@ -268,7 +319,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     public void lodeHotelConfig() {
 
         RetrofitInterface service = RetrofitClient.getHotixSupportApi().create(RetrofitInterface.class);
-        Call<HotelSettings> userCall = service.getInfosQuery(FINAL_HOTEL_ID, FINAL_APP_ID);
+        Call<HotelSettings> userCall = service.getInfosQuery(FINAL_HOTEL_CODE, FINAL_APP_ID);
 
         splashScreenFooter.setText(R.string.loading_hotel_settings);
 

@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
-        android:text="Visit Details"
+        android:text="@string/visit_details"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold" />

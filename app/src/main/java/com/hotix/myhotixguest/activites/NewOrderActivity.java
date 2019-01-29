@@ -159,7 +159,7 @@ public class NewOrderActivity extends AppCompatActivity {
         for (CartItem obj : GLOBAL_CART) {
             price += obj.getPrixUnitaire() * obj.getQuantite();
         }
-        cartTotalTv.setText(formatter.format(price) + " DT");
+        cartTotalTv.setText(formatter.format(price) + "");
         cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
 
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
@@ -194,7 +194,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 produits.clear();
                 if (!(familles.get(position).getId() == -1)) {
                     sFamilles.clear();
-                    sFamilles.add(new SFamille(-1, "All Sub"));
+                    sFamilles.add(new SFamille(-1, getString(R.string.all_sub)));
                     for (Famille obj : dataModels) {
                         if (obj.getId() == familles.get(position).getId()) {
                             sFamilles.addAll(obj.getSFamilles());
@@ -334,7 +334,7 @@ public class NewOrderActivity extends AppCompatActivity {
         for (CartItem obj : GLOBAL_CART) {
             price += obj.getPrixUnitaire() * obj.getQuantite();
         }
-        cartTotalTv.setText(formatter.format(price) + " DT");
+        cartTotalTv.setText(formatter.format(price) + "");
         cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
     }
 
@@ -376,7 +376,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     listView.setEmptyView(emptyListView);
 
                     familles.clear();
-                    familles.add(new Famille(-1, "All Famly"));
+                    familles.add(new Famille(-1, getString(R.string.all_families)));
                     familles.addAll(dataModels);
                     familySpinnerAdapter = new FamilySpinnerAdapter(getApplicationContext(), familles);
                     family_sp.setAdapter(familySpinnerAdapter);
@@ -442,9 +442,9 @@ public class NewOrderActivity extends AppCompatActivity {
         removeBt.setVisibility(View.GONE);
 
         prodNameTv.setText(produit.getName());
-        prodPriceTv.setText(getString(R.string.price) + formatter.format(produit.getPrix()) + " DT");
+        prodPriceTv.setText(getString(R.string.price) +" "+ formatter.format(produit.getPrix()) + "");
         total += Double.valueOf(formatter.format(produit.getPrix()));
-        prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
+        prodTotalTv.setText(getString(R.string.total) +" "+ formatter.format(total) + "");
         prodAmountTv.setText("" + amount);
 
         mBuilder.setView(mView);
@@ -461,7 +461,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     for (int i = 1; i <= amount; i++) {
                         total += Double.valueOf(formatter.format(produit.getPrix()));
                     }
-                    prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
+                    prodTotalTv.setText(getString(R.string.total) +" "+ formatter.format(total) + "");
                     prodAmountTv.setText("" + amount);
                 }
             }
@@ -476,7 +476,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     for (int i = 1; i <= amount; i++) {
                         total += Double.valueOf(produit.getPrix());
                     }
-                    prodTotalTv.setText(getString(R.string.total)+ formatter.format(total) + " DT");
+                    prodTotalTv.setText(getString(R.string.total)+" "+ formatter.format(total) + "");
                     prodAmountTv.setText("" + amount);
                 }
             }
@@ -501,7 +501,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 for (CartItem obj : GLOBAL_CART) {
                     price += obj.getPrixUnitaire() * obj.getQuantite();
                 }
-                cartTotalTv.setText(formatter.format(price) + " DT");
+                cartTotalTv.setText(formatter.format(price) + "");
                 cartShowProductsCountTv.setText(GLOBAL_CART.size() + "");
                 dialog.dismiss();
             }

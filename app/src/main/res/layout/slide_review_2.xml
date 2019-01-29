@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="24dp"
-        android:text="Which service you've experienced?"
+        android:text="@string/which_service_you_experienced"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Room accommodation"
+                android:text="@string/room_accommodation"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="SPA Treatment"
+                android:text="@string/spa_treatment"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Restaurant"
+                android:text="@string/restaurant"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Meetings and Events"
+                android:text="@string/meetings_and_events"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Wedding"
+                android:text="@string/wedding"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </RadioGroup>

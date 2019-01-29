@@ -47,7 +47,7 @@ public class HotelFragment extends Fragment {
         bgImg = (AppCompatImageView) getActivity().findViewById(R.id.hotel_frag_bg_img);
         Picasso
                 .get()
-                .load(BASE_URL + "/Android/pics_guest/hotel_bg.png")
+                .load(BASE_URL + "Android/pics_guest/hotel_bg.png")
                 .placeholder(R.drawable.bg_placeholder)
                 .fit()
                 .into(bgImg, new com.squareup.picasso.Callback() {

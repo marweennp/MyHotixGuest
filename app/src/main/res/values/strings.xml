@@ -155,7 +155,7 @@
     <string name="families">Families</string>
     <string name="sub_families">Sub Families</string>
     <string name="add_to_cart">Add To Cart</string>
-    <string name="guest_details">Guests Details</string>
+    <string name="guest_details">Personal details</string>
     <string name="master">MASTER</string>
     <string name="civilite">Civility</string>
     <string name="countries">Countries</string>
@@ -220,6 +220,24 @@
     <string name="daily_request_exceeded">You have exceeded your daily request quota for this API</string>
     <string name="processing">Processing</string>
     <string name="waiting">Waiting</string>
+    <string name="all_sub">All subfamilies</string>
+    <string name="all_families">All families</string>
+    <string name="dialog_hotel_settings_title">Hotel Settings</string>
+    <string name="dialog_hotel_settings_text">Please enter the hotel code to download settings.</string>
+    <string name="dialog_hotel_settings_hotel_code">Hotel Code</string>
+    <string name="download">Download</string>
+    <string name="temporarily_disabled">This feature is temporarily disabled</string>
+    <string name="which_service_you_experienced">Which service have you experienced?</string>
+    <string name="room_accommodation">Room accommodation</string>
+    <string name="spa_treatment">SPA Treatment</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="meetings_and_events">Meetings and Events</string>
+    <string name="wedding">Wedding</string>
+    <string name="visit_details">Visit Details</string>
+    <string name="how_do_you_rate_our_service">How do you rate our service?</string>
+    <string name="receive_promotions">Receive promotions?</string>
+    <string name="comments">Comments</string>
+    <string name="location">Location :</string>
 
 
 </resources>

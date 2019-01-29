@@ -197,9 +197,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //Start the NewReservationActivity
-                Intent i = new Intent(getActivity(), NewReservationActivity.class);
-                startActivity(i);
+                if (false) {
+                    //Start the NewReservationActivity
+                    Intent i = new Intent(getActivity(), NewReservationActivity.class);
+                    startActivity(i);
+                } else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.temporarily_disabled));
+                }
 
             }
         });
@@ -315,6 +319,7 @@ public class HomeFragment extends Fragment {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
                 session.clearSessionDetails();
                 Intent i = new Intent(getActivity(), LoginActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

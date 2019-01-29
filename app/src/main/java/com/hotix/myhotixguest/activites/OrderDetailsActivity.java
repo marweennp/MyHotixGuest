@@ -115,7 +115,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         for (CartItem obj : GLOBAL_ORDER.getDetails()) {
             price += obj.getPrixUnitaire() * obj.getQuantite();
         }
-        order_details_total.setText("Total : " + (formatter.format(price) + " DT"));
+        order_details_total.setText("Total : " + (formatter.format(price) + ""));
         order_details_products_count.setText(String.valueOf(GLOBAL_ORDER.getDetails().size()));
 
     }
@@ -153,8 +153,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         dialogTitle.setText("Cart Item");
         prodNameTv.setText(cartItem.getProduitName());
-        prodPriceTv.setText(getString(R.string.price) +" "+ formatter.format(cartItem.getPrixUnitaire()) + " DT");
-        prodTotalTv.setText(getString(R.string.total) +" "+ formatter.format(total) + " DT");
+        prodPriceTv.setText(getString(R.string.price) + " " + formatter.format(cartItem.getPrixUnitaire()) + "");
+        prodTotalTv.setText(getString(R.string.total) + " " + formatter.format(total) + "");
         prodAmountTv.setText("" + amount);
 
         mBuilder.setView(mView);
@@ -168,7 +168,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 if (amount < 10000) {
                     amount++;
                     total = cartItem.getPrixUnitaire() * amount;
-                    prodTotalTv.setText(getString(R.string.total) +" "+ formatter.format(total) + " DT");
+                    prodTotalTv.setText(getString(R.string.total) + " " + formatter.format(total) + "");
                     prodAmountTv.setText("" + amount);
                 }
             }
@@ -180,7 +180,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 if (amount > 1) {
                     amount--;
                     total = cartItem.getPrixUnitaire() * amount;
-                    prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + " DT");
+                    prodTotalTv.setText(getString(R.string.total) + formatter.format(total) + "");
                     prodAmountTv.setText("" + amount);
                 }
 
@@ -288,7 +288,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
-
             }
 
             @Override

@@ -26,9 +26,6 @@ public class ConstantConfig {
     // Terms of service url
     public static final String TERMS_OF_SERVICE_URL = "https://termsfeed.com/blog/add-i-agree-terms-checkbox/";
 
-    // Web Site URL
-    public static final String WEB_SITE_URL = "https://www.leroyal.com/en/AFRICA/hammamet-tunisia";
-
     // Google MAps API Key
     public static final String G_MAP_API_KEY = "AIzaSyDpqH7ciz4f0tE-jixmz7QTXm8hmNzG9s4";
     public static final String G_PLACES_API_KEY = "AIzaSyBCaBLHuK_snYuADXjOas2XElNtZ1eGIZI";
@@ -37,7 +34,7 @@ public class ConstantConfig {
     public static final String CONFIG_BASE_URL = "http://41.228.21.123:99/";
     //public static final String CONFIG_BASE_URL = "http://192.168.0.6:99/";
     public static final String FINAL_APP_ID = "1";
-    public static final String FINAL_HOTEL_ID = "1111";// 1111 Local test hotel id
+    public static final String FINAL_HOTEL_CODE = "1111";// 1111 Local test hotel id
 
     /***************************************(Non Finol )*******************************************/
 

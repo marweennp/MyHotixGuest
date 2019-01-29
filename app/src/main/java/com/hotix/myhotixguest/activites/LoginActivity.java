@@ -10,8 +10,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -38,7 +36,6 @@ import retrofit2.Response;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
-import static com.hotix.myhotixguest.helpers.Utils.signeUpTextTowColors;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -87,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
         session = new Session(getApplicationContext());
         getFirebaseInstanceId();
         Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.drawable.logo).into(imagelogin);
-
         //checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
 
         if (session.getIsLoggedIn()) {

@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
-        android:text="How do you rate our service?"
+        android:text="@string/how_do_you_rate_our_service"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
             android:checked="true"
-            android:text="Receive promotions ?"
+            android:text="@string/receive_promotions"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <!--  ImgSlide Review 4 Comments -->
@@ -60,7 +60,7 @@
                 android:id="@+id/input_comments_review4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Comments"
+                android:hint="@string/comments"
                 android:inputType="textMultiLine"
                 android:lines="5"
                 android:maxLines="10"

@@ -17,9 +17,7 @@ import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.activites.SplashScreenActivity;
 import com.hotix.myhotixguest.helpers.Session;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -76,7 +74,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         switch (type) {
             case "message":
                 icon = R.drawable.svg_notifications_blue_512;
-                notifTitele = getString(R.string.message_from_) + messageTitle;
+                notifTitele = getString(R.string.message_from_) + " " + messageTitle;
                 notifBody = messageBody;
                 break;
             case "complaint":
@@ -116,9 +114,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(createID(), notificationBuilder.build());
     }
 
-    public int createID(){
-        Date now = new Date();
-        int id = Integer.parseInt(new SimpleDateFormat("ddHHmmssSS",  Locale.US).format(now));
+    public int createID() {
+        int id = 0;
+        try {
+            //Date now = new Date();
+            //id = Integer.parseInt(new SimpleDateFormat("ddHHmmssSS", Locale.US).format(now));
+            id = (int) (new Date().getTime() / 1000);
+            Log.e("Exception", "" + id);
+        } catch (Exception ex) {
+            Log.e("Exception", "" + ex.toString());
+        }
         return id;
     }
 

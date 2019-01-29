@@ -7,7 +7,7 @@ public class Settings {
 
     //Shared Preferences Keys
     // Booleans
-    public static final String KEY_firstStart = "firstStart";
+    public static final String KEY_FIRST_START = "firstStart";
     public static final String KEY_receiveNotification = "receiveNotification";
     public static final String KEY_CONFIGURED = "configured";
     public static final String KEY_PUBLIC_IP_ENABLED = "publicIpEnabled";
@@ -19,6 +19,7 @@ public class Settings {
     public static final String KEY_LOCAL_IP = "localIp";
     public static final String KEY_PUBLIC_BASE_URL = "publicBaseUrl";
     public static final String KEY_LOCAL_BASE_URL = "localBaseUrl";
+    public static final String KEY_HOTEL_CODE = "hotelCode";
     public static final String KEY_API_VAERSION = "apiVersion";
 
     // Integers
@@ -47,11 +48,11 @@ public class Settings {
     /**********************************(  Getters & Setters )**************************************/
     // Booleans
     public boolean getFirstStart() {
-        return pref.getBoolean(KEY_firstStart, true);
+        return pref.getBoolean(KEY_FIRST_START, true);
     }
 
     public void setFirstStart(boolean firstStart) {
-        editor.putBoolean(KEY_firstStart, firstStart);
+        editor.putBoolean(KEY_FIRST_START, firstStart);
         editor.commit();
     }
 
@@ -142,6 +143,15 @@ public class Settings {
 
     public void setLocalBaseUrl(String localBaseUrl) {
         editor.putString(KEY_LOCAL_BASE_URL, localBaseUrl);
+        editor.commit();
+    }
+
+    public String getHotelCode() {
+        return pref.getString(KEY_HOTEL_CODE, "0000");
+    }
+
+    public void setHotelCode(String hotelCode) {
+        editor.putString(KEY_HOTEL_CODE, hotelCode);
         editor.commit();
     }
 

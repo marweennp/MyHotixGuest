@@ -43,7 +43,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         formatter = NumberFormat.getCurrencyInstance();
         decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
-        decimalFormatSymbols.setCurrencySymbol("TND ");
+        decimalFormatSymbols.setCurrencySymbol("");
         ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
         formatter.setMinimumFractionDigits(3);
 

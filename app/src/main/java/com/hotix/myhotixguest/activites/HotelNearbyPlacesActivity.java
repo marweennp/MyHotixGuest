@@ -144,13 +144,9 @@ public class HotelNearbyPlacesActivity extends FragmentActivity implements OnMap
                     mResult.addAll(nearbyPlaces.getResults());
                     if (!(nearbyPlaces.getStatus().equals("OK"))) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.daily_request_exceeded));
-                        Log.e("HELLO MAPS",nearbyPlaces.getErrorMessage());
-                        Log.e("HELLO MAPS",nearbyPlaces.getStatus());
-                        Log.e("HELLO MAPS",nearbyPlaces.getResults().toString());
                     } else {
                         showNearbyPlaces(mResult, mType);
                     }
-
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.toString());
                 }

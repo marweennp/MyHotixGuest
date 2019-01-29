@@ -200,7 +200,7 @@ public class MessagesFragment extends Fragment {
         } else {
             messageDetailsPhoneView.setVisibility(View.GONE);
         }
-        messageDetailsTitle.setText(getString(R.string.message_from) + message.getFrom());
+        messageDetailsTitle.setText(getString(R.string.message_from) +" "+ message.getFrom());
         messageDetailsDate.setText(dateFormater(message.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy"));
         messageDetailsTime.setText(dateFormater(message.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "hh:mm"));
         messageDetailsSubject.setText(message.getSubject());

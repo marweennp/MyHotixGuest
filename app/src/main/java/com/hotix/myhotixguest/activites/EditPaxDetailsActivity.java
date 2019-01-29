@@ -130,32 +130,6 @@ public class EditPaxDetailsActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.edit_pax_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-
-            case R.id.action_refresh:
-                //Reload Orders List
-                try {
-                    loadingStartData();
-                } catch (Exception e) {
-                    showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
-                }
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         int i = 0;

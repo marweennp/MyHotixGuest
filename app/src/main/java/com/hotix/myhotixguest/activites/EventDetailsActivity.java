@@ -119,7 +119,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{GLOBAL_HOTEL_INFOS.getEventMail()});
             intent.putExtra(Intent.EXTRA_SUBJECT, R.string.event_participation);
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.event_confirm_participation) +" : "+ GLOBAL_EVENT.getNom() + ". \n Date : " + dateFormater(GLOBAL_EVENT.getDateDebut(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy") + ". \n Location : " + GLOBAL_EVENT.getLocation() + ".");
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.event_confirm_participation) +" : "+ GLOBAL_EVENT.getNom() + ". \n Date : " + dateFormater(GLOBAL_EVENT.getDateDebut(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy") + ". \n "+getString(R.string.location) + GLOBAL_EVENT.getLocation() + ".");
             startActivity(Intent.createChooser(intent, "Send Email"));
 
         } catch (Exception e) {
