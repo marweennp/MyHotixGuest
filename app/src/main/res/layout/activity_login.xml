@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_main_Layout"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:src="@drawable/logo" />
 
@@ -23,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <!-- Login Username Label -->
         <android.support.design.widget.TextInputLayout
@@ -72,70 +73,82 @@
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
+            android:layout_marginTop="36dp"
+            android:padding="12dp"
             android:text="@string/text_login_button"
             android:textSize="24sp" />
 
-        <LinearLayout
-            android:id="@+id/ll_login_forgot_password"
-            android:layout_width="wrap_content"
+        <!--Forgot Password And SignUp-->
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="start"
-            android:paddingStart="6dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="6dp"
-            android:background="?attr/selectableItemBackgroundBorderless">
+            android:padding="8dp">
 
-            <!-- Login Forgot Password TextView -->
-            <android.support.v7.widget.AppCompatTextView
+            <!--Forgot Password-->
+            <LinearLayout
+                android:id="@+id/ll_login_forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/forgot_password"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <!-- Login Forgot Password TextView -->
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forgot_password"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
+            </LinearLayout>
 
+            <!--SignUp-->
+            <LinearLayout
+                android:id="@+id/ll_login_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/signup"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </android.support.v7.widget.LinearLayoutCompat>
 
-    <LinearLayout
-        android:id="@+id/ll_login_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+    <!--Swithch Hotel And Hotel Name-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:layout_marginBottom="16dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:background="?attr/selectableItemBackgroundBorderless">
+        android:background="@drawable/transparent_background"
+        android:padding="3dp">
 
+        <!--Hotel Name-->
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/login_hotel_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_account_yet"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/demo_version"
             android:textColor="@color/white"
-            android:layout_marginStart="6dp"
-            android:textSize="16sp" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/signup"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginStart="6dp"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
+    </RelativeLayout>
 
 </RelativeLayout>

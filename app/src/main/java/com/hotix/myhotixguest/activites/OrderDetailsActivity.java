@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.CartItemsAdapter;
 import com.hotix.myhotixguest.models.CartItem;
@@ -262,6 +264,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<ResponseMsg> userCall = service.sendCommandeQuery(content_type, GLOBAL_ORDER);
+        Log.e("MARWEN", new Gson().toJson(GLOBAL_ORDER));
 
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppThemeDialog);
         progressDialog.setIndeterminate(true);

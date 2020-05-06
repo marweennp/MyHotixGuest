@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_alignParentBottom="true"
-                android:background="#80000000">
+                android:background="#CC000000">
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/about_hotel_menu_1_title"
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_alignParentBottom="true"
-                android:background="#80000000">
+                android:background="#CC000000">
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/about_hotel_menu_2_title"
@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_alignParentBottom="true"
-                android:background="#80000000">
+                android:background="#CC000000">
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/about_hotel_menu_3_title"
@@ -164,7 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_alignParentBottom="true"
-                android:background="#80000000">
+                android:background="#CC000000">
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/about_hotel_menu_4_title"
@@ -207,7 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_alignParentBottom="true"
-                android:background="#80000000">
+                android:background="#CC000000">
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/about_hotel_menu_5_title"

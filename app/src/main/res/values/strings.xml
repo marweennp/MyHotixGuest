@@ -238,6 +238,7 @@
     <string name="receive_promotions">Receive promotions?</string>
     <string name="comments">Comments</string>
     <string name="location">Location :</string>
+    <string name="demo_version">Demo Version</string>
 
 
 </resources>

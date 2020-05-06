@@ -222,4 +222,5 @@
     <string name="receive_promotions">Recevoir des promotions?</string>
     <string name="comments">Commentaires</string>
     <string name="location">Emplacement :</string>
+    <string name="demo_version">Version Demo</string>
 </resources>

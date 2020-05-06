@@ -127,7 +127,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onResume();
 
         splashScreenFooter.setText(R.string.checking_internet_providers);
-        if (isNetworkAvailable(this)) {
+//        if (isNetworkAvailable(this)) {
 
             if (settings.getConfigured()) {
                 setBaseUrl(this);
@@ -139,12 +139,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Log.e("SPLASH LOG", e.toString());
             }
 
-        } else {
-            mainContainer.setVisibility(View.GONE);
-            emptyListView.setVisibility(View.VISIBLE);
-            emptyListText.setText(R.string.check_internet_connection);
-            emptyListIcon.setImageDrawable(mIconOne);
-        }
+//        } else {
+//            mainContainer.setVisibility(View.GONE);
+//            emptyListView.setVisibility(View.VISIBLE);
+//            emptyListText.setText(R.string.check_internet_connection);
+//            emptyListIcon.setImageDrawable(mIconOne);
+//        }
 
 
     }
@@ -318,6 +318,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     /**********************************(  Loade Hotel Config )*************************************/
     public void lodeHotelConfig() {
 
+        Log.e("MARWEN LOG", "lodeHotelConfig()");
+
         RetrofitInterface service = RetrofitClient.getHotixSupportApi().create(RetrofitInterface.class);
         Call<HotelSettings> userCall = service.getInfosQuery(FINAL_HOTEL_CODE, FINAL_APP_ID);
 
@@ -387,6 +389,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<HotelSettings> call, Throwable t) {
                 Log.e("SPLASH LOG", getString(R.string.server_down));
+                Log.e("MARWEN LOG", "onFailure()");
+                Log.e("MARWEN LOG", t.getMessage());
                 if (settings.getConfigured()) {
 
                     try {

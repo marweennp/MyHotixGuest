@@ -13,9 +13,6 @@ import java.util.ArrayList;
 public class ConstantConfig {
 
     /********************** *****************( Final )************************  *******************/
-    //public static final String BASE_URL = "http://196.203.219.164/";
-    //public static final String BASE_URL = "http://192.168.0.110/";
-    //public static final String BASE_URL = "http://192.168.0.109/";
 
     // Google maps api url
     public static final String BASE_URL_2 = "https://maps.googleapis.com/";
@@ -30,11 +27,21 @@ public class ConstantConfig {
     public static final String G_MAP_API_KEY = "AIzaSyDpqH7ciz4f0tE-jixmz7QTXm8hmNzG9s4";
     public static final String G_PLACES_API_KEY = "AIzaSyBCaBLHuK_snYuADXjOas2XElNtZ1eGIZI";
 
-    //Hotel Config
-    public static final String CONFIG_BASE_URL = "http://41.228.21.123:99/";
-    //public static final String CONFIG_BASE_URL = "http://192.168.0.6:99/";
-    public static final String FINAL_APP_ID = "1";
-    public static final String FINAL_HOTEL_CODE = "1111";// 1111 Local test hotel id
+    //HOTEL CONFIG BASE URL
+    public static final String CONFIG_BASE_URL = "http://41.228.21.123:99/"; // HOTIX Public
+    //public static final String CONFIG_BASE_URL = "http://192.168.0.6:99/"; // HOTIX Local
+
+    //FINAL APP ID
+    public static final String FINAL_APP_ID = "1"; // MyGuest
+    //public static final String FINAL_APP_ID = "2"; // HouseKeeping
+
+    //FINAL HOTEL CODE
+    //public static final String FINAL_HOTEL_CODE = "9997"; // 9997 MB-PC
+    public static final String FINAL_HOTEL_CODE = "9998"; // 9998 MT-PC
+    //public static final String FINAL_HOTEL_CODE = "9999"; // 9999 HotixDev server
+    //public static final String FINAL_HOTEL_CODE = "3350"; // 3350 PALM CLUB HOTEL
+    //public static final String FINAL_HOTEL_CODE = "1865"; // 1865 LE SULTAN HOTEL
+    //public static final String FINAL_HOTEL_CODE = "3350"; // 3350 CONCORDE HOTEL
 
     /***************************************(Non Finol )*******************************************/
 

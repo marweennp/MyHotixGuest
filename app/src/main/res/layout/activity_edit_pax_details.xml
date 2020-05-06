@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragments.NotificationsFragment">
+    tools:context=".activites.EditPaxDetailsActivity">
 
     <!-- Edit Pax Details Progress View -->
     <include layout="@layout/include_loading_view" />
