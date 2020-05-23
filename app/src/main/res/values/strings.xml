@@ -30,6 +30,7 @@
     <string name="title_bill">My Bill</string>
     <string name="title_complaint">Complaints</string>
     <string name="title_orders">Orders</string>
+    <string name="title_services">Services</string>
     <string name="title_review">Review</string>
 
     <string name="splash_screen_footer_text">www.MyHotixGuest.com</string>
@@ -74,6 +75,7 @@
     <string name="hint_adress">Address</string>
     <string name="events_text">EVENTS</string>
     <string name="orders_text">MY ORDERS</string>
+    <string name="services_text">Services</string>
     <string name="day_till_check_in">Day till check-in</string>
     <string name="compaint_treated">treated</string>
     <string name="compaint_waiting">waiting</string>
@@ -239,6 +241,22 @@
     <string name="comments">Comments</string>
     <string name="location">Location :</string>
     <string name="demo_version">Demo Version</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_change">Change</string>
+    <string name="text_orders">Orders</string>
+    <string name="text_restaurant">Restaurant</string>
+    <string name="text_wake_up">Wake Up</string>
+    <string name="unite">UNITE</string>
+    <string name="text_version">Version</string>
+    <string name="check">Check</string>
+    <string name="confirm">Confirm</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="seats">Seats</string>
+    <string name="name">Name</string>
+    <string name="reveil">Alarm Clock</string>
 
 
 </resources>

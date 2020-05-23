@@ -1,5 +1,9 @@
 package com.hotix.myhotixguest.retrofit2;
 
+import com.hotix.myhotixguest.models.BookingConfirmation;
+import com.hotix.myhotixguest.models.BookingData;
+import com.hotix.myhotixguest.models.BookingAvailability;
+import com.hotix.myhotixguest.models.ChangeCorseData;
 import com.hotix.myhotixguest.models.Complaint;
 import com.hotix.myhotixguest.models.Event;
 import com.hotix.myhotixguest.models.Facture;
@@ -9,12 +13,17 @@ import com.hotix.myhotixguest.models.HotelInfos;
 import com.hotix.myhotixguest.models.HotelSettings;
 import com.hotix.myhotixguest.models.MenuItem;
 import com.hotix.myhotixguest.models.Message;
+import com.hotix.myhotixguest.models.MobileResa;
 import com.hotix.myhotixguest.models.NearbyPlaces;
 import com.hotix.myhotixguest.models.Order;
 import com.hotix.myhotixguest.models.Pax;
 import com.hotix.myhotixguest.models.ResponseMsg;
+import com.hotix.myhotixguest.models.RestaurantReservation;
+import com.hotix.myhotixguest.models.RestaurantsData;
+import com.hotix.myhotixguest.models.ReveilData;
 import com.hotix.myhotixguest.models.Sejour;
 import com.hotix.myhotixguest.models.StartData;
+import com.hotix.myhotixguest.models.SuccessResponse;
 
 import java.util.ArrayList;
 
@@ -86,6 +95,18 @@ public interface RetrofitInterface {
     @GET("/HNGAPI/" + API_VERSION + "/api/myhotixguest/GetHotelInfos")
     Call<HotelInfos> getHotelInfosQuery();
 
+    //Get Booking Data service call
+    @GET("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/GetBookingData")
+    Call<BookingData> getBookingDataQuery();
+
+    //Get Change Corse service call
+    @GET("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/GetChangeCorse")
+    Call<ChangeCorseData> getChangeCorseQuery();
+
+    //Get Restaurants service call
+    @GET("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/GetRestaurants")
+    Call<RestaurantsData> getRestaurantsQuery();
+
     /**
      * POST********************************************************************************************
      **/
@@ -131,7 +152,8 @@ public interface RetrofitInterface {
                                             @Field("numChambre") String numChambre,
                                             @Field("objectRec") String objectRec,
                                             @Field("detail") String detail,
-                                            @Field("ResaId") String ResaId);
+                                            @Field("ResaId") String ResaId,
+                                            @Field("origineRec") String origineRec);
 
     //Post UpdateProfile service call
     @FormUrlEncoded
@@ -176,6 +198,26 @@ public interface RetrofitInterface {
     @POST("/HNGAPI/" + API_VERSION + "/api/myhotixguest/SendCommande")
     Call<ResponseMsg> sendCommandeQuery(@Header("Content-Type") String content_type,
                                         @Body Order order);
+
+    //Check Booking Availability service call
+    @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/CheckBookingAvailability")
+    Call<BookingAvailability> checkBookingAvailabilityQuery(@Header("Content-Type") String content_type,
+                                                            @Body MobileResa mobileResa);
+
+    //Confirm Booking service call
+    @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/ConfirmBooking")
+    Call<BookingConfirmation> confirmBookingQuery(@Header("Content-Type") String content_type,
+                                                  @Body MobileResa mobileResa);
+
+    //Reserver Restaurant service call
+    @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/ReserverRestaurant")
+    Call<SuccessResponse> reserverRestaurantQuery(@Header("Content-Type") String content_type,
+                                                  @Body RestaurantReservation restaurantReservation);
+
+    //Add Reveil service call
+    @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/AddReveil")
+    Call<SuccessResponse> addReveilQuery(@Header("Content-Type") String content_type,
+                                         @Body ReveilData ReveilData);
 
 
     /**

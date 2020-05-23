@@ -279,7 +279,9 @@ public class ComplaintsFragment extends Fragment {
     private void addComplaint() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<ResponseBody> userCall = service.sendReclamationQuery("1", session.getChambre(), complaintTitle.getText().toString(), complaintText.getText().toString(), session.getResaId().toString());
+        Call<ResponseBody> userCall = service.sendReclamationQuery("1", session.getChambre(), complaintTitle.getText().toString(),
+                                                                    complaintText.getText().toString(), session.getResaId().toString(),
+                                                                    session.getNom() + " " + session.getPrenom());
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
         progressDialog.setIndeterminate(true);

@@ -1,3 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dashbord_column_width">160dp</dimen>
+    <dimen name="dashboard_margin">10dp</dimen>
+    <dimen name="item_grid_cell_width">180dp</dimen>
+    <dimen name="item_grid_cell_height">160dp</dimen>
+    <dimen name="dasbord_title_text_size">14sp</dimen>
 </resources>

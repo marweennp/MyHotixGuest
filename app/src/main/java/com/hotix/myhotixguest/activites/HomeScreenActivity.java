@@ -18,6 +18,7 @@ import com.hotix.myhotixguest.fragments.HomeFragment;
 import com.hotix.myhotixguest.fragments.HotelFragment;
 import com.hotix.myhotixguest.fragments.NotificationsFragment;
 import com.hotix.myhotixguest.fragments.OrdersFragment;
+import com.hotix.myhotixguest.fragments.ServicesFragment;
 import com.hotix.myhotixguest.helpers.Session;
 
 import butterknife.BindView;
@@ -34,7 +35,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     BottomNavigationView navigation;
     // Fragments
     Fragment homeFragment;
-    Fragment ordersFragment;
+    Fragment servicesFragment;
     Fragment notificationsFragment;
     Fragment activitesFragment;
     Fragment hotelFragment;
@@ -50,7 +51,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         session = new Session(getApplicationContext());
 
         homeFragment = new HomeFragment();
-        ordersFragment = new OrdersFragment();
+        servicesFragment = new ServicesFragment();
         notificationsFragment = new NotificationsFragment();
         activitesFragment = new EventsFragment();
         hotelFragment = new HotelFragment();
@@ -65,9 +66,9 @@ public class HomeScreenActivity extends AppCompatActivity {
                     case R.id.navigation_home:
                         loadFragment(homeFragment);
                         return true;
-                    case R.id.navigation_orders:
+                    case R.id.navigation_services:
                         if (session.getISResident()) {
-                            loadFragment(ordersFragment);
+                            loadFragment(servicesFragment);
                         } else {
                             showSnackbar(findViewById(android.R.id.content), getString(R.string.not_resident));
                         }

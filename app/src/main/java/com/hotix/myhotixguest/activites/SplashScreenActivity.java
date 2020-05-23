@@ -357,6 +357,20 @@ public class SplashScreenActivity extends AppCompatActivity {
                             settings.setLocalIpEnabled(false);
                         }
 
+                        //Get Hotel ID
+                        if (!stringEmptyOrNull(hotelSettings.getCode())) {
+                            settings.setHotelCode(hotelSettings.getCode());
+                        } else {
+                            settings.setHotelCode("0000");
+                        }
+
+                        //Get Hotel Name
+                        if (!stringEmptyOrNull(hotelSettings.getName())) {
+                            settings.setHotelName(hotelSettings.getName());
+                        } else {
+                            settings.setHotelName("HOTEL");
+                        }
+
                         settings.setConfigured(true);
 
                         setBaseUrl(getApplicationContext());

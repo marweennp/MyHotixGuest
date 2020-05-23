@@ -48,7 +48,6 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class OrdersFragment extends Fragment {
 
-
     private Toolbar toolbar;
     private PullRefreshLayout pullLayout;
     private ListView listView;

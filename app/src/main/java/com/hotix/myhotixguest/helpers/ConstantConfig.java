@@ -33,12 +33,11 @@ public class ConstantConfig {
 
     //FINAL APP ID
     public static final String FINAL_APP_ID = "1"; // MyGuest
-    //public static final String FINAL_APP_ID = "2"; // HouseKeeping
 
     //FINAL HOTEL CODE
     //public static final String FINAL_HOTEL_CODE = "9997"; // 9997 MB-PC
-    public static final String FINAL_HOTEL_CODE = "9998"; // 9998 MT-PC
-    //public static final String FINAL_HOTEL_CODE = "9999"; // 9999 HotixDev server
+    //public static final String FINAL_HOTEL_CODE = "9998"; // 9998 MT-PC
+    public static final String FINAL_HOTEL_CODE = "9999"; // 9999 HotixDev server
     //public static final String FINAL_HOTEL_CODE = "3350"; // 3350 PALM CLUB HOTEL
     //public static final String FINAL_HOTEL_CODE = "1865"; // 1865 LE SULTAN HOTEL
     //public static final String FINAL_HOTEL_CODE = "3350"; // 3350 CONCORDE HOTEL

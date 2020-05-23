@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_main_Layout"
@@ -7,40 +8,70 @@
     android:layout_height="match_parent"
     tools:context=".activites.LoginActivity">
 
-    <!-- Login Logo -->
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/login_logo_imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <!-- Custom ImageView With Ken Burns Effect -->
+    <com.hotix.myhotixguest.views.kbv.KenBurnsView
+        android:id="@+id/ken_burns_images"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/logo" />
+        android:background="@drawable/transparent_background">
+
+        <!-- Hotel -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_hotel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="..."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/login_form_linearLayoutCompat"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:background="@drawable/transparent_white_background">
+
+        <!-- Login Logo -->
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/login_logo_imageView"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_lock_white_48"
+            android:tint="@color/grey_500"/>
 
         <!-- Login Username Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/text_input_layout_login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_margin="8dp"
+            app:hintTextAppearance="@style/MyHintTextStyle">
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/input_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_login_email"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="@color/colorBackground"
+                android:theme="@style/MyEditTextStyle" />
+
         </android.support.design.widget.TextInputLayout>
 
         <!-- Login Password Label -->
@@ -48,15 +79,18 @@
             android:id="@+id/text_input_layout_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_margin="8dp"
+            app:hintTextAppearance="@style/MyHintTextStyle">
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/input_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_login_password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColor="@color/colorBackground"
+                android:theme="@style/MyEditTextStyle"/>
+
         </android.support.design.widget.TextInputLayout>
 
         <!-- Login Remember Me CheckBox -->
@@ -64,8 +98,9 @@
             android:id="@+id/remember_me"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:checked="true"
+            android:textColor="@color/colorPrimary"
             android:text="@string/remember_me" />
 
         <!-- Login Button -->
@@ -73,10 +108,26 @@
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:padding="12dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:text="@string/text_login_button"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            style="@style/MyButtonStyle"/>
+
+        <!-- Login ProgressBar -->
+        <ProgressBar
+            android:id="@+id/pb_login"
+            android:theme="@style/MyProgressBarStyle"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/btn_login"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminate="true"/>
 
         <!--Forgot Password And SignUp-->
         <RelativeLayout
@@ -99,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/forgot_password"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -116,9 +167,8 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
                     android:text="@string/signup"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -138,7 +188,7 @@
 
         <!--Hotel Name-->
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/login_hotel_name_text"
+            android:id="@+id/tv_login_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

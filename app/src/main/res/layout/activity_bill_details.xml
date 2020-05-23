@@ -142,8 +142,6 @@
 
     </LinearLayout>
 
-
-
     <!-- Bill Empty View -->
     <include layout="@layout/include_empty_list_view" />
 

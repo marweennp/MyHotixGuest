@@ -197,7 +197,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (false) {
+                if (true) {
                     //Start the NewReservationActivity
                     Intent i = new Intent(getActivity(), NewReservationActivity.class);
                     startActivity(i);

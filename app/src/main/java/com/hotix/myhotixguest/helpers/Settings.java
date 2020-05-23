@@ -20,6 +20,7 @@ public class Settings {
     public static final String KEY_PUBLIC_BASE_URL = "publicBaseUrl";
     public static final String KEY_LOCAL_BASE_URL = "localBaseUrl";
     public static final String KEY_HOTEL_CODE = "hotelCode";
+    public static final String KEY_HOTEL_NAME = "hotelName";
     public static final String KEY_API_VAERSION = "apiVersion";
 
     // Integers
@@ -152,6 +153,15 @@ public class Settings {
 
     public void setHotelCode(String hotelCode) {
         editor.putString(KEY_HOTEL_CODE, hotelCode);
+        editor.commit();
+    }
+
+    public String getHotelName() {
+        return pref.getString(KEY_HOTEL_NAME, "HOTEL");
+    }
+
+    public void setHotelName(String hotelName) {
+        editor.putString(KEY_HOTEL_NAME, hotelName);
         editor.commit();
     }
 

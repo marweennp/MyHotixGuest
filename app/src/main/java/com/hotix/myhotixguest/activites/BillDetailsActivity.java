@@ -70,6 +70,7 @@ public class BillDetailsActivity extends AppCompatActivity {
     AppCompatImageView emptyListIcon;
     @BindView(R.id.empty_list_refresh_btn)
     AppCompatButton emptyListRefresh;
+
     @BindView(R.id.rl_bill_header)
     RelativeLayout rlBillHeader;
     //

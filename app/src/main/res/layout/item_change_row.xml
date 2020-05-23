@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/white">
+
+    <!-- Devise ISO Layout -->
+    <RelativeLayout
+        android:id="@+id/change_row_iso_layout"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:background="@color/grey_500" >
+
+        <!-- Devise ISO -->
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/change_row_iso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="TND"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <!-- Devise Unite -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/change_row_unite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/change_row_iso_layout"
+        android:text="UNITE"
+        android:textColor="@color/grey_500"
+        android:textSize="16sp" />
+
+    <!-- Order State -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/change_row_taux"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="0.000"
+        android:textColor="@color/colorBackground"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:textAllCaps="true" />
+
+    <!-- Bottom Divider -->
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBackground" />
+
+
+</RelativeLayout>

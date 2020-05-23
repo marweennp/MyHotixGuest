@@ -2,6 +2,10 @@ package com.hotix.myhotixguest.activites;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -10,9 +14,11 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,10 +28,13 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.Guest;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
+import com.hotix.myhotixguest.views.kbv.KenBurnsView;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,35 +53,55 @@ public class LoginActivity extends AppCompatActivity {
     // Butter Knife BindView RelativeLayout
     @BindView(R.id.login_main_Layout)
     RelativeLayout rLayout;
+
     // Butter Knife BindView AppCompatImageView
     @BindView(R.id.login_logo_imageView)
     AppCompatImageView imagelogin;
+
     // Butter Knife BindView AppCompatEditText
     @BindView(R.id.input_login_email)
     AppCompatEditText _loginEmailText;
     @BindView(R.id.input_login_password)
     AppCompatEditText _loginPasswordText;
+
     // Butter Knife BindView AppCompatButton
     @BindView(R.id.login_button)
     AppCompatButton _loginButton;
-    // Butter Knife BindView AppCompatTextView
+
+    // Butter Knife BindView LinearLayout
     @BindView(R.id.ll_login_forgot_password)
     LinearLayout _loginForgotPassword;
     @BindView(R.id.ll_login_signup)
     LinearLayout _loginSignup;
+
+    // Butter Knife BindView AppCompatTextView
+    @BindView(R.id.tv_hotel_name)
+    AppCompatTextView _loginHotelName;
+    @BindView(R.id.tv_login_version)
+    AppCompatTextView _loginVersion;
+
     // Butter Knife BindView TextInputLayout
     @BindView(R.id.text_input_layout_login_email)
     TextInputLayout _loginEmailTextInput;
     @BindView(R.id.text_input_layout_login_password)
     TextInputLayout _loginPasswordTextInput;
+
     // Butter Knife BindView TextInputLayout
     @BindView(R.id.remember_me)
     AppCompatCheckBox _rememberMe;
+
+    // Butter Knife BindView ProgressBar
+    @BindView(R.id.pb_login)
+    ProgressBar pbLogin;
+
     // Session Manager Class
     Session session;
+    // Settings Class
+    Settings settings;
+
     private boolean is_logged_in = false;
     private boolean remember_me = false;
-    // For input text Validation
+    private KenBurnsView mKenBurns;
     private InputValidation inputValidation;
 
     @Override
@@ -82,9 +111,25 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Session Manager
         session = new Session(getApplicationContext());
+        //settings
+        settings = new Settings(getApplicationContext());
+
         getFirebaseInstanceId();
-        Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.drawable.logo).into(imagelogin);
+        //Picasso.get().load(BASE_URL + "/Android/pics_guest/logo.png").fit().placeholder(R.drawable.logo).into(imagelogin);
         //checkNetwork(findViewById(android.R.id.content), LoginActivity.this);
+
+        mKenBurns = (KenBurnsView) findViewById(R.id.ken_burns_images);
+        mKenBurns.setImageResource(R.drawable.hotel);
+        loadeImage();
+
+        _loginHotelName.setText(settings.getHotelName());
+
+//        try {
+//            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+//            _loginVersion.setText(getString(R.string.text_version) + " " + pInfo.versionName);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
         if (session.getIsLoggedIn()) {
             _loginEmailText.setText(session.getUserName());
@@ -133,6 +178,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setBaseUrl(this);
+        loadeImage();
     }
 
     @Override
@@ -146,20 +192,18 @@ public class LoginActivity extends AppCompatActivity {
         final String uname = _loginEmailText.getText().toString();
         final String pwd = _loginPasswordText.getText().toString();
 
+        pbLogin.setVisibility(View.VISIBLE);
+        _loginButton.setEnabled(false);
+
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<Guest> userCall = service.getGuestQuery(uname, pwd);
-
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppThemeDialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Login...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
 
         userCall.enqueue(new Callback<Guest>() {
             @Override
             public void onResponse(Call<Guest> call, Response<Guest> response) {
 
-                progressDialog.dismiss();
+                pbLogin.setVisibility(View.GONE);
+                _loginButton.setEnabled(true);
 
                 if (response.raw().code() == 200) {
                     Guest guest = response.body();
@@ -201,8 +245,6 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                             break;
                         case 0:
-                            showSnackbar(findViewById(android.R.id.content), getString(R.string.wrong_login));
-                            break;
                         case 1:
                             showSnackbar(findViewById(android.R.id.content), getString(R.string.wrong_login));
                             break;
@@ -222,7 +264,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Guest> call, Throwable t) {
-                progressDialog.dismiss();
+                pbLogin.setVisibility(View.GONE);
+                _loginButton.setEnabled(true);
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }
         });
@@ -245,6 +288,27 @@ public class LoginActivity extends AppCompatActivity {
         //Return true if all the inputs are valid
         return true;
 
+    }
+
+    private void loadeImage() {
+
+        Picasso.get().load(BASE_URL + "Android/pics_guest/hotel.jpg").into(new Target() {
+
+            @Override
+            public void onPrepareLoad(Drawable arg0) {
+            }
+
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom arg1) {
+                mKenBurns.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+            }
+
+        });
     }
 
     // Get Firebase InstanceId
