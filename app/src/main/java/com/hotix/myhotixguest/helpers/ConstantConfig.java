@@ -19,6 +19,7 @@ public class ConstantConfig {
 
     // HNGAPI version
     public static final String API_VERSION = "v0";
+    //public static final String API_VERSION = "v1";
 
     // Terms of service url
     public static final String TERMS_OF_SERVICE_URL = "https://termsfeed.com/blog/add-i-agree-terms-checkbox/";
@@ -35,12 +36,15 @@ public class ConstantConfig {
     public static final String FINAL_APP_ID = "1"; // MyGuest
 
     //FINAL HOTEL CODE
-    //public static final String FINAL_HOTEL_CODE = "9997"; // 9997 MB-PC
-    //public static final String FINAL_HOTEL_CODE = "9998"; // 9998 MT-PC
     public static final String FINAL_HOTEL_CODE = "9999"; // 9999 HotixDev server
+    //public static final String FINAL_HOTEL_CODE = "9998"; // 9998 MT-PC
+    //public static final String FINAL_HOTEL_CODE = "9997"; // 9997 MB-PC
+    //public static final String FINAL_HOTEL_CODE = "9996"; // 9997 PC-JALAL
+    //public static final String FINAL_HOTEL_CODE = "9995"; // 9997 PC-SAIF
     //public static final String FINAL_HOTEL_CODE = "3350"; // 3350 PALM CLUB HOTEL
     //public static final String FINAL_HOTEL_CODE = "1865"; // 1865 LE SULTAN HOTEL
     //public static final String FINAL_HOTEL_CODE = "3350"; // 3350 CONCORDE HOTEL
+    //public static final String FINAL_HOTEL_CODE = "1701"; // 1701 LE ROYAL HOTEL HAMMAMET
 
     /***************************************(Non Finol )*******************************************/
 
