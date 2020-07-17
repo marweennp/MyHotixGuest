@@ -283,9 +283,11 @@ public class RestaurantReservationActivity extends AppCompatActivity {
 
         final String content_type = "application/json";
         RestaurantReservation _Resa = new RestaurantReservation();
+        _Resa.setHotelID(1);
         _Resa.setRestID(mRestaurantId);
         _Resa.setEtatResa(1);
-        _Resa.setReference(-1);
+        _Resa.setOrigineID(1);
+        _Resa.setClientID(session.getClientId());
         _Resa.setNbrPAX(Integer.parseInt(etRestoResaSeats.getText().toString().trim()));
         _Resa.setNom(session.getNom().trim());
         _Resa.setPrenom(session.getPrenom().trim());
