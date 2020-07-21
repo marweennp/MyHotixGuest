@@ -19,7 +19,7 @@ public class ChangeCorseData {
     @Expose
     private Boolean success;
 
-    @SerializedName("DeviseChanges")
+    @SerializedName("Data")
     @Expose
     private ArrayList<DeviseChange> deviseChanges = null;
 

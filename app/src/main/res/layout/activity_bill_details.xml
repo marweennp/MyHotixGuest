@@ -86,7 +86,7 @@
                     android:id="@+id/tv_bill_header_whole_stay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/all_btn"
+                    android:text="@string/total_stay"
                     android:textColor="@color/white"
                     android:textSize="14sp"/>
 

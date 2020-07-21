@@ -33,6 +33,14 @@ public class Restaurant {
     @Expose
     private String numTel;
 
+    @SerializedName("Email")
+    @Expose
+    private String email;
+
+    @SerializedName("Specialite")
+    @Expose
+    private String specialite;
+
 
 
     public Integer getId() {
@@ -82,5 +90,19 @@ public class Restaurant {
     }
     public void setNumTel(String numTel) {
         this.numTel = numTel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSpecialite() {
+        return specialite;
+    }
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
     }
 }

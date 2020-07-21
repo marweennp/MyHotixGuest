@@ -158,6 +158,7 @@
     <string name="arrival">Arrivée</string>
     <string name="departure">Départ</string>
     <string name="reservation_detail">Détails de la réservation</string>
+    <string name="room">Chambre</string>
     <string name="room_n">"Chambre N ° "</string>
     <string name="rate">Tarif</string>
     <string name="arrangement">Arrangement</string>
@@ -238,4 +239,5 @@
     <string name="seats">Places</string>
     <string name="name">Nom</string>
     <string name="reveil">Réveil</string>
+    <string name="total_stay">Total Séjour</string>
 </resources>

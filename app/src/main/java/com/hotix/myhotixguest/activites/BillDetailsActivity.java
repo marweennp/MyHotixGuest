@@ -46,6 +46,7 @@ import static android.support.v4.content.ContextCompat.getColor;
 import static com.hotix.myhotixguest.helpers.Utils.dateBefore;
 import static com.hotix.myhotixguest.helpers.Utils.dateColored;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.round;
 import static com.hotix.myhotixguest.helpers.Utils.sameDate;
 import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
@@ -190,7 +191,20 @@ public class BillDetailsActivity extends AppCompatActivity {
 
         l_factures = new ArrayList<>();
         l_factures.clear();
-        Double total = 0.0;
+        Double total = 0.000;
+        formatter.setMinimumFractionDigits(facture.getDeviseDecimal());
+
+        billOwner.setText(session.getNom() + " " + session.getPrenom());
+        billNumber.setText(facture.getId() + "-" + facture.getAnnee());
+
+        headDevise.setText(facture.getDevise());
+        footDevise.setText(facture.getDevise());
+
+        if (histo) {
+            billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", true)));
+        } else {
+            billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true)));
+        }
 
         for (LigneFacture lf : fact.getLignesFacture()) {
 
@@ -206,26 +220,30 @@ public class BillDetailsActivity extends AppCompatActivity {
                 l_factures.add(lf);
                 total += Double.valueOf(lf.getMontant());
             }
-
-
         }
 
+        total = round(total, 3);
+
         listView.removeFooterView(footer);
-        BillAdapter listAdapter = new BillAdapter(this, l_factures, fact.getDateFront());
-        listView.setAdapter(listAdapter);
-        listView.addFooterView(footer);
+        if (l_factures.size() > 0){
+            BillAdapter listAdapter = new BillAdapter(this, l_factures, fact.getDateFront());
+            listView.setAdapter(listAdapter);
+            listView.addFooterView(footer);
+        }
 
         billHeadTotalTTC.setText(formatter.format(total));
         billTotalTTC.setText(formatter.format(total));
 
-        if (total < 0) {
+        if (total > 0){
+            billHeadTotalTTC.setTextColor(getResources().getColor( R.color.white));
+            billTotalTTC.setTextColor(getResources().getColor( R.color.white));
+        }else if (total < 0){
             billHeadTotalTTC.setTextColor(getResources().getColor( R.color.green_500));
             billTotalTTC.setTextColor(getResources().getColor( R.color.green_500));
         }else{
-            billHeadTotalTTC.setTextColor(getResources().getColor( R.color.white));
-            billTotalTTC.setTextColor(getResources().getColor( R.color.white));
+            billHeadTotalTTC.setTextColor(getResources().getColor( R.color.blue_500));
+            billTotalTTC.setTextColor(getResources().getColor( R.color.blue_500));
         }
-
 
     }
 
@@ -292,19 +310,6 @@ public class BillDetailsActivity extends AppCompatActivity {
                 if (response.raw().code() == 200) {
 
                     facture = response.body();
-
-                    billOwner.setText(session.getNom() + " " + session.getPrenom());
-                    billNumber.setText(facture.getId() + "-" + facture.getAnnee());
-
-                    headDevise.setText(facture.getDevise());
-                    footDevise.setText(facture.getDevise());
-
-                    if (histo) {
-                        billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", true)));
-                    } else {
-                        billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true)));
-                    }
-
                     showData(facture, true);
 
                 } else {

@@ -172,6 +172,7 @@
     <string name="reservation_detail">Reservation Details</string>
     <string name="arrival">Arrival</string>
     <string name="departure">Departure</string>
+    <string name="room">Room</string>
     <string name="room_n">Room N°</string>
     <string name="rate">Rate</string>
     <string name="arrangement">Arrangement</string>
@@ -257,6 +258,7 @@
     <string name="seats">Seats</string>
     <string name="name">Name</string>
     <string name="reveil">Alarm Clock</string>
+    <string name="total_stay">Total Stay</string>
 
 
 </resources>

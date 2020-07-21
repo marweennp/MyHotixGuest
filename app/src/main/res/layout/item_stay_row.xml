@@ -43,7 +43,7 @@
         android:textColor="@color/light_bg_dark_secondary_text"
         android:textSize="16sp" />
 
-    <!-- Stay Nights Text -->
+    <!-- Stay Nights Icon -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/stay_nights_icon"
         android:layout_width="12dp"
@@ -55,6 +55,18 @@
         android:layout_marginEnd="6dp"
         app:srcCompat="@drawable/svg_moon_blue_512" />
 
+    <!-- Stay Room Text -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/stay_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="6dp"
+        android:text=""
+        android:textColor="@color/light_bg_dark_secondary_text"
+        android:textSize="12sp" />
 
     <!-- Message Date Icon -->
     <android.support.v7.widget.AppCompatImageView

@@ -19,7 +19,7 @@ public class RestaurantsData {
     @Expose
     private Boolean success;
 
-    @SerializedName("Restaurants")
+    @SerializedName("Data")
     @Expose
     private ArrayList<Restaurant> restaurants = null;
 

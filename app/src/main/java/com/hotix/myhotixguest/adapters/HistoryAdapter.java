@@ -47,6 +47,7 @@ public class HistoryAdapter extends ArrayAdapter<Sejour> {
             viewHolder.stay_sub_title = (TextView) convertView.findViewById(R.id.stay_sub_title);
             viewHolder.stay_date = (TextView) convertView.findViewById(R.id.stay_date);
             viewHolder.stay_nights = (TextView) convertView.findViewById(R.id.stay_nights);
+            viewHolder.stay_room = (TextView) convertView.findViewById(R.id.stay_room);
 
             result = convertView;
 
@@ -60,6 +61,7 @@ public class HistoryAdapter extends ArrayAdapter<Sejour> {
         viewHolder.stay_sub_title.setText("" + dataModel.getTypeChambre());
         viewHolder.stay_date.setText(Html.fromHtml(dateColored(dataModel.getDateArrivee(), "", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(dataModel.getDateDepart(), "", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
         viewHolder.stay_nights.setText(calculateDaysBetween(dataModel.getDateArrivee(), dataModel.getDateDepart()));
+        viewHolder.stay_room.setText(mContext.getResources().getString(R.string.room) +" : " + dataModel.getChambre());
 
         // Return the completed view to render on screen
         return convertView;
@@ -71,6 +73,7 @@ public class HistoryAdapter extends ArrayAdapter<Sejour> {
         TextView stay_sub_title;
         TextView stay_date;
         TextView stay_nights;
+        TextView stay_room;
     }
 
 }

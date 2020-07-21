@@ -30,7 +30,7 @@ public class MyRestaurantAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        return mData != null? mData.size() : 0;
     }
 
     @Override

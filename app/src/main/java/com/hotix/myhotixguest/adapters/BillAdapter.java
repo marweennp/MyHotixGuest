@@ -48,9 +48,10 @@ public class BillAdapter extends ArrayAdapter<LigneFacture> {
         decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
         decimalFormatSymbols.setCurrencySymbol("");
         ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
-        formatter.setMinimumFractionDigits(3);
 
         LigneFacture dataModel = getItem(position);
+
+        formatter.setMinimumFractionDigits(dataModel.getDeviseDecimal());
 
         ViewHolder viewHolder;
 

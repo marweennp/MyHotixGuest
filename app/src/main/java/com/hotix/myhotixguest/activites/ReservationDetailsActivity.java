@@ -82,10 +82,8 @@ public class ReservationDetailsActivity extends AppCompatActivity {
     @BindView(R.id.profile_bill_icon_layou)
     LinearLayoutCompat profileBillLayou;
 
-    //
     @BindView(R.id.profile_guest_details_edit_pax_btn)
     RelativeLayout editPaxDetails;
-
 
     // Loading View & Empty ListView
     @BindView(R.id.loading_view)
@@ -195,7 +193,6 @@ public class ReservationDetailsActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void loadData() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
@@ -217,7 +214,7 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                     Sejour sejour = response.body();
 
                     profileUserName.setText(session.getNom() + " " + session.getPrenom());
-                    profileUserResType.setText(session.getChambre());
+                    profileUserResType.setText(sejour.getChambre());
                     profileUserAgency.setText(sejour.getSociete());
                     profileArrivalDate.setText(dateFormater(sejour.getDateArrivee(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy"));
                     profileDepartureDate.setText(dateFormater(sejour.getDateDepart(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy"));
@@ -242,7 +239,6 @@ public class ReservationDetailsActivity extends AppCompatActivity {
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
-
             }
 
             @Override
