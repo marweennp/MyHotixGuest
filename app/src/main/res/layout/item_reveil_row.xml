@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/white">
+
+    <!-- Date Icon -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/reveil_row_date_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
+        app:srcCompat="@drawable/svg_date_blue_512" />
+
+    <!-- Date -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/reveil_row_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/reveil_row_date_icon"
+        android:text=""
+        android:textColor="@color/grey_500"
+        android:textSize="16sp" />
+
+    <!-- Time Icon -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/reveil_row_time_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_toEndOf="@+id/date_time_divider"
+        app:srcCompat="@drawable/svg_time_blue_512" />
+
+    <!-- Time -->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/reveil_row_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/reveil_row_time_icon"
+        android:text=""
+        android:textColor="@color/grey_500"
+        android:textSize="16sp" />
+
+    <!-- Bottom Divider -->
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBackground" />
+
+</RelativeLayout>

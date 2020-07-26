@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey_200"
     tools:context=".activites.RestaurantReservationActivity">
 
-    <!-- Toolbar -->
+    <!-- AppBarLayout -->
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -14,238 +16,43 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <include layout="@layout/include_toolbar" />
+
     </android.support.design.widget.AppBarLayout>
 
-    <!-- Progress View -->
+    <!-- Resto Resa Progress View -->
     <include layout="@layout/include_loading_view" />
 
-    <!-- Form -->
-    <RelativeLayout
-        android:id="@+id/rl_main_container"
+    <!-- Resto Resa ListView -->
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/resto_resa_list_pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar">
 
-        <android.support.v7.widget.LinearLayoutCompat
-            android:id="@+id/ll_resto_resa"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="vertical"
-            android:background="@drawable/transparent_white_background">
+        <ListView
+            android:id="@+id/resto_resa_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="1px"
+            android:drawSelectorOnTop="true" />
 
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="horizontal"
-                android:weightSum="5">
+    </com.baoyz.widget.PullRefreshLayout>
 
-                <android.support.v7.widget.LinearLayoutCompat
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="4">
+    <!-- Resto Resa Empty View -->
+    <include layout="@layout/include_empty_list_with_refresh_button_view" />
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-                        android:text="Restaurant"/>
-
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/sp_restaurant"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:popupBackground="@color/white"
-                        android:spinnerMode="dropdown"/>
-
-                    <!-- Divider -->
-                    <View
-                        android:id="@+id/v_sp_restaurant_divider"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorPrimary" />
-
-                </android.support.v7.widget.LinearLayoutCompat>
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/iv_resto_resa_call"
-                    android:layout_width="0dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="bottom|end"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/svg_telephone_512"
-                    android:layout_weight="1"/>
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-            <!-- Date -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/il_resto_resa_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:hintTextAppearance="@style/MyHintTextStyle">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_resto_resa_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:hint="@string/date"
-                    android:inputType="date"
-                    android:textColor="@color/colorBackground"
-                    android:theme="@style/MyEditTextStyle"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <!-- Check-in -->
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/il_resto_resa_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    app:hintTextAppearance="@style/MyHintTextStyle">
-
-                    <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/et_resto_resa_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:hint="@string/time"
-                        android:inputType="time"
-                        android:textColor="@color/colorBackground"
-                        android:theme="@style/MyEditTextStyle"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-                <!-- Adults -->
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/il_resto_resa_seats"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:hintTextAppearance="@style/MyHintTextStyle">
-
-                    <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/et_resto_resa_seats"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/seats"
-                        android:inputType="number"
-                        android:textColor="@color/colorBackground"
-                        android:theme="@style/MyEditTextStyle" />
-
-                </android.support.design.widget.TextInputLayout>
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-            <!-- name -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/il_resto_resa_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:hintTextAppearance="@style/MyHintTextStyle">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_resto_resa_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/name"
-                    android:inputType="text"
-                    android:textColor="@color/colorBackground"
-                    android:theme="@style/MyEditTextStyle" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Email -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/il_resto_resa_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:hintTextAppearance="@style/MyHintTextStyle">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_resto_resa_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_email"
-                    android:inputType="text"
-                    android:textColor="@color/colorBackground"
-                    android:theme="@style/MyEditTextStyle" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Tel -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/il_resto_resa_tel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:hintTextAppearance="@style/MyHintTextStyle">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_resto_resa_tel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_phone"
-                    android:inputType="text"
-                    android:textColor="@color/colorBackground"
-                    android:theme="@style/MyEditTextStyle" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Buttons -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp">
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/btn_resto_resa_confirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:text="@string/confirm"
-                    android:textSize="24sp"
-                    style="@style/MyButtonStyle"/>
-
-            </RelativeLayout>
-
-            <!-- ProgressBar -->
-            <ProgressBar
-                android:id="@+id/pb_resto_resa"
-                android:theme="@style/MyProgressBarStyle"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:visibility="gone"/>
-
-        </android.support.v7.widget.LinearLayoutCompat>
-
-    </RelativeLayout>
-
-    <!-- Empty View -->
-    <include layout="@layout/include_empty_list_view" />
+    <!-- Resto Resa Add FAB-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/resto_resa_floatingActionButton_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/svg_add_white_24" />
 
 </RelativeLayout>

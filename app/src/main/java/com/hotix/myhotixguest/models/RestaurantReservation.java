@@ -39,6 +39,26 @@ public class RestaurantReservation {
     @Expose
     private String reference;
 
+    @SerializedName("EtatName")
+    @Expose
+    private String etatName;
+
+    @SerializedName("RestoName")
+    @Expose
+    private String restoName;
+
+    @SerializedName("Specialite")
+    @Expose
+    private String specialite;
+
+    @SerializedName("OrigineCode")
+    @Expose
+    private String origineCode;
+
+    @SerializedName("OrigineName")
+    @Expose
+    private String origineName;
+
     @SerializedName("Nom")
     @Expose
     private String nom;
@@ -116,8 +136,23 @@ public class RestaurantReservation {
     public Integer getNbrPAX() { return nbrPAX; }
     public void setNbrPAX(Integer nbrPAX) { this.nbrPAX = nbrPAX; }
 
+    public String getEtatName() { return etatName; }
+    public void setEtatName(String etatName) { this.etatName = etatName; }
+
+    public String getRestoName() { return restoName; }
+    public void setRestoName(String restoName) { this.restoName = restoName; }
+
+    public String getSpecialite() { return specialite; }
+    public void setSpecialite(String specialite) { this.restoName = specialite; }
+
     public String getReference() { return reference; }
     public void setReference(String reference) { this.reference = reference; }
+
+    public String getOrigineCode() { return origineCode; }
+    public void setOrigineCode(String origineCode) { this.origineCode = origineCode; }
+
+    public String getOrigineName() { return origineName; }
+    public void setOrigineName(String origineName) { this.origineName = origineName; }
 
     public String getNom() {
         return nom;

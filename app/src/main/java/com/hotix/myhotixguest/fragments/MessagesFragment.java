@@ -1,14 +1,20 @@
 package com.hotix.myhotixguest.fragments;
 
+import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +27,20 @@ import android.widget.RelativeLayout;
 import com.baoyz.widget.PullRefreshLayout;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.MessageAdapter;
+import com.hotix.myhotixguest.adapters.MyCategorieMessageAdapter;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.models.Complaint;
 import com.hotix.myhotixguest.models.Message;
+import com.hotix.myhotixguest.models.MessageCategorie;
+import com.hotix.myhotixguest.models.MessageCategorieResponse;
+import com.hotix.myhotixguest.models.MessagesResponse;
+import com.hotix.myhotixguest.models.SuccessResponse;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,8 +50,19 @@ import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class MessagesFragment extends Fragment {
 
-
+    private AppCompatEditText messageTitle;
+    private AppCompatEditText messageText;
+    private TextInputLayout messageTitleInput;
+    private TextInputLayout messageTextInput;
+    private AppCompatSpinner messageCategorie;
+    private AppCompatButton addBtn;
+    private AppCompatButton cancelBtn;
+    private AppCompatButton listSortAll;
+    private AppCompatButton listSortSent;
+    private AppCompatButton listSortReceived;
     private MessageAdapter adapter;
+
+    private MyCategorieMessageAdapter mCategorieMessageAdapter;
     private AppCompatTextView messageDetailsTitle;
     private AppCompatTextView messageDetailsDate;
     private AppCompatTextView messageDetailsTime;
@@ -47,9 +71,12 @@ public class MessagesFragment extends Fragment {
     private AppCompatTextView messageDetailsPhone;
     private RelativeLayout messageDetailsPhoneView;
     private AppCompatButton messageDetailsOkBt;
+    private ArrayList<MessageCategorie> msgCats;
     private ArrayList<Message> dataModels;
+    private ArrayList<Message> myMessages;
     private ListView listView;
     private Message message;
+    private FloatingActionButton _floatingActionButton;
     private PullRefreshLayout pullLayout;
     // Session Manager Class
     private Session session;
@@ -60,8 +87,10 @@ public class MessagesFragment extends Fragment {
     private AppCompatTextView emptyListText;
     private AppCompatImageView emptyListIcon;
     private AppCompatButton emptyListRefresh;
+    private LinearLayout listSortMenu;
 
     private Drawable mIconOne, mIconTwo;
+    Integer CategorieId = 0;
 
     public MessagesFragment() {
     }
@@ -93,21 +122,38 @@ public class MessagesFragment extends Fragment {
 
         pullLayout = (PullRefreshLayout) getActivity().findViewById(R.id.messages_list_pull_to_refresh);
 
+        _floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.messages_floatingActionButton_add);
+
         progressView = (LinearLayout) getActivity().findViewById(R.id.messages_progress_view);
         emptyListView = (RelativeLayout) getActivity().findViewById(R.id.empty_list_main_view);
         emptyListText = (AppCompatTextView) getActivity().findViewById(R.id.list_msg_tv);
         emptyListIcon = (AppCompatImageView) getActivity().findViewById(R.id.empty_list_icon_iv);
         emptyListRefresh = (AppCompatButton) getActivity().findViewById(R.id.empty_list_refresh_bt);
 
+        listSortMenu = (LinearLayout) getActivity().findViewById(R.id.messages_list_sort_menu);
+
+        listSortAll = (AppCompatButton) getActivity().findViewById(R.id.messages_list_sort_all_btn);
+        listSortSent = (AppCompatButton) getActivity().findViewById(R.id.messages_list_sort_sent_btn);
+        listSortReceived = (AppCompatButton) getActivity().findViewById(R.id.messages_list_sort_received_btn);
+
         listView = (ListView) getActivity().findViewById(R.id.messages_list);
 
         dataModels = new ArrayList<>();
+        myMessages = new ArrayList<>();
+        msgCats = new ArrayList<>();
+
+        _floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadeCategoriesMessage();
+            }
+        });
 
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                loadeMessages();
+                loadeMessages(00);
             }
         });
 
@@ -126,7 +172,31 @@ public class MessagesFragment extends Fragment {
             @Override
             public void onRefresh() {
                 // start refresh
-                loadeMessages();
+                loadeMessages(0);
+            }
+        });
+
+        listSortAll.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                loadeMessages(0);
+            }
+        });
+
+        listSortSent.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                loadeMessages(1);
+            }
+        });
+
+        listSortReceived.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                loadeMessages(2);
             }
         });
 
@@ -135,50 +205,69 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadeMessages();
+        loadeMessages(0);
     }
 
-    /**
-     * *********************************************************************************************
-     */
-    private void loadeMessages() {
+    /**********************************(  Start Complaint Dialog  )*************************************/
+    //This method is to start a dialog window .
+    private void startMessageDialog(ArrayList<MessageCategorie> _Cats) {
 
-        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<ArrayList<Message>> userCall = service.getMessagesQuery(session.getResaId().toString(), session.getResaPaxId().toString());
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
 
-        progressView.setVisibility(View.VISIBLE);
-        emptyListView.setVisibility(View.GONE);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_add_message, null);
+        messageTitle = (AppCompatEditText) mView.findViewById(R.id.add_message_dialog_title);
+        messageText = (AppCompatEditText) mView.findViewById(R.id.add_message_dialog_text);
+        messageTitleInput = (TextInputLayout) mView.findViewById(R.id.add_message_dialog_input_layout_title);
+        messageTextInput = (TextInputLayout) mView.findViewById(R.id.add_message_dialog_input_layout_text);
+        messageCategorie = (AppCompatSpinner) mView.findViewById(R.id.add_message_dialog_sp_categorie);
+        addBtn = (AppCompatButton) mView.findViewById(R.id.btn_Add);
+        cancelBtn = (AppCompatButton) mView.findViewById(R.id.btn_cancel);
 
-        userCall.enqueue(new Callback<ArrayList<Message>>() {
+        final ArrayList<MessageCategorie> mCats = _Cats;
+
+        mCategorieMessageAdapter = new MyCategorieMessageAdapter (getContext(), _Cats);
+        messageCategorie.setAdapter(mCategorieMessageAdapter);
+        messageCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
-                progressView.setVisibility(View.GONE);
-                pullLayout.setRefreshing(false);
-                if (response.raw().code() == 200) {
-
-                    dataModels = response.body();
-
-                    adapter = new MessageAdapter(dataModels, getActivity());
-                    listView.setAdapter(adapter);
-                    emptyListIcon.setImageDrawable(mIconOne);
-                    emptyListText.setText(R.string.no_message_to_show);
-                    listView.setEmptyView(emptyListView);
-
-                } else {
-                    showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
-                }
+            public void onItemSelected(AdapterView<?> spinner, View container, int position, long id) {
+                CategorieId = mCats.get(position).getCategorieID();
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Message>> call, Throwable t) {
-                progressView.setVisibility(View.GONE);
-                pullLayout.setRefreshing(false);
-                emptyListText.setText(R.string.server_unreachable);
-                emptyListIcon.setImageDrawable(mIconTwo);
-                listView.setEmptyView(emptyListView);
-                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                messageTitleInput.setErrorEnabled(false);
+                messageTextInput.setErrorEnabled(false);
+                if (messageTitle.getText().toString().trim().isEmpty()) {
+                    messageTitleInput.setError(getString(R.string.error_message_title_is_empty));
+                } else if (messageText.getText().toString().trim().isEmpty()) {
+                    messageTextInput.setError(getString(R.string.error_message_complaint_text_is_empty));
+                } else {
+                    addMessage();
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
     }
 
     private void messageDetailsDialog(Message message) {
@@ -217,6 +306,186 @@ public class MessagesFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+
+    }
+
+    /**
+     * *********************************************************************************************
+     */
+
+    private void loadeCategoriesMessage() {
+
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<MessageCategorieResponse> userCall = service.getCategoriesMessageQuery();
+
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        userCall.enqueue(new Callback<MessageCategorieResponse>() {
+            @Override
+            public void onResponse(Call<MessageCategorieResponse> call, Response<MessageCategorieResponse> response) {
+
+                progressDialog.dismiss();
+
+                if (response.raw().code() == 200) {
+                    MessageCategorieResponse _Response = response.body();
+                    if (_Response.getSuccess()) {
+
+                        msgCats = _Response.getMessageCategories();
+                        startMessageDialog(msgCats);
+                    }
+                    else {
+                        showSnackbar(getActivity().findViewById(android.R.id.content), _Response.getMessage());
+                    }
+                } else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), response.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MessageCategorieResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+
+    }
+
+    private void addMessage() {
+
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<SuccessResponse> userCall = service.sendMessageQuery("1", session.getResaId().toString(), session.getResaGroupeId().toString(), session.getResaPaxId().toString(),
+                                                                   "1", CategorieId.toString(), (session.getNom() + " " + session.getPrenom()), messageText.getText().toString(),
+                                                                    "Android", messageTitle.getText().toString(), "C");
+
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.AppThemeDialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Response...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        userCall.enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+
+                progressDialog.dismiss();
+
+                if (response.raw().code() == 200) {
+                    SuccessResponse _Response = response.body();
+                    if (_Response.getSuccess()) {
+
+                        loadeMessages(0);
+                    }
+                    else {
+                        showSnackbar(getActivity().findViewById(android.R.id.content), _Response.getMessage());
+                    }
+                } else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), response.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+
+    }
+
+    // int sort <0:All, 1:Sent, 2:Received>
+    private void loadeMessages(int sort) {
+
+        final int x = sort;
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<MessagesResponse> userCall = service.getMessagesQuery(session.getHotelId().toString(), session.getResaId().toString(), session.getResaGroupeId().toString(), session.getResaPaxId().toString());
+
+        progressView.setVisibility(View.VISIBLE);
+        emptyListView.setVisibility(View.GONE);
+        listSortMenu.setVisibility(View.GONE);
+
+        userCall.enqueue(new Callback<MessagesResponse>() {
+            @Override
+            public void onResponse(Call<MessagesResponse> call, Response<MessagesResponse> response) {
+                progressView.setVisibility(View.GONE);
+                pullLayout.setRefreshing(false);
+                if (response.raw().code() == 200) {
+
+                    MessagesResponse _Response = response.body();
+                    if (_Response.getSuccess()) {
+
+                        dataModels = _Response.getMessages();
+
+                        if (dataModels.size() > 0) {
+                            listSortMenu.setVisibility(View.VISIBLE);
+                            changeColerBtns(x);
+                        }
+
+                        myMessages.clear();
+                        if (x == 1) {
+                            for (Message obj : dataModels) {
+                                if (obj.getOrigine().toUpperCase().equals("C")) {
+                                    myMessages.add(obj);
+                                }
+                            }
+                        } else if (x == 2) {
+                            for (Message obj : dataModels) {
+                                if (obj.getOrigine().toUpperCase().equals("H")) {
+                                    myMessages.add(obj);
+                                }
+                            }
+                        } else {
+                            myMessages = dataModels;
+                        }
+
+                        adapter = new MessageAdapter(myMessages, getActivity());
+                        listView.setAdapter(adapter);
+                        emptyListIcon.setImageDrawable(mIconOne);
+                        emptyListText.setText(R.string.no_message_to_show);
+                        listView.setEmptyView(emptyListView);
+
+                    }
+                    else {
+                        showSnackbar(getActivity().findViewById(android.R.id.content), _Response.getMessage());
+                    }
+
+                } else {
+                    showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MessagesResponse> call, Throwable t) {
+                progressView.setVisibility(View.GONE);
+                pullLayout.setRefreshing(false);
+                emptyListText.setText(R.string.server_unreachable);
+                emptyListIcon.setImageDrawable(mIconTwo);
+                listView.setEmptyView(emptyListView);
+                showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+    }
+
+    private void changeColerBtns(int sort) {
+
+        if (sort == 1) {
+            listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+            listSortSent.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+            listSortReceived.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+        } else if (sort == 2) {
+            listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+            listSortSent.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+            listSortReceived.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+        } else {
+            listSortAll.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+            listSortSent.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+            listSortReceived.setTextColor(ContextCompat.getColor(getActivity(), R.color.white_70_alpha));
+        }
 
     }
 

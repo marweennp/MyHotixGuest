@@ -13,6 +13,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -20,11 +21,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.google.gson.Gson;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.adapters.OrderAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.CartItem;
 import com.hotix.myhotixguest.models.Order;
+import com.hotix.myhotixguest.models.OrdersResponse;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -40,6 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_ORDER;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
@@ -136,6 +140,7 @@ public class OrdersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
                 order = dataModels.get(position);
+                Log.e("MARWEN", new Gson().toJson(order));
                 orderDetailsDialog(order);
             }
         });
@@ -172,28 +177,38 @@ public class OrdersActivity extends AppCompatActivity {
     public void loadeOrders() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<ArrayList<Order>> userCall = service.getCommandesQuery(session.getResaId().toString());
+        Call<OrdersResponse> userCall = service.getCommandesQuery(session.getHotelId().toString(), session.getResaId().toString(), "-1");
 
         pullLayout.setRefreshing(false);
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
 
-        userCall.enqueue(new Callback<ArrayList<Order>>() {
+        userCall.enqueue(new Callback<OrdersResponse>() {
             @Override
-            public void onResponse(Call<ArrayList<Order>> call, Response<ArrayList<Order>> response) {
+            public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
 
                 progressView.setVisibility(View.GONE);
                 emptyListView.setVisibility(View.GONE);
 
                 if (response.raw().code() == 200) {
-                    dataModels = response.body();
 
-                    adapter = new OrderAdapter(dataModels, getApplicationContext());
-                    listView.setAdapter(adapter);
+                    OrdersResponse _Response = response.body();
 
-                    emptyListIcon.setImageDrawable(mIconOne);
-                    emptyListText.setText(R.string.no_orders_to_show);
-                    listView.setEmptyView(emptyListView);
+                    if (_Response.getSuccess()) {
+
+                        dataModels = _Response.getOrders();
+
+                        adapter = new OrderAdapter(dataModels, getApplicationContext());
+                        listView.setAdapter(adapter);
+
+                        emptyListIcon.setImageDrawable(mIconOne);
+                        emptyListText.setText(R.string.no_orders_to_show);
+                        listView.setEmptyView(emptyListView);
+
+                    }
+                    else {
+                        showSnackbar(findViewById(android.R.id.content), _Response.getMessage());
+                    }
 
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
@@ -201,7 +216,7 @@ public class OrdersActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Order>> call, Throwable t) {
+            public void onFailure(Call<OrdersResponse> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
                 emptyListView.setVisibility(View.VISIBLE);
                 emptyListText.setText(R.string.server_unreachable);
@@ -218,7 +233,7 @@ public class OrdersActivity extends AppCompatActivity {
 
         ArrayList<CartItem> carts = new ArrayList<>();
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
 
         View mView = getLayoutInflater().inflate(R.layout.dialog_order_details, null);
 

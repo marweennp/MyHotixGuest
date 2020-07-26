@@ -1,6 +1,8 @@
 package com.hotix.myhotixguest.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
             viewHolder.message_text = (TextView) convertView.findViewById(R.id.message_row_text);
             viewHolder.message_date = (TextView) convertView.findViewById(R.id.message_row_date);
             viewHolder.message_time = (TextView) convertView.findViewById(R.id.message_row_time);
+            viewHolder.origine_icon = (AppCompatImageView) convertView.findViewById(R.id.message_row_origine_icon);
 
             result = convertView;
 
@@ -59,6 +62,12 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         viewHolder.message_date.setText(Html.fromHtml(dateColored(dataModel.getDate(), "", "", "yyyy-MM-dd'T'hh:mm:ss", true)));
         viewHolder.message_time.setText(dateFormater(dataModel.getDate(), "yyyy-MM-dd'T'hh:mm:ss", "HH:mm"));
 
+        if (dataModel.getOrigine().toUpperCase().equals("C")) {
+            viewHolder.origine_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.svg_message_sent_512) );
+        } else if (dataModel.getOrigine().toUpperCase().equals("H")) {
+            viewHolder.origine_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.svg_message_reeceived_512) );
+        }
+
 
         // Return the completed view to render on screen
         return convertView;
@@ -70,7 +79,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         TextView message_text;
         TextView message_date;
         TextView message_time;
-
+        AppCompatImageView origine_icon;
     }
 
 

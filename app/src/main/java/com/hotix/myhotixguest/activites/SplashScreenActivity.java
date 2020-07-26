@@ -24,6 +24,7 @@ import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.Guest;
 import com.hotix.myhotixguest.models.HotelInfos;
 import com.hotix.myhotixguest.models.HotelSettings;
+import com.hotix.myhotixguest.models.LoginResponse;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -129,15 +130,15 @@ public class SplashScreenActivity extends AppCompatActivity {
         splashScreenFooter.setText(R.string.checking_internet_providers);
 //        if (isNetworkAvailable(this)) {
 
-            if (settings.getConfigured()) {
-                setBaseUrl(this);
-            }
+        if (settings.getConfigured()) {
+            setBaseUrl(this);
+        }
 
-            try {
-                lodeHotelConfig();
-            } catch (Exception e) {
-                Log.e("SPLASH LOG", e.toString());
-            }
+        try {
+            lodeHotelConfig();
+        } catch (Exception e) {
+            Log.e("SPLASH LOG", e.toString());
+        }
 
 //        } else {
 //            mainContainer.setVisibility(View.GONE);
@@ -248,49 +249,55 @@ public class SplashScreenActivity extends AppCompatActivity {
     public void login(final String uname, final String pwd) {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<Guest> userCall = service.getGuestQuery(uname, pwd);
+        Call<LoginResponse> userCall = service.getGuestQuery(uname, pwd);
         final String uName = uname;
         final String uPwd = pwd;
 
         splashScreenFooter.setText(R.string.login);
-        userCall.enqueue(new Callback<Guest>() {
+        userCall.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<Guest> call, Response<Guest> response) {
-
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.raw().code() == 200) {
-                    Guest guest = response.body();
-                    if (!(guest.getError() == -1)) {
-                        Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                    LoginResponse _LoginResponse = response.body();
+
+                    if (_LoginResponse.getSuccess()) {
+
                         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                        session.setNewToken(true);
+                        session.createNewGuestSession(
+                                1,
+                                _LoginResponse.getGuest().getISResident(),
+                                _LoginResponse.getGuest().getHasHistory(),
+                                true,
+                                true,
+                                uname,
+                                pwd,
+                                _LoginResponse.getGuest().getDateArrivee(),
+                                _LoginResponse.getGuest().getDateDepart(),
+                                _LoginResponse.getGuest().getChambre(),
+                                _LoginResponse.getGuest().getEmail(),
+                                _LoginResponse.getGuest().getNom(),
+                                _LoginResponse.getGuest().getPrenom(),
+                                _LoginResponse.getGuest().getPhone(),
+                                _LoginResponse.getGuest().getDateNaissance(),
+                                _LoginResponse.getGuest().getAdresse(),
+                                _LoginResponse.getGuest().getNationaliteName(),
+                                _LoginResponse.getGuest().getEtatResa(),
+                                _LoginResponse.getGuest().getResaId(),
+                                _LoginResponse.getGuest().getResaGroupeId(),
+                                _LoginResponse.getGuest().getResaPaxId(),
+                                _LoginResponse.getGuest().getClientId(),
+                                _LoginResponse.getGuest().getFactureId(),
+                                _LoginResponse.getGuest().getFactureAnnee(),
+                                _LoginResponse.getGuest().getNationaliteId());
+
+                        //Start the HomeScreenActivity
+                        Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
                         startActivity(i);
                         finish();
                     } else {
-                        Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
+                        Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
                         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                        session.clearSessionDetails();
-                        session.createNewGuestSession(
-                                response.body().getISResident(),
-                                response.body().getHasHistory(),
-                                true,
-                                true,
-                                uName,
-                                uPwd, response.body().getDateArrivee(),
-                                response.body().getDateDepart(),
-                                response.body().getChambre(),
-                                response.body().getEmail(),
-                                response.body().getNom(),
-                                response.body().getPrenom(),
-                                response.body().getPhone(),
-                                response.body().getDateNaissance(),
-                                response.body().getAdresse(),
-                                response.body().getNationaliteName(),
-                                response.body().getEtatResa(),
-                                response.body().getResaId(),
-                                response.body().getResaPaxId(),
-                                response.body().getClientId(),
-                                response.body().getFactureId(),
-                                response.body().getFactureAnnee(),
-                                response.body().getNationaliteId());
                         startActivity(i);
                         finish();
                     }
@@ -305,7 +312,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Guest> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 startActivity(i);

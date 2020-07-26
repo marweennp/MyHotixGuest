@@ -59,8 +59,8 @@
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/complaints_list_pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_below="@+id/complaints_list_sort_menu"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/complaints_list_sort_menu">
 
         <ListView
             android:id="@+id/complaints_list"

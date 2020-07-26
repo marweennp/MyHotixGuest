@@ -21,6 +21,7 @@ import com.hotix.myhotixguest.adapters.OrderAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.ChangeCorseData;
 import com.hotix.myhotixguest.models.DeviseChange;
+import com.hotix.myhotixguest.models.DeviseChangeResponse;
 import com.hotix.myhotixguest.models.Order;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
@@ -50,7 +51,7 @@ public class ChangeActivity extends AppCompatActivity {
     @BindView(R.id.devisess_list)
     ListView listView;
 
-    private ChangeCorseData _DataModel;
+    private ArrayList<DeviseChange> _DataModel;
     private ChangeAdapter adapter;
 
     // Session Manager Class
@@ -105,7 +106,7 @@ public class ChangeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        _DataModel = new ChangeCorseData();
+        _DataModel = new ArrayList<>();;
 
         emptyListRefresh.setOnClickListener(new View.OnClickListener() {
 
@@ -145,35 +146,40 @@ public class ChangeActivity extends AppCompatActivity {
     public void loadeChangeCorse() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<ChangeCorseData> userCall = service.getChangeCorseQuery();
+        Call<DeviseChangeResponse> userCall = service.getChangeCorseQuery(session.getHotelId().toString());
 
         pullLayout.setRefreshing(false);
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
 
-        userCall.enqueue(new Callback<ChangeCorseData>() {
+        userCall.enqueue(new Callback<DeviseChangeResponse>() {
             @Override
-            public void onResponse(Call<ChangeCorseData> call, Response<ChangeCorseData> response) {
+            public void onResponse(Call<DeviseChangeResponse> call, Response<DeviseChangeResponse> response) {
 
                 progressView.setVisibility(View.GONE);
                 emptyListView.setVisibility(View.GONE);
 
                 if (response.raw().code() == 200) {
-                    _DataModel = response.body();
+                    DeviseChangeResponse _Response = response.body();
+                    if (_Response.getSuccess()) {
 
-                    ArrayList<DeviseChange> _DeviseChanges = new ArrayList<DeviseChange>();
-                    for (DeviseChange _Dev : _DataModel.getDeviseChanges()) {
-                        if (_Dev.getDevisTauxVente() != 0){
-                            _DeviseChanges.add(_Dev);
+                        _DataModel = new ArrayList<DeviseChange>();
+                        for (DeviseChange _Dev : _Response.getDeviseChanges()) {
+                            if (_Dev.getDevisTauxVente() != 0){
+                                _DataModel.add(_Dev);
+                            }
                         }
+
+                        adapter = new ChangeAdapter(_DataModel, getApplicationContext());
+                        listView.setAdapter(adapter);
+
+                        emptyListIcon.setImageDrawable(mIconOne);
+                        emptyListText.setText(R.string.no_orders_to_show);
+                        listView.setEmptyView(emptyListView);
+
+                    } else {
+                        showSnackbar(findViewById(android.R.id.content), _Response.getMessage());
                     }
-
-                    adapter = new ChangeAdapter(_DeviseChanges, getApplicationContext());
-                    listView.setAdapter(adapter);
-
-                    emptyListIcon.setImageDrawable(mIconOne);
-                    emptyListText.setText(R.string.no_orders_to_show);
-                    listView.setEmptyView(emptyListView);
 
                 } else {
                     showSnackbar(findViewById(android.R.id.content), response.message());
@@ -181,7 +187,7 @@ public class ChangeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ChangeCorseData> call, Throwable t) {
+            public void onFailure(Call<DeviseChangeResponse> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
                 emptyListView.setVisibility(View.VISIBLE);
                 emptyListText.setText(R.string.server_unreachable);

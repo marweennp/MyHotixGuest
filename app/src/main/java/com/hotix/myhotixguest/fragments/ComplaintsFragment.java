@@ -334,26 +334,23 @@ public class ComplaintsFragment extends Fragment {
 
                     if (dataModels.size() > 0) {
                         listSortMenu.setVisibility(View.VISIBLE);
+                        changeColerBtns(x);
                     }
 
-                    changeColerBtns(x);
-
+                    myComplaints.clear();
                     if (x == 1) {
-                        myComplaints.clear();
                         for (Complaint obj : dataModels) {
                             if (obj.getTraite()) {
                                 myComplaints.add(obj);
                             }
                         }
                     } else if (x == 2) {
-                        myComplaints.clear();
                         for (Complaint obj : dataModels) {
                             if (!obj.getTraite()) {
                                 myComplaints.add(obj);
                             }
                         }
                     } else {
-                        myComplaints.clear();
                         myComplaints = dataModels;
                     }
 

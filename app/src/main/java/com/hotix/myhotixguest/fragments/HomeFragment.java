@@ -116,11 +116,11 @@ public class HomeFragment extends Fragment {
         homeGuestName.setText(session.getNom() + " " + session.getPrenom());
         if (session.getISResident()) {
             homeGuestResType.setText(session.getChambre());
-            homeGuestDate.setText(Html.fromHtml(dateColored(session.getDateArrivee(), "#FFFFFF", "#03A9F4", "dd/MM/yyyy", false) + " - " + dateColored(session.getDateDepart(), "#FFFFFF", "#03A9F4", "dd/MM/yyyy", true)));
+            homeGuestDate.setText(Html.fromHtml(dateColored(session.getDateArrivee(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(session.getDateDepart(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
             homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
         } else if (session.getResaId() != 0) {
             homeGuestResType.setText(fromTodayToDate(session.getDateArrivee()) + " " + getString(R.string.day_till_check_in));
-            homeGuestDate.setText(Html.fromHtml(dateColored(session.getDateArrivee(), "#FFFFFF", "#03A9F4", "dd/MM/yyyy", false) + " - " + dateColored(session.getDateDepart(), "#FFFFFF", "#03A9F4", "dd/MM/yyyy", true)));
+            homeGuestDate.setText(Html.fromHtml(dateColored(session.getDateArrivee(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(session.getDateDepart(), "#FFFFFF", "#03A9F4", "yyyy-MM-dd'T'hh:mm:ss", true)));
             homeGuestNights.setText(newCalculateDaysBetween(session.getDateArrivee(), session.getDateDepart()));
             homeResaDetailsTitle.setText("My Reservation");
         } else {
@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
                 Intent i = new Intent(getActivity(), ReservationDetailsActivity.class);
                 i.putExtra("resaId", session.getResaId().toString());
                 i.putExtra("histo", "");
-
+                Log.e("MARWEN", session.getResaId().toString());
                 if (session.getISResident()) {
                     startActivity(i);
                 } else if (session.getResaId() != 0) {
@@ -166,6 +166,7 @@ public class HomeFragment extends Fragment {
                     i.putExtra("dateIn", session.getDateArrivee());
                     i.putExtra("dateOut", session.getDateDepart());
                     i.putExtra("histo", false);
+
                     startActivity(i);
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.not_resident));

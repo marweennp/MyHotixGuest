@@ -288,7 +288,10 @@ public class NewOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), OrderDetailsActivity.class);
+                GLOBAL_ORDER.setHotelId(session.getHotelId());
                 GLOBAL_ORDER.setResaId(session.getResaId());
+                GLOBAL_ORDER.setGroupeId(session.getResaGroupeId());
+                GLOBAL_ORDER.setPaxId(session.getResaPaxId());
                 GLOBAL_ORDER.setDetails(GLOBAL_CART);
                 if (GLOBAL_CART.size() > 0) {
                     startActivity(i);

@@ -30,6 +30,7 @@ import com.hotix.myhotixguest.helpers.InputValidation;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.helpers.Settings;
 import com.hotix.myhotixguest.models.Guest;
+import com.hotix.myhotixguest.models.LoginResponse;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 import com.hotix.myhotixguest.views.kbv.KenBurnsView;
@@ -196,74 +197,83 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton.setEnabled(false);
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<Guest> userCall = service.getGuestQuery(uname, pwd);
+        Call<LoginResponse> userCall = service.getGuestQuery(uname, pwd);
 
-        userCall.enqueue(new Callback<Guest>() {
+        userCall.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<Guest> call, Response<Guest> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
                 pbLogin.setVisibility(View.GONE);
                 _loginButton.setEnabled(true);
 
                 if (response.raw().code() == 200) {
-                    Guest guest = response.body();
 
-                    switch (guest.getError()) {
+                    LoginResponse _Response = response.body();
 
-                        case -1:
-                            remember_me = _rememberMe.isChecked();
-                            is_logged_in = _rememberMe.isChecked();
-                            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                            session.setNewToken(true);
-                            session.createNewGuestSession(
-                                    response.body().getISResident(),
-                                    response.body().getHasHistory(),
-                                    is_logged_in,
-                                    remember_me,
-                                    uname,
-                                    pwd,
-                                    response.body().getDateArrivee(),
-                                    response.body().getDateDepart(),
-                                    response.body().getChambre(),
-                                    response.body().getEmail(),
-                                    response.body().getNom(),
-                                    response.body().getPrenom(),
-                                    response.body().getPhone(),
-                                    response.body().getDateNaissance(),
-                                    response.body().getAdresse(),
-                                    response.body().getNationaliteName(),
-                                    response.body().getEtatResa(),
-                                    response.body().getResaId(),
-                                    response.body().getResaPaxId(),
-                                    response.body().getClientId(),
-                                    response.body().getFactureId(),
-                                    response.body().getFactureAnnee(),
-                                    response.body().getNationaliteId());
-                            //Start the HomeScreenActivity
-                            Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
-                            startActivity(i);
-                            finish();
-                            break;
-                        case 0:
-                        case 1:
-                            showSnackbar(findViewById(android.R.id.content), getString(R.string.wrong_login));
-                            break;
-                        case 2:
-                            showSnackbar(findViewById(android.R.id.content), getString(R.string.inactive_account));
-                            break;
-                        default:
-                            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
-                            break;
+                    if (_Response.getSuccess()) {
+
+                        remember_me = _rememberMe.isChecked();
+                        is_logged_in = _rememberMe.isChecked();
+                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                        session.setNewToken(true);
+                        session.createNewGuestSession(
+                                1,
+                                _Response.getGuest().getISResident(),
+                                _Response.getGuest().getHasHistory(),
+                                is_logged_in,
+                                remember_me,
+                                uname,
+                                pwd,
+                                _Response.getGuest().getDateArrivee(),
+                                _Response.getGuest().getDateDepart(),
+                                _Response.getGuest().getChambre(),
+                                _Response.getGuest().getEmail(),
+                                _Response.getGuest().getNom(),
+                                _Response.getGuest().getPrenom(),
+                                _Response.getGuest().getPhone(),
+                                _Response.getGuest().getDateNaissance(),
+                                _Response.getGuest().getAdresse(),
+                                _Response.getGuest().getNationaliteName(),
+                                _Response.getGuest().getEtatResa(),
+                                _Response.getGuest().getResaId(),
+                                _Response.getGuest().getResaGroupeId(),
+                                _Response.getGuest().getResaPaxId(),
+                                _Response.getGuest().getClientId(),
+                                _Response.getGuest().getFactureId(),
+                                _Response.getGuest().getFactureAnnee(),
+                                _Response.getGuest().getNationaliteId());
+
+                        //Start the HomeScreenActivity
+                        Intent i = new Intent(getApplicationContext(), HomeScreenActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                    else {
+
+                        switch (_Response.getError()) {
+                            case 0:
+                                showSnackbar(findViewById(android.R.id.content), _Response.getMessage());
+                                break;
+                            case 1:
+                                showSnackbar(findViewById(android.R.id.content), getString(R.string.wrong_login));
+                                break;
+                            case 2:
+                                showSnackbar(findViewById(android.R.id.content), getString(R.string.inactive_account));
+                                break;
+                            default:
+                                showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+                                break;
+                        }
                     }
 
                 } else {
-                    showSnackbar(findViewById(android.R.id.content), "here" + response.message());
+                    showSnackbar(findViewById(android.R.id.content), response.message());
                 }
 
             }
 
             @Override
-            public void onFailure(Call<Guest> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 pbLogin.setVisibility(View.GONE);
                 _loginButton.setEnabled(true);
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));

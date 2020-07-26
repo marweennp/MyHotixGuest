@@ -86,18 +86,17 @@ public class ServicesFragment extends Fragment {
                         break;
 
                     case 3:
-                        //Start the Change Activity
+                        //Start the Restaurant Reservation Activity
                         i = new Intent(getActivity().getApplicationContext(), RestaurantReservationActivity.class);
                         startActivity(i);
                         break;
 
                     case 4:
-                        //Start the Change Activity
+                        //Start the Reveil Activity
                         i = new Intent(getActivity().getApplicationContext(), ReveilActivity.class);
                         startActivity(i);
                         break;
                 }
-
             }
         });
 

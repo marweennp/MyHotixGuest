@@ -5,17 +5,24 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class ReveilData {
+public class Reveil {
+
+    @SerializedName("reveilID")
+    @Expose
+    private Integer reveilID;
 
     @SerializedName("hotelID")
     @Expose
     private Integer hotelID;
+
     @SerializedName("resaID")
     @Expose
     private Integer resaID;
+
     @SerializedName("resaGroupeId")
     @Expose
     private Integer resaGroupeId;
+
     @SerializedName("paxID")
     @Expose
     private Integer paxID;
@@ -27,12 +34,21 @@ public class ReveilData {
     @SerializedName("dateCreation")
     @Expose
     private Date dateCreation;
+
     @SerializedName("reveilDate")
     @Expose
     private Date reveilDate;
+
     @SerializedName("reveilHeure")
     @Expose
     private Date reveilHeure;
+
+    public Integer getReveilID() {
+        return reveilID;
+    }
+    public void setReveilID(Integer reveilID) {
+        this.reveilID = reveilID;
+    }
 
     public Integer getHotelID() {
         return hotelID;

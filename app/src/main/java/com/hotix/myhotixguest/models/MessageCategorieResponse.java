@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class RestaurantsData {
+public class MessageCategorieResponse {
 
     @SerializedName("Message")
     @Expose
@@ -21,8 +21,7 @@ public class RestaurantsData {
 
     @SerializedName("Data")
     @Expose
-    private ArrayList<Restaurant> restaurants = null;
-
+    private ArrayList<MessageCategorie> messageCategorie;
 
     public String getMessage() {
         return message;
@@ -45,8 +44,10 @@ public class RestaurantsData {
         this.success = success;
     }
 
-    public ArrayList<Restaurant> getRestaurants() {
-        return restaurants;
+    public ArrayList<MessageCategorie> getMessageCategories() {
+        return messageCategorie;
     }
-    public void setRestaurants(ArrayList<Restaurant> restaurants) { this.restaurants = restaurants; }
+    public void setMessageCategories(ArrayList<MessageCategorie> messageCategorie) {
+        this.messageCategorie = messageCategorie;
+    }
 }

@@ -26,6 +26,7 @@ import com.hotix.myhotixguest.activites.EventDetailsActivity;
 import com.hotix.myhotixguest.adapters.EventAdapter;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.Event;
+import com.hotix.myhotixguest.models.EventsResponse;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -36,6 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_EVENT;
+import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class EventsFragment extends Fragment {
@@ -112,8 +114,6 @@ public class EventsFragment extends Fragment {
             }
         });
 
-        loadeEvents();
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
@@ -136,27 +136,45 @@ public class EventsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setBaseUrl(getContext());
+        try {
+            loadeEvents();
+        } catch (Exception e) {
+            showSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
+    }
+
     private void loadeEvents() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<ArrayList<Event>> userCall = service.getActivitesQuery();
+        Call<EventsResponse> userCall = service.getActivitesQuery("1", session.getClientId().toString(),"-1");
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
 
-        userCall.enqueue(new Callback<ArrayList<Event>>() {
+        userCall.enqueue(new Callback<EventsResponse>() {
             @Override
-            public void onResponse(Call<ArrayList<Event>> call, Response<ArrayList<Event>> response) {
+            public void onResponse(Call<EventsResponse> call, Response<EventsResponse> response) {
                 progressView.setVisibility(View.GONE);
                 pullLayout.setRefreshing(false);
                 if (response.raw().code() == 200) {
 
-                    dataModels = response.body();
-                    adapter = new EventAdapter(dataModels, getActivity());
-                    listView.setAdapter(adapter);
-                    emptyListText.setText(R.string.no_activitie_to_show);
-                    emptyListIcon.setImageDrawable(mIconOne);
-                    listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
+                    EventsResponse _Response = response.body();
+                    if (_Response.getSuccess()) {
+
+                        dataModels = _Response.getEvents();
+                        adapter = new EventAdapter(dataModels, getActivity());
+                        listView.setAdapter(adapter);
+                        emptyListText.setText(R.string.no_activitie_to_show);
+                        emptyListIcon.setImageDrawable(mIconOne);
+                        listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
+                    }
+                    else {
+                        showSnackbar(getActivity().findViewById(android.R.id.content), _Response.getMessage());
+                    }
 
                 } else {
                     showSnackbar(getActivity().findViewById(android.R.id.content), response.message());
@@ -164,7 +182,7 @@ public class EventsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Event>> call, Throwable t) {
+            public void onFailure(Call<EventsResponse> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
                 pullLayout.setRefreshing(false);
                 emptyListText.setText(R.string.server_unreachable);

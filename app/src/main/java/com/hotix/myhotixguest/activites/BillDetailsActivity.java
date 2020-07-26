@@ -200,11 +200,7 @@ public class BillDetailsActivity extends AppCompatActivity {
         headDevise.setText(facture.getDevise());
         footDevise.setText(facture.getDevise());
 
-        if (histo) {
-            billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", true)));
-        } else {
-            billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "dd/MM/yyyy", true)));
-        }
+        billDate.setText(Html.fromHtml(dateColored(dateIn, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", false) + " - " + dateColored(dateOut, "#9E9E9E", "#FFFFFF", "yyyy-MM-dd'T'hh:mm:ss", true)));
 
         for (LigneFacture lf : fact.getLignesFacture()) {
 

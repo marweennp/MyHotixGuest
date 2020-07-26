@@ -39,6 +39,7 @@
     <string name="title_activities">Activities</string>
     <string name="error_message_title_is_empty">The Title  is Empty</string>
     <string name="error_message_complaint_text_is_empty">The Complaint text  is Empty</string>
+    <string name="error_message_message_text_is_empty">The Message text  is Empty</string>
     <string name="reservation_details">RESERVATION</string>
     <string name="event_details">EVENT DETAILS</string>
     <string name="my_history">MY HISTORY</string>
@@ -71,6 +72,8 @@
     <string name="no_complaint_to_show">No complaints found.</string>
     <string name="no_products_to_show">No products found!</string>
     <string name="no_orders_to_show">You have placed no orders yet.</string>
+    <string name="no_alarm_to_show">You have not yet set any Alarm.</string>
+    <string name="no_rest_resa_to_show">You have no Reservations.</string>
     <string name="no_message_to_show">You have no messages to show.</string>
     <string name="fcm_message">FCM Message</string>
     <string name="next">NEXT</string>
@@ -98,8 +101,10 @@
     <string name="no_bills_to_show">No Bills to show.</string>
     <string name="new_complaint_title">Title</string>
     <string name="new_complaint_subject">Subject</string>
+    <string name="new_message_text">Message</string>
     <string name="new_complaint_confirm">Confirm</string>
     <string name="new_complaint_alert_title">New Complaint</string>
+    <string name="new_message_alert_title">New Message</string>
     <string name="cancel">Cancel</string>
     <string name="coomplaint_details">Complaint Details</string>
     <string name="message_details">Message Details</string>
@@ -202,6 +207,7 @@
     <string name="loading_hotel_settings">Loading Hotel settings...</string>
     <string name="loading_hotel_infos">Loading Hotel infos...</string>
     <string name="event_participation">Event Participation</string>
+    <string name="event_participation_sent">Participation successfully sent</string>
     <string name="event_confirm_participation">I confirm my participation in the event</string>
     <string name="signup">SignUp</string>
     <string name="daily_request_exceeded">You have exceeded your daily request quota for this API</string>
@@ -240,4 +246,7 @@
     <string name="name">Name</string>
     <string name="reveil">Alarm Clock</string>
     <string name="total_stay">Total Stay</string>
+    <string name="sent_btn">Sent</string>
+    <string name="received_btn">Received</string>
+    <string name="new_msg_categorie">Categorie</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.hotix.myhotixguest.activites;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import android.view.View;
 
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
+import com.hotix.myhotixguest.models.SuccessResponse;
+import com.hotix.myhotixguest.retrofit2.RetrofitClient;
+import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -22,12 +26,16 @@ import java.text.NumberFormat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_HOTEL_INFOS;
 import static com.hotix.myhotixguest.helpers.Utils.dateColored;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
+import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
@@ -80,7 +88,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
         formatter.setMinimumFractionDigits(3);
 
-        if (!session.getISResident()) {
+        if ((!session.getISResident()) || (!GLOBAL_EVENT.getEtat().toUpperCase().equals("N"))) {
             participateButton.setVisibility(View.GONE);
         }
 
@@ -115,16 +123,63 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         try {
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{GLOBAL_HOTEL_INFOS.getEventMail()});
-            intent.putExtra(Intent.EXTRA_SUBJECT, R.string.event_participation);
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.event_confirm_participation) +" : "+ GLOBAL_EVENT.getNom() + ". \n Date : " + dateFormater(GLOBAL_EVENT.getDateDebut(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy") + ". \n "+getString(R.string.location) + GLOBAL_EVENT.getLocation() + ".");
-            startActivity(Intent.createChooser(intent, "Send Email"));
+//            Intent intent = new Intent(Intent.ACTION_SEND);
+//            intent.setType("text/plain");
+//            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{GLOBAL_HOTEL_INFOS.getEventMail()});
+//            intent.putExtra(Intent.EXTRA_SUBJECT, R.string.event_participation);
+//            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.event_confirm_participation) + " : " + GLOBAL_EVENT.getNom() + ". \n Date : " + dateFormater(GLOBAL_EVENT.getDateDebut(), "yyyy-MM-dd'T'hh:mm:ss", "dd MMM yyyy") + ". \n " + getString(R.string.location) + GLOBAL_EVENT.getLocation() + ".");
+//            startActivity(Intent.createChooser(intent, "Send Email"));
 
-        } catch (Exception e) {
+            addMessage();
 
+        } catch (Exception ex) {
+            showSnackbar(findViewById(android.R.id.content), ex.getMessage());
         }
+    }
+
+
+    /**
+     * *********************************************************************************************
+     */
+
+    private void addMessage() {
+
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<SuccessResponse> userCall = service.SendActivityParticipationQuery("1", GLOBAL_EVENT.getId().toString(), session.getClientId().toString());
+
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppThemeDialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Response...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        userCall.enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+
+                progressDialog.dismiss();
+
+                if (response.raw().code() == 200) {
+                    SuccessResponse _Response = response.body();
+                    if (_Response.getSuccess()) {
+
+                        participateButton.setVisibility(View.GONE);
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.event_participation_sent));
+                    } else {
+                        showSnackbar(findViewById(android.R.id.content), _Response.getMessage());
+                    }
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+
     }
 
 

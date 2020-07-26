@@ -19,6 +19,7 @@ import com.hotix.myhotixguest.adapters.CartItemsAdapter;
 import com.hotix.myhotixguest.models.CartItem;
 import com.hotix.myhotixguest.models.Order;
 import com.hotix.myhotixguest.models.ResponseMsg;
+import com.hotix.myhotixguest.models.SuccessResponse;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
@@ -263,7 +264,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         final String content_type = "application/json";
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<ResponseMsg> userCall = service.sendCommandeQuery(content_type, GLOBAL_ORDER);
+        Call<SuccessResponse> userCall = service.sendCommandeQuery(content_type, GLOBAL_ORDER);
         Log.e("MARWEN", new Gson().toJson(GLOBAL_ORDER));
 
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppThemeDialog);
@@ -272,20 +273,22 @@ public class OrderDetailsActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        userCall.enqueue(new Callback<ResponseMsg>() {
+        userCall.enqueue(new Callback<SuccessResponse>() {
             @Override
-            public void onResponse(Call<ResponseMsg> call, Response<ResponseMsg> response) {
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
 
                 progressDialog.dismiss();
 
                 if (response.raw().code() == 200) {
-                    ResponseMsg msg = response.body();
-                    if (!msg.getIsOk()) {
-                        showSnackbar(findViewById(android.R.id.content), getString(R.string.something_wrong));
-                    } else {
+                    SuccessResponse _Response = response.body();
+                    if (_Response.getSuccess()) {
+
                         GLOBAL_CART.clear();
                         GLOBAL_ORDER = new Order();
                         startSuccessDialog();
+
+                    } else {
+                        showSnackbar(findViewById(android.R.id.content), _Response.getMessage());
                     }
 
                 } else {
@@ -294,7 +297,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseMsg> call, Throwable t) {
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
             }

@@ -1,6 +1,5 @@
 package com.hotix.myhotixguest.activites;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -17,7 +16,6 @@ import com.hotix.myhotixguest.fragments.EventsFragment;
 import com.hotix.myhotixguest.fragments.HomeFragment;
 import com.hotix.myhotixguest.fragments.HotelFragment;
 import com.hotix.myhotixguest.fragments.NotificationsFragment;
-import com.hotix.myhotixguest.fragments.OrdersFragment;
 import com.hotix.myhotixguest.fragments.ServicesFragment;
 import com.hotix.myhotixguest.helpers.Session;
 

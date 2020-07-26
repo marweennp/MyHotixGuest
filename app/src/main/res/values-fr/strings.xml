@@ -39,6 +39,7 @@
     <string name="title_activities">Activités</string>
     <string name="error_message_title_is_empty">Le titre est vide</string>
     <string name="error_message_complaint_text_is_empty">Le texte de la plainte est vide</string>
+    <string name="error_message_message_text_is_empty">Le Message est vide</string>
     <string name="reservation_details">RÉSERVATION</string>
     <string name="event_details">ÉVÉNEMENT</string>
     <string name="my_history">MON HISTORIQUE</string>
@@ -71,6 +72,8 @@
     <string name="no_complaint_to_show">Aucune plainte trouvée.</string>
     <string name="no_products_to_show">Aucun produit trouvé!</string>
     <string name="no_orders_to_show">Vous n\'avez pas encore passé de commande.</string>
+    <string name="no_alarm_to_show">Vous n\'avez encore défini aucune Alarme.</string>
+    <string name="no_rest_resa_to_show">Vous n\'avez pas de Réservation.</string>
     <string name="no_message_to_show">Vous n\'avez aucun message à afficher.</string>
     <string name="fcm_message">FCM Message</string>
     <string name="next">SUIVANT</string>
@@ -98,8 +101,10 @@
     <string name="no_bills_to_show">Aucune facture à afficher</string>
     <string name="new_complaint_title">Titre</string>
     <string name="new_complaint_subject">Sujet</string>
+    <string name="new_message_text">Message</string>
     <string name="new_complaint_confirm">Confirmer</string>
     <string name="new_complaint_alert_title">Nouvelle plainte</string>
+    <string name="new_message_alert_title">Nouveau Message</string>
     <string name="cancel">Annuler</string>
     <string name="daily_request_exceeded">Vous avez dépassé votre quota de requêtes quotidiennes pour cette API.</string>
     <string name="coomplaint_details">Détails de la plainte</string>
@@ -203,6 +208,7 @@
     <string name="loading_hotel_settings">Chargement des paramètres de l\'hôtel ...</string>
     <string name="loading_hotel_infos">Chargement des infos sur l\'hôtel ...</string>
     <string name="event_participation">Participation à l\'événement</string>
+    <string name="event_participation_sent">Participation envoyée avec succès</string>
     <string name="event_confirm_participation">Je confirme ma participation à l\'événement</string>
     <string name="signup">S\'inscrire</string>
     <string name="processing">En traitement</string>
@@ -240,4 +246,7 @@
     <string name="name">Nom</string>
     <string name="reveil">Réveil</string>
     <string name="total_stay">Total Séjour</string>
+    <string name="sent_btn">Envoyés</string>
+    <string name="received_btn">Reçus</string>
+    <string name="new_msg_categorie">Categorie</string>
 </resources>

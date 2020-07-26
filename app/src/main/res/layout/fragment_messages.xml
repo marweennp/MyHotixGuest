@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,11 +35,56 @@
 
     </LinearLayout>
 
+    <!-- Messagess Sort menu -->
+    <LinearLayout
+        android:id="@+id/messages_list_sort_menu"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:orientation="horizontal"
+        android:background="@color/colorBackground"
+        android:layout_alignParentTop="true"
+        android:elevation="2dp"
+        android:weightSum="3">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/messages_list_sort_all_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/all_btn"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/white" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/messages_list_sort_sent_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/sent_btn"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/white_70_alpha" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/messages_list_sort_received_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/received_btn"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/white_70_alpha" />
+
+
+    </LinearLayout>
+
     <!-- Messages ListView -->
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/messages_list_pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/messages_list_sort_menu">
 
         <ListView
             android:id="@+id/messages_list"
@@ -52,5 +98,18 @@
 
     <!-- Messages Empty View -->
     <include layout="@layout/include_empty_list_with_refresh_button_view" />
+
+    <!-- Messages Add FAB-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/messages_floatingActionButton_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/svg_add_white_24" />
 
 </RelativeLayout>

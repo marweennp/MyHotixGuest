@@ -94,6 +94,17 @@
         android:textColor="@color/grey_500"
         android:textSize="16sp" />
 
+    <!-- Origine Icon -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/message_row_origine_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@drawable/svg_message_reeceived_512" />
+
 
     <!-- Bottom Divider -->
     <View

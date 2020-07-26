@@ -6,11 +6,15 @@ import android.content.SharedPreferences;
 public class Session {
 
     // All Shared Preferences Keys
+    // Hotel
+    public static final String KEY_HotelId = "HotelId";
+
     // Resa
     public static final String KEY_iSResident = "iSResident";
     public static final String KEY_HasHistory = "HasHistory";
     public static final String KEY_EtatResa = "EtatResa";
     public static final String KEY_ResaId = "ResaId";
+    public static final String KEY_ResaGroupeId = "ResaGroupeId";
     public static final String KEY_ResaPaxId = "ResaPaxId";
     public static final String KEY_DateArrivee = "DateArrivee";
     public static final String KEY_DateDepart = "DateDepart";
@@ -61,7 +65,8 @@ public class Session {
 
     //Create new guest session
 
-    public void createNewGuestSession(boolean iSResident,
+    public void createNewGuestSession(Integer HotelId,
+                                      boolean iSResident,
                                       boolean HasHistory,
                                       boolean IsLoggedIn,
                                       boolean RememberMe,
@@ -79,6 +84,7 @@ public class Session {
                                       String NationaliteName,
                                       Integer EtatResa,
                                       Integer ResaId,
+                                      Integer ResaGroupeId,
                                       Integer ResaPaxId,
                                       Integer ClientId,
                                       Integer FactureId,
@@ -106,8 +112,10 @@ public class Session {
         editor.putString(KEY_NationaliteName, NationaliteName);
 
         // Integers
+        editor.putInt(KEY_HotelId, HotelId);
         editor.putInt(KEY_EtatResa, EtatResa);
         editor.putInt(KEY_ResaId, ResaId);
+        editor.putInt(KEY_ResaGroupeId, ResaGroupeId);
         editor.putInt(KEY_ResaPaxId, ResaPaxId);
         editor.putInt(KEY_ClientId, ClientId);
         editor.putInt(KEY_FactureId, FactureId);
@@ -123,7 +131,6 @@ public class Session {
     public boolean getISResident() {
         return pref.getBoolean(KEY_iSResident, false);
     }
-
     public void setISResident(boolean ISResident) {
         editor.putBoolean(KEY_iSResident, ISResident);
         editor.commit();
@@ -132,7 +139,6 @@ public class Session {
     public boolean getHasHistory() {
         return pref.getBoolean(KEY_HasHistory, false);
     }
-
     public void setHasHistory(boolean HasHistory) {
         editor.putBoolean(KEY_HasHistory, HasHistory);
         editor.commit();
@@ -141,7 +147,6 @@ public class Session {
     public boolean getIsLoggedIn() {
         return pref.getBoolean(KEY_IsLoggedIn, false);
     }
-
     public void setIsLoggedIn(boolean IsLoggedIn) {
         editor.putBoolean(KEY_IsLoggedIn, IsLoggedIn);
         editor.commit();
@@ -150,7 +155,6 @@ public class Session {
     public boolean getRememberMe() {
         return pref.getBoolean(KEY_RememberMe, false);
     }
-
     public void setRememberMe(boolean RememberMe) {
         editor.putBoolean(KEY_RememberMe, RememberMe);
         editor.commit();
@@ -159,7 +163,6 @@ public class Session {
     public boolean getNewToken() {
         return pref.getBoolean(KEY_NewToken, false);
     }
-
     public void setNewToken(boolean newToken) {
         editor.putBoolean(KEY_NewToken, newToken);
         editor.commit();
@@ -169,7 +172,6 @@ public class Session {
     public String getUserName() {
         return pref.getString(KEY_UserName, null);
     }
-
     public void setUserName(String UserName) {
         editor.putString(KEY_UserName, UserName);
         editor.commit();
@@ -178,16 +180,12 @@ public class Session {
     public String getUserPassword() {
         return pref.getString(KEY_UserPassword, null);
     }
-
     public void setUserPassword(String UserPassword) {
         editor.putString(KEY_UserPassword, UserPassword);
         editor.commit();
     }
 
-    public String getDateArrivee() {
-        return pref.getString(KEY_DateArrivee, null);
-    }
-
+    public String getDateArrivee() { return pref.getString(KEY_DateArrivee, null); }
     public void setDateArrivee(String DateArrivee) {
         editor.putString(KEY_DateArrivee, DateArrivee);
         editor.commit();
@@ -197,7 +195,6 @@ public class Session {
     public String getDateDepart() {
         return pref.getString(KEY_DateDepart, null);
     }
-
     public void setDateDepart(String DateDepart) {
         editor.putString(KEY_DateDepart, DateDepart);
         editor.commit();
@@ -207,7 +204,6 @@ public class Session {
     public String getChambre() {
         return pref.getString(KEY_Chambre, null);
     }
-
     public void setChambre(String Chambre) {
         editor.putString(KEY_Chambre, Chambre);
         editor.commit();
@@ -217,7 +213,6 @@ public class Session {
     public String getEmail() {
         return pref.getString(KEY_Email, null);
     }
-
     public void setEmail(String Email) {
         editor.putString(KEY_Email, Email);
         editor.commit();
@@ -227,7 +222,6 @@ public class Session {
     public String getNom() {
         return pref.getString(KEY_Nom, null);
     }
-
     public void setNom(String Nom) {
         editor.putString(KEY_Nom, Nom);
         editor.commit();
@@ -237,7 +231,6 @@ public class Session {
     public String getPrenom() {
         return pref.getString(KEY_Prenom, null);
     }
-
     public void setPrenom(String Prenom) {
         editor.putString(KEY_Prenom, Prenom);
         editor.commit();
@@ -247,7 +240,6 @@ public class Session {
     public String getPhone() {
         return pref.getString(KEY_Phone, null);
     }
-
     public void setPhone(String Phone) {
         editor.putString(KEY_Phone, Phone);
         editor.commit();
@@ -257,7 +249,6 @@ public class Session {
     public String getBirthDay() {
         return pref.getString(KEY_BirthDay, null);
     }
-
     public void setBirthDay(String BirthDay) {
         editor.putString(KEY_BirthDay, BirthDay);
         editor.commit();
@@ -267,7 +258,6 @@ public class Session {
     public String getAddress() {
         return pref.getString(KEY_Address, null);
     }
-
     public void setAddress(String Address) {
         editor.putString(KEY_Address, Address);
         editor.commit();
@@ -277,7 +267,6 @@ public class Session {
     public String getNationaliteName() {
         return pref.getString(KEY_NationaliteName, null);
     }
-
     public void setNationaliteName(String NationaliteName) {
         editor.putString(KEY_NationaliteName, NationaliteName);
         editor.commit();
@@ -287,17 +276,23 @@ public class Session {
     public String getFCMToken() {
         return pref.getString(KEY_FCMToken, null);
     }
-
     public void setFCMToken(String token) {
         editor.putString(KEY_FCMToken, token);
         editor.commit();
     }
 
     // Integers
+    public Integer getHotelId() {
+        return pref.getInt(KEY_HotelId, 1);
+    }
+    public void setHotelId(Integer HotelId) {
+        editor.putInt(KEY_HotelId, HotelId);
+        editor.commit();
+    }
+
     public Integer getEtatResa() {
         return pref.getInt(KEY_EtatResa, 0);
     }
-
     public void setEtatResa(Integer EtatResa) {
         editor.putInt(KEY_EtatResa, EtatResa);
         editor.commit();
@@ -306,16 +301,22 @@ public class Session {
     public Integer getResaId() {
         return pref.getInt(KEY_ResaId, 0);
     }
-
     public void setResaId(Integer ResaId) {
         editor.putInt(KEY_ResaId, ResaId);
+        editor.commit();
+    }
+
+    public Integer getResaGroupeId() {
+        return pref.getInt(KEY_ResaGroupeId, -1);
+    }
+    public void setResaGroupeId(Integer ResaGroupeId) {
+        editor.putInt(KEY_ResaGroupeId, ResaGroupeId);
         editor.commit();
     }
 
     public Integer getResaPaxId() {
         return pref.getInt(KEY_ResaPaxId, 0);
     }
-
     public void setResaPaxId(Integer ResaPaxId) {
         editor.putInt(KEY_ResaPaxId, ResaPaxId);
         editor.commit();
@@ -324,7 +325,6 @@ public class Session {
     public Integer getClientId() {
         return pref.getInt(KEY_ClientId, 0);
     }
-
     public void setClientId(Integer ClientId) {
         editor.putInt(KEY_ClientId, ClientId);
         editor.commit();
@@ -333,7 +333,6 @@ public class Session {
     public Integer getFactureId() {
         return pref.getInt(KEY_FactureId, 0);
     }
-
     public void setFactureId(Integer FactureId) {
         editor.putInt(KEY_FactureId, FactureId);
         editor.commit();
@@ -342,7 +341,6 @@ public class Session {
     public Integer getFactureAnnee() {
         return pref.getInt(KEY_FactureAnnee, 0);
     }
-
     public void setFactureAnnee(Integer FactureAnnee) {
         editor.putInt(KEY_FactureAnnee, FactureAnnee);
         editor.commit();
@@ -351,7 +349,6 @@ public class Session {
     public Integer getNationaliteId() {
         return pref.getInt(KEY_NationaliteId, 0);
     }
-
     public void setNationaliteId(Integer NationaliteId) {
         editor.putInt(KEY_NationaliteId, NationaliteId);
         editor.commit();
