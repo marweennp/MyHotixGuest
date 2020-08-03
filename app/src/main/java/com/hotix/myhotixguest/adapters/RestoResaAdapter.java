@@ -57,8 +57,8 @@ public class RestoResaAdapter extends ArrayAdapter<RestaurantReservation> {
         }
 
         viewHolder.resa_name.setText(dataModel.getRestoName());
-        viewHolder.resa_date.setText(Html.fromHtml(dateColored(DateFormat.format("yyyyMMdd hh:mm", dataModel.getDateArrivee()).toString(), "", "", "yyyyMMdd hh:mm", true)));
-        viewHolder.resa_time.setText(dateFormater(DateFormat.format("yyyyMMdd hh:mm", dataModel.getHeureArrivee()).toString(), "yyyyMMdd hh:mm", "HH:mm"));
+        viewHolder.resa_date.setText(Html.fromHtml(dateColored(DateFormat.format("yyyyMMdd HH:mm", dataModel.getDateArrivee()).toString(), "", "", "yyyyMMdd HH:mm", true)));
+        viewHolder.resa_time.setText(dateFormater(DateFormat.format("yyyyMMdd HH:mm", dataModel.getHeureArrivee()).toString(), "yyyyMMdd HH:mm", "HH:mm"));
         viewHolder.resa_chair.setText(dataModel.getNbrPAX().toString());
         viewHolder.resa_etat.setText(dataModel.getEtatName());
 

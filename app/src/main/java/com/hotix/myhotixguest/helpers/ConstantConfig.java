@@ -5,6 +5,8 @@ import com.hotix.myhotixguest.models.Event;
 import com.hotix.myhotixguest.models.HotelInfos;
 import com.hotix.myhotixguest.models.Order;
 import com.hotix.myhotixguest.models.Pax;
+import com.hotix.myhotixguest.models.RestaurantReservation;
+import com.hotix.myhotixguest.models.Reveil;
 import com.hotix.myhotixguest.models.Slide;
 import com.hotix.myhotixguest.models.StartData;
 
@@ -59,6 +61,12 @@ public class ConstantConfig {
 
     //GLOBAL_EVENT
     public static Event GLOBAL_EVENT = new Event();
+
+    //GLOBAL_REVEIL
+    public static Reveil GLOBAL_REVEIL = new Reveil();
+
+    //GLOBAL_RESTO_RESA
+    public static RestaurantReservation GLOBAL_RESTO_RESA = new RestaurantReservation();
 
     //GLOBAL_SLIDES and GLOBAL_INFOS
     public static ArrayList<Slide> GLOBAL_SLIDES = new ArrayList<>();

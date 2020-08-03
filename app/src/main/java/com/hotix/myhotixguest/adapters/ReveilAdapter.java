@@ -52,8 +52,8 @@ public class ReveilAdapter extends ArrayAdapter<Reveil> {
             viewHolder = (ReveilAdapter.ViewHolder) convertView.getTag();
         }
 
-        viewHolder.reveil_date.setText(Html.fromHtml(dateColored(DateFormat.format("yyyyMMdd hh:mm", dataModel.getReveilDatee()).toString(), "", "", "yyyyMMdd hh:mm", true)));
-        viewHolder.reveil_time.setText(dateFormater(DateFormat.format("yyyyMMdd hh:mm", dataModel.getReveilHeure()).toString(), "yyyyMMdd hh:mm", "HH:mm"));
+        viewHolder.reveil_date.setText(Html.fromHtml(dateColored(DateFormat.format("yyyyMMdd HH:mm", dataModel.getReveilDatee()).toString(), "", "", "yyyyMMdd HH:mm", true)));
+        viewHolder.reveil_time.setText(dateFormater(DateFormat.format("yyyyMMdd HH:mm", dataModel.getReveilHeure()).toString(), "yyyyMMdd HH:mm", "HH:mm"));
 
         return convertView;
     }

@@ -37,6 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_RESTO_RESA;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class RestaurantReservationActivity extends AppCompatActivity {
@@ -103,8 +104,8 @@ public class RestaurantReservationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(getApplicationContext(), NewRestaurantReservationActivity.class);
+                i.putExtra("isNew", true);
                 startActivity(i);
             }
         });
@@ -120,8 +121,10 @@ public class RestaurantReservationActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
-                restoResa = dataModels.get(position);
-                //reveilDetailsDialog(restoResa);
+                GLOBAL_RESTO_RESA = dataModels.get(position);
+                Intent i = new Intent(getApplicationContext(), NewRestaurantReservationActivity.class);
+                i.putExtra("isNew", false);
+                startActivity(i);
             }
         });
 

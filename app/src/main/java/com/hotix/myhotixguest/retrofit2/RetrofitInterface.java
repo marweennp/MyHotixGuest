@@ -264,9 +264,29 @@ public interface RetrofitInterface {
     Call<SuccessResponse> reserverRestaurantQuery(@Header("Content-Type") String content_type,
                                                   @Body RestaurantReservation restaurantReservation);
 
+    //Update Restaurant Reservation service call
+    @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/UpdateRestaurantReservation")
+    Call<SuccessResponse> updateRestoResaQuery(@Header("Content-Type") String content_type,
+                                               @Body RestaurantReservation restaurantReservation);
+
+    //Delete Restaurant Reservation service call
+    @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/DeleteRestaurantReservation")
+    Call<SuccessResponse> deleteRestoResaQuery(@Header("Content-Type") String content_type,
+                                               @Body RestaurantReservation restaurantReservation);
+
     //Add Reveil service call
     @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/AddReveil")
     Call<SuccessResponse> addReveilQuery(@Header("Content-Type") String content_type,
+                                         @Body Reveil Reveil);
+
+    //Update Reveil service call
+    @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/UpdateReveil")
+    Call<SuccessResponse> updateReveilQuery(@Header("Content-Type") String content_type,
+                                         @Body Reveil Reveil);
+
+    //Delete Reveil service call
+    @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/DeleteReveil")
+    Call<SuccessResponse> deleteReveilQuery(@Header("Content-Type") String content_type,
                                          @Body Reveil Reveil);
 
 

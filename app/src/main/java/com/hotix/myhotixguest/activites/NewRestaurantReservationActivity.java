@@ -14,6 +14,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_RESTO_RESA;
 import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
@@ -91,14 +93,23 @@ public class NewRestaurantReservationActivity extends AppCompatActivity {
     @BindView(R.id.et_resto_resa_tel)
     AppCompatEditText etRestoResaTel;
 
+    @BindView(R.id.ll_resto_resa_update_delete)
+    LinearLayoutCompat buttonsView;
+
     @BindView(R.id.btn_resto_resa_confirm)
     AppCompatButton btnRestoResaConfirm;
+    @BindView(R.id.btn_resto_resa_update)
+    AppCompatButton btnRestoResaUpdate;
+    @BindView(R.id.btn_resto_resa_delete)
+    AppCompatButton btnRestoResaDelete;
 
     @BindView(R.id.pb_resto_resa)
     ProgressBar pbRestoResa;
 
     // Session Manager Class
     private Session session;
+
+    private Boolean isNew;
 
     private Drawable mIconTwo;
     private MyRestaurantAdapter mRestaurantAdapter;
@@ -128,6 +139,24 @@ public class NewRestaurantReservationActivity extends AppCompatActivity {
     public void confirmReservation() {
         try {
             confrimRestoResa();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
+    }
+
+    @OnClick(R.id.btn_resto_resa_update)
+    public void updateAlarm(){
+        try {
+            updateRestoResa();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
+    }
+
+    @OnClick(R.id.btn_resto_resa_delete)
+    public void deleteAlarm() {
+        try {
+            deleteRestoResa();
         } catch (Exception e) {
             showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
         }
@@ -178,13 +207,36 @@ public class NewRestaurantReservationActivity extends AppCompatActivity {
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-        etRestoResaDate.setText(dateFormatter.format(Calendar.getInstance().getTime()));
-        etRestoResaTime.setText(timeFormatter.format(Calendar.getInstance().getTime()));
 
-        etRestoResaSeats.setText("1");
-        etRestoResaName.setText(session.getPrenom() + " " + session.getNom());
-        etRestoResaEmail.setText(session.getEmail());
-        etRestoResaTel.setText(session.getPhone());
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            isNew = extras.getBoolean("isNew");
+        }
+
+        if (isNew) {
+            buttonsView.setVisibility(View.GONE);
+            btnRestoResaConfirm.setVisibility(View.VISIBLE);
+            etRestoResaDate.setText(dateFormatter.format(Calendar.getInstance().getTime()));
+            etRestoResaTime.setText(timeFormatter.format(Calendar.getInstance().getTime()));
+
+            etRestoResaSeats.setText("1");
+            etRestoResaName.setText(session.getPrenom() + " " + session.getNom());
+            etRestoResaEmail.setText(session.getEmail());
+            etRestoResaTel.setText(session.getPhone());
+        }
+        else {
+            buttonsView.setVisibility(View.VISIBLE);
+            btnRestoResaConfirm.setVisibility(View.GONE);
+            if (GLOBAL_RESTO_RESA != null) {
+                etRestoResaDate.setText(dateFormatter.format(GLOBAL_RESTO_RESA.getDateArrivee()));
+                etRestoResaTime.setText(timeFormatter.format(GLOBAL_RESTO_RESA.getHeureArrivee()));
+
+                etRestoResaSeats.setText(GLOBAL_RESTO_RESA.getNbrPAX().toString());
+                etRestoResaName.setText(session.getPrenom() + " " + session.getNom());
+                etRestoResaEmail.setText(GLOBAL_RESTO_RESA.getEmail());
+                etRestoResaTel.setText(GLOBAL_RESTO_RESA.getNumTel());
+            }
+        }
     }
 
     private void startDatePickerDialog(final AppCompatEditText et) {
@@ -283,7 +335,7 @@ public class NewRestaurantReservationActivity extends AppCompatActivity {
 
         final String content_type = "application/json";
         RestaurantReservation _Resa = new RestaurantReservation();
-        _Resa.setHotelID(1);
+        _Resa.setHotelID(session.getHotelId());
         _Resa.setRestID(mRestaurantId);
         _Resa.setEtatResa(1);
         _Resa.setOrigineID(1);
@@ -291,8 +343,8 @@ public class NewRestaurantReservationActivity extends AppCompatActivity {
         _Resa.setNbrPAX(Integer.parseInt(etRestoResaSeats.getText().toString().trim()));
         _Resa.setNom(session.getNom().trim());
         _Resa.setPrenom(session.getPrenom().trim());
-        _Resa.setNumTel(session.getPhone().trim());
-        _Resa.setEmail(session.getEmail().trim());
+        _Resa.setNumTel(etRestoResaTel.getText().toString().trim());
+        _Resa.setEmail(etRestoResaEmail.getText().toString().trim());
         _Resa.setCommentaire("");
         _Resa.setDateResa(new Date());
         try {
@@ -307,6 +359,108 @@ public class NewRestaurantReservationActivity extends AppCompatActivity {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<SuccessResponse> userCall = service.reserverRestaurantQuery(content_type, _Resa);
+
+        pbRestoResa.setVisibility(View.VISIBLE);
+        btnRestoResaConfirm.setEnabled(false);
+
+        userCall.enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+
+                pbRestoResa.setVisibility(View.GONE);
+                btnRestoResaConfirm.setEnabled(true);
+
+                if (response.raw().code() == 200) {
+
+                    SuccessResponse _Data = response.body();
+
+                    if (_Data.getSuccess()) {
+                        showSnackbar(findViewById(android.R.id.content), "Successful Reservation");
+                        finish();
+                    } else {
+                        showSnackbar(findViewById(android.R.id.content), "Failed!" + _Data.getMessage());
+                    }
+
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                pbRestoResa.setVisibility(View.GONE);
+                btnRestoResaConfirm.setEnabled(true);
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+    }
+
+    private void updateRestoResa() {
+
+        final String content_type = "application/json";
+        RestaurantReservation _Resa = GLOBAL_RESTO_RESA;
+        _Resa.setHotelID(session.getHotelId());
+        _Resa.setRestID(mRestaurantId);
+        _Resa.setClientID(session.getClientId());
+        _Resa.setNbrPAX(Integer.parseInt(etRestoResaSeats.getText().toString().trim()));
+        _Resa.setNom(session.getNom().trim());
+        _Resa.setPrenom(session.getPrenom().trim());
+        _Resa.setNumTel(etRestoResaTel.getText().toString().trim());
+        _Resa.setEmail(etRestoResaEmail.getText().toString().trim());
+        _Resa.setCommentaire(GLOBAL_RESTO_RESA.getCommentaire() + ";Updated("+ new Date() +")");
+        _Resa.setDateResa(new Date());
+        try {
+            _Resa.setDateArrivee(new SimpleDateFormat("dd MMM yyyy").parse(etRestoResaDate.getText().toString()));
+            _Resa.setHeureArrivee(new SimpleDateFormat("HH:mm").parse(etRestoResaTime.getText().toString()));
+        } catch (ParseException e) {
+            showSnackbar(findViewById(android.R.id.content), e.getMessage());
+        }
+
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<SuccessResponse> userCall = service.updateRestoResaQuery(content_type, _Resa);
+
+        pbRestoResa.setVisibility(View.VISIBLE);
+        btnRestoResaConfirm.setEnabled(false);
+
+        userCall.enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+
+                pbRestoResa.setVisibility(View.GONE);
+                btnRestoResaConfirm.setEnabled(true);
+
+                if (response.raw().code() == 200) {
+
+                    SuccessResponse _Data = response.body();
+
+                    if (_Data.getSuccess()) {
+                        showSnackbar(findViewById(android.R.id.content), "Successful Reservation");
+                        finish();
+                    } else {
+                        showSnackbar(findViewById(android.R.id.content), "Failed!" + _Data.getMessage());
+                    }
+
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                pbRestoResa.setVisibility(View.GONE);
+                btnRestoResaConfirm.setEnabled(true);
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+    }
+
+    private void deleteRestoResa() {
+
+        final String content_type = "application/json";
+        RestaurantReservation _Resa = GLOBAL_RESTO_RESA;
+
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<SuccessResponse> userCall = service.deleteRestoResaQuery(content_type, _Resa);
 
         pbRestoResa.setVisibility(View.VISIBLE);
         btnRestoResaConfirm.setEnabled(false);

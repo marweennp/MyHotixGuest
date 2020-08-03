@@ -11,6 +11,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.hotix.myhotixguest.models.Reveil;
 import com.hotix.myhotixguest.models.SuccessResponse;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
+
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_REVEIL;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,14 +72,23 @@ public class NewReveilActivity extends AppCompatActivity {
     @BindView(R.id.et_reveil_time)
     AppCompatEditText etReveilTime;
 
+    @BindView(R.id.ll_reveil_update_delete)
+    LinearLayoutCompat buttonsView;
+
     @BindView(R.id.btn_reveil_confirm)
     AppCompatButton btnReveilConfirm;
+    @BindView(R.id.btn_reveil_update)
+    AppCompatButton btnReveilUpdate;
+    @BindView(R.id.btn_reveil_delete)
+    AppCompatButton btnReveilDelete;
 
     @BindView(R.id.pb_reveil)
     ProgressBar pbReveil;
 
     // Session Manager Class
     private Session session;
+
+    private Boolean isNew;
 
     private Drawable mIconTwo;
 
@@ -102,6 +114,24 @@ public class NewReveilActivity extends AppCompatActivity {
     public void confirmAlarm() {
         try {
             confrimReveil();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
+    }
+
+    @OnClick(R.id.btn_reveil_update)
+    public void updateAlarm(){
+        try {
+            updateReveil();
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
+        }
+    }
+
+    @OnClick(R.id.btn_reveil_delete)
+    public void deleteAlarm() {
+        try {
+            deleteReveil();
         } catch (Exception e) {
             showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_check_settings));
         }
@@ -142,8 +172,26 @@ public class NewReveilActivity extends AppCompatActivity {
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
-        etReveilDate.setText(dateFormatter.format(Calendar.getInstance().getTime()));
-        etReveilTime.setText(timeFormatter.format(Calendar.getInstance().getTime()));
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            isNew = extras.getBoolean("isNew");
+        }
+
+        if (isNew) {
+            buttonsView.setVisibility(View.GONE);
+            btnReveilConfirm.setVisibility(View.VISIBLE);
+            etReveilDate.setText(dateFormatter.format(Calendar.getInstance().getTime()));
+            etReveilTime.setText(timeFormatter.format(Calendar.getInstance().getTime()));
+        }
+        else {
+            buttonsView.setVisibility(View.VISIBLE);
+            btnReveilConfirm.setVisibility(View.GONE);
+            if (GLOBAL_REVEIL != null) {
+                etReveilDate.setText(dateFormatter.format(GLOBAL_REVEIL.getReveilDatee()));
+                etReveilTime.setText(timeFormatter.format(GLOBAL_REVEIL.getReveilHeure()));
+            }
+        }
     }
 
     private void startDatePickerDialog(final AppCompatEditText et) {
@@ -205,6 +253,100 @@ public class NewReveilActivity extends AppCompatActivity {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
         Call<SuccessResponse> userCall = service.addReveilQuery(content_type, _Reveil);
+
+        pbReveil.setVisibility(View.VISIBLE);
+        btnReveilConfirm.setEnabled(false);
+
+        userCall.enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+
+                pbReveil.setVisibility(View.GONE);
+                btnReveilConfirm.setEnabled(true);
+
+                if (response.raw().code() == 200) {
+
+                    SuccessResponse _Data = response.body();
+
+                    if (_Data.getSuccess()) {
+                        showSnackbar(findViewById(android.R.id.content), "Successful Reveil Add");
+                        finish();
+                    } else {
+                        showSnackbar(findViewById(android.R.id.content), "Failed!" + _Data.getMessage());
+                    }
+
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                pbReveil.setVisibility(View.GONE);
+                btnReveilConfirm.setEnabled(true);
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+    }
+
+    private void updateReveil() {
+
+        final String content_type = "application/json";
+        Reveil _Reveil = GLOBAL_REVEIL;
+        _Reveil.setComment(GLOBAL_REVEIL.getComment() + ";Updated("+ new Date() +")");
+        //_Reveil.setDateCreation(new Date());
+        try {
+            _Reveil.setReveilDate(new SimpleDateFormat("dd MMM yyyy").parse(etReveilDate.getText().toString()));
+            _Reveil.setReveilHeure(new SimpleDateFormat("HH:mm").parse(etReveilTime.getText().toString()));
+        } catch (ParseException e) {
+            showSnackbar(findViewById(android.R.id.content), e.getMessage());
+        }
+
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<SuccessResponse> userCall = service.updateReveilQuery(content_type, _Reveil);
+
+        pbReveil.setVisibility(View.VISIBLE);
+        btnReveilConfirm.setEnabled(false);
+
+        userCall.enqueue(new Callback<SuccessResponse>() {
+            @Override
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+
+                pbReveil.setVisibility(View.GONE);
+                btnReveilConfirm.setEnabled(true);
+
+                if (response.raw().code() == 200) {
+
+                    SuccessResponse _Data = response.body();
+
+                    if (_Data.getSuccess()) {
+                        showSnackbar(findViewById(android.R.id.content), "Successful Reveil Update");
+                        finish();
+                    } else {
+                        showSnackbar(findViewById(android.R.id.content), "Failed!" + _Data.getMessage());
+                    }
+
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                pbReveil.setVisibility(View.GONE);
+                btnReveilConfirm.setEnabled(true);
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.server_down));
+            }
+        });
+    }
+
+    private void deleteReveil() {
+
+        final String content_type = "application/json";
+        Reveil _Reveil = GLOBAL_REVEIL;
+
+        RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
+        Call<SuccessResponse> userCall = service.deleteReveilQuery(content_type, _Reveil);
 
         pbReveil.setVisibility(View.VISIBLE);
         btnReveilConfirm.setEnabled(false);

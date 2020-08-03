@@ -249,4 +249,6 @@
     <string name="sent_btn">Sent</string>
     <string name="received_btn">Received</string>
     <string name="new_msg_categorie">Categorie</string>
+    <string name="update">update</string>
+    <string name="delete">delete</string>
 </resources>

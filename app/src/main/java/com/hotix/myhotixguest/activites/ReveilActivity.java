@@ -1,64 +1,46 @@
 package com.hotix.myhotixguest.activites;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TimePicker;
 
 import com.baoyz.widget.PullRefreshLayout;
-import com.google.gson.Gson;
 import com.hotix.myhotixguest.R;
-import com.hotix.myhotixguest.adapters.OrderAdapter;
 import com.hotix.myhotixguest.adapters.ReveilAdapter;
 import com.hotix.myhotixguest.helpers.Session;
-import com.hotix.myhotixguest.models.CartItem;
 import com.hotix.myhotixguest.models.Order;
-import com.hotix.myhotixguest.models.OrdersResponse;
 import com.hotix.myhotixguest.models.Reveil;
 import com.hotix.myhotixguest.models.ReveilsResponse;
-import com.hotix.myhotixguest.models.SuccessResponse;
 import com.hotix.myhotixguest.retrofit2.RetrofitClient;
 import com.hotix.myhotixguest.retrofit2.RetrofitInterface;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_REVEIL;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
-import static com.hotix.myhotixguest.helpers.Utils.setBaseUrl;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
 
 public class ReveilActivity extends AppCompatActivity {
@@ -125,8 +107,8 @@ public class ReveilActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(getApplicationContext(), NewReveilActivity.class);
+                i.putExtra("isNew", true);
                 startActivity(i);
             }
         });
@@ -142,8 +124,10 @@ public class ReveilActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
-                reveil = dataModels.get(position);
-                //reveilDetailsDialog(reveil);
+                GLOBAL_REVEIL = dataModels.get(position);
+                Intent i = new Intent(getApplicationContext(), NewReveilActivity.class);
+                i.putExtra("isNew", false);
+                startActivity(i);
             }
         });
 
@@ -207,8 +191,7 @@ public class ReveilActivity extends AppCompatActivity {
                         emptyListText.setText(R.string.no_alarm_to_show);
                         listView.setEmptyView(emptyListView);
 
-                    }
-                    else {
+                    } else {
                         showSnackbar(findViewById(android.R.id.content), _Response.getMessage());
                     }
 
