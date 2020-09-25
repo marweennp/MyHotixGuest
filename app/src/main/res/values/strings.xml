@@ -61,6 +61,7 @@
     <string name="home_history">History</string>
     <string name="home_new_reservation">New Reservation</string>
     <string name="new_reservation">New Reservation</string>
+    <string name="reservation">Reservation</string>
     <string name="no_reservations">No Reservations</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Password</string>
@@ -87,6 +88,7 @@
     <string name="no_alarm_to_show">You have not yet set any Alarm.</string>
     <string name="no_rest_resa_to_show">You have no Reservations.</string>
     <string name="no_message_to_show">You have no messages to show.</string>
+    <string name="nothing_to_show">Nothing to show!</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">FCM Message</string>
@@ -96,6 +98,8 @@
     <string name="your_feedback">Your feedback is important to us to improve our services</string>
     <string name="thanks_for_your_time">Thanks for your time!</string>
     <string name="done">DONE</string>
+    <string name="canceled">CANCELED</string>
+    <string name="validated">VALIDATED</string>
     <string name="personal_information">Personal Information</string>
     <string name="address_information">Address Information</string>
     <string name="signup_nationality">Nationality</string>

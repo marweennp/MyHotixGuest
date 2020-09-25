@@ -1,6 +1,7 @@
 package com.hotix.myhotixguest.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -60,7 +61,21 @@ public class RestoResaAdapter extends ArrayAdapter<RestaurantReservation> {
         viewHolder.resa_date.setText(Html.fromHtml(dateColored(DateFormat.format("yyyyMMdd HH:mm", dataModel.getDateArrivee()).toString(), "", "", "yyyyMMdd HH:mm", true)));
         viewHolder.resa_time.setText(dateFormater(DateFormat.format("yyyyMMdd HH:mm", dataModel.getHeureArrivee()).toString(), "yyyyMMdd HH:mm", "HH:mm"));
         viewHolder.resa_chair.setText(dataModel.getNbrPAX().toString());
-        viewHolder.resa_etat.setText(dataModel.getEtatName());
+        //viewHolder.resa_etat.setText(dataModel.getEtatName());
+
+        if (dataModel.getEtatResa() == 3) {
+            viewHolder.resa_etat.setText(R.string.canceled);
+            viewHolder.resa_etat.setTextColor(ContextCompat.getColor(mContext, R.color.red_500));
+            viewHolder.resa_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.red_500));
+        } else if (dataModel.getEtatResa() == 2) {
+            viewHolder.resa_etat.setText(R.string.validated);
+            viewHolder.resa_etat.setTextColor(ContextCompat.getColor(mContext, R.color.green_500));
+            viewHolder.resa_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.green_500));
+        } else {
+            viewHolder.resa_etat.setText(R.string.waiting);
+            viewHolder.resa_etat.setTextColor(ContextCompat.getColor(mContext, R.color.grey_500));
+            viewHolder.resa_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey_500));
+        }
 
         return convertView;
     }

@@ -69,7 +69,7 @@ public interface RetrofitInterface {
     //Get Activites service call
     @GET("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/GetActivites")
     Call<EventsResponse> getActivitesQuery(@Query("HotelId") String HotelId,
-                                           @Query("ClientId") String ClientId,
+                                           @Query("ResaId") String ClientId,
                                            @Query("CatId") String CatId);
 
     //Get Reclamations service call
@@ -111,7 +111,7 @@ public interface RetrofitInterface {
 
     //Get Booking Data service call
     @GET("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/GetBookingData")
-    Call<BookingData> getBookingDataQuery();
+    Call<BookingData> getBookingDataQuery(@Query("HotelId") String hotelId);
 
     //Get Change Corse service call
     @GET("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/GetChangeCorse")
@@ -203,7 +203,9 @@ public interface RetrofitInterface {
     @POST("/HNGAPI/" + API_VERSION + "/api/MyHotixGuest/SendActivityParticipation")
     Call<SuccessResponse> SendActivityParticipationQuery(@Field("hotelId") String hotelId,
                                                          @Field("ActivityId") String activityId,
-                                                         @Field("ClientId") String clientId);
+                                                         @Field("ResaId") String resaId,
+                                                         @Field("PaxId") String paxId,
+                                                         @Field("GroupeId") String groupeId);
 
     //Post UpdateProfile service call
     @FormUrlEncoded

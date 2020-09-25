@@ -99,9 +99,6 @@ public class OrderAdapter extends ArrayAdapter<Order> {
             viewHolder.order_color_layout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey_500));
         }
 
-
-
-
         return convertView;
     }
 

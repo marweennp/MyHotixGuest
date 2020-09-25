@@ -59,6 +59,10 @@ public class RestaurantReservation {
     @Expose
     private String origineName;
 
+    @SerializedName("Chambre")
+    @Expose
+    private String chambre;
+
     @SerializedName("Nom")
     @Expose
     private String nom;
@@ -153,6 +157,13 @@ public class RestaurantReservation {
 
     public String getOrigineName() { return origineName; }
     public void setOrigineName(String origineName) { this.origineName = origineName; }
+
+    public String getChambre() {
+        return chambre;
+    }
+    public void setChambre(String chambre) {
+        this.chambre = chambre;
+    }
 
     public String getNom() {
         return nom;

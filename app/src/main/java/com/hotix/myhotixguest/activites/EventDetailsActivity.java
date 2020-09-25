@@ -10,8 +10,10 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.hotix.myhotixguest.R;
 import com.hotix.myhotixguest.helpers.Session;
 import com.hotix.myhotixguest.models.SuccessResponse;
@@ -33,6 +35,7 @@ import retrofit2.Response;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.BASE_URL;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_EVENT;
 import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_HOTEL_INFOS;
+import static com.hotix.myhotixguest.helpers.ConstantConfig.GLOBAL_ORDER;
 import static com.hotix.myhotixguest.helpers.Utils.dateColored;
 import static com.hotix.myhotixguest.helpers.Utils.dateFormater;
 import static com.hotix.myhotixguest.helpers.Utils.showSnackbar;
@@ -88,7 +91,11 @@ public class EventDetailsActivity extends AppCompatActivity {
         ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
         formatter.setMinimumFractionDigits(3);
 
-        if ((!session.getISResident()) || (!GLOBAL_EVENT.getEtat().toUpperCase().equals("N"))) {
+        Log.e("MARWEN", new Gson().toJson(GLOBAL_EVENT.getPrticipation()));
+        if (!GLOBAL_EVENT.getPrticipation()){
+            participateButton.setVisibility(View.GONE);
+        }
+        else if ((!session.getISResident()) || (!GLOBAL_EVENT.getEtat().toUpperCase().equals("N"))) {
             participateButton.setVisibility(View.GONE);
         }
 
@@ -145,7 +152,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     private void addMessage() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<SuccessResponse> userCall = service.SendActivityParticipationQuery("1", GLOBAL_EVENT.getId().toString(), session.getClientId().toString());
+        Call<SuccessResponse> userCall = service.SendActivityParticipationQuery("1", GLOBAL_EVENT.getId().toString(), session.getResaId().toString(), session.getResaPaxId().toString(), session.getResaGroupeId().toString());
 
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppThemeDialog);
         progressDialog.setIndeterminate(true);

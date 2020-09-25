@@ -225,12 +225,11 @@ public class NewReservationActivity extends AppCompatActivity {
     private void loadeData() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<BookingData> userCall = service.getBookingDataQuery();
+        Call<BookingData> userCall = service.getBookingDataQuery(session.getHotelId().toString());
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
         rlMainContainer.setVisibility(View.GONE);
-
 
         userCall.enqueue(new Callback<BookingData>() {
             @Override

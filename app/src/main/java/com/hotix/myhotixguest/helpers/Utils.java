@@ -65,9 +65,9 @@ public class Utils {
         return "0";
     }
 
-    //Calculate the number of days between two dates "dd/MM/yyyy"
+    //Calculate the number of days between two dates "yyyy-MM-dd'T'hh:mm:ss"
     public static String newCalculateDaysBetween(String startDate, String endDate) {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
         Date start;
         Date end;
         try {
@@ -75,13 +75,13 @@ public class Utils {
             end = df.parse(endDate);
             return Long.toString((end.getTime() - start.getTime()) / (24 * 60 * 60 * 1000));
         } catch (Exception e) {
+            return "0";
         }
-        return "0";
     }
 
     //Calculate the number of days between two dates "yyyy-MM-dd'T'hh:mm:ss"
     public static String fromTodayToDate(String date) {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
         String toDay = df.format(Calendar.getInstance().getTime());
         Date start;
         Date end;
@@ -90,9 +90,8 @@ public class Utils {
             end = df.parse(date);
             return Long.toString((end.getTime() - start.getTime()) / (24 * 60 * 60 * 1000));
         } catch (Exception e) {
-            return e.toString();
+            return "0";
         }
-
     }
 
     /*Show a SnackBar with msg*/

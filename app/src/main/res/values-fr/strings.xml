@@ -49,6 +49,7 @@
     <string name="home_history">Historique</string>
     <string name="home_new_reservation">Réservation</string>
     <string name="new_reservation">Réservation</string>
+    <string name="reservation">Réservation</string>
     <string name="no_reservations">Pas de réservations</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Mot de passe</string>
@@ -75,6 +76,7 @@
     <string name="no_alarm_to_show">Vous n\'avez encore défini aucune Alarme.</string>
     <string name="no_rest_resa_to_show">Vous n\'avez pas de Réservation.</string>
     <string name="no_message_to_show">Vous n\'avez aucun message à afficher.</string>
+    <string name="nothing_to_show">rien à afficher!</string>
     <string name="fcm_message">FCM Message</string>
     <string name="next">SUIVANT</string>
     <string name="back">RETOUR</string>
@@ -82,6 +84,8 @@
     <string name="your_feedback">Vos avis sont importants pour nous afin d’améliorer nos services.</string>
     <string name="thanks_for_your_time">Merci pour votre temps!</string>
     <string name="done">TERMINÉ</string>
+    <string name="canceled">ANNULÉ</string>
+    <string name="validated">VALIDÉ</string>
     <string name="personal_information">" Informations personnelles"</string>
     <string name="address_information">"Informations sur l'adresse "</string>
     <string name="signup_nationality">Nationalité</string>

@@ -41,6 +41,10 @@ public class Event {
     @Expose
     private String etat;
 
+    @SerializedName("Participation")
+    @Expose
+    private Boolean prticipation;
+
     @SerializedName("DateDebut")
     @Expose
     private String dateDebut;
@@ -113,6 +117,13 @@ public class Event {
     }
     public void setEtat(String etat) {
         this.etat = etat;
+    }
+
+    public Boolean getPrticipation() {
+        return prticipation;
+    }
+    public void setPrticipation(Boolean prticipation) {
+        this.prticipation = prticipation;
     }
 
     public String getDateDebut() {

@@ -174,7 +174,7 @@ public class ChangeActivity extends AppCompatActivity {
                         listView.setAdapter(adapter);
 
                         emptyListIcon.setImageDrawable(mIconOne);
-                        emptyListText.setText(R.string.no_orders_to_show);
+                        emptyListText.setText(R.string.nothing_to_show);
                         listView.setEmptyView(emptyListView);
 
                     } else {

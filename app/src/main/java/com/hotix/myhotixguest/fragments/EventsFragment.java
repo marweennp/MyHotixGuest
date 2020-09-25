@@ -150,7 +150,7 @@ public class EventsFragment extends Fragment {
     private void loadeEvents() {
 
         RetrofitInterface service = RetrofitClient.getClientHngApi().create(RetrofitInterface.class);
-        Call<EventsResponse> userCall = service.getActivitesQuery("1", session.getClientId().toString(),"-1");
+        Call<EventsResponse> userCall = service.getActivitesQuery( session.getHotelId().toString(), session.getResaId().toString(),"-1");
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);

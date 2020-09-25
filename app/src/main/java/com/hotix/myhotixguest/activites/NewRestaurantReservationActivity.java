@@ -341,6 +341,7 @@ public class NewRestaurantReservationActivity extends AppCompatActivity {
         _Resa.setOrigineID(1);
         _Resa.setClientID(session.getClientId());
         _Resa.setNbrPAX(Integer.parseInt(etRestoResaSeats.getText().toString().trim()));
+        _Resa.setChambre(session.getChambre().trim());
         _Resa.setNom(session.getNom().trim());
         _Resa.setPrenom(session.getPrenom().trim());
         _Resa.setNumTel(etRestoResaTel.getText().toString().trim());
